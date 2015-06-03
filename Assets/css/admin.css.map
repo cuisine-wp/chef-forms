@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": ";AAGA,iBAAkB;EACjB,KAAK,EAAC,IAAI;EACV,aAAa,EAAC,GAAG",
+"sources": ["../sass/_builder.scss"],
+"names": [],
+"file": "admin.css"
+}
