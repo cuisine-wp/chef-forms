@@ -1,8 +1,7 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
-class NumberField extends DefaultField{
-
+class TextareaField extends DefaultField{
 
     /**
      * Method to override to define the input type
@@ -11,10 +10,8 @@ class NumberField extends DefaultField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'number';
+        $this->type = 'textarea';
     }
-
-   
 
 
 }

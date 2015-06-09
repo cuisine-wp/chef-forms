@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
 use Cuisine\Fields\ChoiceField as CuisineChoiceField;
 

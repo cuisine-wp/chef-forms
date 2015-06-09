@@ -1,10 +1,10 @@
 <?php
 
-namespace ChefForms\Builder;
+namespace ChefForms\Builders;
 
 use Cuisine\Utilities\Sort;
 
-class Controls{
+class FieldControls{
 
 
 	/**

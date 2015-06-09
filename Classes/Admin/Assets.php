@@ -28,12 +28,18 @@
 			add_action( 'admin_menu', function(){
 
 				$url = Url::plugin( 'chef-forms', true ).'Assets';
-				/*
+				
 				wp_enqueue_script( 
-					'sections_section', 
-					$url.'/js/Section.js', 
-					array( 'backbone', 'media-editor' )
-				);*/
+					'field_block', 
+					$url.'/js/FieldBlock.js', 
+					array( 'backbone' )
+				);
+
+				wp_enqueue_script( 
+					'form_manager', 
+					$url.'/js/FormManager.js', 
+					array( 'backbone' )
+				);
 							
 				wp_enqueue_style( 'form-builder', $url.'/css/admin.css' );
 							

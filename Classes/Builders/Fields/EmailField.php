@@ -1,8 +1,7 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
-
-class SelectField extends ChoiceField{
+class EmailField extends DefaultField{
 
 
     /**
@@ -12,6 +11,8 @@ class SelectField extends ChoiceField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'select';
+        $this->type = 'email';
     }
+
+
 }

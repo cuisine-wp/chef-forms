@@ -2,6 +2,8 @@
 
 	namespace ChefForms\Wrappers;
 
+	use \stdClass;
+
 	class AjaxInstance extends StaticInstance{
 
 		/**

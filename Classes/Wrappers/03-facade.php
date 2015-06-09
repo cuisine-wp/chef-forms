@@ -54,9 +54,13 @@ abstract class Wrapper {
     private static function getFacadeName( $name ) {
         
         $aliases = array(
-            'field-block'                   => 'ChefForms\Builder\FieldBuilder',
-            'form-builder'                  => 'ChefForms\Builder\FormBuilder',
-            'controls'                      => 'ChefForms\Builder\Controls',
+            'form-manager'                  => 'ChefForms\Admin\FormManager',
+            'entries-manager'               => 'ChefForms\Builders\EntriesManager',
+            'form-builder'                  => 'ChefForms\Builders\FormBuilder',
+            'notification-builder'          => 'ChefForms\Builders\NotificationBuilder',
+            'field-block'                   => 'ChefForms\Builders\FieldBuilder',
+
+            'controls'                      => 'ChefForms\Builders\FieldControls',
             'field'                         => 'ChefForms\Front\FieldBuilder',
             'form'                          => 'ChefForms\Front\Form',
             'notification'                  => 'ChefForms\Front\Notification',

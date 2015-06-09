@@ -4,6 +4,7 @@
 
 	use \stdClass;
 	use \ChefForms\Wrappers\AjaxInstance;
+	use \ChefForms\Wrappers\FormBuilder;
 
 	class Ajax extends AjaxInstance{
 
@@ -32,6 +33,7 @@
 
 				$this->setPostGlobal();
 
+				echo FormBuilder::createField();
 				die();
 
 			});
@@ -42,16 +44,6 @@
 				$this->setPostGlobal();
 
 				FormBuilder::deleteField();
-				die();
-
-			});
-
-			//sorting sections:
-			add_action( 'wp_ajax_sortFields', function(){
-
-				$this->setPostGlobal();
-
-				echo FormBuilder::sortSections();
 				die();
 
 			});

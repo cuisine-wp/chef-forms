@@ -1,9 +1,7 @@
 <?php
 
-namespace ChefForms\Builder;
+namespace ChefForms\Builders;
 
-
-use Cuisine\Utilities\Session;
 use Cuisine\Utilities\Sort;
 use ChefForms\Wrappers\FieldBlock as Field;
 
@@ -78,12 +76,6 @@ class FormBuilder{
 	 */
 	public function build(){
 
-
-		wp_nonce_field( Session::nonceAction, Session::nonceName );
-
-		echo '<div class="field-container" id="field-container">';
-
-
 		if( !empty( $this->fields ) ){
 
 			
@@ -101,8 +93,6 @@ class FormBuilder{
 		
 		}
 
-		echo '</div>';
-
 	}
 
 
@@ -112,43 +102,49 @@ class FormBuilder{
 
 
 	/**
-	 * Loop through each section and save 'em
+	 * Loop through the fields and save 'em
 	 * 
 	 * @return bool
 	 */
 	public function save( $post_id ){
 
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-
-	    $nonceName = (isset($_POST[Session::nonceName])) ? $_POST[Session::nonceName] : Session::nonceName;
-	    if (!wp_verify_nonce($nonceName, Session::nonceAction)) return;
+		
+	}
 
 
 
-		if( isset( $_POST['fields'] ) ){
+	/**
+	 * Create a field
+	 * 
+	 * @return void
+	 */
+	public function createField( $datas = array() ){
+		
+		$this->init();
 
-			$fields = $_POST['fields'];
+		$id = $this->highestId + 1;
+		$type = $_POST['type'];
+		$form_id = $this->postId;
 
-			//save fields
-			foreach( $fields as $field ){
+		//get the defaults:
+		$args = $this->getDefaultFieldArgs();
+		$args = wp_parse_args( $datas, $args );
+		$args['type'] = $type;
+		
+		//save this field:
+		$_fields = get_post_meta( $this->postId, 'fields', true );
+		$_fields[ $id ] = $args;
+		update_post_meta( $this->postId, 'fields', $_fields );
 
-			}
 
+		$field = Field::$type( $id, $form_id, $args );
+		return $field->build();
 
-
-			//save the main field meta:
-			update_post_meta( $post_id, 'fields', $fields );
-
-			//save other meta-data	
-		}
-			
-
-		return true;
 	}
 
 
 	/**
-	 * Delete section
+	 * Delete a field
 	 * 
 	 * @return void
 	 */
@@ -162,26 +158,6 @@ class FormBuilder{
 	}
 
 
-	/**
-	 * Save the order of fields
-	 * 
-	 * @return bool (success / no success)
-	 */
-	public function sortFields(){
-
-		$ids = $_POST['field_ids'];
-
-		//save this section:
-		$_fields = get_post_meta( $this->postId, 'fields', true );
-		
-		$i = 1;
-		foreach( $ids as $field_id ){
-			$_fields[ $field_id ]['position'] = $i;
-			$i++;
-		}
-
-		update_post_meta( $this->postId, 'sections', $_fields );
-	}
 
 
 	/*=============================================================*/
@@ -198,32 +174,6 @@ class FormBuilder{
 		global $post;
 		$fields = get_post_meta( $this->postId, 'fields', true );
 		$array = array();
-		
-		$fields = array(
-
-				array(
-						'type'		=> 'text',
-						'id'		=> '1',
-						'formId'	=> $post->ID,
-						'position'	=> 0
-				),
-
-				array(
-						'type'		=> 'textarea',
-						'id'		=> '1',
-						'formId'	=> $post->ID,
-						'position'	=> 1
-				),
-
-				array(
-						'type'		=> 'radio',
-						'id'		=> '1',
-						'formId'	=> $post->ID,
-						'position'	=> 2
-				),
-
-		);
-
 
 		if( is_array( $fields ) ){
 		
@@ -231,15 +181,10 @@ class FormBuilder{
 		
 			if( $fields ){
 
-	
-				foreach( $fields as $field ){
+				foreach( $fields as $id => $field ){
 
-					$type = $field['type'];
-					$id = $field['id'];
-					$form_id = $field['formId'];
-					$position = $field['position'];
-	
-					$array[] = Field::$type( $id, $form_id, $position );
+					$type = $field['type'];	
+					$array[] = Field::$type( $id, $this->postId, $field );
 			
 				}
 			}
@@ -262,10 +207,10 @@ class FormBuilder{
 			$post_id = $post->ID;
 
 		$args = array(
-
-				'id'			=> $this->highestId,
-				'post_id'		=> $post_id,
-				'type'			=> 'text'
+				'position'		=> ( count( $this->fields ) + 1 ),
+				'label'			=> 'Label',
+				'placeholder'	=> false,
+				'required'		=> false
 		);
 
 		$args = apply_filters( 'chef_forms_default_field_args', $args );

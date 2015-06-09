@@ -1,7 +1,7 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
-class RadioField extends ChoiceField{
+class CheckboxesField extends ChoiceField{
 
 
     /**
@@ -11,6 +11,10 @@ class RadioField extends ChoiceField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'radio';
+        $this->type = 'checkbox';
     }
+
+
+
+
 }

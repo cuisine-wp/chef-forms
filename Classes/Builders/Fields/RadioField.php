@@ -1,7 +1,8 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
-class TextareaField extends DefaultField{
+class RadioField extends ChoiceField{
+
 
     /**
      * Method to override to define the input type
@@ -10,8 +11,6 @@ class TextareaField extends DefaultField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'textarea';
+        $this->type = 'radio';
     }
-
-
 }

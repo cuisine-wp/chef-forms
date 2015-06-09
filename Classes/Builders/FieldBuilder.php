@@ -1,7 +1,8 @@
 <?php
     
-namespace ChefForms\Builder;
+namespace ChefForms\Builders;
 
+use ChefForms\Builders\Fields;
 
 class FieldBuilder{
 
@@ -19,11 +20,11 @@ class FieldBuilder{
      * @throws Exception
      * @return object ChefForms\Builder\FieldBuilder
      */
-    public function make( $class, $id, $section_id, $position, array $colProperties ){
+    public function make( $class, $id, $form_id, array $colProperties ){
 
         try {
             // Return the called class.
-            $class =  new $class( $id, $section_id, $position, $colProperties );
+            $class =  new $class( $id, $form_id, $colProperties );
 
         } catch(\Exception $e){
 
@@ -43,9 +44,9 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\TextField
      */
-    public function text( $id, $form_id, $position, array $properties = array() ){
+    public function text( $id, $form_id, array $properties = array() ){
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\TextField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\TextField', $id, $form_id, $properties );
 
     }
 
@@ -57,9 +58,9 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\NumberField
      */
-    public function number($id, $form_id, $position, array $properties = array()){
+    public function number($id, $form_id, array $properties = array()){
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\NumberField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\NumberField', $id, $form_id, $properties );
 
     }
 
@@ -71,9 +72,9 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\EmailField
      */
-    public function email($id, $form_id, $position, array $properties = array()){
+    public function email($id, $form_id, array $properties = array()){
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\EmailField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\EmailField', $id, $form_id, $properties );
 
     }
 
@@ -84,9 +85,9 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\DateField
      */
-    public function date($id, $form_id, $position, array $properties = array()){
+    public function date($id, $form_id, array $properties = array()){
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\DateField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\DateField', $id, $form_id, $properties );
 
     }
 
@@ -97,9 +98,9 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\TextareaField
      */
-    public function textarea($id, $form_id, $position, array $properties = array()){
+    public function textarea($id, $form_id, array $properties = array()){
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\TextareaField', $id, $form_id, $position, $properties);
+        return $this->make( 'ChefForms\\Builders\\Fields\\TextareaField', $id, $form_id, $properties);
 
     }
 
@@ -111,9 +112,9 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\CheckboxField
      */
-    public function checkbox($id, $form_id, $position, $properties = array()){
+    public function checkbox($id, $form_id, $properties = array()){
 
-        return $this->make('ChefForms\\Builder\\Fields\\CheckboxField', $id, $form_id, $position, $properties );
+        return $this->make('ChefForms\\Builders\\Fields\\CheckboxField', $id, $form_id, $properties );
 
     }
 
@@ -126,13 +127,13 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\CheckboxesField
      */
-    public function checkboxes($id, $form_id, $position, array $options = array(), array $properties = array()){
+    public function checkboxes($id, $form_id, array $options = array(), array $properties = array()){
 
         $extras = compact( 'options');
 
         $properties = array_merge( $extras, $properties );
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\CheckboxesField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\CheckboxesField', $id, $form_id, $properties );
     }
 
     /**
@@ -143,13 +144,13 @@ class FieldBuilder{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\RadioField
      */
-    public function radio($id, $form_id, $position, array $options = array(), array $properties = array()){
+    public function radio($id, $form_id, array $options = array(), array $properties = array()){
 
         $extras = compact( 'options' );
 
         $properties = array_merge($extras, $properties);
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\RadioField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\RadioField', $id, $form_id, $properties );
     }
 
     /**
@@ -161,13 +162,13 @@ class FieldBuilder{
      * @param array $extras
      * @return \ChefForms\Builder\Fields\SelectField
      */
-    public function select( $id, $form_id, $position, array $options = array(), array $properties = array() ){
+    public function select( $id, $form_id, array $options = array(), array $properties = array() ){
 
         $extras = compact( 'options' );
         
         $properties = array_merge( $extras, $properties );
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\SelectField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\SelectField', $id, $form_id, $properties );
     }
 
 
@@ -178,9 +179,9 @@ class FieldBuilder{
      * @param array $extras
      * @return \ChefForms\Builder\Fields\SelectField
      */
-    public function address( $id, $form_id, $position, array $properties = array() ){
+    public function address( $id, $form_id, array $properties = array() ){
         
-        return $this->make( 'ChefForms\\Builder\\Fields\\AddressField', $id, $form_id, $position, $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\AddressField', $id, $form_id, $properties );
     }
 
 
@@ -193,7 +194,7 @@ class FieldBuilder{
      */
     public function hidden( $name, array $properties = array() ){
 
-        return $this->make( 'ChefForms\\Builder\\Fields\\HiddenField', $name, '', $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\HiddenField', $name, '', $properties );
 
     }
 
@@ -214,8 +215,8 @@ class FieldBuilder{
         if( in_array( $name, $names ) ){
 
             $method = $types[ $name ];
-            $props = ( isset( $attr[3] ) ? $attr[3] : array() );
-            return $this->make( $method['class'], $attr[0], $attr[1], $attr[2], $props );
+            $props = ( isset( $attr[2] ) ? $attr[2] : array() );
+            return $this->make( $method['class'], $attr[0], $attr[1], $props );
         }
 
         return false;
@@ -240,63 +241,63 @@ class FieldBuilder{
             'text'       => array(
 
                 'name'      => __( 'Tekst', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\TextField'
+                'class'     => 'ChefForms\\Builders\\Fields\\TextField'
             ),
 
             'number'        => array(
                 'name'      => __( 'Nummer', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\NumberField',            
+                'class'     => 'ChefForms\\Builders\\Fields\\NumberField',            
             ),
 
             'email'        => array(
                 'name'      => __( 'E-mailadres', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\EmailField',            
+                'class'     => 'ChefForms\\Builders\\Fields\\EmailField',            
             ),
 
             'date'          => array(
 
                 'name'      => __( 'Datum', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\DateField',
+                'class'     => 'ChefForms\\Builders\\Fields\\DateField',
             ),
 
             'textarea'      => array(
 
                 'name'      => __( 'Tekstvlak', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\TextareaField'
+                'class'     => 'ChefForms\\Builders\\Fields\\TextareaField'
             ),
 
             'checkbox'      => array( 
 
                 'name'      => __( 'Checkbox', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\CheckboxField'
+                'class'     => 'ChefForms\\Builders\\Fields\\CheckboxField'
             ),
 
             'checkboxes'    => array( 
 
                 'name'      => __( 'Checkboxes', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\CheckboxesField'
+                'class'     => 'ChefForms\\Builders\\Fields\\CheckboxesField'
             ),
             'radio'         => array( 
 
                 'name'      => __( 'Radio buttons', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\RadioField'
+                'class'     => 'ChefForms\\Builders\\Fields\\RadioField'
             ),
             'select'        => array( 
 
                 'name'      => __( 'Select', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\SelectField'
+                'class'     => 'ChefForms\\Builders\\Fields\\SelectField'
             ),
 
             'hidden'      => array( 
 
                 'name'      => __( 'Verborgen', 'cuisine' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\HiddenField'
+                'class'     => 'ChefForms\\Builders\\Fields\\HiddenField'
             ),
 
             'address'     => array(
 
                 'name'      => __( 'Adres', 'chefforms' ),
-                'class'     => 'ChefForms\\Builder\\Fields\\AddressField'
+                'class'     => 'ChefForms\\Builders\\Fields\\AddressField'
             )
         );
 
@@ -308,4 +309,3 @@ class FieldBuilder{
 }
 
 
-   

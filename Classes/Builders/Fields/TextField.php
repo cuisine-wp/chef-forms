@@ -1,7 +1,7 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
-class CheckboxesField extends ChoiceField{
+class TextField extends DefaultField{
 
 
     /**
@@ -11,10 +11,8 @@ class CheckboxesField extends ChoiceField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'checkbox';
+        $this->type = 'text';
     }
-
-
 
 
 }

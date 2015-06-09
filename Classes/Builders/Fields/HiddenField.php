@@ -1,7 +1,7 @@
 <?php
-namespace ChefForms\Builder\Fields;
+namespace ChefForms\Builders\Fields;
 
-class TextField extends DefaultField{
+class HiddenField extends DefaultField{
 
 
     /**
@@ -11,8 +11,9 @@ class TextField extends DefaultField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'text';
+        $this->type = 'hidden';
     }
+
 
 
 }

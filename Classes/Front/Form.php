@@ -2,9 +2,7 @@
 
 namespace ChefForms\Front;
 
-use ChefForms\Builder\FormBuilder;
-
-class Form extends FormBuilder{
+class Form {
 
 
 	public function save( $post_id ){
