@@ -2,6 +2,7 @@
 
 namespace ChefForms\Builders;
 
+use Cuisine\Wrappers\Field;
 
 class NotificationBuilder{
 
@@ -66,7 +67,49 @@ class NotificationBuilder{
 	 */
 	public function build(){
 
-		echo 'Notifications!';
+
+		$subFields = array(
+
+				Field::email(
+					'to',
+					'E-mail naar',
+					array(
+						'placeholder' 	=> 'E-mail naar',
+						'label'			=> true,
+						'defaultValue'	=> '{admin_email}'
+					)
+				),
+
+				Field::text(
+					'title',
+					'Onderwerp',
+					array(
+						'placeholder' 	=> 'Title',
+						'label'			=> true
+					)
+				),
+
+				Field::editor(
+					'content',
+					'',
+					array(
+						'label'			=> false
+					)
+				)
+
+		);
+
+		$field = Field::repeater(
+			'notifications',
+			'',
+			$subFields,
+			array(
+				'defaultValue' 	=> $this->notifications,
+				'label'			=> false
+			)
+		);
+
+		$field->render();
 
 	}
 
@@ -93,7 +136,10 @@ class NotificationBuilder{
 
 	private function getNotifications(){
 
-		return array();
+		return array('notifications' => array(
+						'title'		=> 'Notificatie',
+						'content'	=> '{alle_velden}'
+		));
 
 	}
 

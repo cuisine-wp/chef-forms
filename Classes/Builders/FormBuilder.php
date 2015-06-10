@@ -108,6 +108,22 @@ class FormBuilder{
 	 */
 	public function save( $post_id ){
 
+		if( isset( $_POST['fields'] ) ){
+
+			$fields = $_POST['fields'];
+			$_fields = array();
+			foreach( $fields as $id => $field ){
+	
+				$_fields[ $id ] = $field;
+	
+			}
+	
+			update_post_meta( $post_id, 'fields', $_fields );
+	
+			return true;
+		}
+
+		return false;
 		
 	}
 
@@ -174,6 +190,7 @@ class FormBuilder{
 		global $post;
 		$fields = get_post_meta( $this->postId, 'fields', true );
 		$array = array();
+
 
 		if( is_array( $fields ) ){
 		

@@ -179,18 +179,10 @@ class DefaultField{
                 )
             ),
 
-
             Field::hidden(
-                $prefix.'[id]',
+                $prefix.'[type]',
                 array(
-                    'defaultValue'  => $this->id
-                )
-            ),
-
-            Field::hidden(
-                $prefix.'[formId]',
-                array(
-                    'defaultValue'  => $this->formId
+                    'defaultValue'  => $this->type
                 )    
 
             ),
