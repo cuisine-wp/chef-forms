@@ -2,6 +2,7 @@
 namespace ChefForms\Admin;
 
 use Cuisine\Utilities\Session;
+use Cuisine\Wrappers\Field;
 use ChefForms\Wrappers\FormBuilder;
 use ChefForms\Wrappers\NotificationBuilder;
 use ChefForms\Wrappers\EntriesManager;
@@ -67,16 +68,39 @@ class FormManager{
 			$this->buildMenu();
 
 			echo '<div class="field-container form-view" id="field-container">';
+				
+				echo '<h2><span class="dashicons dashicons-hammer"></span>';
+				echo __( 'Formulierenbouwer', 'chefforms' ).'</h2>';
+
 				FormBuilder::build();
 			echo '</div>';
 
 
 			echo '<div class="notifications-container form-view current" id="notifications-container">';
+				
+				echo '<h2><span class="dashicons dashicons-megaphone"></span>';
+				echo __( 'Notificaties', 'chefforms' ).'</h2>';
+				
 				NotificationBuilder::build();
+			
 			echo '</div>';
 
 			echo '<div class="entries-container form-view" id="entries-container">';
+				
+				echo '<h2><span class="dashicons dashicons-email-alt"></span>';
+				echo __( 'Inzendingen', 'chefforms' ).'</h2>';
+				
 				EntriesManager::build();
+			
+			echo '</div>';
+
+			echo '<div class="settings-container form-view" id="settings-container">';
+			
+				echo '<h2><span class="dashicons dashicons-admin-generic"></span>';
+				echo __( 'Instellingen', 'chefforms' ).'</h2>';
+			
+				$this->buildSettings();
+			
 			echo '</div>';
 
 		echo '</div>';
@@ -113,6 +137,26 @@ class FormManager{
 			echo '</span>';
 
 		echo '</nav>';
+	}
+
+	/**
+	 * Create the settings-view
+	 * 
+	 * @return string, echoed
+	 */
+	private function buildSettings(){
+
+		echo '<div class="confirmation-settings">';
+
+			$field = Field::text( 'btn-text', 'Knop Text' );
+			$field->render();
+
+			$field = Field::editor( 'confirm', 'Bevestigings-bericht' );
+			$field->render();
+
+		echo '</div>';
+
+
 	}
 
 

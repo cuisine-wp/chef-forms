@@ -56,7 +56,10 @@
 					__( 'Formulieren', 'chefforms' ),
 					__( 'Formulier', 'chefforms' )
 
-				)->set( array( 'supports' => array( 'title' ) ) );
+				)->set( array( 
+					'supports' => array( 'title' ),
+					'menu_icon' => 'dashicons-editor-quote'
+				) );
 
 
 				PostType::make( 

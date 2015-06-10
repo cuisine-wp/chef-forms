@@ -76,6 +76,7 @@ class FormBuilder{
 	 */
 	public function build(){
 
+		echo '<div class="form-builder-fields">';
 		if( !empty( $this->fields ) ){
 
 			
@@ -92,6 +93,7 @@ class FormBuilder{
 			echo '</div>';
 		
 		}
+		echo '</div>';
 
 	}
 
