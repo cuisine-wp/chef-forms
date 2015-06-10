@@ -59,7 +59,7 @@
 		setFieldBlocks();
 
 
-		jQuery( '.field-container' ).sortable({
+		jQuery( '.form-builder-fields' ).sortable({
 			placeholder: 'field-dashed',
 			update: function (event, ui) {
 

@@ -73,6 +73,7 @@ class FormManager{
 				echo __( 'Formulierenbouwer', 'chefforms' ).'</h2>';
 
 				FormBuilder::build();
+				
 			echo '</div>';
 
 
