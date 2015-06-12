@@ -70,7 +70,7 @@ class DefaultField{
         $this->setDefaults();
 
         $this->position = $this->properties['position'];
-        $this->name = sanitize_title( $this->getProperty( 'label' ) );
+        $this->name = 'field_'.$formId.'_'.$id;
         $this->fieldType();
         
 

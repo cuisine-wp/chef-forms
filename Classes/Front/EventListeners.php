@@ -2,17 +2,11 @@
 
 	namespace ChefForms\Front;
 
-
+	use Cuisine\Utilities\Url;
 	use Cuisine\Wrappers\PostType;
+	use ChefForms\Wrappers\StaticInstance;
 
-	class EventListeners{
-
-		/**
-		 * EventListeners instance
-		 *
-		 * @var \ChefForms\Front\EventListeners
-		 */
-		private static $instance = null;
+	class EventListeners extends StaticInstance{
 
 
 		/**
@@ -21,23 +15,9 @@
 		function __construct(){
 
 			$this->listen();
+			$this->hooks();
 
 		}
-
-		/**
-		 * Init the EventListeners Class
-		 *
-		 * @return \ChefForms\Front\EventListeners
-		 */
-		public static function getInstance(){
-
-		    if ( is_null( static::$instance ) ){
-		        static::$instance = new static();
-		    }
-		    return static::$instance;
-		}
-
-
 	
 
 		/**
@@ -68,13 +48,64 @@
 					__( 'Entries', 'chefforms' ),
 					__( 'Entry', 'chefforms' )
 
-				)->set( array( 'public' => false ) );				
+				)->set( array( 'public' => false ) );	
+
 
 			});
 
 
 			//sending:
+		}
 
+
+
+
+
+		/**
+		 * Load custom hooks for this plugin
+		 * 
+		 * @return mixed
+		 */
+		private function hooks(){
+
+			//custom column:
+			add_filter( 'chef_sections_column_types', function( $types ){
+
+				$base = Url::path( 'plugin', 'chef-forms', true );
+
+				$types['form'] = array(
+							'name'		=> 'Formulier',
+							'class'		=> 'ChefForms\Hooks\Column',
+							'template'	=> $base.'Templates/Column.php'
+				);
+
+				return $types;
+
+			});
+
+
+			//custom field type:
+			add_filter( 'cuisine_field_types', function( $types ){
+
+
+				$types['multi'] = array(
+							'name'		=> 'MultiField',
+							'class'		=> 'ChefForms\Hooks\MultiField'
+				);
+
+				return $types;
+
+			});
+
+
+			//load files
+			add_action( 'chef_sections_loaded', function(){
+
+				$base = Url::path( 'plugin', 'chef-forms', true );
+				include( $base.'Classes/Hooks/Column.php' );
+				include( $base.'Classes/Hooks/MultiField.php' );
+
+			});
 		}
 
 	}

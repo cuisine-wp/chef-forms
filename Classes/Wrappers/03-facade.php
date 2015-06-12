@@ -58,6 +58,7 @@ abstract class Wrapper {
             'entries-manager'               => 'ChefForms\Builders\EntriesManager',
             'form-builder'                  => 'ChefForms\Builders\FormBuilder',
             'notification-builder'          => 'ChefForms\Builders\NotificationBuilder',
+            'settings-manager'              => 'ChefForms\Builders\SettingsManager',
             'field-block'                   => 'ChefForms\Builders\FieldBuilder',
 
             'controls'                      => 'ChefForms\Builders\FieldControls',

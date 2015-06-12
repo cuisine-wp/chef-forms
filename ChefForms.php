@@ -176,4 +176,4 @@ add_action('cuisine_loaded', function(){
 
 	ChefForms::getInstance();
 
-});
+}, 0, 400 );

@@ -6,6 +6,7 @@ use Cuisine\Wrappers\Field;
 use ChefForms\Wrappers\FormBuilder;
 use ChefForms\Wrappers\NotificationBuilder;
 use ChefForms\Wrappers\EntriesManager;
+use ChefForms\Wrappers\SettingsManager;
 
 
 class FormManager{
@@ -42,7 +43,8 @@ class FormManager{
 
 		if( isset( $post ) )
 			$this->postId = $post->ID;
-		
+
+
 		return $this;
 	}
 
@@ -100,7 +102,7 @@ class FormManager{
 				echo '<h2><span class="dashicons dashicons-admin-generic"></span>';
 				echo __( 'Instellingen', 'chefforms' ).'</h2>';
 			
-				$this->buildSettings();
+				SettingsManager::build();
 			
 			echo '</div>';
 
@@ -140,25 +142,6 @@ class FormManager{
 		echo '</nav>';
 	}
 
-	/**
-	 * Create the settings-view
-	 * 
-	 * @return string, echoed
-	 */
-	private function buildSettings(){
-
-		echo '<div class="confirmation-settings">';
-
-			$field = Field::text( 'btn-text', 'Knop Text' );
-			$field->render();
-
-			$field = Field::editor( 'confirm', 'Bevestigings-bericht' );
-			$field->render();
-
-		echo '</div>';
-
-
-	}
 
 
 	/*=============================================================*/
@@ -186,9 +169,11 @@ class FormManager{
 
 		FormBuilder::save( $post_id );
 		NotificationBuilder::save( $post_id );
+		SettingsManager::save( $post_id );
 
 		return true;
 	}
+
 
 
 }?>

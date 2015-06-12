@@ -88,7 +88,7 @@ var FormManager = Backbone.View.extend({
 			if( response !== 'error' ){
 
 				jQuery( '.section-wrapper.msg' ).remove();
-				jQuery( '#field-container' ).append( response );
+				jQuery( '.form-builder-fields' ).append( response );
 
 				setFieldBlocks();
 			}

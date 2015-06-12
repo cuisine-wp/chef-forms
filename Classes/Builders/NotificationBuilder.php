@@ -89,11 +89,12 @@ class NotificationBuilder{
 					)
 				),
 
-				Field::editor(
-					'content',
-					'',
+				Field::editor( 
+					'content_{uniq}', //this needs a unique id 
+					'', 
 					array(
-						'label'			=> false
+						'label'				=> false,
+						'defaultValue' 		=> '{alle_velden}'
 					)
 				)
 
@@ -137,8 +138,8 @@ class NotificationBuilder{
 	private function getNotifications(){
 
 		return array('notifications' => array(
-						'title'		=> 'Notificatie',
-						'content'	=> '{alle_velden}'
+						'title'				=> 'Notificatie',
+						'content_{uniq}'	=> '{alle_velden}'
 		));
 
 	}
