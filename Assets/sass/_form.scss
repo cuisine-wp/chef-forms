@@ -1,0 +1,80 @@
+.form-fields{
+
+	.field-wrapper{
+		width:45%;
+		float:left;
+		clear:none;
+
+		&:nth-child( odd ){
+			margin-right:10%;
+		}
+
+		&.textarea, &.content, &.checkboxes, &.radio{
+			width:100%;
+			clear:both;
+		}
+
+		&.hidden{
+			display:none;
+		}
+
+		input, textarea, select{
+			box-sizing:border-box;
+			padding:8px 16px;
+			box-shadow:none;
+			border:1px solid #ccc;
+			width:100% !important;
+			&:focus{
+				border:1px solid #444;
+			}
+		}
+	
+		&.label-top label{
+			width:100%;
+			display:block;
+			padding-bottom:4px;
+		}
+
+		&.label-left label{
+			padding-right:15px;
+		}
+	}
+}
+
+.form{
+	@include transition( .3s );
+	width:100%;
+	padding:15px 15px 65px 15px;
+	display:block;
+	position:relative;
+
+	.form-footer{
+		display:block;
+		width:100% !important;
+		clear:both;
+	}
+
+	.loader{
+		position:absolute;
+		display:none;
+		pointer-events:none;
+		top:-35%;
+		left:0;
+		right:0;
+
+		& > div{
+			background-color:rgba(0,0,0,.8);
+		}
+	}
+
+	&.active{
+		background:rgba(255,255,255,.2);
+		.form-fields, .form-footer{
+			opacity:.3;
+		}
+
+		.loader{
+			display:block;
+		}
+	}
+}

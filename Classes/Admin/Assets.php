@@ -30,6 +30,12 @@
 				$url = Url::plugin( 'chef-forms', true ).'Assets';
 				
 				wp_enqueue_script( 
+					'multifield', 
+					$url.'/js/Multifield.js', 
+					array( 'backbone' )
+				);
+
+				wp_enqueue_script( 
 					'field_block', 
 					$url.'/js/FieldBlock.js', 
 					array( 'backbone' )

@@ -3,6 +3,8 @@
 	namespace ChefForms\Front;
 
 	use Cuisine\Utilities\Url;
+	use Cuisine\Wrappers\Script;
+	use Cuisine\Wrappers\Sass;
 
 
 	class Assets{
@@ -47,7 +49,15 @@
 		 */
 		private function enqueue(){
 
+			add_action( 'init', function(){
 
+				$url = Url::plugin( 'chef-forms', true ).'Assets/js/';
+				Script::register( 'send-form', $url.'Form', true );
+
+				$url = 'chef-forms/Assets/sass/';
+				Sass::register( 'form_styling', $url.'_form', true );
+
+			});
 		}
 
 	}

@@ -85,7 +85,6 @@ class FormBuilder{
 				$field->build();
 			}
 
-
 		}else{
 
 			echo '<div class="section-wrapper msg">';

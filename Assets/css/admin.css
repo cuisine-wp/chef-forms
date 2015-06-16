@@ -1,3 +1,95 @@
+.multifield-top-controls {
+  margin: 0 0 0 0;
+}
+.multifield-top-controls .toggle-keys {
+  float: right;
+  margin: -50px 0 0 0;
+  font-size: 14px;
+  color: #00a0d2;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.multifield-top-controls .toggle-keys:hover {
+  color: #444;
+}
+
+.row-placeholder {
+  width: 200%;
+  display: block;
+  border-top: 4px dashed #00a1d5;
+  height: 1px;
+  margin-top: 30px;
+}
+
+.multifield-field-wrapper {
+  box-sizing: border-box;
+  clear: both;
+  margin-top: 30px;
+  width: 100%;
+  background: #f9f9f9;
+  padding: 15px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.multifield-field-wrapper table {
+  width: 100%;
+}
+.multifield-field-wrapper table th {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 5px 0;
+}
+.multifield-field-wrapper table td {
+  padding: 10px 30px 0 0;
+}
+.multifield-field-wrapper table td input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+}
+.multifield-field-wrapper table .actions {
+  width: 130px;
+  text-align: right;
+}
+.multifield-field-wrapper table .actions > span {
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 14px;
+  text-align: center;
+  margin: 5px 0 0 10px;
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: #444;
+  padding-top: 5px;
+}
+.multifield-field-wrapper table .actions > span span {
+  color: #fff;
+  pointer-events: none;
+}
+.multifield-field-wrapper table .actions > span .tooltip {
+  position: absolute;
+  top: -30px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 4px 8px;
+  left: 0;
+  display: none;
+  white-space: nowrap;
+}
+.multifield-field-wrapper table .actions > span .tooltip:after {
+  position: absolute;
+  top: 30px;
+  width: 0;
+  height: 0;
+  left: 10px;
+  border: 5px solid #444;
+  border-color: #444 transparent transparent transparent;
+}
+.multifield-field-wrapper table .actions > span:hover {
+  background: #00a1d5;
+}
+
 /** Controls */
 .add-field.button {
   width: 100%;

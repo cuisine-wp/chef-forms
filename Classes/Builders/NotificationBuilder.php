@@ -90,7 +90,7 @@ class NotificationBuilder{
 				),
 
 				Field::editor( 
-					'content_{uniq}', //this needs a unique id 
+					'content', //this needs a unique id 
 					'', 
 					array(
 						'label'				=> false,
@@ -127,8 +127,24 @@ class NotificationBuilder{
 	 */
 	public function save( $post_id ){
 
+		if( isset( $_POST['notifications'] ) ){
+
+			$notifications = $_POST['notifications'];
+			$_notifications = array();
+		
+			foreach( $notifications as $id => $field ){
+		
+				$_notifications[ $id ] = $field;
+		
+			}
+		
+			update_post_meta( $post_id, 'notifications', $_notifications );
+		
+			return true;
+		}
 		
 	}
+
 
 	/*=============================================================*/
 	/**             Getters & Setters                              */

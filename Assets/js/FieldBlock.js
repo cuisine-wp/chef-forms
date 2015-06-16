@@ -15,7 +15,7 @@
 		events: {
 
 			'click .field-preview': 'toggleField',
-
+			'click .delete-field': 'deleteField',
 		},
 
 
@@ -46,6 +46,22 @@
 			self.$el.find( '.field-options' ).toggle();
 			self.$el.toggleClass( 'fold-out' );
 
+		},
+
+		/**
+		 * Delete a field
+		 * 
+		 * @return void
+		 */
+		deleteField: function(){
+
+			var self = this;
+
+			if( confirm( "Weet je zeker dat je deze sectie wil verwijderen?" ) ){
+				self.$el.slideUp( 'slow', function(){
+					self.$el.remove();
+				});
+			}
 		}
 
 
@@ -61,6 +77,7 @@
 
 		jQuery( '.form-builder-fields' ).sortable({
 			placeholder: 'field-dashed',
+			handle: '.field-preview',
 			update: function (event, ui) {
 
 				var i = 0;

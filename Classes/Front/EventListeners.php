@@ -88,7 +88,7 @@
 			add_filter( 'cuisine_field_types', function( $types ){
 
 
-				$types['multi'] = array(
+				$types['multifield'] = array(
 							'name'		=> 'MultiField',
 							'class'		=> 'ChefForms\Hooks\MultiField'
 				);

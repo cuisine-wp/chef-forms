@@ -216,6 +216,8 @@ class FieldBuilder{
 
             $method = $types[ $name ];
             $props = ( isset( $attr[2] ) ? $attr[2] : array() );
+            $options = ( isset( $attr[3] ) ? $attr[3] : array() );
+            $props = array_merge( $props, $options );
             return $this->make( $method['class'], $attr[0], $attr[1], $props );
         }
 

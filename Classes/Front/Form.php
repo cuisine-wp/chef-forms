@@ -4,6 +4,8 @@
 
 	use Cuisine\Wrappers\Field;
 	use Cuisine\Utilities\Sort;
+	use Cuisine\View\Template;
+	use ChefForms\Wrappers\Notification;
 	
 	class Form {
 	
@@ -78,7 +80,7 @@
 
 			ob_start();
 
-				echo '<div class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'">';
+				echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'">';
 
 					echo '<div class="form-fields">';
 					
@@ -92,14 +94,17 @@
 
 					echo '<div class="form-footer">';
 
-						echo '<button class="submit-form" data-fid="form_'.$this->id.'">';
+						echo '<button class="submit-form">';
 
 							echo $this->getSetting( 'btn-text', 'Verstuur' );
 
 						echo '</button>';
 	
 					echo '</div>';
-				echo '</div>';
+
+					Template::loader();
+
+				echo '</form>';
 
 			$this->html = ob_get_clean();
 			return $this;
@@ -136,11 +141,28 @@
 			$this->id = $id;
 			$this->init();
 
-				
+			
+			$title = 'Inschrijving '.\get_the_title( $id ).' - '.date( 'd-m-Y' );
 
-				//notify everybody
-				$this->notify();
+			$args = array(
+				'post_title'	=> 	$title,
+				'post_parent' 	=>	$id,
+				'post_type' 	=> 	'form-entry',
+				'post_status'	=> 	'publish',
+				'post_date'		=> 	date( 'Y-m-d H:i:s' ), 
+				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
+			);
+
+			$entryId = wp_insert_post( $args );
+			$entry = $_POST['entry'];
+
+			update_post_meta( $entryId, 'entry', $entry );
+
+			//notify everybody
+			$this->notify();
 	
+
+
 			return $this;
 		}
 	
@@ -226,6 +248,19 @@
 				$arr['required'] = $field['required'];
 
 
+			if( isset( $field['choices'] ) ){
+
+				$choices = array();
+				foreach( $field['choices'] as $val ){
+
+					$choices[ $val['key'] ] = $val['label'];
+
+				}
+
+				$arr['choices'] = $choices;
+			}
+
+
 			//get the label value from the settings:
 			$arr['label'] = $this->getSetting( 'labels', 'top' );
 
@@ -290,7 +325,9 @@
 						$type = $field['type'];
 						$args = $this->getFieldArgs( $field );
 						
+
 						if( !isset( $field['choices'] ) ){
+
 							$array[] = Field::$type(
 
 								$field_id,
@@ -304,7 +341,7 @@
 
 								$field_id,
 								$field['label'],
-								$choices,
+								$args['choices'],
 								$args
 							);
 
@@ -319,6 +356,8 @@
 		}
 
 
+
+
 		/**
 		 * Set all notifications for this form
 		 *
@@ -326,9 +365,16 @@
 		 */
 		private function setNotifications(){
 
+			$notifications = array();
+			$datas = get_post_meta( $this->id, 'notifications', true );
 
+			foreach( $datas as $data ){
 
-
+				$notifications[] = Notification::make( $data, $this->fields );
+				
+			}
+			
+			return $notifications;
 		}
 
 

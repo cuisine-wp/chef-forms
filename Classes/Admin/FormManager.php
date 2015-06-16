@@ -69,7 +69,7 @@ class FormManager{
 
 			$this->buildMenu();
 
-			echo '<div class="field-container form-view" id="field-container">';
+			echo '<div class="field-container form-view current" id="field-container">';
 				
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
 				echo __( 'Formulierenbouwer', 'chefforms' ).'</h2>';
@@ -79,7 +79,7 @@ class FormManager{
 			echo '</div>';
 
 
-			echo '<div class="notifications-container form-view current" id="notifications-container">';
+			echo '<div class="notifications-container form-view" id="notifications-container">';
 				
 				echo '<h2><span class="dashicons dashicons-megaphone"></span>';
 				echo __( 'Notificaties', 'chefforms' ).'</h2>';
@@ -119,12 +119,12 @@ class FormManager{
 
 		echo '<nav class="form-nav">';
 
-			echo '<span class="nav-btn" data-type="field">';
+			echo '<span class="nav-btn current" data-type="field">';
 				echo '<span class="dashicons dashicons-hammer"></span>';
 				echo '<b>'.__( 'Formulierbouwer', 'chefforms' ).'</b>';
 			echo '</span>';
 
-			echo '<span class="nav-btn current" data-type="notifications">';
+			echo '<span class="nav-btn" data-type="notifications">';
 				echo '<span class="dashicons dashicons-megaphone"></span>';
 				echo '<b>'.__( 'Notificaties', 'chefforms' ).'</b>';
 			echo '</span>';
@@ -167,9 +167,10 @@ class FormManager{
 	    	return;
 
 
-		FormBuilder::save( $post_id );
-		NotificationBuilder::save( $post_id );
-		SettingsManager::save( $post_id );
+			FormBuilder::save( $post_id );
+			NotificationBuilder::save( $post_id );
+			SettingsManager::save( $post_id );
+
 
 		return true;
 	}

@@ -100,6 +100,19 @@ class DefaultField{
                     $field->render();
                 }
 
+
+                //render the javascript-templates seperate, to prevent doubles
+                $rendered = array();
+                foreach( $fields as $field ){
+
+                    if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
+
+                        echo $field->renderTemplate();
+                        $rendered[] = $field->name;
+
+                    }
+                }
+
                 $this->bottomControls();
 
             echo '</div>';          
@@ -133,7 +146,7 @@ class DefaultField{
      * 
      * @return string ( html, echoed )
      */
-    private function bottomControls(){
+    public function bottomControls(){
 
         echo '<p class="delete-field">';
             echo '<span class="dashicons dashicons-trash"></span>';
@@ -151,7 +164,6 @@ class DefaultField{
         return array(
 
             Field::text(
-
                 $prefix.'[label]',
                 'Label',
                 array(
@@ -160,8 +172,6 @@ class DefaultField{
             ),
 
             Field::text(
-
-
                 $prefix.'[placeholder]',
                 'Placeholder',
                 array(
@@ -171,7 +181,6 @@ class DefaultField{
 
 
             Field::checkbox(
-
                 $prefix.'[required]',
                 'Verplicht?',
                 array(
@@ -184,7 +193,6 @@ class DefaultField{
                 array(
                     'defaultValue'  => $this->type
                 )    
-
             ),
 
             Field::hidden(
@@ -193,7 +201,6 @@ class DefaultField{
                     'class'         => array( 'field-input', 'position-input' ),
                     'defaultValue'  => $this->position
                 )    
-
             ),
 
 
@@ -208,7 +215,7 @@ class DefaultField{
      * 
      * @return string ( html )
      */
-    private function getLabel(){
+    public function getLabel(){
 
         $label = '';
 
@@ -235,7 +242,7 @@ class DefaultField{
      * @param  string $default
      * @return mixed (string/bool)
      */
-    private function getProperty( $name, $default = false ){
+    public function getProperty( $name, $default = false ){
 
         if( isset( $this->properties[ $name ] ) )
             return $this->properties[ $name ];

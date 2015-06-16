@@ -1,6 +1,5 @@
 <?php
 
-	//again, change this namespace:
 	namespace ChefForms\Hooks;
 	
 	use ChefSections\Columns\DefaultColumn;

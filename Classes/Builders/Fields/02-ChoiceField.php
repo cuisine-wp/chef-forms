@@ -1,51 +1,68 @@
 <?php
 namespace ChefForms\Builders\Fields;
 
-use Cuisine\Fields\ChoiceField as CuisineChoiceField;
+use Cuisine\Wrappers\Field;
 
-class ChoiceField extends CuisineChoiceField{
+class ChoiceField extends DefaultField{
 
 	
+	/**
+	 * Build up the field block
+	 * 
+	 * @return string ( html, echoed )
+	 */
+	public function build(){
+
+	    echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
+
+	        echo '<div class="field-preview">';
+	            echo $this->buildPreview();
+	            echo '<span class="toggle-field"></span>';
+	        echo '</div>';
+
+	        echo '<div class="field-options">';
+
+	            $fields = $this->getFields();
+
+	            foreach( $fields as $field ){
+
+	                $field->render();
+	            }
+
+	            //render the javascript-templates seperate, to prevent doubles
+	            $rendered = array();
+	            foreach( $fields as $field ){
+
+	                if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
+
+	                    echo $field->renderTemplate();
+	                    $rendered[] = $field->name;
+
+	                }
+	            }
+
+	            $this->bottomControls();
+
+	        echo '</div>';          
+	        echo '<div class="loader"><span class="spinner"></span></div>';
+
+	    echo '</div>';
+
+	}
+
+
 
 	/**
-	 * Return html for a single choice
+	 * Generate the preview for this field:
 	 * 
-	 * @param  array/string $choice
-	 * @return string HTML
+	 * @return void
 	 */
-	public function buildChoice( $choice ){
+	public function buildPreview(){
 
 	    $html = '';
 
-	    //set choice variables:
-	    $id = 'subfield-'.$this->id.'-'.$choice['id'];
-	    $value = $choice['key'];
-	    $label = ( isset( $choice['label'] ) ? $choice['label'] : false );
-	    $selected = $this->getSelectedType();
-
-	    $html = '<span class="subfield-wrapper '.$value.'">';
-
-	        $html .= '<input type="'.$this->type.'" ';
-
-	        $html .= 'id="'.$id.'" ';
-
-	        $html .= 'class="'.$this->getSubClass().'" ';
-
-	        $html .= $this->getNameAttr( $value );
-
-	        $html .= 'value="'.$value.'" ';
-
-	        $html .= $this->getValidation();
-
-	        $html .= ( $this->properties['defaultValue'] == $value ? ' '.$selected : '' );
-
-	        $html .= '>';
-
-	        $html .= '<label for="'.$id.'">';
-	        	$html .= ( $label ? $label : '' );
-	        $html .= '</label>';
-
-	    $html .= '</span>';
+	    $html .= '<label>'.$this->getLabel().'</label>';
+	    $html .= '<span class="field-type">'.$this->type.'</span>';
 
 	    return $html;
 
@@ -53,26 +70,100 @@ class ChoiceField extends CuisineChoiceField{
 
 
 	/**
-	 * Get the name attribute, based on type
+	 * Get the fields for this class
 	 * 
-	 * @return String
+	 * @return array
 	 */
-	private function getNameAttr( $val ){
+	private function getFields(){
 
-		switch( $this->type ){
+	    $prefix = 'fields['.$this->id.']';
 
-			case 'checkbox' :
-				return 'name="'.$this->name.'['.$val.']" ';
-				break;
+	    $defaultChoices = array(
+	    		'optie-1' => 'Optie 1',
+	    		'optie-2' => 'Optie 2',
+	    		'optie-3' => 'Optie 3'
+	    );
 
-			case 'radio' :
-				return 'name="'.$this->name.'" ';
+	    return array(
 
-		}
+	    	Field::multifield(
+	    		$prefix.'[choices]',
+	    		'Keuzes',
+	    		array(
+	    			'options' => $this->getProperty( 'choices', $defaultChoices )
+	    		)
+	    	),
 
+	        Field::text(
+
+	            $prefix.'[label]',
+	            'Label',
+	            array(
+	                'defaultValue'  => $this->getProperty( 'label', 'Label' )
+	            )
+	        ),
+
+	        Field::text(
+
+
+	            $prefix.'[placeholder]',
+	            'Placeholder',
+	            array(
+	                'defaultValue'  => $this->getProperty( 'placeholder' )
+	            )
+	        ),
+
+
+	        Field::checkbox(
+
+	            $prefix.'[required]',
+	            'Verplicht?',
+	            array(
+	                'defaultValue'  => $this->getProperty( 'required' )
+	            )
+	        ),
+
+	        Field::hidden(
+	            $prefix.'[type]',
+	            array(
+	                'defaultValue'  => $this->type
+	            )    
+
+	        ),
+
+	        Field::hidden(
+	            $prefix.'[position]',
+	            array(
+	                'class'         => array( 'field-input', 'position-input' ),
+	                'defaultValue'  => $this->position
+	            )    
+
+	        ),
+
+
+
+	    );
 	}
 
 
+
+	/**
+	 * Return a property
+	 * 
+	 * @param  string $name
+	 * @param  string $default
+	 * @return mixed (string/bool)
+	 */
+	public function getProperty( $name, $default = false ){
+
+	    if( isset( $this->properties[ $name ] ) )
+	        return $this->properties[ $name ];
+
+	    if( isset( $this->properties[ 'options' ][ $name ] ) )
+	    	return $this->properties[ 'options' ][ $name ];
+
+	    return $default;
+	}
 
 	/**
 	 * Get choices
@@ -81,8 +172,8 @@ class ChoiceField extends CuisineChoiceField{
 	 */
 	public function getChoices(){
 
-	    if( $this->properties['options'] )
-	        return $this->properties['options'];
+	    if( $this->properties['options']['choices'] )
+	        return $this->properties['options']['choices'];
 
 	}
 
@@ -122,12 +213,18 @@ class ChoiceField extends CuisineChoiceField{
 	    $isIndexed = ( array_values( $inputs ) === $inputs );
 
 	    foreach( $inputs as $key => $input ){
+	    	
+	    	if( is_array( $input ) && isset( $input['label'] ) ){
+	    		$label = $input['label'];
+	    	}else{
+	    		$label = $input;
+	    	}
+
 
 	        $choice = array();
-
 	        $choice['id'] = $i;
 	        $choice['key'] = ( $isIndexed ? $input : $key );
-	        $choice['label'] = $input;
+	        $choice['label'] = $label;
 	      
 	        $choices[] = $choice;
 
