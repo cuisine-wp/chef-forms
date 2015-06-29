@@ -1,5 +1,6 @@
 .form-fields{
 
+
 	.field-wrapper{
 		width:45%;
 		float:left;
@@ -27,6 +28,17 @@
 			&:focus{
 				border:1px solid #444;
 			}
+
+			&.validated-true, &.validated-false{
+				background-image:url('../../../plugins/chef-forms/Assets/images/ok.png' );
+				background-size:16px auto;
+				background-repeat:no-repeat;
+				background-position:97.5% center;
+			}
+
+			&.validated-false{
+				background-image:url('../../../plugins/chef-forms/Assets/images/fail.png' );
+			}
 		}
 	
 		&.label-top label{
@@ -39,6 +51,11 @@
 			padding-right:15px;
 		}
 	}
+
+	.validation-error{
+		padding:5px 0 0 0;
+		color:red;
+	}
 }
 
 .form{
@@ -47,6 +64,10 @@
 	padding:15px 15px 65px 15px;
 	display:block;
 	position:relative;
+
+	.form-fields, .form-footer{
+		@include transition( .3s );
+	}
 
 	.form-footer{
 		display:block;
@@ -58,23 +79,30 @@
 		position:absolute;
 		display:none;
 		pointer-events:none;
-		top:-35%;
+		top:30%;
 		left:0;
 		right:0;
+		width:140px;
 
 		& > div{
-			background-color:rgba(0,0,0,.8);
+			background-color:rgba(0,0,0,.5);
+			width: 32px;
+			height: 32px;
 		}
 	}
 
 	&.active{
-		background:rgba(255,255,255,.2);
 		.form-fields, .form-footer{
-			opacity:.3;
+			opacity:.15;
+			pointer-events:none;
 		}
 
 		.loader{
 			display:block;
+			pointer-events:auto;
 		}
 	}
+
+
+
 }

@@ -3,13 +3,10 @@ define([
 	'jquery',
 	'cuisine-validate',
 
-], function( $, CuisineValidate ){
+], function( $ ){
 
 
 	$( document ).ready( function( $ ){
-
-		console.log( CuisineValidate );
-
 	
 		$('.form').each( function( index, obj ){
 			
@@ -19,6 +16,18 @@ define([
 		});
 
 	});
+
+
+	var ValidationErrors = {
+
+		'required' 	: 'Dit is een verplicht veld',
+		'email'		: 'Dit is geen geldig e-mailadres',
+		'numerical'	: 'Dit is geen geldig nummer',
+		'address'	: 'Vergeet je het huisnummer niet?',
+		'zipcode'	: 'Dit is geen geldige postcode'
+
+	}
+
 
 
 	function FormObject(){
@@ -108,7 +117,7 @@ define([
 					switch( criterium ){
 
 						case 'required':
-							if( CuisineValidate.empty( value ) === false ){
+							if( Validate.empty( value ) === false ){
 								validated = false;
 								type = 'required';
 								break;
@@ -117,15 +126,23 @@ define([
 						break;
 						case 'email':
 
-							if( CuisineValidate.email( value ) === false ){
+							if( Validate.email( value ) === false ){
 								validated = false;
 								type = 'email';
 							}
 
 						break;
+						case 'numerical':
+
+							if( Validate.number( value ) === false ){
+								validated = false;
+								type = 'number';
+							}
+
+						break;
 						case 'address':
 
-							if( CuisineValidate.has_number( value ) === false ){
+							if( Validate.has_number( value ) === false ){
 								validated = false;
 								type = 'address';
 							}
@@ -133,7 +150,7 @@ define([
 						break;
 						case 'zipcode':
 
-							if( CuisineValidate.zipcode( value ) === false ){
+							if( Validate.zipcode( value ) === false ){
 								validated = false;
 								type = 'zipcode';
 							}
@@ -152,11 +169,14 @@ define([
 				}
 			}
 			
-
-			if( validated ){
+			var valError = obj.parent().find( '.validation-error' );
+			valError.remove();
 			
+			if( validated ){
+	
 				obj.removeClass('validated-false');
 				obj.addClass('validated-true');
+
 //				obj.removeClass('please-fill');
 //				obj.removeData( 'error' );
 
@@ -164,8 +184,10 @@ define([
 				
 				obj.removeClass('validated-true');
 				obj.addClass('validated-false');
-				alert( type );
-//				obj.data( 'error', type );				
+
+				var valError = ValidationErrors[ type ];
+				obj.after( '<span class="validation-error">'+ valError +'</span>' );
+
 			}
 
 			return validated;
@@ -183,8 +205,4 @@ define([
 
 
 	}
-
-
-
-
 });
