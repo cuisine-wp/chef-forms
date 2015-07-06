@@ -42,6 +42,14 @@
 
 
 		/**
+		 * Array to be converted to a json object with the callback message
+		 * 
+		 * @var array
+		 */
+		private $message = array();
+
+
+		/**
 		 * All of this forms settings
 		 * 
 		 * @var array
@@ -160,10 +168,18 @@
 
 			//notify everybody
 			$this->notify();
-	
 
 
-			return $this;
+			if( empty( $this->message ) ){
+				$this->message = array(
+
+						'error'		=> 	false,
+						'message'	=> 	$this->getSetting( 'confirm' )
+				);
+			}
+
+			//return the message
+			return json_encode( $this->message );
 		}
 	
 		
@@ -352,7 +368,6 @@
 			}
 
 			$this->fields = $array;
-
 		}
 
 

@@ -91,7 +91,19 @@
 		}
 	}
 
-	&.active{
+	.message{
+		position:absolute;
+		padding:30px;
+		background:#f8f8f8;
+		font-size:rem( 24px );
+		display:none;
+		width:300px;
+		left:50%;
+		margin-left:-150px;
+		top:15%;
+	}
+
+	&.active, &.msg{
 		.form-fields, .form-footer{
 			opacity:.15;
 			pointer-events:none;
@@ -100,6 +112,17 @@
 		.loader{
 			display:block;
 			pointer-events:auto;
+		}
+	}
+
+
+	&.msg{
+		.message{
+			display:block;
+		}
+
+		.loader{
+			display:none;
 		}
 	}
 

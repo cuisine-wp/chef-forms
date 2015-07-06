@@ -41,9 +41,8 @@
 
 			$this->setPostGlobal();
 
-			Form::save( $_POST['post_id'] );
-
-
+			$confirm = Form::save( $_POST['post_id'] );
+			echo $confirm;
 			die();
 		}
 

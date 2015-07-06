@@ -18,18 +18,6 @@ define([
 	});
 
 
-	var ValidationErrors = {
-
-		'required' 	: 'Dit is een verplicht veld',
-		'email'		: 'Dit is geen geldig e-mailadres',
-		'numerical'	: 'Dit is geen geldig nummer',
-		'address'	: 'Vergeet je het huisnummer niet?',
-		'zipcode'	: 'Dit is geen geldige postcode'
-
-	}
-
-
-
 	function FormObject(){
 
 		var el = '';
@@ -55,8 +43,25 @@ define([
 
 				e.preventDefault();
 
-				self.showLoader();
-				self.send();
+				var allValidated = true;
+
+				//validate all fields:
+				self.el.find( '.field' ).each( function(){
+
+					if( self.validate( jQuery( this ) ) === false ){
+						allValidated = false;
+					}
+
+				});
+
+
+				//if all fields are validated
+				if( allValidated === true ){
+				
+					self.showLoader();
+					self.send();
+
+				}
 
 				return false;
 			});
@@ -81,8 +86,24 @@ define([
 
 			$.post( Cuisine.ajax, data, function( response ){
 
-				console.log( response );
+				if( Validate.json( response ) ){
 
+					self.hideLoader();
+
+					var response = JSON.parse( response );
+					self.el.addClass( 'msg' );
+					self.el.append('<div class="message">'+ response.message +'</div>' );
+
+					
+					//remove message after 3 seconds:
+					setTimeout( function(){
+					
+						self.el.removeClass( 'msg' );
+						self.el.find('.message').remove();
+					
+					}, 5000 );
+
+				}
 			});
 
 
@@ -107,7 +128,7 @@ define([
 			var validateNothing = true;
 			var type = '';
 
-			if( obj.data('validate').length > 0 ){
+			if( obj.data('validate') !== undefined ){
 				var validators = obj.data('validate').split(',');
 
 				for( var i = 0; i < validators.length; i++ ){
@@ -177,8 +198,6 @@ define([
 				obj.removeClass('validated-false');
 				obj.addClass('validated-true');
 
-//				obj.removeClass('please-fill');
-//				obj.removeData( 'error' );
 
 			}else if( validated === false ){
 				
@@ -198,11 +217,28 @@ define([
 		this.showLoader = function(){
 
 			var self = this;
-			alert('wop');
 			self.el.addClass( 'active' );
 
 		}
 
 
+		this.hideLoader = function(){
+
+			var self = this;
+			self.el.removeClass( 'active' );
+
+		}
 	}
+
+
+	var ValidationErrors = {
+
+		'required' 	: 'Dit is een verplicht veld',
+		'email'		: 'Dit is geen geldig e-mailadres',
+		'numerical'	: 'Dit is geen geldig nummer',
+		'address'	: 'Vergeet je het huisnummer niet?',
+		'zipcode'	: 'Dit is geen geldige postcode'
+
+	}
+
 });

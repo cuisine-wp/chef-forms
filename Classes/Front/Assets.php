@@ -55,7 +55,7 @@
 				Script::register( 'send-form', $url.'Form', true );
 
 				$url = 'chef-forms/Assets/sass/';
-				Sass::register( 'form_styling', $url.'_form', true );
+				Sass::register( 'form_styling', $url.'_form', false );
 
 			});
 		}
