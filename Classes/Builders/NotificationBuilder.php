@@ -4,7 +4,7 @@ namespace ChefForms\Builders;
 
 use Cuisine\Wrappers\Field;
 
-class NotificationBuilder{
+class NotificationBuilder extends FormPanel{
 
 	/**
 	 * Notifications array 
@@ -19,7 +19,15 @@ class NotificationBuilder{
 	 *
 	 * @var int
 	 */
-	private $postId = null;
+	public $postId = null;
+
+
+	/**
+	 * Overwrite de default fields array
+	 * 
+	 * @var array
+	 */
+	public $fields = array();
 
 
 
@@ -32,6 +40,7 @@ class NotificationBuilder{
 	function __construct(){
 
 		$this->init();
+		$this->fields = $this->getFields();
 
 		return $this;
 	}
@@ -67,6 +76,47 @@ class NotificationBuilder{
 	 */
 	public function build(){
 
+		$this->fields->render();
+
+	}
+
+
+	/*=============================================================*/
+	/**             Saving                                         */
+	/*=============================================================*/
+
+
+	/**
+	 * Loop through all fields and save 'em
+	 * 
+	 * @return bool
+	 */
+	public function save( $post_id ){
+
+		if( isset( $_POST['notifications'] ) ){
+
+			$notifications = $_POST['notifications'];
+			$_notifications = array();
+		
+			foreach( $notifications as $id => $field ){
+		
+				$_notifications[ $id ] = $field;
+		
+			}
+		
+			update_post_meta( $post_id, 'notifications', $_notifications );
+		
+			return true;
+		}
+		
+	}
+
+
+	/*=============================================================*/
+	/**             Getters & Setters                              */
+	/*=============================================================*/
+
+	public function getFields(){
 
 		$subFields = array(
 
@@ -110,45 +160,9 @@ class NotificationBuilder{
 			)
 		);
 
-		$field->render();
-
+		return $field;
 	}
 
-
-	/*=============================================================*/
-	/**             Saving                                         */
-	/*=============================================================*/
-
-
-	/**
-	 * Loop through all fields and save 'em
-	 * 
-	 * @return bool
-	 */
-	public function save( $post_id ){
-
-		if( isset( $_POST['notifications'] ) ){
-
-			$notifications = $_POST['notifications'];
-			$_notifications = array();
-		
-			foreach( $notifications as $id => $field ){
-		
-				$_notifications[ $id ] = $field;
-		
-			}
-		
-			update_post_meta( $post_id, 'notifications', $_notifications );
-		
-			return true;
-		}
-		
-	}
-
-
-	/*=============================================================*/
-	/**             Getters & Setters                              */
-	/*=============================================================*/
 
 
 	private function getNotifications(){

@@ -90,6 +90,20 @@
   background: #00a1d5;
 }
 
+.map-field {
+  width: 100%;
+}
+.map-field span {
+  width: 28%;
+  display: inline-block;
+  margin-right: 15px;
+}
+.map-field select, .map-field label {
+  font-size: 16px;
+  padding: 4px 8px;
+  width: 100%;
+}
+
 /** Controls */
 .add-field.button {
   width: 100%;
@@ -302,6 +316,18 @@
   border: 1px solid #e5e5e5;
   padding: 15px;
   margin: 0 0 30px 0;
+}
+
+.settings-panel .panel-icon {
+  height: 42px;
+  line-height: 100%;
+  width: auto;
+  display: inline-block;
+  margin: 15px 15px 0 0;
+}
+.settings-panel h2 {
+  line-height: 100%;
+  display: inline-block;
 }
 
 /*# sourceMappingURL=admin.css.map */

@@ -128,16 +128,85 @@ class SettingsManager{
 					'defaultValue'	=> $this->getSetting( 'confirm', '{alle_velden}' )
 				)
 			);
+
 			$field->render();
 
+
+			$this->buildPanels();
+
 		echo '</div>';
+
+
 	}
+
+
+	/**
+	 * Create custom settings panels
+	 * 
+	 * @return string (html, echoed)
+	 */
+	private function buildPanels(){
+
+
+		$panels = apply_filters( 'chef_forms_setting_panels', array() );
+		$panels = $this->sanitizePanels( $panels );
+
+
+		foreach( $panels as $panel ){
+
+			echo '<hr/>';
+			echo '<div class="settings-panel '.sanitize_title( $panel['title'] ).'">';
+
+
+				if( $panel['icon'] )
+					echo '<img src="'.$panel['icon'].'" class="panel-icon">';
+
+				echo '<h2>'.$panel['title'].'</h2>';
+
+				if( $panel['content'] )
+					echo wpautop( $panel['content'] );
+
+
+				$block = new $panel['class']();
+				echo $block->build();
+
+			echo '</div>';
+		}
+
+
+	}
+
+	/**
+	 * Fills the panels object with some defaults
+	 * 
+	 * @param  array $panels
+	 * @return array $panels (altered)
+	 */
+	private function sanitizePanels( $panels ){
+
+
+		foreach( $panels as $key => $panel ){
+
+			if( !isset( $panels[ $key ]['content'] ) )
+				$panels[ $key ]['content'] = false;
+
+
+			if( !isset( $panels[ $key ]['icon'] ) )	
+				$panels[ $key ]['icon'] = false;
+
+		}
+
+		return $panels;
+	}
+
 
 
 
 	/*=============================================================*/
 	/**             Getters & Setters                              */
 	/*=============================================================*/
+
+
 
 	/**
 	 * Get all settings

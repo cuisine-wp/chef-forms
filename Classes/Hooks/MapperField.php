@@ -37,13 +37,17 @@
 		 *
 		 * @return String;
 		 */
-		public function build(){
+		public function render(){
 
-			$html = $this->buildStart();
+			$html = '<div class="map-field">';
+
+			$html .= $this->buildStart();
 			
 				$html .= $this->buildOperator();
 
 			$html .= $this->buildEnd();
+
+			$html .= '</div>';
 			   
 		    return $html;
 		}
@@ -57,7 +61,7 @@
 		public function buildStart(){
 
 			$choices = $this->getChoices();
-			$html = '';
+			$html = '<span class="map-start">';
 
 			if( is_array( $choices ) ){
 
@@ -73,7 +77,14 @@
 
 				$html = $start->build();
 
+			}else{
+
+				if( $this->label )
+					$html .= '<label>'.$this->label.'</label>';
+
 			}
+
+			$html .= '</span>';
 
 			return $html;
 		}
@@ -95,7 +106,7 @@
 					'<='	=>		__( 'is kleiner dan', 'chefforms' )	
 			);
 
-			$html = '';
+			
 
 			if( $choices ){
 
@@ -107,9 +118,14 @@
 
 				);
 
-				$html = $opps->build();
+				$html = '<span class="map-opps">';
 
+					$html .= $opps->build();
+
+				$html .= '</span>';
 			}
+
+
 
 			return $html;
 		}
@@ -143,7 +159,7 @@
 
 		
 
-			$html = '';
+			$html = '<span class="map-end">';
 
 			if( $choices ){
 
@@ -155,9 +171,11 @@
 
 				);
 
-				$html = $fieldSelect->build();
+				$html .= $fieldSelect->build();
 
 			}
+
+			$html .= '</span>';
 
 			return $html;
 		}
