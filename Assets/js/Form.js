@@ -29,6 +29,7 @@ define([
 
 			var self = this;
 			self.el = $( obj );
+			self.fields = self.el.find( '.field' );
 			self.formId = parseInt( self.el.attr('id').replace( 'form_', '' ) );
 			self.setEvents();
 
@@ -46,7 +47,7 @@ define([
 				var allValidated = true;
 
 				//validate all fields:
-				self.el.find( '.field' ).each( function(){
+				self.fields.each( function(){
 
 					if( self.validate( jQuery( this ) ) === false ){
 						allValidated = false;
@@ -94,6 +95,7 @@ define([
 					self.el.addClass( 'msg' );
 					self.el.append('<div class="message">'+ response.message +'</div>' );
 
+					self.resetFields();
 					
 					//remove message after 3 seconds:
 					setTimeout( function(){
@@ -108,6 +110,20 @@ define([
 
 
 		}
+
+
+		this.resetFields = function(){
+
+			var self = this;
+
+			self.fields.each( function(){
+				$( this ).val('');
+				$( this ).removeClass('validated-false');
+				$( this ).removeClass('validated-true');
+			});
+			
+		}
+
 
 
 		this.validate = function( evt ){
