@@ -93,6 +93,11 @@
 							'class'		=> 'ChefForms\Hooks\MultiField'
 				);
 
+				$types['mapper'] = array(
+							'name'		=> 'MapperField',
+							'class'		=> 'ChefForms\Hooks\MapperField'
+				);
+
 				return $types;
 
 			});
@@ -104,6 +109,7 @@
 				$base = Url::path( 'plugin', 'chef-forms', true );
 				include( $base.'Classes/Hooks/Column.php' );
 				include( $base.'Classes/Hooks/MultiField.php' );
+				include( $base.'Classes/Hooks/MapperField.php' );
 
 			});
 		}

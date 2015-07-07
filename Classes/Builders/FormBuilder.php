@@ -4,6 +4,7 @@ namespace ChefForms\Builders;
 
 use Cuisine\Utilities\Sort;
 use ChefForms\Wrappers\FieldBlock as Field;
+use Cuisine\Wrappers\Field as BF;
 
 class FormBuilder{
 
@@ -77,6 +78,37 @@ class FormBuilder{
 	public function build(){
 
 		echo '<div class="form-builder-fields">';
+
+		$mf = BF::mapper(
+
+				'reg-email',
+				'Registration E-mail',
+				array(
+					'included_types' 	=> array( 'email', 'text' ),
+					'required'			=> true,
+					'operators'			=> false,
+					'form_id'			=> $this->postId,
+				)
+		);
+
+		$tf = BF::mapper(
+
+				'wop-email',
+				'Wopper de Wop',
+				array(
+					'required'			=> true,
+					'form_id'			=> $this->postId,
+					'choices'			=> array(
+							'hank'	=> 	'Hank',
+							'test'	=> 	'Test'
+					)
+				)
+		);
+
+		echo $mf->build();
+		echo $tf->build();
+
+
 		if( !empty( $this->fields ) ){
 
 			
