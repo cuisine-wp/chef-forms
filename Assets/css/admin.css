@@ -318,6 +318,42 @@
   margin: 0 0 30px 0;
 }
 
+.single-entry {
+  box-sizing: border-box;
+  padding: 15px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 0 10px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e5e5;
+}
+.single-entry:nth-child(odd) {
+  background: #f8f8f8;
+}
+.single-entry .entry-date {
+  font-size: 20px;
+  color: #444;
+  padding: 5px 5px 10px 5px;
+}
+.single-entry .entry-fields {
+  border-top: 1px solid #ccc;
+  padding: 15px;
+  display: none;
+}
+.single-entry .entry-fields .field-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+}
+.single-entry .entry-fields .field-wrapper div {
+  width: 47.5%;
+  display: inline-block;
+}
+.single-entry .entry-fields .field-wrapper:nth-child(even) {
+  background: #f9f9f9;
+}
+.single-entry.active .entry-fields {
+  display: block;
+}
+
 .settings-panel .panel-icon {
   height: 42px;
   line-height: 100%;

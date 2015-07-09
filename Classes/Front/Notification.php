@@ -177,6 +177,9 @@ class Notification {
 
 		$msg = $this->properties['content'];
 
+		if( $msg == '' )
+			$msg = $this->generateDefaultMessage();
+
 		$msg = str_replace( '{alle_velden}', $this->generateDefaultMessage(), $msg );
 
 		foreach( $this->entry as $entry ){
@@ -212,7 +215,12 @@ class Notification {
 
 				if( $field->name == $entry['name'] ){
 
-					$html .= '<tr><td><strong>'.$field->label.'</strong></td>';
+					$label = $field->label;
+					if( $label == '' && $field->properties['placeholder'] != '' )
+						$label = $field->properties['placeholder'];
+
+
+					$html .= '<tr><td><strong>'.$label.'</strong></td>';
 					$html .= '<td>'.$entry['value'].'</td></tr>';
 
 				}

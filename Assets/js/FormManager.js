@@ -110,6 +110,10 @@ jQuery( document ).ready( function( $ ){
 
 	setFormManager();
 
+	$( '.single-entry' ).on( 'click', function(){
+		$( this ).toggleClass( 'active' );
+	})
+
 });
 
 

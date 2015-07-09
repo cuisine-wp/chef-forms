@@ -190,13 +190,14 @@
 		 */
 		public function notify(){
 
-			$this->setNotifications();
+			$this->notifications = $this->setNotifications();
+
 
 			if( !empty( $this->notifications ) ){
 
 				foreach( $this->notifications as $notification ){
 
-					$this->notification->send();
+					$notification->send();
 				}
 			}
 		}
@@ -388,6 +389,7 @@
 				$notifications[] = Notification::make( $data, $this->fields );
 				
 			}
+			
 			
 			return $notifications;
 		}
