@@ -60,7 +60,7 @@ class Notification {
 	 *
 	 * @var array
 	 */
-	private $headers;
+	private $headers = array();
 
 
 	/**
@@ -68,7 +68,7 @@ class Notification {
 	 *
 	 * @var array
 	 */
-	private $attachments;
+	private $attachments = array();
 
 
 	/**
@@ -105,7 +105,7 @@ class Notification {
 
 		$adminMail = get_bloginfo( 'admin_email' );
 		$siteName = get_bloginfo( 'blogname' );
-		$this->from_address = get_option( 'chef_forms_from_email', $adminMail );
+		$this->from_email = get_option( 'chef_forms_from_email', $adminMail );
 		$this->from_name = get_option( 'chef_forms_from_name', $siteName );
 
 	}
@@ -146,7 +146,7 @@ class Notification {
 		add_filter( "wp_mail_from_name", array( &$this, 'from_name' ) );
 		add_filter( "wp_mail_content_type", array( &$this, 'mime_type' ) );
 
-			wp_mail( 
+			$test = wp_mail( 
 				$this->to, 
 				$this->subject, 
 				$this->message, 
