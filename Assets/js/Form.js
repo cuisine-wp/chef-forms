@@ -40,6 +40,7 @@ define([
 
 			var self = this;
 
+			//on submit:
 			self.el.find( '.submit-form' ).on( 'click', function( e ){
 
 				e.preventDefault();
@@ -86,7 +87,6 @@ define([
 
 
 			$.post( Cuisine.ajax, data, function( response ){
-
 
 				if( Validate.json( response ) ){
 
