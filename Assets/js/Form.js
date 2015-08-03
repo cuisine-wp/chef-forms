@@ -50,7 +50,7 @@ define([
 				//validate all fields:
 				self.fields.each( function(){
 
-					if( self.validate( jQuery( this ) ) === false ){
+					if( self.validateField( jQuery( this ) ) === false ){
 						allValidated = false;
 					}
 
