@@ -139,7 +139,7 @@ class NotificationBuilder extends FormPanel{
 					)
 				),
 
-				Field::editor( 
+				Field::textarea( 
 					'content', //this needs a unique id 
 					'', 
 					array(
