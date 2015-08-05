@@ -227,7 +227,7 @@ class DefaultField{
 
         }
 
-        if( $this->getProperty( 'required' ) )
+        if( $this->getProperty( 'required' ) == 'true' )
             $label .= '<span class="req">*</span>';
 
         return ( $label !== '' ? $label : false );
