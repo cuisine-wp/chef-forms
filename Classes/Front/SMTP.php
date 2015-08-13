@@ -8,12 +8,21 @@
 
 	class SMTP extends StaticInstance{
 
+
+		var $resolution;
+
+		var $settings;
+
+
+
 		/**
 		 * Init mail events & vars
 		 */
 		function __construct(){
 
-			if( apply_filters( 'chef_forms_use_mandrill', true ) )
+			$this->setSettings();
+
+			if( apply_filters( 'chef_forms_use_mandrill', $this->settings['use_mandrill'] ) == 'true' )
 				$this->listen();
 
 		}
@@ -29,14 +38,15 @@
 
 			add_action( 'phpmailer_init', function( $phpmailer ){
 
+
 				//settings:
 				$settings = array(
 					'ssl'		=> 	true,
 					'auth'		=>	true,
-					'host'		=> 	'smtp.mandrillapp.com',
+					'host'		=> 	$this->settings['host'],
 					'port'		=> 	'465',
-					'user'		=>	'luc.princen@gmail.com',
-					'password'	=>	'_gEwO60stNDpGZFyrYaadQ'
+					'user'		=>	$this->settings['user'],
+					'password'	=>	$this->settings['password']
 				);
 
 
@@ -64,6 +74,34 @@
 				$phpmailer = apply_filters('chef_forms_smtp_custom_options', $phpmailer);
 				
 			});
+
+		}
+
+
+		public function setSettings(){
+
+			$settings = get_option( 'form-settings', $this->getDefaultSettings() );
+			$this->settings = $settings;
+
+		}
+
+
+
+		/**
+		 * Get all default settings in an array
+		 * 
+		 * @return array
+		 */
+		private function getDefaultSettings(){
+
+			return array(
+						
+				'use_mandrill'	=> 'true',
+				'host'		=> 'smtp.mandrillapp.com',
+				'user'		=> 'luc.princen@gmail.com',
+				'password'	=> '_gEwO60stNDpGZFyrYaadQ'
+			
+			);
 
 		}
 

@@ -5,7 +5,9 @@
 	use \ChefForms\Wrappers\FormManager;
 	use \ChefForms\Wrappers\StaticInstance;
 	use \Cuisine\Utilities\Url;
+	use \Cuisine\Wrappers\Field;
 	use \Cuisine\Wrappers\Metabox;
+	use \Cuisine\Wrappers\SettingsPage;
 
 	class EventListeners extends StaticInstance{
 
@@ -16,6 +18,7 @@
 
 			$this->listen();
 			$this->metaBoxEvents();
+			$this->settingsPage();
 
 		}
 
@@ -76,6 +79,64 @@
 				$options
 
 			)->set( '\\ChefForms\\Wrappers\\FieldControls::advanced' );
+
+		}
+
+
+		/**
+		 * The settingspage used by this plugin
+		 * 
+		 * @return void
+		 */
+		private function settingsPage(){
+
+			$options = array(
+				'parent'		=> 'form',
+				'menu_title'	=> 'Instellingen'
+			);
+
+			$fields = array(
+
+				Field::checkbox( 
+					'use_mandrill', 
+					'Gebruik Mandrill',
+					array(
+						'defaultValue' => 'true'
+					)
+				),
+
+				Field::text(
+					'host',
+					'Mandrill Host',
+					array(
+						'defaultValue'	=> 'smtp.mandrillapp.com'
+					)
+				),
+
+				Field::text(
+					'user',
+					'Mandrill User',
+					array(
+						'defaultValue'	=> 'luc.princen@gmail.com'
+					)
+				),
+
+				Field::text(
+					'password',
+					'Mandrill Password',
+					array(
+						'defaultValue'	=> '_gEwO60stNDpGZFyrYaadQ'
+					)
+				)
+			);
+
+			SettingsPage::make(
+
+				'Formulier instellingen', 
+				'form-settings', 
+				$options
+
+			)->set( $fields );
 
 		}
 
