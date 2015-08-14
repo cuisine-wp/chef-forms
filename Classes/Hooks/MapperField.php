@@ -41,14 +41,17 @@
 
 			$html = '<div class="map-field">';
 
-			$html .= $this->buildStart();
-			
-				$html .= $this->buildOperator();
+				//$html .= $this->buildStart();
+				//$html .= $this->buildOperator();
+
+			$html .= $this->getLabel();
 
 			$html .= $this->buildEnd();
 
 			$html .= '</div>';
-			   
+			
+			echo $html;
+
 		    return $html;
 		}
 
@@ -140,42 +143,55 @@
 		public function buildEnd(){
 
 			$fields = $this->getFields();
-			$choices = Sort::pluck( $fields, 'label' );
-			$types = $this->getIncluded();
+			$html = '';
 
-			//filter choices
-			if( is_array( $types ) ){
-
-				$choices = array();
-
-				foreach( $fields as $field ){
-
-					if( in_array( $field['type'], $types ) ){
-						$choices[] = $field['label'];
-					}
-				}
-
-			}
-
-		
-
-			$html = '<span class="map-end">';
-
-			if( $choices ){
-
-				$fieldSelect = Field::select(
-
-						$this->name.'[end]',
-						'Veld',
-						$choices
-
+			if( $fields ){
+				$choices = array_combine(
+					Sort::pluck( $fields, 'id' ),
+					Sort::pluck( $fields, 'label' )
 				);
-
-				$html .= $fieldSelect->build();
+	
+				$choices = array_merge( array( 'none' => 'Geen veld' ), $choices );
+	
+				$types = $this->getIncluded();
+	
+				//filter choices
+				if( is_array( $types ) ){
+	
+					$choices = array();
+	
+					foreach( $fields as $field ){
+	
+						if( in_array( $field['type'], $types ) ){
+							$choices[ $field['id'] ] = $field['label'];
+						}
+					}
+	
+				}
+	
+			
+	
+				$html = '<span class="map-end">';
+	
+				if( $choices ){
+	
+	
+					$html .= Field::select(
+	
+							$this->name,
+							'Veld',
+							$choices,
+							array(
+								'defaultValue'	=> $this->getDefault()
+							)
+	
+					)->build();
+	
+				}
+	
+				$html .= '</span>';
 
 			}
-
-			$html .= '</span>';
 
 			return $html;
 		}
@@ -245,9 +261,10 @@
 
 					$array = array();
 
-					foreach( $fields as $field ){
+					foreach( $fields as $id => $field ){
 
 						$array[] = array(
+								'id'	=> $id,
 								'type'	=> $field['type'],
 								'label'	=> $field['label']
 						);

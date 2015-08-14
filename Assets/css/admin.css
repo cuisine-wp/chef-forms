@@ -92,16 +92,16 @@
 
 .map-field {
   width: 100%;
-}
-.map-field span {
-  width: 28%;
-  display: inline-block;
-  margin-right: 15px;
+  margin-bottom: 20px;
 }
 .map-field select, .map-field label {
   font-size: 16px;
   padding: 4px 8px;
-  width: 100%;
+  width: 45%;
+  display: inline-block;
+}
+.map-field label {
+  margin-right: 5%;
 }
 
 /** Controls */
@@ -354,6 +354,12 @@
   display: block;
 }
 
+.settings-panel {
+  clear: both;
+  padding-top: 15px;
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+}
 .settings-panel .panel-icon {
   height: 42px;
   line-height: 100%;

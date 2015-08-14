@@ -2,15 +2,37 @@
 
 namespace ChefForms\Builders;
 
+use Cuisine\Utilities\Session;
 use Cuisine\Wrappers\Field;
 
 class FormPanel{
+
+	/**
+	 * String with the title of this panel
+	 * 
+	 * @var string
+	 */
+	private $title;
+
+	/**
+	 * String with this slug
+	 * 
+	 * @var string
+	 */
+	private $slug;
+
+	/**
+	 * Array containing all options
+	 * 
+	 * @var array
+	 */
+	private $options;
 
 
 	/**
 	 * All fields part of this panel
 	 * 
-	 * @var void
+	 * @var array
 	 */
 	public $fields;
 
@@ -24,37 +46,46 @@ class FormPanel{
 
 
 
-
-	/**
-	 * Call the methods on construct
-	 *
-	 * @return \ChefFields\Builder\FormBuilde
-	 */
 	function __construct(){
 
-		$this->init();
-		$this->fields = $this->getFields();
+		add_action( 'panel_save', array( &$this, 'save' ) );
 
-		return $this;
 	}
 
 
+
 	/**
-	 * Initiate this class
+	 * Make a form panel
 	 * 
 	 * @param  int $post_id
 	 * @return ChefForms\Builders\FormPanel
 	 */
-	public function init(){
+	public function make( $name, $title, $options = array() ){
 		
-		global $post;
+		$this->postId = Session::postId();
 
-		if( isset( $post ) )
-			$this->postId = $post->ID;
+		$this->slug = $name;
+		$this->title = $title;
+		$this->options = $this->sanitizeOptions( $options );
 		
 
 		return $this;
 	}
+
+
+	/**
+	 * Set a form-panel
+	 * 
+	 * @param [type] $fields [description]
+	 */
+	public function set( $fields ){
+
+		$this->fields = $fields;
+
+		add_action( 'chef_forms_panels', array( &$this, 'build' ) );
+
+	}
+
 
 	/**
 	 * Build this section
@@ -62,16 +93,47 @@ class FormPanel{
 	 * @return String (html)
 	 */
 	public function build(){
+		
+		echo '<div class="settings-panel '.sanitize_title( $this->title ).'">';
 
-		$html = '';
 
-		foreach( $this->fields as $field ){
+		if( $this->get('icon' ) )
+			echo '<img src="'.$this->get('icon').'" class="panel-icon">';
 
-			$html .= $field->render();
+			echo '<h2>'.$this->title.'</h2>';
 
-		}
+			if( $this->get( 'content' ) )
+				echo wpautop( $this->get( 'content' ) );
 
-		return $html;
+
+			foreach( $this->fields as $field ){
+
+				//set values
+				$value = get_post_meta( Session::postId(), $field->name, true );
+				if( $value )
+					$field->properties['defaultValue'] = $value;
+
+
+				$field->render();
+
+			}
+
+			//render the javascript-templates seperate, to prevent doubles
+			$rendered = array();
+						
+			foreach( $this->fields as $field ){
+						
+				if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
+						
+						echo $field->renderTemplate();
+						$rendered[] = $field->name;
+						
+				}
+			}	
+
+
+		echo '</div>';
+
 	}
 
 
@@ -89,19 +151,60 @@ class FormPanel{
 
 		foreach( $this->fields as $field ){
 
-			$name = $field['name'];
+			$name = $field->name;
 
 			if( isset( $_POST[ $name ] ) ){
-	
-				$notifications = $_POST[ $name ];
 			
-				update_post_meta( $post_id, $name, $_notifications );
-			
-				return true;
+				update_post_meta( $post_id, $name, $_POST[ $name ] );
+
 			}
 
 		}	
+
 	}
+
+
+	/*=============================================================*/
+	/**             Getters & Setters                              */
+	/*=============================================================*/
+
+
+	/**
+	 * Checks if an option is set, then returns it.
+	 * 
+	 * @param  string $name
+	 * @return mixed
+	 */
+	private function get( $name ){
+
+		if( isset( $this->options[ $name ] ) )
+			return $this->options[ $name ];
+
+		return false;
+
+	}
+
+
+
+	/**
+	 * Set the options with defaults
+	 * 
+	 * @param  array $options
+	 * @return array
+	 */
+	private function sanitizeOptions( $options ){
+
+		$defaults = array(
+						'icon'		=> false,
+						'content'	=> false
+		);
+
+
+		return wp_parse_args( $options, $defaults );
+
+	}
+
+
 
 
 }

@@ -80,6 +80,8 @@ class SettingsManager{
 			
 			update_post_meta( $post_id, 'settings', $_settings );
 
+			do_action( 'panel_save', $post_id );
+
 			return true;
 		}
 
@@ -131,8 +133,9 @@ class SettingsManager{
 
 			$field->render();
 
-
-			$this->buildPanels();
+			echo '<div class="form-panels">';
+				do_action( 'chef_forms_panels' );
+			echo '</div>';
 
 		echo '</div>';
 
@@ -149,29 +152,17 @@ class SettingsManager{
 
 
 		$panels = apply_filters( 'chef_forms_setting_panels', array() );
-		$panels = $this->sanitizePanels( $panels );
+	//	$panels = $this->sanitizePanels( $panels );
+
+		cuisine_dump( $panels );
 
 
-		foreach( $panels as $panel ){
 
-			echo '<hr/>';
-			echo '<div class="settings-panel '.sanitize_title( $panel['title'] ).'">';
+//		foreach( $panels as $panel ){
 
-
-				if( $panel['icon'] )
-					echo '<img src="'.$panel['icon'].'" class="panel-icon">';
-
-				echo '<h2>'.$panel['title'].'</h2>';
-
-				if( $panel['content'] )
-					echo wpautop( $panel['content'] );
-
-
-				$block = new $panel['class']();
-				echo $block->build();
-
-			echo '</div>';
-		}
+//			$panel->build();
+			
+//		}
 
 
 	}

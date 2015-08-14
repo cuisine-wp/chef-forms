@@ -109,17 +109,16 @@
 .map-field{
 
 	width:100%;
-
-	span{
-		width:28%;
-		display:inline-block;
-		margin-right:15px;
-	}
+	margin-bottom:20px;
 
 	select, label{
 		font-size:16px;
 		padding:4px 8px;
-		width:100%;
-		
+		width:45%;
+		display:inline-block;
+	}
+
+	label{
+		margin-right:5%;
 	}
 }

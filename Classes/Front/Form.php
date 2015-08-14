@@ -46,7 +46,7 @@
 		 * 
 		 * @var array
 		 */
-		private $message = array();
+		public $message = array();
 
 
 		/**
@@ -165,6 +165,10 @@
 			$entry = $_POST['entry'];
 
 			update_post_meta( $entryId, 'entry', $entry );
+
+			//allow plugins to hook into this event:
+			do_action( 'form_submitted', $this, $entry );
+
 
 			//notify everybody
 			$this->notify();
