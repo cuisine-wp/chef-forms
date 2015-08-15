@@ -16,12 +16,9 @@
 		 */
 		public static function check( $tag ){
 
+			if( strpos( $tag,'{{') !== false && strpos( $tag, '}}' ) ) {
 
-			
-
-
-
-				if( substr( $tag, 0, 5 ) == 'post_' ){
+				if( strpos( $tag,'{{post_') !== false || strpos( $tag, '{{ post_' ) !== false ){
 
 					$return = self::postData( $tag );
 
@@ -30,14 +27,15 @@
 					$return = self::postMeta( $tag );
 
 				}
+			}
+
 
 			//filter the result:
 			return apply_filters( 'chef_form_tag', $return, $tag );
-
 		}
 
 
-		public static function postData( $type ){
+		public static function postData( $tag ){
 
 			global $post;
 
@@ -52,29 +50,35 @@
 			}
 
 
-			switch( $type ){
+			$tag = str_replace( array( '{{ post_title }}', '{{post_title}}' ), $p->post_title, $tag );
+			$tag = str_replace( array( '{{ post_date }}', '{{post_date}}' ), $p->post_title, $tag );
 
-				case 'post_title':
+			return $tag;
 
-					return $p->post_title;
+		}
 
-				break;
 
-				case 'post_date':
+		public static function postMeta( $tag ){
 
-					return $p->post_date;
+			$post_id = Session::postId();
+			$metas = get_post_meta( $post_id );
 
-				break;
+			foreach( $metas as $key => $val ){
+
+				$value = $val[0];
+				$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
+
+
 			}
 
+			return $tag;
+
+			
+
+
 
 		}
 
-
-		public static function postMeta( $name ){
-
-
-		}
 
 	}
 

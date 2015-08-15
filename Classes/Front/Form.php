@@ -65,7 +65,6 @@
 			$this->setSettings();
 			$this->setFields();
 			
-
 		}
 
 
@@ -93,6 +92,9 @@
 					echo '<div class="form-fields">';
 					
 						foreach( $this->fields as $field ){
+
+							if( $field->getDefault() && $field->getDefault() != '' )
+								$field->properties['defaultValue'] = Tag::check( $field->getDefault() );
 
 							$field->render();
 

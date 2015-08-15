@@ -179,6 +179,14 @@ class DefaultField{
                 )
             ),
 
+             Field::text(
+                $prefix.'[defaultValue]',
+                'Standaard Waarde',
+                array(
+                    'defaultValue'  => $this->getProperty( 'defaultValue' )
+                )
+            ),
+
 
             Field::checkbox(
                 $prefix.'[required]',
