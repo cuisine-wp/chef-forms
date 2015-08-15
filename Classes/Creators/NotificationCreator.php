@@ -1,10 +1,10 @@
 <?php
 
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use Cuisine\Wrappers\Field;
 
-class NotificationBuilder extends FormPanel{
+class NotificationCreator{
 
 	/**
 	 * Notifications array 

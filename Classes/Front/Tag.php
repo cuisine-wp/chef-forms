@@ -35,6 +35,12 @@
 		}
 
 
+		/**
+		 * Check for available post-data like titles and dates
+		 * 
+		 * @param  string $tag
+		 * @return string
+		 */
 		public static function postData( $tag ){
 
 			global $post;
@@ -58,6 +64,12 @@
 		}
 
 
+		/**
+		 * Check for post meta
+		 * 
+		 * @param  string $tag
+		 * @return string
+		 */
 		public static function postMeta( $tag ){
 
 			$post_id = Session::postId();

@@ -1,10 +1,10 @@
 <?php
     
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use ChefForms\Builders\Fields;
 
-class FieldBuilder{
+class FieldCreator{
 
 
     /*=============================================================*/

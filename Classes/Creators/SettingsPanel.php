@@ -1,11 +1,11 @@
 <?php
 
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use Cuisine\Utilities\Session;
 use Cuisine\Wrappers\Field;
 
-class FormPanel{
+class SettingsPanel{
 
 	/**
 	 * String with the title of this panel
@@ -58,7 +58,7 @@ class FormPanel{
 	 * Make a form panel
 	 * 
 	 * @param  int $post_id
-	 * @return ChefForms\Builders\FormPanel
+	 * @return ChefForms\Builders\SettingsPanel
 	 */
 	public function make( $name, $title, $options = array() ){
 		

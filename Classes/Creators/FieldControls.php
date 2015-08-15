@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use Cuisine\Utilities\Sort;
 
@@ -62,7 +62,7 @@ class FieldControls{
 	 */
 	private function getFields(){
 
-		$types = FieldBuilder::getAvailableTypes();
+		$types = FieldCreator::getAvailableTypes();
 		$types = Sort::pluck( $types, 'name' );
 
 		$in_standard = array( 'text', 'textarea', 'email', 'checkbox', 'number' );

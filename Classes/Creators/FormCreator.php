@@ -1,12 +1,12 @@
 <?php
 
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use Cuisine\Utilities\Sort;
 use ChefForms\Wrappers\FieldBlock as Field;
 use Cuisine\Wrappers\Field as BF;
 
-class FormBuilder{
+class FormCreator{
 
 	/**
 	 * Fields array 

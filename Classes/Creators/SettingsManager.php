@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use Cuisine\Wrappers\Field;
 
@@ -141,56 +141,6 @@ class SettingsManager{
 
 
 	}
-
-
-	/**
-	 * Create custom settings panels
-	 * 
-	 * @return string (html, echoed)
-	 */
-	private function buildPanels(){
-
-
-		$panels = apply_filters( 'chef_forms_setting_panels', array() );
-	//	$panels = $this->sanitizePanels( $panels );
-
-		cuisine_dump( $panels );
-
-
-
-//		foreach( $panels as $panel ){
-
-//			$panel->build();
-			
-//		}
-
-
-	}
-
-	/**
-	 * Fills the panels object with some defaults
-	 * 
-	 * @param  array $panels
-	 * @return array $panels (altered)
-	 */
-	private function sanitizePanels( $panels ){
-
-
-		foreach( $panels as $key => $panel ){
-
-			if( !isset( $panels[ $key ]['content'] ) )
-				$panels[ $key ]['content'] = false;
-
-
-			if( !isset( $panels[ $key ]['icon'] ) )	
-				$panels[ $key ]['icon'] = false;
-
-		}
-
-		return $panels;
-	}
-
-
 
 
 	/*=============================================================*/

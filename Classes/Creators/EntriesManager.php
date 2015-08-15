@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Builders;
+namespace ChefForms\Creators;
 
 use WP_Query;
 

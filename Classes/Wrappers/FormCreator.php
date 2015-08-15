@@ -2,17 +2,17 @@
 
 namespace ChefForms\Wrappers;
 
-class NotificationBuilder extends Wrapper {
+class FormCreator extends Wrapper {
 
     /**
-     * Return the igniter service key responsible for the NotificationBuilder class.
+     * Return the igniter service key responsible for the FormCreator class.
      * The key must be the same as the one used in the assigned
      * igniter service.
      *
      * @return string
      */
     protected static function getFacadeAccessor(){
-        return 'notification-builder';
+        return 'form-creator';
     }
 
 }

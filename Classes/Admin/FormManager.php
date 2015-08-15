@@ -3,8 +3,8 @@ namespace ChefForms\Admin;
 
 use Cuisine\Utilities\Session;
 use Cuisine\Wrappers\Field;
-use ChefForms\Wrappers\FormBuilder;
-use ChefForms\Wrappers\NotificationBuilder;
+use ChefForms\Wrappers\FormCreator;
+use ChefForms\Wrappers\NotificationCreator;
 use ChefForms\Wrappers\EntriesManager;
 use ChefForms\Wrappers\SettingsManager;
 
@@ -74,7 +74,7 @@ class FormManager{
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
 				echo __( 'Formulierenbouwer', 'chefforms' ).'</h2>';
 
-				FormBuilder::build();
+				FormCreator::build();
 				
 			echo '</div>';
 
@@ -84,7 +84,7 @@ class FormManager{
 				echo '<h2><span class="dashicons dashicons-megaphone"></span>';
 				echo __( 'Notificaties', 'chefforms' ).'</h2>';
 				
-				NotificationBuilder::build();
+				NotificationCreator::build();
 			
 			echo '</div>';
 
@@ -167,8 +167,8 @@ class FormManager{
 	    	return;
 
 
-			FormBuilder::save( $post_id );
-			NotificationBuilder::save( $post_id );
+			FormCreator::save( $post_id );
+			NotificationCreator::save( $post_id );
 			SettingsManager::save( $post_id );
 
 
