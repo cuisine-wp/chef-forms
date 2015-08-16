@@ -180,12 +180,22 @@ class Notification {
 		if( $msg == '' )
 			$msg = $this->generateDefaultMessage();
 
-		$msg = str_replace( '{alle_velden}', $this->generateDefaultMessage(), $msg );
+
+		$all_fields = array( '{alle_velden}', '{{alle_velden}}', '{{ alle_velden }}', '{ alle_velden }' );
+		$msg = str_replace( $all_fields , $this->generateDefaultMessage(), $msg );
 
 		foreach( $this->entry as $entry ){
 
 			$name = $entry['name'];
-			$msg = str_replace( '{'.$name.'}', $entry['value'], $msg );
+			$msg = str_replace( 
+				
+				array( 
+					'{{'.$name.'}}',
+					'{{ '.$name.' }}'
+				),
+				$entry['value'],
+
+			$msg );
 
 		}
 
@@ -250,7 +260,7 @@ class Notification {
 			$properties['title'] = 'Bericht website';
 
 		if( !isset( $properties['content'] ) )
-			$properties['content'] = '{alle_velden}';
+			$properties['content'] = '{{ alle_velden }}';
 
 		return $properties;
 	}

@@ -127,7 +127,7 @@ class SettingsManager{
 				'settings[confirm]',
 				'Bevestigings-bericht',
 				array(
-					'defaultValue'	=> $this->getSetting( 'confirm', '{alle_velden}' )
+					'defaultValue'	=> $this->getSetting( 'confirm', '{{ alle_velden }}' )
 				)
 			);
 
@@ -156,8 +156,8 @@ class SettingsManager{
 	 */
 	private function getSettings(){
 
-		return get_post_meta( $this->postId, 'settings', true );
-
+		$settings = get_post_meta( $this->postId, 'settings', true );
+		return $settings;
 	}
 
 
