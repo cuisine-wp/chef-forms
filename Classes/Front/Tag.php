@@ -27,11 +27,13 @@
 					$return = self::postMeta( $tag );
 
 				}
+
+				//filter the result:
+				return apply_filters( 'chef_form_tag', $return, $tag );
+
 			}
 
-
-			//filter the result:
-			return apply_filters( 'chef_form_tag', $return, $tag );
+			return $tag;
 		}
 
 

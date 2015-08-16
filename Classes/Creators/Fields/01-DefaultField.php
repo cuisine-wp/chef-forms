@@ -3,6 +3,7 @@
 namespace ChefForms\Builders\Fields;
 
 use Cuisine\Wrappers\Field;
+use ChefForms\Front\Tag;
 
 class DefaultField{
 
@@ -55,6 +56,13 @@ class DefaultField{
      */
     var $classes = array();
 
+    /**
+     * Is this field deletable by the user?
+     * 
+     * @var boolean
+     */
+    var $deletable = true;
+
 
     /**
      * Define a core Field.
@@ -70,11 +78,56 @@ class DefaultField{
         $this->setDefaults();
 
         $this->position = $this->properties['position'];
-        $this->name = 'field_'.$formId.'_'.$id;
+        $this->name = $this->properties['name'];
         $this->fieldType();
+
+        if( isset( $this->properties['deletable'] ) )
+            $this->deletable = $this->properties['deletable'];
         
 
     }
+
+
+    /*=============================================================*/
+    /**             FRONTEND                                       */
+    /*=============================================================*/
+
+
+    /**
+     * Render this field on the front-end
+     * @return [type] [description]
+     */
+    public function render(){
+
+        $this->setDefaultValue();
+        $type = $this->type;
+
+        Field::$type(
+
+            $this->id,
+            $this->getLabel(),
+            $this->properties
+
+        )->render();
+
+    }
+
+
+    /**
+     * Check the default value, before rendering
+     * 
+     */
+    public function setDefaultValue(){
+
+        if( isset( $this->properties['defaultValue'] ) )
+            $this->properties['defaultValue'] = Tag::check( $this->properties['defaultValue'] );
+    }
+
+
+
+    /*=============================================================*/
+    /**             BACKEND                                        */
+    /*=============================================================*/
 
 
     /**
@@ -87,6 +140,7 @@ class DefaultField{
         echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
 
             echo '<div class="field-preview">';
+                echo $this->name;
                 echo $this->buildPreview();
                 echo '<span class="toggle-field"></span>';
             echo '</div>';
@@ -148,15 +202,27 @@ class DefaultField{
      */
     public function bottomControls(){
 
-        echo '<p class="delete-field">';
-            echo '<span class="dashicons dashicons-trash"></span>';
-        echo __( 'Verwijder', 'chefsections' ).'</p>';
-
-        echo '</p>';
+        if( $this->deletable ){
+            echo '<p class="delete-field">';
+                echo '<span class="dashicons dashicons-trash"></span>';
+                echo __( 'Verwijder', 'chefsections' ).'</p>';
+            echo '</p>';
+        }
+        
     }
 
 
 
+    /*=============================================================*/
+    /**             GETTERS & SETTERS                              */
+    /*=============================================================*/
+
+
+    /**
+     * Creator fields
+     * 
+     * @return array
+     */
     private function getFields(){
 
         $prefix = 'fields['.$this->id.']';
@@ -264,7 +330,7 @@ class DefaultField{
      *
      * @return array (properties object)
      */
-    private function setDefaults(){
+    public function setDefaults(){
 
         if( !isset( $this->properties['position' ] ) )
             $this->properties['position'] = 999; 

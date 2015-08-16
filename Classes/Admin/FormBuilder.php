@@ -13,8 +13,11 @@ class FormBuilder {
 	}
 
 
-	public function set(){
+	public function set( $fields ){
 
+
+	//	cuisine_dump( $fields );
+	//	die();
 
 		return $this;
 	}

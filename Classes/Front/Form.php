@@ -2,7 +2,7 @@
 
 	namespace ChefForms\Front;
 
-	use Cuisine\Wrappers\Field;
+	use ChefForms\Wrappers\Field;
 	use Cuisine\Utilities\Sort;
 	use Cuisine\View\Template;
 	use ChefForms\Wrappers\Notification;
@@ -92,9 +92,6 @@
 					echo '<div class="form-fields">';
 					
 						foreach( $this->fields as $field ){
-
-							if( $field->getDefault() && $field->getDefault() != '' )
-								$field->properties['defaultValue'] = Tag::check( $field->getDefault() );
 
 							$field->render();
 
@@ -257,19 +254,22 @@
 		 * @param  array $field
 		 * @return array
 		 */
-		private function getFieldArgs( $field ){
+		private function sanitizeFieldArgs( $id, $field ){
 
-			$arr = array();
+			if( !isset( $field['placeholder' ] ) )
+				$field['placeholder'] = false;
 
-			if( isset( $field['placeholder' ] ) )
-				$arr['placeholder'] = $field['placeholder'];
+			if( !isset( $field['defaultValue'] ) )
+				$field['defaultValue'] = false;
 
-			if( isset( $field['defaultValue'] ) )
-				$arr['defaultValue'] = $field['defaultValue'];
+			if( !isset( $field['required'] ) )
+				$field['required'] = false;
 
-			if( isset( $field['required'] ) )
-				$arr['required'] = $field['required'];
-
+			if( isset( $field['name'] ) ){
+				$field['name'] = $field['name'];
+			}else{
+				$field['name'] = 'field_'.$this->id.'_'.$id;
+			}
 
 			if( isset( $field['choices'] ) ){
 
@@ -280,14 +280,14 @@
 
 				}
 
-				$arr['choices'] = $choices;
+				$field['choices'] = $choices;
 			}
 
 
 			//get the label value from the settings:
-			$arr['label'] = $this->getSetting( 'labels', 'top' );
+			$field['labelPosition'] = $this->getSetting( 'labels', 'top' );
 
-			return $arr;
+			return $field;
 		}
 
 
@@ -343,29 +343,29 @@
 				if( $fields ){
 
 					foreach( $fields as $id => $field ){
-
-						$field_id = 'field_'.$this->id.'_'.$id;
-						$type = $field['type'];
-						$args = $this->getFieldArgs( $field );
 						
+						$type = $field['type'];
 
+						$field = $this->sanitizeFieldArgs( $id, $field );
+						
 						if( !isset( $field['choices'] ) ){
 
 							$array[] = Field::$type(
-
-								$field_id,
-								$field['label'],
-								$args
+								
+								$field['name'], 
+								$this->id, 
+								$field
+							
 							);
 
 						}else{
 							
 							$array[] = Field::$type(
 
-								$field_id,
-								$field['label'],
-								$args['choices'],
-								$args
+								$field['name'],
+								$this->id,
+								$field['choices'],
+								$field
 							);
 
 						}

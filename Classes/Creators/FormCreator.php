@@ -3,7 +3,7 @@
 namespace ChefForms\Creators;
 
 use Cuisine\Utilities\Sort;
-use ChefForms\Wrappers\FieldBlock as Field;
+use ChefForms\Wrappers\Field;
 use Cuisine\Wrappers\Field as BF;
 
 class FormCreator{

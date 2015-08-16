@@ -67,6 +67,11 @@ class FieldControls{
 
 		$in_standard = array( 'text', 'textarea', 'email', 'checkbox', 'number' );
 		$in_adv = array( 'checkboxes', 'radio', 'select', 'date', 'hidden', 'address' );
+
+		$in_standard = apply_filters( 'chef_forms_standard_fields', $in_standard );
+		$in_adv = apply_filters( 'chef_forms_advanced_fields', $in_adv );
+
+
 		$return = array( 'standard' => array(), 'advanced' => array() );
 
 

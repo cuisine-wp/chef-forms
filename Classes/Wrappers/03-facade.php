@@ -61,9 +61,9 @@ abstract class Wrapper {
             'notification-creator'          => 'ChefForms\Creators\NotificationCreator',
             'settings-manager'              => 'ChefForms\Creators\SettingsManager',
             'field-block'                   => 'ChefForms\Creators\FieldCreator',
+            'field'                         => 'ChefForms\Creators\FieldCreator',
             'settings-panel'                => 'ChefForms\Creators\SettingsPanel',
             'controls'                      => 'ChefForms\Creators\FieldControls',
-            'field'                         => 'ChefForms\Front\FieldBuilder',
             'form'                          => 'ChefForms\Front\Form',
             'notification'                  => 'ChefForms\Front\Notification',
         );
