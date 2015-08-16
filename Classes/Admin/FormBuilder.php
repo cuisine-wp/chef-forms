@@ -83,9 +83,9 @@ class FormBuilder {
 
 
 			//update the gatekeeper:
-			$forms = get_option( 'createdForms', array() );
+			$forms = get_option( 'exisitingForms', array() );
 			$forms[] = $this->title;
-			update_option( 'createdForms', $forms );
+			update_option( 'exisitingForms', $forms );
 
 
 			//save the meta-data:
@@ -117,7 +117,7 @@ class FormBuilder {
 				'placeholder'	=> $field->getProperty( 'placeholder' ),
 				'required'		=> $field->getProperty( 'required' ),
 				'defaultValue'	=> $field->getDefault(),
-				'postion'		=> $i + 1
+				'position'		=> $i + 1
 			);
 
 			$i++;
@@ -137,6 +137,7 @@ class FormBuilder {
 	private function saveSettings(){
 
 		$settings = $this->options;
+		update_post_meta( $this->id, 'settings', $settings );
 
 	}
 

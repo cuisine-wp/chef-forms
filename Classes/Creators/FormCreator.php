@@ -196,8 +196,6 @@ class FormCreator{
 		$array = array();
 
 
-		cuisine_dump( $fields );
-
 		if( is_array( $fields ) ){
 		
 			$fields = Sort::byField( $fields, 'position', 'ASC' );

@@ -1,6 +1,8 @@
 <?php
 namespace ChefForms\Builders\Fields;
 
+use Cuisine\Wrappers\Field;
+
 class HiddenField extends DefaultField{
 
 
@@ -14,6 +16,29 @@ class HiddenField extends DefaultField{
         $this->type = 'hidden';
     }
 
+
+    /*=============================================================*/
+    /**             FRONTEND                                       */
+    /*=============================================================*/
+
+
+    /**
+     * Render this field on the front-end
+     * @return [type] [description]
+     */
+    public function render(){
+
+        $this->setDefaultValue();
+        $type = $this->type;
+
+        Field::$type(
+
+            $this->id,
+            $this->properties
+
+        )->render();
+
+    }
 
 
 }

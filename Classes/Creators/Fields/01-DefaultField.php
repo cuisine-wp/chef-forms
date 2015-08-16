@@ -140,7 +140,6 @@ class DefaultField{
         echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
 
             echo '<div class="field-preview">';
-                echo $this->name;
                 echo $this->buildPreview();
                 echo '<span class="toggle-field"></span>';
             echo '</div>';
