@@ -234,6 +234,9 @@
   border-radius: 3px;
   margin-bottom: 15px;
 }
+.field-container .field-block.hidden {
+  display: block;
+}
 .field-container .field-block .field-preview {
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
@@ -244,6 +247,7 @@
   display: block;
   width: 90%;
   font-size: 20px;
+  min-height: 18px;
 }
 .field-container .field-block .field-preview .field-type {
   position: absolute;

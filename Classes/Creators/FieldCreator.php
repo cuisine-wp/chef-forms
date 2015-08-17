@@ -192,7 +192,7 @@ class FieldCreator{
      * @param array $extras Extra field properties.
      * @return \ChefForms\Builder\Fields\TextField
      */
-    public function hidden( $name, array $properties = array() ){
+    public function hidden( $name,  $form_id, array $properties = array() ){
 
         return $this->make( 'ChefForms\\Builders\\Fields\\HiddenField', $name, '', $properties );
 

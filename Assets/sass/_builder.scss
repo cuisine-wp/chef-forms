@@ -148,6 +148,10 @@
 		border-radius:3px;
 		margin-bottom:15px;
 
+		&.hidden{
+			display:block;
+		}
+
 		.field-preview{
 			-webkit-transition: all .3s ease;
 			transition: all .3s ease;
@@ -158,7 +162,7 @@
 				display:block;
 				width:90%;
 				font-size:20px;
-
+				min-height:18px;
 				
 			}
 
