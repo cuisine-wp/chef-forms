@@ -1,3 +1,11 @@
+### 2.0.4 2015-08-17
+
+* Added a formbuilder for adding forms through code
+* Added button-filters
+* Changed the namespaces of builders, to better reflect what they do
+* Minor bugfixes.
+
+
 ### 2.0.3 2015-08-15
 
 * Added a settingspage for Mandrill
