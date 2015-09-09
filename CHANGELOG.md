@@ -1,3 +1,13 @@
+### 2.0.5 2015-09-09
+
+* Added an address field-type.
+* Added getters for the form-object.
+* Fixed a bug with field labels
+* Fixed a bug where choicefields rendered the wrong options
+* Minor bugfixes.
+
+
+
 ### 2.0.4 2015-08-17
 
 * Added a formbuilder for adding forms through code
