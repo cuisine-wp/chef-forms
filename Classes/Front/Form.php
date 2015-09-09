@@ -74,6 +74,7 @@
 		/*=============================================================*/
 
 
+
 		/**
 		 * Build this form for frontend use
 		 * 
@@ -129,6 +130,16 @@
 
 		}
 
+
+		/**
+		 * Return the form object
+		 * 
+		 * @return \ChefForms\Front\Form
+		 */
+		public function get(){
+
+			return $this;
+		}
 
 
 

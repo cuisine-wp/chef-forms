@@ -42,6 +42,15 @@ class DefaultField{
      */
     var $name;
 
+
+    /**
+     * Public var for the label
+     * 
+     * @var string
+     */
+    var $label;
+
+
     /**
      * Properties of this field
      * 
@@ -84,6 +93,10 @@ class DefaultField{
         if( isset( $this->properties['deletable'] ) )
             $this->deletable = $this->properties['deletable'];
         
+
+        //set the label
+        $this->label = $this->getLabel();
+
 
     }
 
