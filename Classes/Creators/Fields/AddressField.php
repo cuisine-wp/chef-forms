@@ -57,9 +57,9 @@ class AddressField extends DefaultField{
     			'street',
     			'Straatnaam & Huisnummer',
     			array(
-    				'label'	=> false,
-    				'placeholder' => 'Straatnaam & Huisnummer',
-    				'validate'	=> 'address'
+    				'label'	        => false,
+    				'placeholder'   => 'Straatnaam & Huisnummer',
+    				'validation'    => array( 'address' )
     			)
     		),
 
@@ -67,10 +67,10 @@ class AddressField extends DefaultField{
     			'zip',
     			'Postcode',
     			array(
-    				'label'	=> false,
+    				'label'	        => false,
     				'placeholder'	=> 'Postcode',
-    				'validate'	=> 'zipcode',
-    				'class'	=> array( 'zip' )
+    				'validation'    => array( 'zipcode' ),
+    				'class'	        => array( 'zip' )
     			)
     		),
 

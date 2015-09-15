@@ -85,8 +85,6 @@ define([
 				entry: self.el.serializeArray()
 			}
 
-			console.log( data );
-
 
 			$.post( Cuisine.ajax, data, function( response ){
 
