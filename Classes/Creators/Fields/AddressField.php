@@ -33,12 +33,21 @@ class AddressField extends DefaultField{
 
         $fields = $this->getFields();
 
-        echo '<div class="address-wrapper">';
-        foreach( $fields as $field ){
+        $class = 'field-wrapper address-wrapper';
 
-        	$field->render();
+        $class .= ' '.$this->type;
 
-        }
+        if( $this->properties['label'] )
+            $class .= ' label-'.$this->properties['label'];
+
+        echo '<div class="'.$class.'">';
+
+            foreach( $fields as $field ){
+
+            	$field->render();
+
+            }
+            
         echo '</div>';
 
     }
