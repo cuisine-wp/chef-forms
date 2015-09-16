@@ -113,7 +113,7 @@
 		 */
 		private function getForms(){
 
-			$query = get_posts( array( 'post_type' => 'form' ) );
+			$query = get_posts( array( 'post_type' => 'form', 'posts_per_page' => -1 ) );
 			$forms = array();
 			foreach( $query as $item ){
 
