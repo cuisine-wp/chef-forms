@@ -40,11 +40,18 @@ define([
 
 			var self = this;
 
-			//on submit:
+			//make the button clickable:
 			self.el.find( '.submit-form' ).on( 'click', function( e ){
 
 				e.preventDefault();
+				self.el.trigger('submit');
 
+			});
+
+			//on submit:
+			self.el.on('submit', function( e ){
+
+				e.preventDefault();
 				var allValidated = true;
 
 				//validate all fields:
@@ -59,13 +66,14 @@ define([
 
 				//if all fields are validated
 				if( allValidated === true ){
-				
+							
 					self.showLoader();
 					self.send();
-
+				
 				}
 
 				return false;
+
 			});
 
 			//validation:
