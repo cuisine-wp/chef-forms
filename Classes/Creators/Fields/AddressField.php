@@ -42,12 +42,18 @@ class AddressField extends DefaultField{
 
         echo '<div class="'.$class.'">';
 
+            echo '<label>'.$this->getLabel().'</label>';
+
+            echo '<div class="address-field-wrapper">';
+
             foreach( $fields as $field ){
-
-            	$field->render();
-
-            }
             
+                $field->render();
+            
+            }
+
+            echo '</div>';
+                    
         echo '</div>';
 
     }
