@@ -112,7 +112,7 @@ class DefaultField{
      */
     public function render(){
 
-        $this->setDefaultValue();
+        $this->sanitizeProperties();
         $type = $this->type;
 
         Field::$type(
@@ -130,10 +130,14 @@ class DefaultField{
      * Check the default value, before rendering
      * 
      */
-    public function setDefaultValue(){
+    public function sanitizeProperties(){
 
         if( isset( $this->properties['defaultValue'] ) )
             $this->properties['defaultValue'] = Tag::check( $this->properties['defaultValue'] );
+
+
+        if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
+            $this->properties['required'] = false;
     }
 
 
