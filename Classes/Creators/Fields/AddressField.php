@@ -29,7 +29,7 @@ class AddressField extends DefaultField{
      */
     public function render(){
 
-        $this->setDefaultValue();
+        $this->sanitizeProperties();
 
         $fields = $this->getFields();
 
