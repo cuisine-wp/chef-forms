@@ -1,3 +1,24 @@
+### 2.0.6 2015-09-16
+
+* Added the ability to submit the form from outside Form.js
+* Fixes address validation
+* Fixes non-required validation
+* Fixes the column just displaying the last 5 forms.
+* Fixes checkboxes fields, which were not displaying properly
+* Minor bugfixes.
+
+
+
+### 2.0.5 2015-09-09
+
+* Added an address field-type.
+* Added getters for the form-object.
+* Fixed a bug with field labels
+* Fixed a bug where choicefields rendered the wrong options
+* Minor bugfixes.
+
+
+
 ### 2.0.4 2015-08-17
 
 * Added a formbuilder for adding forms through code

@@ -5,7 +5,37 @@ use Cuisine\Wrappers\Field;
 
 class ChoiceField extends DefaultField{
 
+
+    /*=============================================================*/
+    /**             FRONTEND                                       */
+    /*=============================================================*/
+
+
+    /**
+     * Render this field on the front-end
+     * @return [type] [description]
+     */
+    public function render(){
+
+        $this->setDefaultValue();
+        $type = $this->type;
+
+        Field::$type(
+
+            $this->id,
+            $this->getLabel(),
+            $this->getChoices(),
+            $this->properties
+
+        )->render();
+
+    }
 	
+    /*=============================================================*/
+    /**             BACKEND                                        */
+    /*=============================================================*/
+
+
 	/**
 	 * Build up the field block
 	 * 
@@ -172,8 +202,8 @@ class ChoiceField extends DefaultField{
 	 */
 	public function getChoices(){
 
-	    if( $this->properties['options']['choices'] )
-	        return $this->properties['options']['choices'];
+	    if( $this->properties['choices'] )
+	        return $this->properties['choices'];
 
 	}
 

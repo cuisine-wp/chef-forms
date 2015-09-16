@@ -138,6 +138,7 @@ class DefaultField{
 
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
             $this->properties['required'] = false;
+        
     }
 
 

@@ -11,7 +11,7 @@ class CheckboxesField extends ChoiceField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'checkbox';
+        $this->type = 'checkboxes';
     }
 
 
