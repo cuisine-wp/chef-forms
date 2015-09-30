@@ -40,6 +40,10 @@
 				background-image:url('../../../plugins/chef-forms/Assets/images/fail.png' );
 			}
 		}
+
+		textarea.validated-true, textarea.validated-false{
+			background-position:97.5% 5%;
+		}
 	
 		&.label-top label{
 			width:100%;

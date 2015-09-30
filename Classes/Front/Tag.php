@@ -59,7 +59,7 @@
 
 
 			$tag = str_replace( array( '{{ post_title }}', '{{post_title}}' ), $p->post_title, $tag );
-			$tag = str_replace( array( '{{ post_date }}', '{{post_date}}' ), $p->post_title, $tag );
+			$tag = str_replace( array( '{{ post_date }}', '{{post_date}}' ), $p->post_date, $tag );
 
 			return $tag;
 
