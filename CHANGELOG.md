@@ -1,3 +1,13 @@
+### 2.0.7 2015-09-30
+
+* Fixes textarea validation
+* Adds tag-support for hidden fields.
+* Address-fields done neatly
+* Address-field styling
+* Minor bugfixes.
+
+
+
 ### 2.0.6 2015-09-16
 
 * Added the ability to submit the form from outside Form.js
