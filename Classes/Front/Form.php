@@ -362,25 +362,14 @@
 						if( !isset( $field['choices'] ) ){
 
 
-							if( $field['type'] !== 'hidden' ){
-								$array[] = Field::$type(
+							$array[] = Field::$type(
 									
-									$field['name'], 
-									$this->id, 
-									$field
+								$field['name'], 
+								$this->id, 
+								$field
 								
-								);
-						
-							}else{
-
-								$array[] = Field::$type(
-
-									$field['name'],
-									$field
-
-								);
-							}
-
+							);
+					
 						}else{
 							
 							$array[] = Field::$type(

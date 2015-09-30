@@ -194,7 +194,7 @@ class FieldCreator{
      */
     public function hidden( $name,  $form_id, array $properties = array() ){
 
-        return $this->make( 'ChefForms\\Builders\\Fields\\HiddenField', $name, '', $properties );
+        return $this->make( 'ChefForms\\Builders\\Fields\\HiddenField', $name, $form_id, $properties );
 
     }
 
