@@ -8,15 +8,82 @@
 	class Tag {
 
 
+
+		/**
+		 * Check if a tag exists
+		 * 
+		 * @param  string $tag
+		 * @return string     
+		 */
+		public static function check( $tag ){
+
+			if( strpos( $tag,'{{') >= 0 && strpos( $tag, '}}' ) > 0 ){
+				return true;
+			}
+
+			return false;
+		}
+
+
+
+		/***********************************************/
+		/**********  NOTIFICATION VALUES ***************/
+		/***********************************************/
+
+		/**
+		 * Replace certain tags in notifications
+		 * 
+		 * @param  string $tag
+		 * @return string     
+		 */
+		public static function notification( $tag, $fields = array() ){
+
+			if( self::check( $tag ) ){
+
+				foreach( $fields as $entry ){
+
+					$name = $entry['name'];
+
+					$tag = str_replace( 
+			
+						array( 
+							'{{'.$name.'}}',
+							'{{ '.$name.' }}'
+						),
+		
+						$entry['value'],
+		
+					$tag );
+				}
+
+
+				//replace admin_email:
+				$admin_email = get_option( 'admin_email' );
+				$tag = str_replace( array( '{{ admin_email }}', '{{admin_email}}' ), $admin_email, $tag );
+
+			}
+
+			return $tag;
+		}
+
+
+
+
+		/***********************************************/
+		/**********  FIELD VALUES **********************/
+		/***********************************************/
+
+
+
 		/**
 		 * Check a tag, return a replacement value
 		 * 
 		 * @param  string $tag 
 		 * @return string      
 		 */
-		public static function check( $tag ){
+		public static function field( $tag ){
 
-			if( strpos( $tag,'{{') !== false && strpos( $tag, '}}' ) ) {
+			if( self::check( $tag ) ){
 
 				if( strpos( $tag,'{{post_') !== false || strpos( $tag, '{{ post_' ) !== false ){
 

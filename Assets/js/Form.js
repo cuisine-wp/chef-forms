@@ -95,6 +95,7 @@ define([
 
 
 			$.post( Cuisine.ajax, data, function( response ){
+				
 
 				if( Validate.json( response ) ){
 					

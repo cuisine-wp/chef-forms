@@ -133,7 +133,7 @@ class DefaultField{
     public function sanitizeProperties(){
 
         if( isset( $this->properties['defaultValue'] ) )
-            $this->properties['defaultValue'] = Tag::check( $this->properties['defaultValue'] );
+            $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
 
 
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )

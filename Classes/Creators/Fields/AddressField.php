@@ -66,39 +66,52 @@ class AddressField extends DefaultField{
      */
     private function getFields(){
 
-    	return array(
+    	$sVal = array( 'address' );
+        $zVal = array( 'zipcode' );
+        $cVal = array();
 
-    		Field::text(
-    			'street',
-    			'Straatnaam & Huisnummer',
-    			array(
-    				'label'	        => false,
-    				'placeholder'   => 'Straatnaam & Huisnummer',
-    				'validation'    => array( 'address' )
-    			)
-    		),
+        if( $this->getProperty( 'required' ) ){
 
-    		Field::text(
-    			'zip',
-    			'Postcode',
-    			array(
-    				'label'	        => false,
-    				'placeholder'	=> 'Postcode',
-    				'validation'    => array( 'zipcode' ),
-    				'class'	        => array( 'zip' )
-    			)
-    		),
+            $sVal[] = 'required';
+            $zVal[] = 'required';
+            $cVal[] = 'required';
 
-    		Field::text(
-    			'city',
-    			'Stad',
-    			array(
-    				'label'	=> false,
-    				'placeholder' => 'Stad',
-    				'class' => array( 'city' )
-    			)
-    		)
-    	);
+        }
+
+        return array(
+
+            Field::text(
+                'street',
+                'Straatnaam & Huisnummer',
+                array(
+                    'label'         => false,
+                    'placeholder'   => 'Straatnaam & Huisnummer',
+                    'validation'    => $sVal
+                )
+            ),
+
+            Field::text(
+                'zip',
+                'Postcode',
+                array(
+                    'label'         => false,
+                    'placeholder'   => 'Postcode',
+                    'validation'    => $zVal,
+                    'class'         => array( 'zip' )
+                )
+            ),
+
+            Field::text(
+                'city',
+                'Stad',
+                array(
+                    'label' => false,
+                    'placeholder' => 'Stad',
+                    'class' => array( 'city' ),
+                    'validation' => $cVal
+                )
+            )
+        );
 
     }
 

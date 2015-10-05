@@ -120,13 +120,13 @@ class NotificationCreator{
 
 		$subFields = array(
 
-				Field::email(
+				Field::text(
 					'to',
 					'E-mail naar',
 					array(
 						'placeholder' 	=> 'E-mail naar',
 						'label'			=> true,
-						'defaultValue'	=> '{admin_email}'
+						'defaultValue'	=> '{{ admin_email }}'
 					)
 				),
 
@@ -144,7 +144,7 @@ class NotificationCreator{
 					'', 
 					array(
 						'label'				=> false,
-						'defaultValue' 		=> '{alle_velden}'
+						'defaultValue' 		=> '{{ alle_velden }}'
 					)
 				)
 

@@ -127,7 +127,7 @@ class SettingsManager{
 				'settings[confirm]',
 				'Bevestigings-bericht',
 				array(
-					'defaultValue'	=> $this->getSetting( 'confirm', '{{ alle_velden }}' )
+					'defaultValue'	=> $this->getSetting( 'confirm', __('Hartelijk dank voor uw bericht, we nemen zo spoedig mogelijk contact met u op', 'chef-forms' ) )
 				)
 			);
 

@@ -3,6 +3,7 @@
 namespace ChefForms\Front;
 
 use Cuisine\Utilities\Url;
+use ChefForms\Front\Tag;
 
 class Notification {
 
@@ -126,8 +127,8 @@ class Notification {
 		$this->properties = $this->getProperties( $notify );
 		$this->entry = ( isset( $_POST['entry'] ) ? $_POST['entry'] : array() );
 
-		$this->to = $this->properties['to'];
-		$this->subject = $this->properties['title'];
+		$this->to = Tag::notification( $this->properties['to'], $this->entry );
+		$this->subject = Tag::notification( $this->properties['title'], $this->entry );
 
 		$this->createMessage();
 
@@ -183,22 +184,9 @@ class Notification {
 
 		$all_fields = array( '{alle_velden}', '{{alle_velden}}', '{{ alle_velden }}', '{ alle_velden }' );
 		$msg = str_replace( $all_fields , $this->generateDefaultMessage(), $msg );
+		$msg = Tag::notification( $msg, $this->entry );
 
-		foreach( $this->entry as $entry ){
-
-			$name = $entry['name'];
-			$msg = str_replace( 
-				
-				array( 
-					'{{'.$name.'}}',
-					'{{ '.$name.' }}'
-				),
-				$entry['value'],
-
-			$msg );
-
-		}
-
+		
 		ob_start();
 
 			$path = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
