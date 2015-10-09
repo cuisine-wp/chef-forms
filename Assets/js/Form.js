@@ -107,13 +107,17 @@ define([
 
 					self.resetFields();
 					
-					//remove message after 3 seconds:
-					setTimeout( function(){
+					//remove message after 3 seconds, if the form doesn't have a data attribute set:
+					if( self.el.data( 'maintain-msg' ) === undefined ){
+
+						setTimeout( function(){
 					
-						self.el.removeClass( 'msg' );
-						self.el.find('.message').remove();
+							self.el.removeClass( 'msg' );
+							self.el.find('.message').remove();
 					
-					}, 5000 );
+						}, 5000 );
+
+					}
 
 				}
 			});

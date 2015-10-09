@@ -88,7 +88,12 @@
 
 			ob_start();
 
-				echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'">';
+				echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'"';
+
+				if( $this->getSetting( 'maintain_msg' ) === 'true' )
+					echo ' data-maintain-msg="true" ';
+
+				echo '>';
 
 					echo '<div class="form-fields">';
 					

@@ -98,40 +98,16 @@ class SettingsManager{
 
 		echo '<div class="confirmation-settings">';
 
-			$field = Field::text( 
-				'settings[btn-text]',
-				'Knop Text',
-				array(
-					'defaultValue'	=> $this->getSetting( 'btn-text', 'Verstuur' )
-				)
-			);
-			$field->render();
+			global $post;
+			$fields = $this->getFields();
+
+			foreach( $fields as $field ){
+
+				$field->render();
+
+			}
 
 
-			$field = Field::select( 
-					'settings[labels]',
-					'Labels',
-					array(
-						false 	=> 'Geen labels',
-						'top'	=> 'Labels boven',
-						'left'	=> 'Labels links'
-					),
-					array(
-						'defaultValue'	=> $this->getSetting( 'labels', 'top' )
-					)
-			);
-			$field->render();
-
-
-			$field = Field::editor( 
-				'settings[confirm]',
-				'Bevestigings-bericht',
-				array(
-					'defaultValue'	=> $this->getSetting( 'confirm', __('Hartelijk dank voor uw bericht, we nemen zo spoedig mogelijk contact met u op', 'chef-forms' ) )
-				)
-			);
-
-			$field->render();
 
 			echo '<div class="form-panels">';
 				do_action( 'chef_forms_panels' );
@@ -139,6 +115,53 @@ class SettingsManager{
 
 		echo '</div>';
 
+
+	}
+
+
+	private function getFields(){
+
+		$fields = array(
+
+
+			Field::text( 
+				'settings[btn-text]',
+				'Knop Text',
+				array(
+					'defaultValue'	=> $this->getSetting( 'btn-text', 'Verstuur' )
+				)
+			),
+			Field::select( 
+				'settings[labels]',
+				'Labels',
+				array(
+					false 	=> 'Geen labels',
+					'top'	=> 'Labels boven',
+					'left'	=> 'Labels links'
+				),
+				array(
+					'defaultValue'	=> $this->getSetting( 'labels', 'top' )
+				)
+			),
+			Field::editor( 
+				'settings[confirm]',
+				'Bevestigings-bericht',
+				array(
+					'defaultValue'	=> $this->getSetting( 'confirm', __('Hartelijk dank voor uw bericht, we nemen zo spoedig mogelijk contact met u op', 'chef-forms' ) )
+				)
+			),
+
+			Field::checkbox(
+				'settings[maintain_msg]',
+				'Laat bevestigings-bericht staan',
+				array(
+					'defaultValue' => $this->getSetting( 'maintain_msg', 'false' )
+				)
+			)
+		);
+
+		$fields = apply_filters( 'chef_forms_setting_fields', $fields );
+		return $fields;
 
 	}
 

@@ -206,6 +206,15 @@ class EntriesManager{
 			}
 		}
 
+		wp_reset_query();
+		wp_reset_postdata();
+		
+		//ugh, wordpress:
+		if( isset( $_GET['post'] ) ){
+			$GLOBALS['post'] = get_post( $_GET['post'] );
+
+		}
+
 		return $entries;
 	}
 
