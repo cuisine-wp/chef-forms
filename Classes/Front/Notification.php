@@ -3,7 +3,9 @@
 namespace ChefForms\Front;
 
 use Cuisine\Utilities\Url;
+use Cuisine\Wrappers\Template;
 use ChefForms\Front\Tag;
+
 
 class Notification {
 
@@ -186,11 +188,12 @@ class Notification {
 		$msg = str_replace( $all_fields , $this->generateDefaultMessage(), $msg );
 		$msg = Tag::notification( $msg, $this->entry );
 
+		$default = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
 		
 		ob_start();
 
-			$path = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
-			include( $path );
+			$params = array( 'msg' => $msg );
+			Template::element( 'email/Notification', $default )->display( $params );
 
 		$this->message = ob_get_clean();
 
