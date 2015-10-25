@@ -209,21 +209,8 @@ class Notification {
 
 		foreach( $this->fields as $field ){
 
-			foreach( $entryItems as $entry ){
+			$html .= $field->getNotificationPart( $entryItems );
 
-				if( $field->name == $entry['name'] ){
-
-					$label = $field->label;
-					if( $label == '' && $field->properties['placeholder'] != '' )
-						$label = $field->properties['placeholder'];
-
-
-					$html .= '<tr><td><strong>'.$label.'</strong></td>';
-					$html .= '<td>'.$entry['value'].'</td></tr>';
-
-				}
-				
-			}
 		}
 
 		$html .= '</table>';

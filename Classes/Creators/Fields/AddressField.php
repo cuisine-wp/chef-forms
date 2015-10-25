@@ -81,7 +81,7 @@ class AddressField extends DefaultField{
         return array(
 
             Field::text(
-                'street',
+                $this->id.'_street',
                 'Straatnaam & Huisnummer',
                 array(
                     'label'         => false,
@@ -91,7 +91,7 @@ class AddressField extends DefaultField{
             ),
 
             Field::text(
-                'zip',
+                $this->id.'_zip',
                 'Postcode',
                 array(
                     'label'         => false,
@@ -102,7 +102,7 @@ class AddressField extends DefaultField{
             ),
 
             Field::text(
-                'city',
+                $this->id.'_city',
                 'Stad',
                 array(
                     'label' => false,
@@ -112,6 +112,47 @@ class AddressField extends DefaultField{
                 )
             )
         );
+
+    }
+
+
+    /**
+     * Get the value from this field
+     * 
+     * @param  array $entry The entry being saved.
+     * @return string (html)
+     */
+    public function getNotificationPart( $entryItems ){
+
+        $html = '';
+        $address = '';
+        $allowed = array( $this->id.'_street', $this->id.'_zip', $this->id.'_city' );
+
+        foreach( $entryItems as $entry ){
+
+            if( in_array( $entry['name'], $allowed ) ){
+
+                $address .= $entry['value'];
+                
+                if( $entry['name'] !== $this->id.'_zip' ){
+                    $address .= '<br/>';
+
+                }else{
+                    $address .= ' ';
+                
+                }
+
+            } 
+        }
+
+        $label = $this->label;
+        if( $label == '' && $this->properties['placeholder'] != '' )
+            $label = $this->properties['placeholder'];
+        
+        $html .= '<tr><td><strong>'.$label.'</strong></td>';
+        $html .= '<td>'.$address.'</td></tr>';
+
+        return $html;
 
     }
 

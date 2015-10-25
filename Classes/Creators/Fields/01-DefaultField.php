@@ -142,6 +142,36 @@ class DefaultField{
     }
 
 
+    /**
+     * Get the value from this field, including the label for the notifications
+     * 
+     * @param  array $entry The entry being saved.
+     * @return string (html)
+     */
+    public function getNotificationPart( $entryItems ){
+
+        $html = '';
+
+        foreach( $entryItems as $entry ){
+
+            if( $this->name == $entry['name'] ){
+
+                $label = $this->label;
+                if( $label == '' && $this->properties['placeholder'] != '' )
+                    $label = $this->properties['placeholder'];
+
+
+                $html .= '<tr><td><strong>'.$label.'</strong></td>';
+                $html .= '<td>'.$entry['value'].'</td></tr>';
+
+            } 
+        }
+
+        return $html;
+
+    }
+
+
 
     /*=============================================================*/
     /**             BACKEND                                        */
