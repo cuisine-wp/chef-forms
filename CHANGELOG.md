@@ -1,3 +1,13 @@
+### 2.0.8 2015-10-25
+
+* Added Tag support in notifications
+* Added Address-field validation
+* Added the option of overwriting the Notification HTML by template.
+* Each field-class can now submit there own html to a notification
+* Fixed a bug where confirmation messages weren't being saved.
+* Minor bugfixes.
+
+
 ### 2.0.7 2015-09-30
 
 * Fixes textarea validation
