@@ -96,7 +96,9 @@ define([
 
 			$.post( Cuisine.ajax, data, function( response ){
 				
-
+				//used for debugging notifications:
+				//$( 'body' ).append( response );
+			
 				if( Validate.json( response ) ){
 					
 					self.hideLoader();

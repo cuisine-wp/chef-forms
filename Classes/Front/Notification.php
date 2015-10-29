@@ -188,7 +188,6 @@ class Notification {
 		$msg = str_replace( $all_fields , $this->generateDefaultMessage(), $msg );
 		$msg = Tag::notification( $msg, $this->entry );
 
-
 		$default = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
 		
 		ob_start();
