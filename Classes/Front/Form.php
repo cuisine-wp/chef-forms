@@ -177,6 +177,9 @@
 			);
 
 			$entryId = wp_insert_post( $args );
+			
+			//set entry id in the post global, for easy acces:
+			$_POST['entry_id'] = $entryId;
 			$entry = $_POST['entry'];
 
 			update_post_meta( $entryId, 'entry', $entry );

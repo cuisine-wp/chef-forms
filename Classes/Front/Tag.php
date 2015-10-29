@@ -61,6 +61,12 @@
 				$admin_email = get_option( 'admin_email' );
 				$tag = str_replace( array( '{{ admin_email }}', '{{admin_email}}' ), $admin_email, $tag );
 
+
+
+				//replace entry id's:
+				if( isset( $_POST['entry_id'] ) )
+					$tag = str_replace( array( '{{ entry_id }}', '{{entry_id}}'), $_POST['entry_id'], $tag );
+			
 			}
 
 			return $tag;
@@ -127,6 +133,7 @@
 
 			$tag = str_replace( array( '{{ post_title }}', '{{post_title}}' ), $p->post_title, $tag );
 			$tag = str_replace( array( '{{ post_date }}', '{{post_date}}' ), $p->post_date, $tag );
+			$tag = str_replace( array( '{{ post_id }}', '{{post_id}}' ), $p->ID, $tag );
 
 			return $tag;
 
