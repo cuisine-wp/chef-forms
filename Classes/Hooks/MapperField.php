@@ -151,7 +151,7 @@
 					Sort::pluck( $fields, 'label' )
 				);
 	
-				$choices = array_merge( array( 'none' => 'Geen veld' ), $choices );
+				$choices = array_replace( array( 'none' => 'Geen veld' ), $choices );
 	
 				$types = $this->getIncluded();
 	
