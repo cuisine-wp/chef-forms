@@ -154,25 +154,43 @@
 		}
 
 		/**
-		 * 
+		 * Store the values of this form in a session, so we can do a redirect
+		 *
+		 * @return void
 		 */
 		public function store(){
 
+			$_SESSION['form'] = array( 
+
+					'id'		=> $this->id,
+					'entry'		=> $_POST['entry'],
+					'entry_id'	=> $_POST['entry_id']
+
+			);
 		}
 
 
 		/**
 		 * Retrieves this form from an existing session.
 		 * 
-		 * @return [type] [description]
+		 * @return ChefForms\Front\Form
 		 */
 		public function retrieve(){
 
 			if( isset( $_SESSION['form'] ) ){
 				
+				//reset all used vars:				
 				$this->id = $_SESSION['form']['id'];
+				$_POST['entry'] = $_SESSION['form']['entry'];
+				$_POST['entry_id'] = $_SESSION['form']['entry_id'];
+
+				//init form
 				$this->init();
 
+				//kill the session
+				unset( $_SESSION['form'] );
+
+				//return the functioning form object
 				return $this;
 
 			}
