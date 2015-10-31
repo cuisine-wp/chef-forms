@@ -50,6 +50,13 @@
 
 
 		/**
+		 * Allow plugins to pass redirects for this form
+		 * 
+		 * @var array
+		 */
+		public $redirect = array();
+
+		/**
 		 * All of this forms settings
 		 * 
 		 * @var array
@@ -146,6 +153,33 @@
 			return $this;
 		}
 
+		/**
+		 * 
+		 */
+		public function store(){
+
+		}
+
+
+		/**
+		 * Retrieves this form from an existing session.
+		 * 
+		 * @return [type] [description]
+		 */
+		public function retrieve(){
+
+			if( isset( $_SESSION['form'] ) ){
+				
+				$this->id = $_SESSION['form']['id'];
+				$this->init();
+
+				return $this;
+
+			}
+
+			return false;
+		}
+
 
 
 		/*=============================================================*/
@@ -186,11 +220,23 @@
 
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
+			do_action( 'before_notification', $this, $entry );
 
+
+			//check if a redirect has been set
+			if( !empty( $this->redirect ) ){
+
+				//store this form-session in a php session:
+				self::store();
+				return json_encode( $this->redirect );
+			
+			}
 
 			//notify everybody
 			$this->notify();
 
+			//after notifying
+			do_action( 'after_notification', $this, $entry );
 
 			if( empty( $this->message ) ){
 				$this->message = array(
