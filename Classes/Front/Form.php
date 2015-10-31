@@ -160,12 +160,21 @@
 		 */
 		public function store(){
 
-			$_SESSION['form'] = array( 
+			if( !isset( $_SESSION['form'] ) )
+				$_SESSION['form'] = array();
+			
 
+			$_SESSION['form'] = array_merge(
+
+				$_SESSION['form'], 
+
+				array(
+				
 					'id'		=> $this->id,
 					'entry'		=> $_POST['entry'],
 					'entry_id'	=> $_POST['entry_id']
-
+				
+				)
 			);
 		}
 
@@ -187,15 +196,22 @@
 				//init form
 				$this->init();
 
-				//kill the session
-				unset( $_SESSION['form'] );
-
 				//return the functioning form object
 				return $this;
 
 			}
 
 			return false;
+		}
+
+		/**
+		 * Kill the form session
+		 * 
+		 * @return void
+		 */
+		public function flush(){
+			//kill the session
+			unset( $_SESSION['form'] );
 		}
 
 
@@ -216,26 +232,8 @@
 			$this->id = $id;
 			$this->init();
 
-			
-			$title = 'Inschrijving '.\get_the_title( $id ).' - '.date( 'd-m-Y' );
-
-			$args = array(
-				'post_title'	=> 	$title,
-				'post_parent' 	=>	$id,
-				'post_type' 	=> 	'form-entry',
-				'post_status'	=> 	'publish',
-				'post_date'		=> 	date( 'Y-m-d H:i:s' ), 
-				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
-			);
-
-			$entryId = wp_insert_post( $args );
-			
-			//set entry id in the post global, for easy acces:
-			$_POST['entry_id'] = $entryId;
-			$entry = $_POST['entry'];
-
-			update_post_meta( $entryId, 'entry', $entry );
-
+			$entry = self::saveEntry( $id );
+		
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
 			do_action( 'before_notification', $this, $entry );
@@ -246,6 +244,8 @@
 
 				//store this form-session in a php session:
 				self::store();
+
+				//return the redirect data
 				return json_encode( $this->redirect );
 			
 			}
@@ -256,6 +256,7 @@
 			//after notifying
 			do_action( 'after_notification', $this, $entry );
 
+			//set the message, if it's empty
 			if( empty( $this->message ) ){
 				$this->message = array(
 
@@ -268,6 +269,47 @@
 			return json_encode( $this->message );
 		}
 	
+
+		/**
+		 * Save a single entry
+		 * 
+		 * @param  int $id
+		 * @return array $entry
+		 */
+		public function saveEntry( $id ){
+
+			do_action( 'before_entry_save', $this, $_POST['entry'] );
+
+			$title = 'Inschrijving '.\get_the_title( $id ).' - '.date( 'd-m-Y' );
+
+			$args = array(
+				'post_title'	=> 	$title,
+				'post_parent' 	=>	$id,
+				'post_type' 	=> 	'form-entry',
+				'post_status'	=> 	'publish',
+				'post_date'		=> 	date( 'Y-m-d H:i:s' ), 
+				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
+			);
+
+			$entryId = wp_insert_post( $args );
+
+			//set entry id in the post global, for easy acces:
+			$_POST['entry_id'] = $entryId;
+			$entry = $_POST['entry'];
+
+			$entry = apply_filters( 'chef_forms_entry_values', $entry );
+
+			//save all fields
+			update_post_meta( $entryId, 'entry', $entry );
+
+
+			do_action( 'after_entry_save', $this, $entry );
+
+
+			return $entry;
+
+		}
+
 		
 		/**
 		 * Notify about this form:
