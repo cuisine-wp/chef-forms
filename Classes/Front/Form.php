@@ -454,6 +454,15 @@
 			if( !$settings )
 				$settings = array();
 
+			//set vars if these do not exist:
+			if( !isset( $settings['max_entries'] ) ){
+				$settings['max_entries'] = '';
+				$settings['entry_start_unix'] = '';
+				$settings['entry_start'] = '';
+				$settings['entry_end_unix'] = '';
+				$settings['entry_end'] = '';
+			}
+
 
 			//combined with the post:
 			$formPost = get_post( $this->id );
