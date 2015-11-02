@@ -70,10 +70,11 @@ class SettingsManager{
 		//save all settings:
 		if( !empty( $_POST['settings'] ) ){
 
-			$settings = $_POST['settings'];
+			$settings = self::sanitizeSettings( $_POST['settings'] );
+
 			$_settings = array();
 			foreach( $settings as $id => $setting ){
-			
+
 				$_settings[ $id ] = $setting;
 			
 			}
@@ -86,6 +87,30 @@ class SettingsManager{
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Clean up certain setting aspects, if needed:
+	 * 
+	 * @param  array $setting
+	 * @return array $setting
+	 */
+	private static function sanitizeSettings( $settings ){
+
+		if( $settings['entry_start'] != '' ){
+			$settings['entry_start_unix'] = strtotime( $settings['entry_start'] );
+		}else{
+			$settings['entry_start_unix'] = '';
+		}
+
+		if( $settings['entry_end'] != '' ){
+			$settings['entry_end_unix'] = strtotime( $settings['entry_end'] );
+		}else{
+			$settings['entry_end_unix'] = '';
+		}
+
+		return $settings;
 	}
 
 
@@ -148,6 +173,30 @@ class SettingsManager{
 				'Bevestigings-bericht',
 				array(
 					'defaultValue'	=> $this->getSetting( 'confirm', __('Hartelijk dank voor uw bericht, we nemen zo spoedig mogelijk contact met u op', 'chef-forms' ) )
+				)
+			),
+
+			Field::text(
+				'settings[max_entries]',
+				'Maximaal aantal berichten',
+				array(
+					'defaultValue' => $this->getSetting( 'max_entries', '' )
+				)
+			),
+
+			Field::date(
+				'settings[entry_start]',
+				'Geldig vanaf',
+				array(
+					'defaultValue' => $this->getSetting( 'entry_start', '' )
+				)
+			),
+
+			Field::date(
+				'settings[entry_end]',
+				'Geldig tot',
+				array(
+					'defaultValue' => $this->getSetting( 'entry_end', '' )
 				)
 			),
 

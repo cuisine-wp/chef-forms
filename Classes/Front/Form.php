@@ -4,7 +4,8 @@
 
 	use ChefForms\Wrappers\Field;
 	use Cuisine\Utilities\Sort;
-	use Cuisine\View\Template;
+	use Cuisine\Utilities\Url;
+	use Cuisine\Wrappers\Template;
 	use ChefForms\Wrappers\Notification;
 	
 	class Form {
@@ -65,11 +66,18 @@
 
 
 
+		/**
+		 * Check if this form can be filled in
+		 * 
+		 * @var boolean / string
+		 */
+		public $notValid = false;
 
 
 		private function init(){
 
 			$this->setSettings();
+			$this->setValidity();
 			$this->setFields();
 			
 		}
@@ -95,36 +103,47 @@
 
 			ob_start();
 
-				echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'"';
+				//if the form can be filled in:
+				if( $this->notValid === false ){
 
-				if( $this->getSetting( 'maintain_msg' ) === 'true' )
-					echo ' data-maintain-msg="true" ';
-
-				echo '>';
-
-					echo '<div class="form-fields">';
-					
-						foreach( $this->fields as $field ){
-
-							$field->render();
-
-						}
-
-					echo '</div>';
-
-					echo '<div class="form-footer">';
-
-						echo '<button class="submit-form">';
-
-							echo $this->getSetting( 'btn-text', 'Verstuur' );
-
-						echo '</button>';
+					echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'"';
 	
-					echo '</div>';
+					if( $this->getSetting( 'maintain_msg' ) === 'true' )
+						echo ' data-maintain-msg="true" ';
+	
+					echo '>';
+	
+						echo '<div class="form-fields">';
+						
+							foreach( $this->fields as $field ){
+	
+								$field->render();
+	
+							}
+	
+						echo '</div>';
+	
+						echo '<div class="form-footer">';
+	
+							echo '<button class="submit-form">';
+	
+								echo $this->getSetting( 'btn-text', 'Verstuur' );
+	
+							echo '</button>';
+		
+						echo '</div>';
+						
+						$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
+						Template::element( 'loader', $default )->display();
+	
+					echo '</form>';
 
-					Template::loader();
+				}else{
 
-				echo '</form>';
+					$default = Url::path( 'plugin', 'chef-forms/Templates/Confirmations/'.$this->notValid.'-error' );
+					Template::element( 'forms/'.$this->notValid.'-error', $default )->display();
+
+				}
 
 			$this->html = ob_get_clean();
 			return $this;
@@ -446,8 +465,58 @@
 
 			);
 
+			//check the max_entries field:
+			if( $settings['max_entries'] !== '' ){
+				$settings['max_entries'] = Tag::postMeta( $settings['max_entries'] );
+				$settings['entries_count'] = $this->getEntriesCount();
+ 			}
 
+
+			//populate the settings field:
 			$this->settings = array_merge( $settings, $post_values );
+
+		}
+
+
+		/**
+		 * Get the amount of entries currently tied to this form:
+		 * 
+		 * @return int
+		 */
+		private function getEntriesCount(){
+
+			global $wpdb;
+			$query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = $this->id AND post_type = 'form-entry'";
+			$post_count = $wpdb->get_var($query);
+			return $post_count;
+
+		}
+
+
+		/**
+		 * Set the validity of this form
+		 *
+		 * @return void
+		 */
+		private function setValidity(){
+
+			if( $this->settings['entry_start_unix'] !== '' || $this->settings['entry_end_unix'] !== '' ){
+
+				if( $this->settings['entry_start_unix'] < time() )
+					$this->notValid = 'time';
+
+				if( $this->settings['entry_end_unix'] > time() )
+					$this->notValid = 'time';
+
+			}else if( $this->settings['max_entries'] !== '' && is_numeric( $this->settings['max_entries'] ) ){
+
+				if( $this->settings['max_entries'] <= $this->settings['entries_count'] ){
+					$this->notValid = 'max-entries';
+				}
+
+
+			}
+
 		}
 
 
