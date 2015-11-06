@@ -97,27 +97,39 @@ define([
 			$.post( Cuisine.ajax, data, function( response ){
 				
 				//used for debugging notifications:
-				//$( 'body' ).append( response );
+				//$( '.form' ).append( response );
 			
 				if( Validate.json( response ) ){
 					
 					self.hideLoader();
 
 					var response = JSON.parse( response );
-					self.el.addClass( 'msg' );
-					self.el.append('<div class="message">'+ response.message +'</div>' );
 
-					self.resetFields();
-					
-					//remove message after 3 seconds, if the form doesn't have a data attribute set:
-					if( self.el.data( 'maintain-msg' ) === undefined ){
+					//check if we need to redirect;
+					if( response.redirect == true ){
 
-						setTimeout( function(){
-					
-							self.el.removeClass( 'msg' );
-							self.el.find('.message').remove();
-					
-						}, 5000 );
+						window.location.href = response.redirect_url;
+
+					}else{
+
+						//otherwise, clear the loader and display the message.
+
+						self.el.addClass( 'msg' );
+						self.el.append('<div class="message">'+ response.message +'</div>' );
+
+						self.resetFields();
+						
+						//remove message after 3 seconds, if the form doesn't have a data attribute set:
+						if( self.el.data( 'maintain-msg' ) === undefined ){
+
+							setTimeout( function(){
+						
+								self.el.removeClass( 'msg' );
+								self.el.find('.message').remove();
+						
+							}, 5000 );
+
+						}	
 
 					}
 

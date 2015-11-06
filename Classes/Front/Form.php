@@ -4,7 +4,8 @@
 
 	use ChefForms\Wrappers\Field;
 	use Cuisine\Utilities\Sort;
-	use Cuisine\View\Template;
+	use Cuisine\Utilities\Url;
+	use Cuisine\Wrappers\Template;
 	use ChefForms\Wrappers\Notification;
 	
 	class Form {
@@ -65,11 +66,18 @@
 
 
 
+		/**
+		 * Check if this form can be filled in
+		 * 
+		 * @var boolean / string
+		 */
+		public $notValid = false;
 
 
 		private function init(){
 
 			$this->setSettings();
+			$this->setValidity();
 			$this->setFields();
 			
 		}
@@ -95,36 +103,47 @@
 
 			ob_start();
 
-				echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'"';
+				//if the form can be filled in:
+				if( $this->notValid === false ){
 
-				if( $this->getSetting( 'maintain_msg' ) === 'true' )
-					echo ' data-maintain-msg="true" ';
-
-				echo '>';
-
-					echo '<div class="form-fields">';
-					
-						foreach( $this->fields as $field ){
-
-							$field->render();
-
-						}
-
-					echo '</div>';
-
-					echo '<div class="form-footer">';
-
-						echo '<button class="submit-form">';
-
-							echo $this->getSetting( 'btn-text', 'Verstuur' );
-
-						echo '</button>';
+					echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'"';
 	
-					echo '</div>';
+					if( $this->getSetting( 'maintain_msg' ) === 'true' )
+						echo ' data-maintain-msg="true" ';
+	
+					echo '>';
+	
+						echo '<div class="form-fields">';
+						
+							foreach( $this->fields as $field ){
+	
+								$field->render();
+	
+							}
+	
+						echo '</div>';
+	
+						echo '<div class="form-footer">';
+	
+							echo '<button class="submit-form">';
+	
+								echo $this->getSetting( 'btn-text', 'Verstuur' );
+	
+							echo '</button>';
+		
+						echo '</div>';
+						
+						$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
+						Template::element( 'loader', $default )->display();
+	
+					echo '</form>';
 
-					Template::loader();
+				}else{
 
-				echo '</form>';
+					$default = Url::path( 'plugin', 'chef-forms/Templates/Confirmations/'.$this->notValid.'-error' );
+					Template::element( 'forms/'.$this->notValid.'-error', $default )->display();
+
+				}
 
 			$this->html = ob_get_clean();
 			return $this;
@@ -160,12 +179,21 @@
 		 */
 		public function store(){
 
-			$_SESSION['form'] = array( 
+			if( !isset( $_SESSION['form'] ) )
+				$_SESSION['form'] = array();
+			
 
+			$_SESSION['form'] = array_merge(
+
+				$_SESSION['form'], 
+
+				array(
+				
 					'id'		=> $this->id,
 					'entry'		=> $_POST['entry'],
 					'entry_id'	=> $_POST['entry_id']
-
+				
+				)
 			);
 		}
 
@@ -187,15 +215,22 @@
 				//init form
 				$this->init();
 
-				//kill the session
-				unset( $_SESSION['form'] );
-
 				//return the functioning form object
 				return $this;
 
 			}
 
 			return false;
+		}
+
+		/**
+		 * Kill the form session
+		 * 
+		 * @return void
+		 */
+		public function flush(){
+			//kill the session
+			unset( $_SESSION['form'] );
 		}
 
 
@@ -216,26 +251,8 @@
 			$this->id = $id;
 			$this->init();
 
-			
-			$title = 'Inschrijving '.\get_the_title( $id ).' - '.date( 'd-m-Y' );
-
-			$args = array(
-				'post_title'	=> 	$title,
-				'post_parent' 	=>	$id,
-				'post_type' 	=> 	'form-entry',
-				'post_status'	=> 	'publish',
-				'post_date'		=> 	date( 'Y-m-d H:i:s' ), 
-				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
-			);
-
-			$entryId = wp_insert_post( $args );
-			
-			//set entry id in the post global, for easy acces:
-			$_POST['entry_id'] = $entryId;
-			$entry = $_POST['entry'];
-
-			update_post_meta( $entryId, 'entry', $entry );
-
+			$entry = self::saveEntry( $id );
+		
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
 			do_action( 'before_notification', $this, $entry );
@@ -246,6 +263,8 @@
 
 				//store this form-session in a php session:
 				self::store();
+
+				//return the redirect data
 				return json_encode( $this->redirect );
 			
 			}
@@ -256,6 +275,7 @@
 			//after notifying
 			do_action( 'after_notification', $this, $entry );
 
+			//set the message, if it's empty
 			if( empty( $this->message ) ){
 				$this->message = array(
 
@@ -268,6 +288,47 @@
 			return json_encode( $this->message );
 		}
 	
+
+		/**
+		 * Save a single entry
+		 * 
+		 * @param  int $id
+		 * @return array $entry
+		 */
+		public function saveEntry( $id ){
+
+			do_action( 'before_entry_save', $this, $_POST['entry'] );
+
+			$title = 'Inschrijving '.\get_the_title( $id ).' - '.date( 'd-m-Y' );
+
+			$args = array(
+				'post_title'	=> 	$title,
+				'post_parent' 	=>	$id,
+				'post_type' 	=> 	'form-entry',
+				'post_status'	=> 	'publish',
+				'post_date'		=> 	date( 'Y-m-d H:i:s' ), 
+				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
+			);
+
+			$entryId = wp_insert_post( $args );
+
+			//set entry id in the post global, for easy acces:
+			$_POST['entry_id'] = $entryId;
+			$entry = $_POST['entry'];
+
+			$entry = apply_filters( 'chef_forms_entry_values', $entry );
+
+			//save all fields
+			update_post_meta( $entryId, 'entry', $entry );
+
+
+			do_action( 'after_entry_save', $this, $entry );
+
+
+			return $entry;
+
+		}
+
 		
 		/**
 		 * Notify about this form:
@@ -393,6 +454,15 @@
 			if( !$settings )
 				$settings = array();
 
+			//set vars if these do not exist:
+			if( !isset( $settings['max_entries'] ) ){
+				$settings['max_entries'] = '';
+				$settings['entry_start_unix'] = '';
+				$settings['entry_start'] = '';
+				$settings['entry_end_unix'] = '';
+				$settings['entry_end'] = '';
+			}
+
 
 			//combined with the post:
 			$formPost = get_post( $this->id );
@@ -404,8 +474,58 @@
 
 			);
 
+			//check the max_entries field:
+			if( $settings['max_entries'] !== '' ){
+				$settings['max_entries'] = Tag::postMeta( $settings['max_entries'] );
+				$settings['entries_count'] = $this->getEntriesCount();
+ 			}
 
+
+			//populate the settings field:
 			$this->settings = array_merge( $settings, $post_values );
+
+		}
+
+
+		/**
+		 * Get the amount of entries currently tied to this form:
+		 * 
+		 * @return int
+		 */
+		private function getEntriesCount(){
+
+			global $wpdb;
+			$query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = $this->id AND post_type = 'form-entry'";
+			$post_count = $wpdb->get_var($query);
+			return $post_count;
+
+		}
+
+
+		/**
+		 * Set the validity of this form
+		 *
+		 * @return void
+		 */
+		private function setValidity(){
+
+			if( $this->settings['entry_start_unix'] !== '' || $this->settings['entry_end_unix'] !== '' ){
+
+				if( $this->settings['entry_start_unix'] < time() )
+					$this->notValid = 'time';
+
+				if( $this->settings['entry_end_unix'] > time() )
+					$this->notValid = 'time';
+
+			}else if( $this->settings['max_entries'] !== '' && is_numeric( $this->settings['max_entries'] ) ){
+
+				if( $this->settings['max_entries'] <= $this->settings['entries_count'] ){
+					$this->notValid = 'max-entries';
+				}
+
+
+			}
+
 		}
 
 

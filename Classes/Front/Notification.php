@@ -193,7 +193,7 @@ class Notification {
 		ob_start();
 
 			$params = array( 'msg' => $msg );
-			Template::element( 'email/Notification', $default )->display( $params );
+			Template::element( 'forms/Notification', $default )->display( $params );
 
 		$this->message = ob_get_clean();
 

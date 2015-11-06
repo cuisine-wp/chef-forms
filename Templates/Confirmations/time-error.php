@@ -1,0 +1,1 @@
+<p class="form-msg error">Het formulier is nu niet geldig op dit moment</p>

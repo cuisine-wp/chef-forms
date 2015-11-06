@@ -1,0 +1,1 @@
+<p class="form-msg error">Dit formulier heeft zijn maximaal aantal inzendingen bereikt.</p>
