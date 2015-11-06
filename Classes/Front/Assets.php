@@ -57,6 +57,19 @@
 				$url = 'chef-forms/Assets/sass/';
 				Sass::register( 'form_styling', $url.'_form', false );
 
+
+				//set validation errors:
+				$vars = array(
+					'required' 	=> __( 'Dit is een verplicht veld', 'chefforms' ),
+					'email'		=> __( 'Dit is geen geldig e-mailadres', 'chefforms' ),
+					'numerical'	=> __( 'Dit is geen geldig nummer', 'chefforms' ),
+					'address'	=> __( 'Vergeet je het huisnummer niet?', 'chefforms' ),
+					'zipcode'	=> __( 'Dit is geen geldige postcode', 'chefforms' ),
+					'slug'		=> __( 'Dit is geen geldig domein', 'chefforms' )
+				);
+	
+				Script::variable( 'ValidationErrors', $vars );
+
 			});
 		}
 

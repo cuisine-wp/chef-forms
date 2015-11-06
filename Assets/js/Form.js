@@ -261,16 +261,4 @@ define([
 
 		}
 	}
-
-
-	var ValidationErrors = {
-
-		'required' 	: 'Dit is een verplicht veld',
-		'email'		: 'Dit is geen geldig e-mailadres',
-		'numerical'	: 'Dit is geen geldig nummer',
-		'address'	: 'Vergeet je het huisnummer niet?',
-		'zipcode'	: 'Dit is geen geldige postcode'
-
-	}
-
 });
