@@ -96,9 +96,11 @@
 		 * @param  int $id form id
 		 * @return \ChefForms\Front\Form
 		 */
-		public function make( $id ){
+		public function make( $id = null ){
 
-			$this->id = $id;
+			if( $id !== null )
+				$this->id = $id;
+
 			$this->init();
 
 			ob_start();
@@ -164,12 +166,30 @@
 
 		/**
 		 * Return the form object
+		 *
 		 * 
 		 * @return \ChefForms\Front\Form
 		 */
-		public function get(){
+		public function get( $name ){
 
+
+			global $wpdb;
+
+			$query = "SELECT ID FROM {$wpdb->posts}  WHERE post_name = %s";
+			$id = $wpdb->get_var( $wpdb->prepare( $query, $name ) );
+
+			if( $id ){
+
+				//set the ID of this form
+				$this->id = $id;
+
+				//return the made form:
+				return self::make();	
+			}
+
+			//return an empty string, basically
 			return $this;
+
 		}
 
 		/**
@@ -495,8 +515,8 @@
 		private function getEntriesCount(){
 
 			global $wpdb;
-			$query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = $this->id AND post_type = 'form-entry'";
-			$post_count = $wpdb->get_var($query);
+			$query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = %s AND post_type = 'form-entry'";
+			$post_count = $wpdb->get_var( $wpdb->prepare( $query, $this->id ) );
 			return $post_count;
 
 		}
