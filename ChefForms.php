@@ -38,7 +38,7 @@ if (!class_exists('ChefForms')) {
          *
          * @var float
          */
-        const VERSION = '2.0.3';
+        const VERSION = '2.0.9';
 
 
         /**

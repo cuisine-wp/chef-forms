@@ -100,36 +100,36 @@ class SettingsPanel{
 		if( $this->get('icon' ) )
 			echo '<img src="'.$this->get('icon').'" class="panel-icon">';
 
-			echo '<h2>'.$this->title.'</h2>';
+		echo '<h2>'.$this->title.'</h2>';
 
-			if( $this->get( 'content' ) )
-				echo wpautop( $this->get( 'content' ) );
-
-
-			foreach( $this->fields as $field ){
-
-				//set values
-				$value = get_post_meta( Session::postId(), $field->name, true );
-				if( $value )
-					$field->properties['defaultValue'] = $value;
+		if( $this->get( 'content' ) )
+			echo wpautop( $this->get( 'content' ) );
 
 
-				$field->render();
+		foreach( $this->fields as $field ){
 
+			//set values
+			$value = get_post_meta( Session::postId(), $field->name, true );
+			if( $value )
+				$field->properties['defaultValue'] = $value;
+
+
+			$field->render();
+
+		}
+
+		//render the javascript-templates seperate, to prevent doubles
+		$rendered = array();
+						
+		foreach( $this->fields as $field ){
+						
+			if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
+					
+					echo $field->renderTemplate();
+					$rendered[] = $field->name;
+						
 			}
-
-			//render the javascript-templates seperate, to prevent doubles
-			$rendered = array();
-						
-			foreach( $this->fields as $field ){
-						
-				if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
-						
-						echo $field->renderTemplate();
-						$rendered[] = $field->name;
-						
-				}
-			}	
+		}	
 
 
 		echo '</div>';
