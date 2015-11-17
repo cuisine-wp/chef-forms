@@ -620,7 +620,8 @@
 				
 			}
 			
-			
+			//allow other plugins to filter this stuff:
+			$notifications = apply_filters( 'chef_forms_notifications', $notifications, $this );	
 			return $notifications;
 		}
 
