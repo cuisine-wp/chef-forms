@@ -83,22 +83,26 @@ class EntriesManager{
 					$html .= '</div>';
 
 
+					do_action( 'chef_forms_before_entry_fields', $entry );
+
 					$html .= '<div class="entry-fields">';
 
-						foreach( $entry['fields'] as $field ){
+						$fields = apply_filters( 'chef_forms_entry_fields', $entry['fields'] );
+
+						foreach( $fields as $field ){
 
 							$html .= '<div class="field-wrapper">';
 
-							$html .= '<div class="field-label">';
-								$html .= $field['label'].': ';
-							$html .= '</div>';
-
-							$html .= '<div class="field-val">';
-
-								if( $field['value'] )
-									$html .= $field['value'];
-							
-							$html .= '</div>';
+								$html .= '<div class="field-label">';
+									$html .= $field['label'].': ';
+								$html .= '</div>';
+	
+								$html .= '<div class="field-val">';
+	
+									if( $field['value'] )
+										$html .= $field['value'];
+								
+								$html .= '</div>';
 
 							$html .= '</div>';
 
@@ -107,6 +111,9 @@ class EntriesManager{
 
 
 					$html .= '</div>';
+
+					do_action( 'chef_forms_after_entry_fields', $entry );
+
 
 				$html .= '</div>';
 			}

@@ -108,11 +108,12 @@ class FormBuilder {
 		$fields = array();		
 
 		$i = 0;
+
 		foreach( $this->fields as $field ){
 
 			$fields[ $i ] = array(
 
-				'label'			=> $field->label,
+				'label'			=> ( $field->label != '' ? $field->label : $field->name ),
 				'type'			=> $field->type,
 				'placeholder'	=> $field->getProperty( 'placeholder' ),
 				'required'		=> $field->getProperty( 'required' ),
