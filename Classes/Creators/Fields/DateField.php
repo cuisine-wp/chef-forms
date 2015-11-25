@@ -26,6 +26,8 @@ class DateField extends DefaultField{
     public function render(){
 
         $this->sanitizeProperties();
+        $this->properties['class'] = 'datepicker';
+
         $type = $this->type;
 
         Field::text(
@@ -36,26 +38,6 @@ class DateField extends DefaultField{
 
         )->render();
 
-    }
-
-
-
-    /**
-     * Check the default value, before rendering
-     * 
-     */
-    public function sanitizeProperties(){
-
-
-    	$this->properties['class'] = array( 'datepicker' );
-
-        if( isset( $this->properties['defaultValue'] ) )
-            $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
-
-
-        if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
-            $this->properties['required'] = false;
-        
     }
 
 }

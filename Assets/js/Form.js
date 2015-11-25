@@ -85,11 +85,10 @@ define([
 
 			if( self.el.find( '.datepicker' ).length > 0 ){
 
-				console.log( 'found!' );
 
-				requirejs( [ 'datepicker' ], function( ui, datepicker ){
+				requirejs( [ 'datepicker' ], function( datepicker ){
 
-					console.log( datepicker );
+					$( ".datepicker" ).datepicker();
 
 				});
 
