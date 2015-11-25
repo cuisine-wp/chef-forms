@@ -90,9 +90,12 @@ class DefaultField{
         $this->name = $this->properties['name'];
         $this->fieldType();
 
-        if( isset( $this->properties['deletable'] ) )
-            $this->deletable = $this->properties['deletable'];
-        
+        if( isset( $this->properties['deletable'] ) ){
+
+            if( $this->properties['deletable'] == 'false' || $this->properties['deletable'] == false )
+                $this->deletable = false;
+
+        }
 
         //set the label
         $this->label = $this->getLabel();
@@ -314,6 +317,13 @@ class DefaultField{
                 array(
                     'defaultValue'  => $this->type
                 )    
+            ),
+
+            Field::hidden(
+                $prefix.'[deletable]',
+                array(
+                    'defaultValue' => ( $this->deletable ? 'true' : 'false' )
+                )
             ),
 
             Field::hidden(

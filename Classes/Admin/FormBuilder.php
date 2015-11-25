@@ -140,6 +140,7 @@ class FormBuilder {
 				'type'			=> $field->type,
 				'placeholder'	=> $field->getProperty( 'placeholder' ),
 				'required'		=> $field->getProperty( 'required' ),
+				'deletable'		=> $field->getProperty( 'deletable' ),
 				'defaultValue'	=> $field->getDefault(),
 				'position'		=> $i + 1
 			);
