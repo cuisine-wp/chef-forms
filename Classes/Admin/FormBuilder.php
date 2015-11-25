@@ -51,6 +51,7 @@ class FormBuilder {
 		//check if this form already exists:
 		$this->exists = $this->checkExistence();
 
+
 		return $this;
 
 	}
@@ -83,9 +84,9 @@ class FormBuilder {
 
 
 			//update the gatekeeper:
-			$forms = get_option( 'exisitingForms', array() );
-			$forms[] = $this->title;
-			update_option( 'exisitingForms', $forms );
+			$forms = get_option( 'existingForms', array() );
+			$forms[ $this->id ] = $this->title;
+			update_option( 'existingForms', $forms );
 
 
 			//save the meta-data:
@@ -95,6 +96,28 @@ class FormBuilder {
 		}
 
 		return $this;
+	}
+
+
+	/**
+	 * Get the form based on the first given title
+	 * 
+	 * @param  String $title
+	 * @return Int
+	 */
+	public function get( $title ){
+
+		$allForms = get_option( 'existingForms', array() );
+
+		foreach( $allForms as $id => $formTitle ){
+
+			if( $formTitle == $title )
+				return $id;
+
+		}
+
+		return false;
+
 	}
 
 
@@ -151,7 +174,7 @@ class FormBuilder {
 	 */
 	private function checkExistence(){
 
-		$createdForms = get_option( 'exisitingForms', array() );
+		$createdForms = get_option( 'existingForms', array() );
 
 		if( in_array( $this->title, $createdForms ) )
 			return true;

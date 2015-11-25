@@ -201,6 +201,7 @@ class EntriesManager{
 				//package the entry
 				$entry = array(
 
+					'entry_id'	=> get_the_ID(),
 					'date'		=> 	get_the_date(),
 					'timestamp'	=>	strtotime( get_the_date() ),
 					'fields'	=>  $entryFields
