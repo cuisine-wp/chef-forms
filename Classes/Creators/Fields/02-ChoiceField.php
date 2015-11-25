@@ -162,6 +162,13 @@ class ChoiceField extends DefaultField{
 	        ),
 
 	        Field::hidden(
+                $prefix.'[deletable]',
+                array(
+                    'defaultValue' => ( $this->deletable ? 'true' : 'false' )
+                )
+            ),
+
+	        Field::hidden(
 	            $prefix.'[position]',
 	            array(
 	                'class'         => array( 'field-input', 'position-input' ),

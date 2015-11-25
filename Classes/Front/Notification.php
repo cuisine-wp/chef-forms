@@ -16,7 +16,7 @@ class Notification {
 	 * 
 	 * @var string ( email )
 	 */
-	private $to;
+	public $to;
 
 
 	/**
@@ -63,7 +63,7 @@ class Notification {
 	 *
 	 * @var array
 	 */
-	private $headers = array();
+	public $headers = array();
 
 
 	/**
@@ -79,14 +79,14 @@ class Notification {
 	 * 
 	 * @var array
 	 */
-	private $properties;
+	public $properties;
 
 	/**
 	 * All fields for this form
 	 * 
 	 * @var array
 	 */
-	private $fields;
+	public $fields;
 
 
 	/**
@@ -94,7 +94,7 @@ class Notification {
 	 * 
 	 * @var array
 	 */
-	private $entry;
+	public $entry;
 
 
 
@@ -176,7 +176,7 @@ class Notification {
 	 * 
 	 * @return void
 	 */
-	private function createMessage(){
+	public function createMessage(){
 
 		$msg = $this->properties['content'];
 
@@ -205,7 +205,7 @@ class Notification {
 	 * 
 	 * @return void
 	 */
-	private function generateDefaultMessage(){
+	public function generateDefaultMessage(){
 
 		$entryItems = $_POST['entry'];
 		$html = '<table>';

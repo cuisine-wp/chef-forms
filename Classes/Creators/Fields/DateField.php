@@ -1,6 +1,10 @@
 <?php
 namespace ChefForms\Builders\Fields;
 
+use Cuisine\Wrappers\Script;
+use Cuisine\Wrappers\Field;
+use ChefForms\Front\Tag;
+
 class DateField extends DefaultField{
 
     /**
@@ -10,9 +14,30 @@ class DateField extends DefaultField{
      * @return void
      */
     protected function fieldType(){
-        $this->type = 'text';
+        $this->type = 'date';
     }
 
 
+
+     /**
+     * Render this field on the front-end
+     * @return [type] [description]
+     */
+    public function render(){
+
+        $this->sanitizeProperties();
+        $this->properties['class'] = 'datepicker';
+
+        $type = $this->type;
+
+        Field::text(
+
+            $this->id,
+            $this->getLabel(),
+            $this->properties
+
+        )->render();
+
+    }
 
 }

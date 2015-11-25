@@ -81,6 +81,20 @@ define([
 				self.validate( e );
 			});
 
+
+
+			if( self.el.find( '.datepicker' ).length > 0 ){
+
+
+				requirejs( [ 'datepicker' ], function( datepicker ){
+
+					$( ".datepicker" ).datepicker();
+
+				});
+
+			}
+
+
 		}
 
 
@@ -98,7 +112,7 @@ define([
 				
 				//used for debugging notifications:
 				//$( '.form' ).append( response );
-			
+		
 				if( Validate.json( response ) ){
 					
 					self.hideLoader();
@@ -132,8 +146,8 @@ define([
 						}	
 
 					}
-
 				}
+
 			});
 
 

@@ -67,6 +67,9 @@
 				if( isset( $_POST['entry_id'] ) )
 					$tag = str_replace( array( '{{ entry_id }}', '{{entry_id}}'), $_POST['entry_id'], $tag );
 			
+
+				//replace post meta:
+				$tag = self::postMeta( $tag );
 			}
 
 			return $tag;
@@ -160,11 +163,6 @@
 			}
 
 			return $tag;
-
-			
-
-
-
 		}
 
 
