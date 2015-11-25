@@ -81,6 +81,21 @@ define([
 				self.validate( e );
 			});
 
+
+
+			if( self.el.find( '.datepicker' ).length > 0 ){
+
+				console.log( 'found!' );
+
+				requirejs( [ 'datepicker' ], function( ui, datepicker ){
+
+					console.log( datepicker );
+
+				});
+
+			}
+
+
 		}
 
 

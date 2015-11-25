@@ -51,6 +51,11 @@
 
 			add_action( 'init', function(){
 
+				
+				Script::register( 'core', Url::wp( 'jquery/ui/core.min' ), false );
+				Script::register( 'datepicker', Url::wp( 'jquery/ui/datepicker.min' ), false );
+
+
 				$url = Url::plugin( 'chef-forms', true ).'Assets/js/';
 				Script::register( 'send-form', $url.'Form', true );
 
