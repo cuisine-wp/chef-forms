@@ -1,3 +1,17 @@
+### 2.1.0 2015-11-25
+
+* Datefields are working on the front-end now
+* Big formbuilder fixes. Also fetching corresponding form-ids
+* New deletable-boolean added to fields.
+* The Entry class is now extendable and filterable.
+* The Notification class is now extendable and filterable.
+* Notification values can now contain post-meta tags.
+* Some code-cleanup and styling fixes
+* Various bugfixes to multifields
+* Minor bugfixes.
+
+
+
 ### 2.0.9 2015-11-12
 
 * Added support for form-redirecting
