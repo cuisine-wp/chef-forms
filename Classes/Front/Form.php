@@ -172,23 +172,37 @@
 		 */
 		public function get( $name ){
 
+			$allForms = get_option( 'existingForms', array() );
+			$_id = false;
 
-			global $wpdb;
+			//get from the options table:
+			foreach( $allForms as $id => $formTitle ){
 
-			$query = "SELECT ID FROM {$wpdb->posts}  WHERE post_name = %s";
-			$id = $wpdb->get_var( $wpdb->prepare( $query, $name ) );
+				if( $formTitle == $name )
+					$_id = $id;
+				
+			}
 
-			if( $id ){
+			//try a query on the name:
+			if( !$_id ){
 
-				//set the ID of this form
-				$this->id = $id;
+				global $wpdb;
+				$query = "SELECT ID FROM {$wpdb->posts}  WHERE post_name = %s";
+				$_id = $wpdb->get_var( $wpdb->prepare( $query, $name ) );
+
+			}
+
+			//if there's an id found, make the form
+			if( $_id ){
+
+				$this->id = $_id;
 
 				//return the made form:
 				return self::make();	
 			}
 
-			//return an empty string, basically
-			return $this;
+			//else return false
+			return false;
 
 		}
 
