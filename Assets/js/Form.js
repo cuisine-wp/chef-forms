@@ -117,6 +117,8 @@ define([
 					
 					self.hideLoader();
 
+					
+
 					var response = JSON.parse( response );
 
 					//check if we need to redirect;
@@ -130,6 +132,8 @@ define([
 
 						self.el.addClass( 'msg' );
 						self.el.append('<div class="message">'+ response.message +'</div>' );
+
+
 
 						self.resetFields();
 						

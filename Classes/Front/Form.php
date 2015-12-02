@@ -628,10 +628,12 @@
 			$notifications = array();
 			$datas = get_post_meta( $this->id, 'notifications', true );
 
-			foreach( $datas as $data ){
+			if( !empty( $datas ) ){
+				foreach( $datas as $data ){
 
-				$notifications[] = Notification::make( $data, $this->fields );
+					$notifications[] = Notification::make( $data, $this->fields );
 				
+				}
 			}
 			
 			//allow other plugins to filter this stuff:
