@@ -110,8 +110,8 @@ jQuery( document ).ready( function( $ ){
 
 	setFormManager();
 
-	$( '.single-entry' ).on( 'click', function(){
-		$( this ).toggleClass( 'active' );
+	$( '.single-entry .entry-date' ).on( 'click', function(){
+		$( this ).parent().toggleClass( 'active' );
 	})
 
 });

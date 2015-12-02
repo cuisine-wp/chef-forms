@@ -31,7 +31,7 @@
 		 * 
 		 * @var array
 		 */
-		private $fields = array();
+		public $fields = array();
 
 
 		/**

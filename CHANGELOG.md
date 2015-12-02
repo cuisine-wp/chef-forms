@@ -1,3 +1,29 @@
+### 2.1.0 2015-11-25
+
+* Datefields are working on the front-end now
+* Big formbuilder fixes. Also fetching corresponding form-ids
+* New deletable-boolean added to fields.
+* The Entry class is now extendable and filterable.
+* The Notification class is now extendable and filterable.
+* Notification values can now contain post-meta tags.
+* Some code-cleanup and styling fixes
+* Various bugfixes to multifields
+* Minor bugfixes.
+
+
+
+### 2.0.9 2015-11-12
+
+* Added support for form-redirecting
+* Added persistent session-storage for redirecting
+* Added support for max entries
+* Added support for validity between dates
+* Validation Errors are now overwritable as a Cuisine JS-var
+* Added {{ entry_id }}-tag to notifications
+* Minor bugfixes.
+
+
+
 ### 2.0.8 2015-10-25
 
 * Added Tag support in notifications
