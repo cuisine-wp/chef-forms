@@ -69,6 +69,7 @@ class EntriesManager{
 	public function build(){
 
 		$html = '';
+
 	
 		if( $this->entries ){
 
@@ -123,8 +124,13 @@ class EntriesManager{
 			$html = '<p>'.__( 'Nog geen inzendingen', 'chefforms' ).'</p>';
 		}
 
+
+		//show the entries list:
+		do_action( 'chef_forms_before_entry_list', $this->entries );
+
 		echo $html;
 
+		do_action( 'chef_forms_after_entry_list', $this->entries );
 	}
 
 
@@ -148,6 +154,7 @@ class EntriesManager{
 
 		);
 
+		$args = apply_filters( 'chef_forms_entries_query', $args );
 		$entryPosts = new WP_Query( $args );
 		$entries = $this->sanitizeEntries( $entryPosts );
 
