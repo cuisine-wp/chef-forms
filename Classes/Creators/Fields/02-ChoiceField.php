@@ -17,9 +17,9 @@ class ChoiceField extends DefaultField{
      */
     public function render(){
 
-        //$this->setDefaultValue();
+        $this->sanitizeProperties();
         $type = $this->type;
-
+        
         Field::$type(
 
             $this->id,

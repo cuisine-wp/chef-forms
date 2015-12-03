@@ -74,6 +74,14 @@ class DefaultField{
 
 
     /**
+     * Extra validation settings for this field
+     * 
+     * @var string
+     */
+    var $validation = '';
+
+
+    /**
      * Define a core Field.
      *
      * @param array $properties The text field properties.
@@ -94,6 +102,19 @@ class DefaultField{
 
             if( $this->properties['deletable'] == 'false' || $this->properties['deletable'] == false )
                 $this->deletable = false;
+
+        }
+
+
+        if( isset( $this->properties['validation'] ) ){
+
+            //set validation as an array:
+            if( !is_array( $this->properties['validation'] ) )
+                $this->properties['validation'] = explode( ',', $this->properties['validation'] );
+
+                
+            //validation property as a string
+            $this->validation = implode( ',', $this->properties['validation'] );
 
         }
 
@@ -134,6 +155,8 @@ class DefaultField{
      * 
      */
     public function sanitizeProperties(){
+
+        $this->properties['defaultValue'] = apply_filters( 'chef_forms_field_default_value', $this->properties['defaultValue'], $this );
 
         if( isset( $this->properties['defaultValue'] ) )
             $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
@@ -309,6 +332,13 @@ class DefaultField{
                 'Verplicht?',
                 array(
                     'defaultValue'  => $this->getProperty( 'required' )
+                )
+            ),
+
+            Field::hidden(
+                $prefix.'[validation]',
+                array(
+                    'defaultValue'  => $this->validation
                 )
             ),
 

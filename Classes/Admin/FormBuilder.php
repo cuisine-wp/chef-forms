@@ -142,6 +142,7 @@ class FormBuilder {
 				'required'		=> $field->getProperty( 'required' ),
 				'deletable'		=> $field->getProperty( 'deletable' ),
 				'defaultValue'	=> $field->getDefault(),
+				'validation'	=> $field->getProperty( 'validation' ),
 				'position'		=> $i + 1
 			);
 

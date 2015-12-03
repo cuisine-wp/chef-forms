@@ -190,6 +190,9 @@ define([
 			var validateNothing = true;
 			var type = '';
 
+			//allow plugins to add their validation functions
+			obj.trigger( 'validate' );
+
 			if( obj.data('validate') !== undefined ){
 				var validators = obj.data('validate').split(',');
 
