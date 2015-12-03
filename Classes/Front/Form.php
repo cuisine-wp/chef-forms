@@ -108,7 +108,7 @@
 				//if the form can be filled in:
 				if( $this->notValid === false ){
 
-					echo '<form class="form form-'.$this->getSetting( 'slug' ).'" id="form_'.$this->id.'"';
+					echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
 	
 					if( $this->getSetting( 'maintain_msg' ) === 'true' )
 						echo ' data-maintain-msg="true" ';
@@ -423,6 +423,24 @@
 			if( !$val )
 				return $default;
 
+		}
+
+
+		/**
+		 * Returns all classes for this form, and makes them filterable
+		 * 
+		 * @return string
+		 */
+		public function getClasses(){
+
+			$classes = array(
+				'form',
+				'form-'.$this->getSetting( 'slug' )
+			);
+
+			$classes = apply_filters( 'chef_forms_classes', $classes, $this );
+
+			return implode( ' ', $classes );
 		}
 
 

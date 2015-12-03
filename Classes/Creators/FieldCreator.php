@@ -91,6 +91,19 @@ class FieldCreator{
 
     }
 
+     /**
+     * Return a PasswordField instance.
+     *
+     * @param string $name The name attribute of the date input.
+     * @param array $extras Extra field properties.
+     * @return \ChefForms\Builder\Fields\PasswordField
+     */
+    public function password($id, $form_id, array $properties = array()){
+
+        return $this->make( 'ChefForms\\Builders\\Fields\\PasswordField', $id, $form_id, $properties );
+
+    }
+
     /**
      * Return a TextareaField instance.
      *
@@ -260,6 +273,12 @@ class FieldCreator{
 
                 'name'      => __( 'Datum', 'cuisine' ),
                 'class'     => 'ChefForms\\Builders\\Fields\\DateField',
+            ),
+
+            'password'          => array(
+
+                'name'      => __( 'Wachtwoord', 'cuisine' ),
+                'class'     => 'ChefForms\\Builders\\Fields\\PasswordField',
             ),
 
             'textarea'      => array(
