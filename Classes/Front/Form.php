@@ -400,7 +400,7 @@
 		 * @param mixed $default
 		 * @return mixed
 		 */
-		private function getSetting( $name, $default = false ){
+		public function getSetting( $name, $default = false ){
 
 			if( isset( $this->settings[ $name ] ) )
 				return $this->settings[ $name ];

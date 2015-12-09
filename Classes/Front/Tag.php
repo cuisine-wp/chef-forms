@@ -125,7 +125,8 @@
 
 			if( !isset( $post ) || !isset( $post->ID ) ){
 
-				$p = get_post( Session::postId() );
+				//ensure we always take the root post id:
+				$p = get_post( Session::rootPostId() );
 
 			}else{
 
