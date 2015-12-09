@@ -1,3 +1,16 @@
+### 2.1.1 2015-12-09
+
+* Entries are filterable now
+* Form::get refactored to work with the existingForms variable
+* Added support for no notifications
+* Added password field support
+* Form and field classes are now properly filterable
+* The defaulValue of a field is now filterable before and after Tags
+* Custom validation support
+* Minor bugfixes.
+
+
+
 ### 2.1.0 2015-11-25
 
 * Datefields are working on the front-end now
