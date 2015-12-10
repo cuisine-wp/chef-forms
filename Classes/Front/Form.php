@@ -101,6 +101,9 @@
 			if( $id !== null )
 				$this->id = $id;
 
+			//allow plugins to change the ID of this form on-the-fly
+			$this->id = apply_filters( 'chef_forms_form_id', $this->id );
+
 			$this->init();
 
 			ob_start();
@@ -108,11 +111,17 @@
 				//if the form can be filled in:
 				if( $this->notValid === false ){
 
+					do_action( 'chef_forms_before_form', $this );
+
 					echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
 	
-					if( $this->getSetting( 'maintain_msg' ) === 'true' )
+					if( 
+						$this->getSetting( 'maintain_msg' ) === 'true' ||
+						apply_filters('chef_forms_maintain_msg', true, $this )
+					){
 						echo ' data-maintain-msg="true" ';
-	
+					}
+
 					echo '>';
 	
 						echo '<div class="form-fields">';
@@ -124,21 +133,26 @@
 							}
 	
 						echo '</div>';
-	
-						echo '<div class="form-footer">';
-	
-							echo '<button class="submit-form">';
-	
-								echo $this->getSetting( 'btn-text', 'Verstuur' );
-	
-							echo '</button>';
+
+						if( apply_filters( 'chef_forms_show_footer', true, $this ) ){	
+							echo '<div class="form-footer">';
 		
-						echo '</div>';
+								echo '<button class="submit-form">';
+		
+									echo $this->getSetting( 'btn-text', 'Verstuur' );
+		
+								echo '</button>';
+			
+							echo '</div>';
+
+						}
 						
 						$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
 						Template::element( 'loader', $default )->display();
 	
 					echo '</form>';
+
+					do_action( 'chef_forms_after_form', $this );
 
 				}else{
 
