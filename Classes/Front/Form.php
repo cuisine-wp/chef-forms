@@ -43,7 +43,15 @@
 
 
 		/**
-		 * Array to be converted to a json object with the callback message
+		 * Array of errors to display before the form
+		 * 
+		 * @var array
+		 */
+		public $messages = array();
+
+
+		/**
+		 * Json object with the callback message
 		 * 
 		 * @var array
 		 */
@@ -74,11 +82,21 @@
 		public $notValid = false;
 
 
+		/**
+		 * Init this form
+		 * 
+		 * @return void
+		 */
 		private function init(){
+
+			//allow plugins to change the ID of this form on-the-fly
+			do_action( 'chef_forms_init_form', $this );
 
 			$this->setSettings();
 			$this->setValidity();
 			$this->setFields();
+
+			do_action( 'chef_forms_after_init', $this );
 			
 		}
 
@@ -101,68 +119,111 @@
 			if( $id !== null )
 				$this->id = $id;
 
-			//allow plugins to change the ID of this form on-the-fly
-			$this->id = apply_filters( 'chef_forms_form_id', $this->id );
-
 			$this->init();
+
+			$this->render();
+			
+			return $this;
+		}
+
+
+		/**
+		 * Render the actual form and store it in the html variable
+		 * 
+		 * @return string (html)
+		 */
+		public function render(){
+			
 
 			ob_start();
 
-				//if the form can be filled in:
-				if( $this->notValid === false ){
+			//if the form can be filled in:
+			if( $this->notValid === false ){
 
-					do_action( 'chef_forms_before_form', $this );
+				do_action( 'chef_forms_before_form', $this );
 
-					echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
-	
+				$this->showMessages();
+
+				echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
+			
 					if( 
 						$this->getSetting( 'maintain_msg' ) === 'true' ||
 						apply_filters('chef_forms_maintain_msg', true, $this )
 					){
 						echo ' data-maintain-msg="true" ';
 					}
-
+	
 					echo '>';
-	
-						echo '<div class="form-fields">';
-						
-							foreach( $this->fields as $field ){
-	
-								$field->render();
-	
-							}
-	
-						echo '</div>';
-
-						if( apply_filters( 'chef_forms_show_footer', true, $this ) ){	
-							echo '<div class="form-footer">';
-		
-								echo '<button class="submit-form">';
-		
-									echo $this->getSetting( 'btn-text', 'Verstuur' );
-		
-								echo '</button>';
-			
-							echo '</div>';
-
+				
+					echo '<div class="form-fields">';
+							
+						foreach( $this->fields as $field ){
+				
+							$field->render();
+				
 						}
-						
-						$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
-						Template::element( 'loader', $default )->display();
+				
+					echo '</div>';
 	
-					echo '</form>';
+					if( apply_filters( 'chef_forms_show_footer', true, $this ) ){	
+						
+						echo '<div class="form-footer">';
+				
+							echo '<button class="submit-form">';
+				
+								echo $this->getSetting( 'btn-text', 'Verstuur' );
+				
+							echo '</button>';
+				
+						echo '</div>';
+	
+					}
+							
+					
+					$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
+					Template::element( 'loader', $default )->display();
+			
+				echo '</form>';
 
-					do_action( 'chef_forms_after_form', $this );
+				do_action( 'chef_forms_after_form', $this );
 
-				}else{
+			}else{
 
-					$default = Url::path( 'plugin', 'chef-forms/Templates/Confirmations/'.$this->notValid.'-error' );
-					Template::element( 'forms/'.$this->notValid.'-error', $default )->display();
+				$default = Url::path( 'plugin', 'chef-forms/Templates/Confirmations/'.$this->notValid.'-error' );
+				Template::element( 'forms/'.$this->notValid.'-error', $default )->display();
 
-				}
+			}
 
 			$this->html = ob_get_clean();
-			return $this;
+		}
+
+
+		/**
+		 * Show messages in the message-array, if they are set.
+		 * 
+		 * @return string ( html, echoed )
+		 */
+		public function showMessages(){
+
+			if( !empty( $this->messages ) ){
+
+				$default = Url::path( 'plugin', 'chef-forms/Templates/Message' );
+
+				foreach( $this->messages as $message ){
+
+					if( !is_array( $message ) ){
+						$message = array(
+							'type'	=> 'msg',
+							'text'	=> $message
+						);
+					}
+
+					$args = array( 'msg' => $message );
+					Template::element( 'forms/Message', $default )->display( $args );
+				}
+
+			}
+
 		}
 
 
@@ -304,8 +365,6 @@
 		
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
-			do_action( 'before_notification', $this, $entry );
-
 
 			//check if a redirect has been set
 			if( !empty( $this->redirect ) ){
@@ -317,6 +376,8 @@
 				return json_encode( $this->redirect );
 			
 			}
+
+			do_action( 'before_notification', $this, $entry );
 
 			//notify everybody
 			$this->notify();
