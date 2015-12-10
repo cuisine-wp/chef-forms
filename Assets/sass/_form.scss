@@ -58,7 +58,7 @@
 
 	.validation-error{
 		padding:5px 0 0 0;
-		color:red;
+		color:crimson;
 	}
 
 	.datepicker{
@@ -74,7 +74,23 @@
 		bottom:14px;
 		color:#22A1D0;
 	}
+}
 
+.form-message{
+	padding:15px;
+	box-shadow:0 0 10px rgba(0,0,0,.2);
+	text-align:center;
+	margin:0 0 15px 0;
+	display:block;
+
+	&.error{
+		background:crimson;
+		color:#fff;
+
+		p{
+			color:#fff !important;
+		}
+	}
 }
 
 .form{

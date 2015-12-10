@@ -134,7 +134,6 @@
 		 */
 		public function render(){
 			
-
 			ob_start();
 
 			//if the form can be filled in:
@@ -198,6 +197,7 @@
 		}
 
 
+
 		/**
 		 * Show messages in the message-array, if they are set.
 		 * 
@@ -221,10 +221,9 @@
 					$args = array( 'msg' => $message );
 					Template::element( 'forms/Message', $default )->display( $args );
 				}
-
 			}
-
 		}
+
 
 
 		/**
