@@ -54,42 +54,20 @@
 		&.label-left label{
 			padding-right:15px;
 		}
+
+		&.checkbox{
+			input{
+				width:16px !important;
+				height:16px !important;
+				display:inline-block;
+				margin-right:5px;
+			}
+		}
 	}
 
 	.validation-error{
 		padding:5px 0 0 0;
-		color:crimson;
-	}
-
-	.datepicker{
-		position:relative;
-	}
-	
-	.datepicker:after{
-		content: "\f508";
-		font-family:'Dashicons';
-		font-size:24px;
-		position:absolute;
-		right:12px;
-		bottom:14px;
-		color:#22A1D0;
-	}
-}
-
-.form-message{
-	padding:15px;
-	box-shadow:0 0 10px rgba(0,0,0,.2);
-	text-align:center;
-	margin:0 0 15px 0;
-	display:block;
-
-	&.error{
-		background:crimson;
-		color:#fff;
-
-		p{
-			color:#fff !important;
-		}
+		color:red;
 	}
 }
 
@@ -162,26 +140,5 @@
 	}
 
 
-
-}
-
-
-.ui-datepicker{
-	padding:10px 15px;
-	background:#fff;
-	box-shadow:0 0 5px rgba(0,0,0,.1);
-	border:1px solid #ccc;
-}
-
-.ui-datepicker-next{
-	float:right;
-}
-
-.ui-datepicker-title{
-	width:100%;
-	text-align:center;
-	font-weight:bold;
-	padding:5px 0 3px 0;
-	border-bottom:1px solid #444;
 
 }
