@@ -1,3 +1,13 @@
+### 2.1.2 2015-12-22
+
+* Added loads of filters and actions to make forms more flexible
+* Added a messages object so plugins can inject (error)messages to forms.
+* Added form message styling
+* Fixed a bug where arbitrary html elements with .form classes threw a JS error.
+* Minor styling fix to checkboxes
+
+
+
 ### 2.1.1 2015-12-09
 
 * Entries are filterable now
