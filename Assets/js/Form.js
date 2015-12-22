@@ -29,6 +29,11 @@ define([
 
 			var self = this;
 			self.el = $( obj );
+
+			//stop a form from initting if it's just an arbitrary .form class:
+			if( self.el.attr('id') === undefined )
+				return false;
+
 			self.fields = self.el.find( '.field' );
 			self.formId = parseInt( self.el.attr('id').replace( 'form_', '' ) );
 			self.setEvents();
