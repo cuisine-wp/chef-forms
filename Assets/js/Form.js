@@ -112,6 +112,7 @@ define([
 				entry: self.el.serializeArray()
 			}
 
+			self.el.trigger( 'beforeSubmit', data, self );
 
 			$.post( Cuisine.ajax, data, function( response ){
 				
@@ -129,9 +130,13 @@ define([
 					//check if we need to redirect;
 					if( response.redirect == true ){
 
+						self.el.trigger( 'beforeRedirect', response, self );
+						
 						window.location.href = response.redirect_url;
 
 					}else{
+
+						self.el.trigger( 'onResponse', response, self );
 
 						//otherwise, clear the loader and display the message.
 
@@ -142,6 +147,8 @@ define([
 
 						self.resetFields();
 						
+						self.el.trigger( 'onComplete', response, self );
+
 						//remove message after 3 seconds, if the form doesn't have a data attribute set:
 						if( self.el.data( 'maintain-msg' ) === undefined ){
 
