@@ -104,6 +104,21 @@ class FieldCreator{
 
     }
 
+
+    /**
+     * Return a NumberField instance.
+     *
+     * @param string $name The name attribute of the number input.
+     * @param array $extras Extra field properties.
+     * @return \ChefForms\Builder\Fields\FileField
+     */
+    public function file($id, $form_id, array $properties = array()){
+
+        return $this->make( 'ChefForms\\Builders\\Fields\\FileField', $id, $form_id, $properties );
+
+    }
+
+
     /**
      * Return a TextareaField instance.
      *
@@ -285,6 +300,12 @@ class FieldCreator{
 
                 'name'      => __( 'Tekstvlak', 'cuisine' ),
                 'class'     => 'ChefForms\\Builders\\Fields\\TextareaField'
+            ),
+
+            'file'          => array(
+
+                'name'      => __( 'File upload', 'cuisine' ),
+                'class'     => 'ChefForms\\Builders\\Fields\\FileField'
             ),
 
             'checkbox'      => array( 

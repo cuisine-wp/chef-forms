@@ -240,6 +240,9 @@ class Notification {
 		if( !isset( $properties['content'] ) )
 			$properties['content'] = '{{ alle_velden }}';
 
+		if( isset( $properties['attachments'] ) )
+			$this->attachments = $properties['attachments'];
+
 		return $properties;
 	}
 

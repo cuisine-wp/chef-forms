@@ -66,7 +66,7 @@ class FieldControls{
 		$types = Sort::pluck( $types, 'name' );
 
 		$in_standard = array( 'text', 'textarea', 'email', 'checkbox', 'number' );
-		$in_adv = array( 'checkboxes', 'radio', 'select', 'date', 'hidden', 'address' );
+		$in_adv = array( 'file', 'checkboxes', 'radio', 'select', 'date', 'hidden', 'address' );
 
 		$in_standard = apply_filters( 'chef_forms_standard_fields', $in_standard );
 		$in_adv = apply_filters( 'chef_forms_advanced_fields', $in_adv );

@@ -106,67 +106,90 @@ define([
 		this.send = function(){
 
 			var self = this;
-			var data = {
-				action: 'sendForm',
-				post_id: self.formId,
-				entry: self.el.serializeArray()
-			}
 
-			self.el.trigger( 'beforeSubmit', data, self );
 
-			$.post( Cuisine.ajax, data, function( response ){
-				
-				//used for debugging notifications:
-				//$( '.form' ).append( response );
-		
-				if( Validate.json( response ) ){
+			var _data = new FormData( self.el[0] );
+			_data.append( 'action', 'sendForm' );
+			_data.append( 'post_id', self.formId );
+
+			self.el.trigger( 'beforeSubmit', _data, self );
+
+			$.ajax({
+
+				url: Cuisine.ajax,
+				type: 'POST',
+				data: _data,
+				processData: false,
+				contentType: false,
+				success: function( response ){
+
+					self.onSuccess( response, self );
+
+				},
+				error: function( response ){
+
+				}
+			});
+
+
+		}
+
+		/**
+		 * Function for succesful send handeling
+		 * 
+		 * @param  json response
+		 * @param  FormObject self
+		 * @return void
+		 */
+		this.onSuccess = function( response, self ){
+
+			//used for debugging notifications:
+			//$( '.form' ).append( response );
 					
-					self.hideLoader();
-
-					
-
-					var response = JSON.parse( response );
-
-					//check if we need to redirect;
-					if( response.redirect == true ){
-
-						self.el.trigger( 'beforeRedirect', response, self );
+			if( Validate.json( response ) ){
 						
-						window.location.href = response.redirect_url;
+				self.hideLoader();
 
-					}else{
+				var response = JSON.parse( response );
 
-						self.el.trigger( 'onResponse', response, self );
+				//check if we need to redirect;
+				if( response.redirect == true ){
 
-						//otherwise, clear the loader and display the message.
+					self.el.trigger( 'beforeRedirect', response, self );
+						
+					window.location.href = response.redirect_url;
 
-						self.el.addClass( 'msg' );
-						self.el.append('<div class="message">'+ response.message +'</div>' );
+				}else{
 
+					self.el.trigger( 'onResponse', response, self );
 
+	
+					//otherwise, clear the loader and display the message.
+					self.el.addClass( 'msg' );
+					self.el.append('<div class="message">'+ response.message +'</div>' );
+
+					self.resetFields();						
+					self.el.trigger( 'onComplete', response, self );
+
+					//remove message after 3 seconds, if the form doesn't have a data attribute set:
+					if( self.el.data( 'maintain-msg' ) === undefined ){
 
 						self.resetFields();
-						
-						self.el.trigger( 'onComplete', response, self );
-
+							
 						//remove message after 3 seconds, if the form doesn't have a data attribute set:
 						if( self.el.data( 'maintain-msg' ) === undefined ){
 
 							setTimeout( function(){
-						
+							
 								self.el.removeClass( 'msg' );
 								self.el.find('.message').remove();
-						
+							
 							}, 5000 );
 
 						}	
-
 					}
 				}
-
-			});
-
-
+			}
 		}
 
 
@@ -289,6 +312,7 @@ define([
 			return validated;
 
 		}
+
 
 
 		this.showLoader = function(){

@@ -35,6 +35,14 @@
 
 
 		/**
+		 * Array of files being send
+		 * 
+		 * @var array
+		 */
+		public $files = array();
+
+
+		/**
 		 * Array containing all notifications
 		 * 
 		 * @var array
@@ -360,6 +368,15 @@
 			$this->id = $id;
 			$this->init();
 
+			//setup the $entry variable
+			if( !empty( $_POST ) )
+				self::sanitizeData();
+
+			//first upload files, if we have any:
+			if( !empty( $_FILES ) )
+				self::uploadFiles();
+
+
 			$entry = self::saveEntry( $id );
 		
 			//allow plugins to hook into this event:
@@ -438,6 +455,90 @@
 
 		}
 
+
+		/**
+		 * Upload files, if they're being send
+		 * 
+		 * @return void
+		 */
+		private function uploadFiles(){
+
+			if( !empty( $_FILES ) ){
+
+				$uploadDir = wp_upload_dir();
+
+				$uploadFolder = apply_filters( 
+					'chef_forms_upload_dir',
+					'chef-forms'
+				);
+
+				$uploadFolder = trailingslashit( $uploadFolder ).'form_'.$this->id;
+
+				$base = trailingslashit( $uploadDir['basedir'] ).$uploadFolder;
+				$baseUrl = trailingslashit( 
+					content_url( 'uploads/'.$uploadFolder )
+				);
+
+				//create a base directory, if necissary:
+				if( !is_dir( $base ) ){
+
+					$folder = mkdir( $base );
+
+				}else{
+				    		
+					$folder = true;
+				    	
+				}
+
+				$upload_path = $base . DIRECTORY_SEPARATOR;
+						
+				$response = array();
+
+				//if there's a folder:		
+				if( $folder ){
+
+					foreach( $_FILES as $key => $file ){
+
+						//upload the bunch:
+						$tempFile = $file['tmp_name'];
+						
+						$targetPath = $upload_path;
+						$filename = date('YmdHis').'-'.$file['name'];
+						$targetFile = $targetPath . $filename;
+
+						$upload = move_uploaded_file( $tempFile, $targetFile );
+
+						if( $upload ){
+							//add a response:
+							$info = getimagesize( $targetFile );
+					
+							$file['path'] = $targetFile;
+							$file['url'] = $baseUrl . $filename;
+					
+							$this->files[] = $file;
+
+				    	}else{
+							//add an error:
+							$this->message = array( 'error' => true, 'message' => 'Uploaden mislukt, probeer het later nog eens.' );
+
+				    	}
+				    }
+
+				}else{
+				   	//add an error; no upload folder.
+					$this->message = array( 
+						'error' => true, 
+						'message' => 'De upload-map kan niet aangemaakt worden...'
+					);
+				}
+			}
+
+			if( !empty( $this->message ) ){
+				echo json_encode( $this->message );
+				die();
+			}
+		}
+
 		
 		/**
 		 * Notify about this form:
@@ -459,6 +560,31 @@
 		}
 
 
+		/**
+		 * Clean up the POST global for processing
+		 * 
+		 * @return void
+		 */
+		private function sanitizeData(){
+
+			$entry = array();
+			$_entry = $_POST;
+			unset( $_entry['action'] );
+			unset( $_entry['post_id'] );
+
+			foreach( $entry as $name => $value ){
+
+				$entry[] = array(
+					'name'	=> $name,
+					'value'	=> $value
+				);
+
+			}
+
+			$_POST['entry'] = $entry;
+			return $entry;
+
+		}
 
 
 
@@ -720,6 +846,9 @@
 
 			$notifications = array();
 			$datas = get_post_meta( $this->id, 'notifications', true );
+
+			//if( !empty( $this->files ) ) 
+			//	$data['attachments'] = $this->files;
 
 			if( !empty( $datas ) ){
 				foreach( $datas as $data ){
