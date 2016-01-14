@@ -260,7 +260,7 @@
 			//get from the options table:
 			foreach( $allForms as $id => $formTitle ){
 
-				if( $formTitle == $name )
+				if( strtolower( $formTitle ) == strtolower( $name ) )
 					$_id = $id;
 				
 			}
@@ -479,6 +479,8 @@
 					content_url( 'uploads/'.$uploadFolder )
 				);
 
+				do_action( 'chef_forms_before_uploads', $this );
+
 				//create a base directory, if necissary:
 				if( !is_dir( $base ) ){
 
@@ -498,6 +500,8 @@
 				if( $folder ){
 
 					foreach( $_FILES as $key => $file ){
+
+						do_action( 'chef_forms_before_file_upload', $file, $this );
 
 						//upload the bunch:
 						$tempFile = $file['tmp_name'];
@@ -522,6 +526,8 @@
 							$this->message = array( 'error' => true, 'message' => 'Uploaden mislukt, probeer het later nog eens.' );
 
 				    	}
+
+				    	do_action( 'chef_forms_after_file_upload', $file, $this );
 				    }
 
 				}else{

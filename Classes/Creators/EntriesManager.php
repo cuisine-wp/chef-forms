@@ -2,6 +2,7 @@
 
 namespace ChefForms\Creators;
 
+use Cuisine\Utilities\Session;
 use WP_Query;
 
 
@@ -48,9 +49,12 @@ class EntriesManager{
 		
 		global $post;
 
-		if( isset( $post ) )
+		if( isset( $post ) ){
 			$this->postId = $post->ID;
-		
+		}else{
+			$this->postId = Session::postId();
+		}
+
 		$this->entries = $this->getEntries();
 
 		return $this;
@@ -145,7 +149,7 @@ class EntriesManager{
 	 * 
 	 * @return array
 	 */
-	private function getEntries(){
+	public function getEntries(){
 
 		$args = array(
 
