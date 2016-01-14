@@ -80,6 +80,14 @@
 
 			)->set( '\\ChefForms\\Wrappers\\FieldControls::advanced' );
 
+			//design fields
+			Metabox::make(
+				__( 'Design velden', 'chefforms' ),
+				'form',
+				$options
+
+			)->set( '\\ChefForms\\Wrappers\\FieldControls::design' );
+
 		}
 
 

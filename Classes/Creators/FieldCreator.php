@@ -228,6 +228,20 @@ class FieldCreator{
 
 
     /**
+     * Return a raw HTML block instance.
+     *
+     * @param string $name The name attribute of the field.
+     * @param array $extras Extra field properties.
+     * @return \ChefForms\Builder\Fields\HtmlField
+     */
+    public function html( $name,  $form_id, array $properties = array() ){
+
+        return $this->make( 'ChefForms\\Builders\\Fields\\HtmlField', $name, $form_id, $properties );
+
+    }
+
+
+    /**
      * If a field doesn't exist, try to locate it.
      *
      * @param string $name Name of the method
@@ -334,6 +348,19 @@ class FieldCreator{
 
                 'name'      => __( 'Verborgen', 'cuisine' ),
                 'class'     => 'ChefForms\\Builders\\Fields\\HiddenField'
+            ),
+
+            'html'          => array(
+
+                'name'      => __( 'HTML Block', 'chefforms' ),
+                'class'     => 'ChefForms\\Builders\\Fields\\HtmlField'
+            ),
+
+            'break'         => array(
+
+                'name'      => __( 'Break', 'chefforms' ),
+                'class'     => 'ChefForms\\Builders\\Fields\\BreakField'
+
             ),
 
             'address'     => array(

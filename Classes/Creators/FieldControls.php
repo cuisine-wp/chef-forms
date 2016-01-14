@@ -30,6 +30,17 @@ class FieldControls{
 
 	}
 
+	/**
+	 * Generate controls for form design
+	 * 
+	 * @return string ( html, echoed )
+	 */
+	public function design(){
+
+		echo $this->makeButtons( 'design' );
+
+	}
+
 
 	/**
 	 * Generate a row of buttons
@@ -65,14 +76,18 @@ class FieldControls{
 		$types = FieldCreator::getAvailableTypes();
 		$types = Sort::pluck( $types, 'name' );
 
+
+
 		$in_standard = array( 'text', 'textarea', 'email', 'checkbox', 'number' );
 		$in_adv = array( 'file', 'checkboxes', 'radio', 'select', 'date', 'hidden', 'address' );
 
+		$in_des = array( 'html', 'break' );
+
 		$in_standard = apply_filters( 'chef_forms_standard_fields', $in_standard );
 		$in_adv = apply_filters( 'chef_forms_advanced_fields', $in_adv );
+		$in_des = apply_filters( 'chef_forms_design_fields', $in_des );
 
-
-		$return = array( 'standard' => array(), 'advanced' => array() );
+		$return = array( 'standard' => array(), 'advanced' => array(), 'design' => array() );
 
 
 		foreach( $types as $key => $value ){
@@ -82,7 +97,10 @@ class FieldControls{
 
 			if( in_array( $key, $in_adv ) )
 				$return['advanced'][ $key ] = $value; 
-		}
+
+			if( in_array( $key, $in_des ) )
+				$return['design'][ $key ] = $value;
+ 		}
 
 
 		return $return;
