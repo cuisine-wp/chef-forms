@@ -155,7 +155,7 @@
 			
 					if( 
 						$this->getSetting( 'maintain_msg' ) === 'true' ||
-						apply_filters('chef_forms_maintain_msg', true, $this )
+						apply_filters('chef_forms_maintain_msg', false, $this )
 					){
 						echo ' data-maintain-msg="true" ';
 					}
