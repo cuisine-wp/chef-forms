@@ -69,7 +69,11 @@ class FormManager{
 
 			$this->buildMenu();
 
-			echo '<div class="field-container form-view current" id="field-container">';
+			$class = 'field-container form-view';
+			if( !isset( $_GET['entry_page'] ) )
+				$class .= ' current';
+
+			echo '<div class="'.$class.'" id="field-container">';
 				
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
 				echo __( 'Formulierenbouwer', 'chefforms' ).'</h2>';
@@ -88,7 +92,11 @@ class FormManager{
 			
 			echo '</div>';
 
-			echo '<div class="entries-container form-view" id="entries-container">';
+			$class = 'entries-container form-view';
+			if( isset( $_GET['entry_page'] ) )
+				$class .= ' current';
+
+			echo '<div class="'.$class.'" id="entries-container">';
 				
 				echo '<h2><span class="dashicons dashicons-email-alt"></span>';
 				echo __( 'Inzendingen', 'chefforms' ).'</h2>';

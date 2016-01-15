@@ -17,6 +17,29 @@ class EntriesManager{
 
 
 	/**
+	 * Amount of pages available for pagination
+	 * 
+	 * @var integer
+	 */
+	public $pageCount = 1;
+
+	/**
+	 * Total number of entries, for pagination 
+	 * 
+	 * @var integer
+	 */
+	public $totalEntries = 0;
+
+
+	/**
+	 * Default number of entries to query
+	 * 
+	 * @var integer
+	 */
+	public $entriesPerPage = 10;
+
+
+	/**
 	 * Post ID
 	 *
 	 * @var int
@@ -72,71 +95,101 @@ class EntriesManager{
 	 */
 	public function build(){
 
-		$html = '';
+		//show the entries list:
+		do_action( 'chef_forms_before_entry_list', $this->entries, $this->postId  );
 
-	
+
 		if( $this->entries ){
 
 			foreach( $this->entries as $entry ){
 
-				$html .= '<div class="single-entry">';
+				echo '<div class="single-entry">';
 
-					$html .= '<div class="entry-date">';
+					echo '<div class="entry-date">';
 
-						$html .= $entry['date'];
+						echo $entry['date'];
 
-					$html .= '</div>';
+					echo '</div>';
 
 
-					do_action( 'chef_forms_before_entry_fields', $entry );
+					do_action( 'chef_forms_before_entry_fields', $entry, $this->postId );
 
-					$html .= '<div class="entry-fields">';
+					echo '<div class="entry-fields">';
 
 						$fields = apply_filters( 'chef_forms_entry_fields', $entry['fields'] );
 
 						foreach( $fields as $field ){
 
-							$html .= '<div class="field-wrapper">';
+							echo '<div class="field-wrapper">';
 
-								$html .= '<div class="field-label">';
-									$html .= $field['label'].': ';
-								$html .= '</div>';
+								echo '<div class="field-label">';
+									echo $field['label'].': ';
+								echo '</div>';
 	
-								$html .= '<div class="field-val">';
+								echo '<div class="field-val">';
 	
 									if( $field['value'] )
-										$html .= $field['value'];
+										echo $field['value'];
 								
-								$html .= '</div>';
+								echo '</div>';
 
-							$html .= '</div>';
+							echo '</div>';
 
 
 						}
 
 
-					$html .= '</div>';
+					echo '</div>';
 
-					do_action( 'chef_forms_after_entry_fields', $entry );
+					do_action( 'chef_forms_after_entry_fields', $entry, $this->postId );
 
 
-				$html .= '</div>';
+				echo '</div>';
 			}
+
+			$this->buildPagination();
 
 		}else{
 
-			$html = '<p>'.__( 'Nog geen inzendingen', 'chefforms' ).'</p>';
+			echo  '<p>'.__( 'Nog geen inzendingen', 'chefforms' ).'</p>';
 		}
 
 
-		//show the entries list:
-		do_action( 'chef_forms_before_entry_list', $this->entries );
-
-		echo $html;
-
-		do_action( 'chef_forms_after_entry_list', $this->entries );
+		do_action( 'chef_forms_after_entry_list', $this->entries, $this->postId  );
 	}
 
+	/**
+	 * Build the pagination for these entries
+	 * 
+	 * @return string (html,echoed)
+	 */
+	private function buildPagination(){
+
+		$url = admin_url( 'post.php?post='.$_GET['post'].'&action=edit&entry_page=' );
+		$current = ( isset( $_GET['entry_page' ] ) ? $_GET['entry_page']  : 1 );
+
+		if( $this->pageCount > 1 ){
+
+			echo '<div class="entry-pagination">';
+
+				for( $i = 0; $i < $this->pageCount; $i++ ){
+
+					$pageNum = $i + 1;
+					$class = 'entry-page-block';
+
+					if( $pageNum == $current )
+						$class .= ' current';
+
+					echo '<a href="'.$url.$pageNum.'" class="'.$class.'">';
+						echo $pageNum;
+					echo '</a>';
+
+				}
+
+			echo '</div>';
+		}
+
+	}
 
 
 	/*=============================================================*/
@@ -154,12 +207,17 @@ class EntriesManager{
 		$args = array(
 
 			'post_parent'	=> $this->postId,
-			'post_type'		=> 'form-entry'
+			'post_type'		=> 'form-entry',
+			'paged'			=> ( isset( $_GET['entry_page'] ) ? $_GET['entry_page'] : 0 ),
+			'posts_per_page'=> $this->entriesPerPage
 
 		);
 
 		$args = apply_filters( 'chef_forms_entries_query', $args );
 		$entryPosts = new WP_Query( $args );
+		$this->totalEntries = $entryPosts->found_posts;
+		$this->pageCount = $entryPosts->max_num_pages;
+
 		$entries = $this->sanitizeEntries( $entryPosts );
 
 

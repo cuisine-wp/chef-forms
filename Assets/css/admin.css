@@ -376,6 +376,37 @@
   display: block;
 }
 
+.entry-pagination {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+}
+.entry-pagination a {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  color: #444;
+  background: #fff;
+  text-decoration: none;
+  border: 1px solid #fff;
+}
+.entry-pagination a:hover {
+  border-color: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.entry-pagination a.current {
+  background: #00a0d2;
+  color: #fff;
+  border-color: #00a0d2;
+}
+.entry-pagination a.current:hover {
+  background: #fff;
+}
+.entry-pagination a:last-child {
+  margin-right: 0;
+}
+
 .settings-panel {
   clear: both;
   padding-top: 15px;
