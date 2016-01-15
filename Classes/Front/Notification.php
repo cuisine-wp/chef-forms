@@ -184,7 +184,7 @@ class Notification {
 			$msg = $this->generateDefaultMessage();
 
 
-		$all_fields = array( '{alle_velden}', '{{alle_velden}}', '{{ alle_velden }}', '{ alle_velden }' );
+		$all_fields = array( '{{alle_velden}}', '{{ alle_velden }}' );
 		$msg = str_replace( $all_fields , $this->generateDefaultMessage(), $msg );
 		$msg = Tag::notification( $msg, $this->entry );
 
@@ -208,7 +208,7 @@ class Notification {
 	public function generateDefaultMessage(){
 
 		$entryItems = $_POST['entry'];
-		$html = '<table>';
+		$html = '<table style="width:540px">';
 
 		foreach( $this->fields as $field ){
 

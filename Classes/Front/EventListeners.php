@@ -106,19 +106,11 @@
 			//load column
 			add_action( 'chef_sections_loaded', function(){
 
-				$base = Url::path( 'plugin', 'chef-forms/Classes/Hooks', true );
+				$base = Url::path( 'plugin', 'chef-forms/Classes/Hooks/ChefSections', true );
 				include( $base.'Column.php' );
 
 			});
 
-			//load field types
-			add_action( 'cuisine_loaded', function(){
-
-				$base = Url::path( 'plugin', 'chef-forms/Classes/Hooks', true );
-				include( $base.'MultiField.php' );
-				include( $base.'MapperField.php' );
-
-			});
 		}
 
 	}

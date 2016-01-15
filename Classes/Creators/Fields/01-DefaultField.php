@@ -187,8 +187,8 @@ class DefaultField{
                     $label = $this->properties['placeholder'];
 
 
-                $html .= '<tr><td><strong>'.$label.'</strong></td>';
-                $html .= '<td>'.$entry['value'].'</td></tr>';
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
+                $html .= '<td style="text-align:right">'.$entry['value'].'</td></tr>';
 
             } 
         }

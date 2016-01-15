@@ -372,6 +372,7 @@
 			if( !empty( $_POST ) )
 				self::sanitizeData();
 
+
 			//first upload files, if we have any:
 			if( !empty( $_FILES ) )
 				self::uploadFiles();
@@ -391,27 +392,30 @@
 				//return the redirect data
 				return json_encode( $this->redirect );
 			
+			
+			//else, carry on to notifications:
+			}else{
+
+				do_action( 'before_notification', $this, $entry );
+
+				//notify everybody
+				$this->notify();
+
+				//after notifying
+				do_action( 'after_notification', $this, $entry );
+
+				//set the message, if it's empty
+				if( empty( $this->message ) ){
+					$this->message = array(
+
+							'error'		=> 	false,
+							'message'	=> 	$this->getSetting( 'confirm' )
+					);
+				}
+
+				//return the message
+				return json_encode( $this->message );
 			}
-
-			do_action( 'before_notification', $this, $entry );
-
-			//notify everybody
-			$this->notify();
-
-			//after notifying
-			do_action( 'after_notification', $this, $entry );
-
-			//set the message, if it's empty
-			if( empty( $this->message ) ){
-				$this->message = array(
-
-						'error'		=> 	false,
-						'message'	=> 	$this->getSetting( 'confirm' )
-				);
-			}
-
-			//return the message
-			return json_encode( $this->message );
 		}
 	
 
@@ -563,6 +567,8 @@
 					$notification->send();
 				}
 			}
+
+			die();
 		}
 
 
@@ -578,7 +584,7 @@
 			unset( $_entry['action'] );
 			unset( $_entry['post_id'] );
 
-			foreach( $entry as $name => $value ){
+			foreach( $_entry as $name => $value ){
 
 				$entry[] = array(
 					'name'	=> $name,

@@ -114,6 +114,8 @@ define([
 
 			self.el.trigger( 'beforeSubmit', _data, self );
 
+			console.log( _data );
+
 			$.ajax({
 
 				url: Cuisine.ajax,
@@ -144,8 +146,10 @@ define([
 		this.onSuccess = function( response, self ){
 
 			//used for debugging notifications:
-			//$( '.form' ).append( response );
-					
+			self.el.append( response );
+				
+
+			/*		
 			if( Validate.json( response ) ){
 						
 				self.hideLoader();
@@ -189,7 +193,7 @@ define([
 						}	
 					}
 				}
-			}
+			}*/
 		}
 
 

@@ -69,6 +69,7 @@ if (!class_exists('ChefForms')) {
             //auto-loads all .php files in these directories.
             $includes = array( 
                 'Classes/Wrappers',
+                'Classes/Hooks/Cuisine',
                 'Classes/Creators/Fields',
                 'Classes/Creators',
                 'Classes/Front',
