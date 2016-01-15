@@ -75,7 +75,7 @@ define([
 			self.el.on('submit', function( e ){
 
 				//don't prevent default in case of no-ajax
-				if( self.el.data('no-ajax') === undefined )
+				if( self.allowAjax() )
 					e.preventDefault();
 				
 
@@ -106,7 +106,7 @@ define([
 
 
 				//only return false in the case of no ajax:
-				if( self.el.data( 'no-ajax') === undefined )
+				if( self.allowAjax() )
 					return false;
 				
 			});
@@ -131,8 +131,8 @@ define([
 			var self = this;
 
 			//catch non FormData capable browsers ( <IE9 & Opera Mini )	
-			if( window.FormData == undefined || self.el.data('no-ajax') !== undefined ){
-
+			if( self.allowAjax() === false ){
+				
 				self.el.data( 'no-ajax', 'true' );
 				self.submitted = true;
 				self.el.trigger( 'submit' );
@@ -164,6 +164,19 @@ define([
 				});
 
 			}
+		}
+
+		/**
+		 * Allow ajax
+		 * 
+		 * @return bool
+		 */
+		this.allowAjax = function(){
+
+			if( window.FormData == undefined || self.el.data( 'no-ajax') === undefined )
+				return false;
+
+			return true;
 		}
 
 
