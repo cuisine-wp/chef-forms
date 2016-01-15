@@ -15,6 +15,15 @@ define([
 
 		});
 
+		//set the tab-index:
+		var i = 1;
+		$('.form .field, .form .subfield, .form .submit-form' ).each( function(){
+
+			$( this ).attr( 'tabindex', i );
+			i++;
+
+		});
+
 	});
 
 
