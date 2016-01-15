@@ -1,3 +1,16 @@
+### 2.1.3 2016-01-15
+
+* Non JS form-submitting 
+* Added support for file-uploads
+* Added support for tab-indexing
+* Added support for entry pagination
+* Added loads of actions and filters to the Form class in PHP and JS
+* Fixes an issue where confirmation-messages where static
+* Fixes SMTP access to Mandrill
+* Minor styling fix to checkboxes
+
+
+
 ### 2.1.2 2015-12-22
 
 * Added loads of filters and actions to make forms more flexible
