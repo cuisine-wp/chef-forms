@@ -206,6 +206,14 @@ class SettingsManager{
 				array(
 					'defaultValue' => $this->getSetting( 'maintain_msg', 'false' )
 				)
+			),
+
+			Field::checkbox(
+				'settings[no_ajax]',
+				'Gebruik nooit ajax voor dit formulier',
+				array(
+					'defaultValue' => $this->getSetting( 'no_ajax', 'false' )
+				)
 			)
 		);
 

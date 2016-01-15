@@ -65,6 +65,7 @@ abstract class Wrapper {
             'settings-panel'                => 'ChefForms\Creators\SettingsPanel',
             'controls'                      => 'ChefForms\Creators\FieldControls',
             'form'                          => 'ChefForms\Front\Form',
+            'entry'                         => 'ChefForms\Front\Entry',
             'notification'                  => 'ChefForms\Front\Notification',
         );
 

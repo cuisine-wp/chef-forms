@@ -152,15 +152,22 @@
 		 */
 		public static function postMeta( $tag ){
 
-			$post_id = Session::postId();
+			//get the root post-id if given:
+			if( isset( $_POST['_rootPid'] ) ){
+				$post_id = $_POST['_rootPid'];
+			}else{
+				$post_id = Session::postId();
+			}
+
 			$metas = get_post_meta( $post_id );
 
-			foreach( $metas as $key => $val ){
-
-				$value = $val[0];
-				$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
-
-
+			if( !empty( $metas ) ){
+				foreach( $metas as $key => $val ){
+	
+					$value = $val[0];
+					$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
+	
+				}
 			}
 
 			return $tag;

@@ -40,8 +40,9 @@
 		public function sendForm(){
 
 			$this->setPostGlobal();
-
+	
 			$confirm = Form::save( $_POST['post_id'] );
+
 			echo $confirm;
 			die();
 		}

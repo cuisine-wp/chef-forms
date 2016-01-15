@@ -5,8 +5,10 @@
 	use ChefForms\Wrappers\Field;
 	use Cuisine\Utilities\Sort;
 	use Cuisine\Utilities\Url;
+	use Cuisine\Utilities\Session;
 	use Cuisine\Wrappers\Template;
-	use ChefForms\Wrappers\Notification;
+	use ChefForms\Wrappers\Notification as FormNotification;
+	use ChefForms\Wrappers\Entry as FormEntry;
 	
 	class Form {
 	
@@ -32,14 +34,6 @@
 		 * @var array
 		 */
 		public $fields = array();
-
-
-		/**
-		 * Array of files being send
-		 * 
-		 * @var array
-		 */
-		public $files = array();
 
 
 		/**
@@ -81,6 +75,30 @@
 		private $settings = array();
 
 
+		/**
+		 * This forms return link (IE8 & IE9 only, unless you choose to hard refresh)
+		 * @var string
+		 */
+		public $returnLink = '';
+
+
+		/**
+		 * Method of submitting, defaults to post
+		 * 
+		 * @var string
+		 */
+		public $submitMethod = 'post';
+
+
+		/**
+		 * Default enctype:
+		 * 
+		 * @var string
+		 */
+		public $enctype = 'multipart/form-data';
+
+
+
 
 		/**
 		 * Check if this form can be filled in
@@ -101,6 +119,7 @@
 			do_action( 'chef_forms_init_form', $this );
 
 			$this->setSettings();
+			$this->setMessages();
 			$this->setValidity();
 			$this->setFields();
 
@@ -149,19 +168,16 @@
 
 				do_action( 'chef_forms_before_form', $this );
 
+				//show messages, if needed:
 				$this->showMessages();
 
-				echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
-			
-					if( 
-						$this->getSetting( 'maintain_msg' ) === 'true' ||
-						apply_filters('chef_forms_maintain_msg', false, $this )
-					){
-						echo ' data-maintain-msg="true" ';
-					}
-	
-					echo '>';
-				
+				//render the form-tag, with all attributes
+				$this->renderFormTag();
+
+				$this->renderNonce();
+
+					//anchor for message showing:
+					echo '<span class="form-anchor" id="f'.$this->id.'"></span>';
 					echo '<div class="form-fields">';
 							
 						foreach( $this->fields as $field ){
@@ -189,7 +205,8 @@
 					
 					$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
 					Template::element( 'loader', $default )->display();
-			
+				
+				//close the form-tag
 				echo '</form>';
 
 				do_action( 'chef_forms_after_form', $this );
@@ -217,21 +234,71 @@
 
 				$default = Url::path( 'plugin', 'chef-forms/Templates/Message' );
 
-				foreach( $this->messages as $message ){
+				foreach( $this->messages as $_msg ){
 
-					if( !is_array( $message ) ){
-						$message = array(
+					if( !is_array( $_msg ) ){
+						$_msg = array(
 							'type'	=> 'msg',
-							'text'	=> $message
+							'text'	=> $_msg
 						);
 					}
 
-					$args = array( 'msg' => $message );
+					$args = array( 'msg' => $_msg );
 					Template::element( 'forms/Message', $default )->display( $args );
 				}
 			}
 		}
 
+
+		/**
+		 * Add the form tag, with all attributes
+		 * 
+		 * @return string (html, echoed)
+		 */
+		public function renderFormTag(){
+
+			echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
+			
+			//hard refresh settings:
+			echo ' action="'.$this->returnLink.'"';
+			echo ' method="'.$this->submitMethod.'"';
+			echo ' enctype="'.$this->enctype.'"';
+
+			//message stickyness
+			if( 
+				$this->getSetting( 'maintain_msg' ) === 'true' ||
+				apply_filters('chef_forms_maintain_msg', false, $this )
+			){
+				echo ' data-maintain-msg="true"';
+			}
+
+			//no ajax
+			if(
+				$this->getSetting( 'no_ajax' ) === 'true' ||
+				apply_filters( 'chef_forms_no_ajax', false, $this )
+			){
+				echo ' data-no-ajax="true"';
+
+			}
+			
+			echo '>';
+
+		}
+
+		/**
+		 * Render the nonce-tag, and various hidden fields
+		 * 
+		 * @return string (html,echoed)
+		 */
+		public function renderNonce(){
+
+			//add the post-nonce:
+			wp_nonce_field( 'form_'.$this->id.'_submit', '_chef_form_submit' );
+			echo '<input type="hidden" name="_fid" value="'.$this->id.'"/>';
+			echo '<input type="hidden" name="_rootPid" value="'.Session::rootPostId().'"/>';
+
+
+		}
 
 
 		/**
@@ -366,20 +433,25 @@
 		public function save( $id ){
 		
 			$this->id = $id;
+
+			//first, check if the nonce is valid:
+			if( !wp_verify_nonce( $_POST['_chef_form_submit'], 'form_'.$id.'_submit' ) ){
+
+				$this->message = array(
+						'error'		=> 	true,
+						'message'	=> 	__( 'Geen geldige Nonce.', 'chefforms' )
+				);
+
+				return json_encode( $this->message );
+			}
+
+
+			//init the Form object:
 			$this->init();
 
-			//setup the $entry variable
-			if( !empty( $_POST ) )
-				self::sanitizeData();
+			//create the entry:
+			$entry = FormEntry::make( $this );
 
-
-			//first upload files, if we have any:
-			if( !empty( $_FILES ) )
-				self::uploadFiles();
-
-
-			$entry = self::saveEntry( $id );
-		
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
 
@@ -387,166 +459,33 @@
 			if( !empty( $this->redirect ) ){
 
 				//store this form-session in a php session:
-				self::store();
+				$this->store();
 
 				//return the redirect data
 				return json_encode( $this->redirect );
 			
-			
-			//else, carry on to notifications:
-			}else{
+			}
 
-				do_action( 'before_notification', $this, $entry );
+			//else, carry on to notifications:
+			do_action( 'before_notification', $this, $entry );
 
 				//notify everybody
 				$this->notify();
 
-				//after notifying
-				do_action( 'after_notification', $this, $entry );
+			//after notifying
+			do_action( 'after_notification', $this, $entry );
 
-				//set the message, if it's empty
-				if( empty( $this->message ) ){
-					$this->message = array(
+			//set the message, if it's empty
+			if( empty( $this->message ) ){
+				$this->message = array(
 
-							'error'		=> 	false,
-							'message'	=> 	$this->getSetting( 'confirm' )
-					);
-				}
-
-				//return the message
-				return json_encode( $this->message );
-			}
-		}
-	
-
-		/**
-		 * Save a single entry
-		 * 
-		 * @param  int $id
-		 * @return array $entry
-		 */
-		public function saveEntry( $id ){
-
-			do_action( 'before_entry_save', $this, $_POST['entry'] );
-
-			$title = 'Inschrijving '.\get_the_title( $id ).' - '.date( 'd-m-Y' );
-
-			$args = array(
-				'post_title'	=> 	$title,
-				'post_parent' 	=>	$id,
-				'post_type' 	=> 	'form-entry',
-				'post_status'	=> 	'publish',
-				'post_date'		=> 	date( 'Y-m-d H:i:s' ), 
-				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
-			);
-
-			$entryId = wp_insert_post( $args );
-
-			//set entry id in the post global, for easy acces:
-			$_POST['entry_id'] = $entryId;
-			$entry = $_POST['entry'];
-
-			$entry = apply_filters( 'chef_forms_entry_values', $entry );
-
-			//save all fields
-			update_post_meta( $entryId, 'entry', $entry );
-
-
-			do_action( 'after_entry_save', $this, $entry );
-
-
-			return $entry;
-
-		}
-
-
-		/**
-		 * Upload files, if they're being send
-		 * 
-		 * @return void
-		 */
-		private function uploadFiles(){
-
-			if( !empty( $_FILES ) ){
-
-				$uploadDir = wp_upload_dir();
-
-				$uploadFolder = apply_filters( 
-					'chef_forms_upload_dir',
-					'chef-forms'
+						'error'		=> 	false,
+						'message'	=> 	$this->getSetting( 'confirm' )
 				);
-
-				$uploadFolder = trailingslashit( $uploadFolder ).'form_'.$this->id;
-
-				$base = trailingslashit( $uploadDir['basedir'] ).$uploadFolder;
-				$baseUrl = trailingslashit( 
-					content_url( 'uploads/'.$uploadFolder )
-				);
-
-				do_action( 'chef_forms_before_uploads', $this );
-
-				//create a base directory, if necissary:
-				if( !is_dir( $base ) ){
-
-					$folder = mkdir( $base );
-
-				}else{
-				    		
-					$folder = true;
-				    	
-				}
-
-				$upload_path = $base . DIRECTORY_SEPARATOR;
-						
-				$response = array();
-
-				//if there's a folder:		
-				if( $folder ){
-
-					foreach( $_FILES as $key => $file ){
-
-						do_action( 'chef_forms_before_file_upload', $file, $this );
-
-						//upload the bunch:
-						$tempFile = $file['tmp_name'];
-						
-						$targetPath = $upload_path;
-						$filename = date('YmdHis').'-'.$file['name'];
-						$targetFile = $targetPath . $filename;
-
-						$upload = move_uploaded_file( $tempFile, $targetFile );
-
-						if( $upload ){
-							//add a response:
-							$info = getimagesize( $targetFile );
-					
-							$file['path'] = $targetFile;
-							$file['url'] = $baseUrl . $filename;
-					
-							$this->files[] = $file;
-
-				    	}else{
-							//add an error:
-							$this->message = array( 'error' => true, 'message' => 'Uploaden mislukt, probeer het later nog eens.' );
-
-				    	}
-
-				    	do_action( 'chef_forms_after_file_upload', $file, $this );
-				    }
-
-				}else{
-				   	//add an error; no upload folder.
-					$this->message = array( 
-						'error' => true, 
-						'message' => 'De upload-map kan niet aangemaakt worden...'
-					);
-				}
 			}
 
-			if( !empty( $this->message ) ){
-				echo json_encode( $this->message );
-				die();
-			}
+			//return the message
+			return json_encode( $this->message );
 		}
 
 		
@@ -568,35 +507,8 @@
 				}
 			}
 
-			die();
 		}
 
-
-		/**
-		 * Clean up the POST global for processing
-		 * 
-		 * @return void
-		 */
-		private function sanitizeData(){
-
-			$entry = array();
-			$_entry = $_POST;
-			unset( $_entry['action'] );
-			unset( $_entry['post_id'] );
-
-			foreach( $_entry as $name => $value ){
-
-				$entry[] = array(
-					'name'	=> $name,
-					'value'	=> $value
-				);
-
-			}
-
-			$_POST['entry'] = $entry;
-			return $entry;
-
-		}
 
 
 
@@ -700,6 +612,39 @@
 		}
 
 
+		/**
+		 * Get the default settings of a form:
+		 * 
+		 * @return void
+		 */
+		private function getDefaultSettings(){
+
+			return array(
+				'max_entries' => '',
+				'entry_start_unix' => '',
+				'entry_start' => '',
+				'entry_end_unix' => '',
+				'entry_end' => '',
+				'no_ajax' => 'false'
+			);
+		}
+
+
+		/**
+		 * Get the amount of entries currently tied to this form:
+		 * 
+		 * @return int
+		 */
+		private function getEntriesCount(){
+
+			global $wpdb;
+			$query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = %s AND post_type = 'form-entry'";
+			$post_count = $wpdb->get_var( $wpdb->prepare( $query, $this->id ) );
+			return $post_count;
+
+		}
+
+
 
 		/*=============================================================*/
 		/**             Setters                                        */
@@ -719,15 +664,7 @@
 			if( !$settings )
 				$settings = array();
 
-			//set vars if these do not exist:
-			if( !isset( $settings['max_entries'] ) ){
-				$settings['max_entries'] = '';
-				$settings['entry_start_unix'] = '';
-				$settings['entry_start'] = '';
-				$settings['entry_end_unix'] = '';
-				$settings['entry_end'] = '';
-			}
-
+			$settings = wp_parse_args( $settings, $this->getDefaultSettings() );
 
 			//combined with the post:
 			$formPost = get_post( $this->id );
@@ -749,22 +686,44 @@
 			//populate the settings field:
 			$this->settings = array_merge( $settings, $post_values );
 
-		}
+			//allow filters on all all hard refresh variables:
+			$this->submitMethod = apply_filters( 
+				'chef_forms_submit_method', 
+				$this->submitMethod, 
+				$this 
+			);
 
+			$this->enctype = apply_filters( 
+				'chef_forms_enctype', 
+				$this->enctype, 
+				$this
+			);
+
+			$this->returnLink = get_permalink( Session::rootPostId() ).'#f'.$this->id;
+			$this->returnLink = apply_filters( 
+				'chef_forms_return_link', 
+				$this->returnLink, 
+				$this
+			);
+
+
+		}
 
 		/**
-		 * Get the amount of entries currently tied to this form:
-		 * 
-		 * @return int
+		 * Set messages for this form
+		 *
+		 * @return void
 		 */
-		private function getEntriesCount(){
+		private function setMessages(){
 
-			global $wpdb;
-			$query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_parent = %s AND post_type = 'form-entry'";
-			$post_count = $wpdb->get_var( $wpdb->prepare( $query, $this->id ) );
-			return $post_count;
+			if( !empty( $_SESSION['form_messages'] ) ){
 
+				$this->messages = array_merge( $this->messages, $_SESSION['form_messages'] );
+				unset( $_SESSION['form_messages'] );
+
+			}
 		}
+
 
 
 		/**
@@ -865,7 +824,7 @@
 			if( !empty( $datas ) ){
 				foreach( $datas as $data ){
 
-					$notifications[] = Notification::make( $data, $this->fields );
+					$notifications[] = FormNotification::make( $data, $this->fields );
 				
 				}
 			}

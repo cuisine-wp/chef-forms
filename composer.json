@@ -19,6 +19,6 @@
   "type": "wordpress-plugin",
   "require": {
     "php": ">=5.3.2",
-    "chefduweb/cuisine": "dev-master"
+    "chefduweb/cuisine": "1.5.5"
   }
 }

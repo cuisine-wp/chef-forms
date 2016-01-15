@@ -5,6 +5,7 @@
 	use Cuisine\Utilities\Url;
 	use Cuisine\Wrappers\PostType;
 	use ChefForms\Wrappers\StaticInstance;
+	use ChefForms\Wrappers\Form;
 
 	class EventListeners extends StaticInstance{
 
@@ -51,10 +52,51 @@
 				)->set( array( 'public' => false ) );	
 
 
-			});
+			}, 100, 0 );
+
+
 
 
 			//sending:
+			add_action( 'init', function(){
+
+				//first, check if we're dealing with a non-ajax form submit:
+				if( 
+				
+					!defined( 'DOING_AJAX' ) &&
+					!empty( $_POST ) && 
+					isset( $_POST['_chef_form_submit'] )
+
+				){
+
+					$confirm = Form::save( $_POST['_fid'] );
+
+
+					$response = json_decode( $confirm );
+
+					//redirect, if needed:
+					if( isset( $response->redirect ) && $response->redirect == true ){
+
+						Header( 'Location: '.$response->redirect_url );
+						exit();
+
+					}else{
+
+						//else save the message to a session,
+						//so we can display it on the form:
+						if( !isset( $_SESSION['form_messages'] ) )
+							$_SESSION['form_messages'] = array();
+
+						$_SESSION['form_messages'][] = array(
+							'type' => ( $response->error ? 'error' : 'msg' ),
+							'text' => $response->message
+						);
+
+					}
+
+				}
+
+			}, 200, 0 );
 		}
 
 
