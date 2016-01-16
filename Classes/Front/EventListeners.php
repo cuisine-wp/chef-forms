@@ -57,7 +57,7 @@
 
 
 
-			//sending:
+			//Submitting forms, without ajax
 			add_action( 'init', function(){
 
 				//first, check if we're dealing with a non-ajax form submit:
@@ -70,8 +70,6 @@
 				){
 
 					$confirm = Form::save( $_POST['_fid'] );
-
-
 					$response = json_decode( $confirm );
 
 					//redirect, if needed:

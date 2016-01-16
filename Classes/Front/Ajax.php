@@ -33,7 +33,7 @@
 		}
 
 		/**
-		 * Send a form
+		 * Submit a form with ajax
 		 * 
 		 * @return string, echoed
 		 */

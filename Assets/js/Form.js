@@ -32,7 +32,9 @@ define([
 		var el = '';
 		var formId = '';
 		var fields = {};
-		var submitted = false;
+		var submitted = '';
+		var logMessages = '';
+		var dev = '';
 
 
 		/**
@@ -45,11 +47,16 @@ define([
 
 			var self = this;
 			self.el = $( obj );
-			self.submitted = false;
 
 			//stop a form from initting if it's just an arbitrary .form class:
 			if( self.el.attr('id') === undefined )
 				return false;
+
+
+			//checks and debugging:
+			self.submitted = false;
+			self.logMessages = false;
+			self.dev = false;
 
 			self.fields = self.el.find( '.field' );
 			self.formId = parseInt( self.el.attr('id').replace( 'form_', '' ) );
@@ -67,6 +74,8 @@ define([
 			self.el.find( '.submit-form' ).on( 'click', function( e ){
 
 				e.preventDefault();
+
+				self.logger( 'submit button clicked' );
 				self.el.trigger('submit');
 
 			});
@@ -80,6 +89,7 @@ define([
 				
 
 				var allValidated = true;
+				self.logger( 'submit triggered' );
 
 				//validate all fields:
 				self.fields.each( function(){
@@ -93,20 +103,16 @@ define([
 
 				//if all fields are validated
 				if( allValidated === true && self.submitted == false ){
-							
+					
+					self.logger( 'everything validated.' );
 					self.showLoader();
 					self.send();
 				
-				}else{
-					//nothing validated, return false nonetheless
-					e.preventDefault();
-					return false;
-
 				}
 
 
 				//only return false in the case of no ajax:
-				if( self.allowAjax() )
+				if( self.allowAjax() || allValidated == false )
 					return false;
 				
 			});
@@ -137,6 +143,8 @@ define([
 				self.submitted = true;
 				self.el.trigger( 'submit' );
 
+				self.logger( 'non-ajax submit' );
+
 			}else{ 
 
 				var _data = new FormData( self.el[0] );
@@ -145,6 +153,8 @@ define([
 
 				self.el.trigger( 'beforeSubmit', _data, self );
 				self.submitted = true;
+
+				self.logger( 'ajax submit' );
 
 				$.ajax({
 
@@ -173,7 +183,8 @@ define([
 		 */
 		this.allowAjax = function(){
 
-			if( window.FormData == undefined || self.el.data( 'no-ajax') === undefined )
+			var self = this;
+			if( window.FormData == undefined || self.el.data( 'no-ajax') !== undefined )
 				return false;
 
 			return true;
@@ -190,9 +201,13 @@ define([
 		this.onSuccess = function( response, self ){
 
 			//used for debugging notifications:
-			//self.el.append( response );
+			self.logger( response );
+
+			if( self.dev )
+				self.el.append( response );
+			
 					
-			if( Validate.json( response ) ){
+			if( Validate.json( response ) && self.dev === false ){
 						
 				self.hideLoader();
 
@@ -420,6 +435,22 @@ define([
 			var self = this;
 			self.el.removeClass( 'active' );
 
+		}
+
+		/**
+		 * Log errors and responses, when self.logErrors is set.
+		 * 
+		 * @return void
+		 */
+		this.logger = function( _msg ){
+
+			var self = this;
+
+			if( self.logMessages ){
+
+				console.log( _msg );
+
+			}
 		}
 	}
 });
