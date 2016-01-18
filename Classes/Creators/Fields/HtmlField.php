@@ -30,7 +30,7 @@ class HtmlField extends DefaultField{
 
         $this->sanitizeProperties();
 
-        echo '<div class="field-wrapper">';
+        echo '<div class="field-wrapper html-field">';
             
             if( $this->getProperty( 'label' ) !== '' )
                 echo '<h3>'.$this->getProperty( 'label' ).'</h3>';
