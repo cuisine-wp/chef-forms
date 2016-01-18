@@ -134,6 +134,9 @@ class Notification {
 
 		$this->createMessage();
 
+		echo $this->message;
+		die();
+
 		return $this;
 	}
 

@@ -250,21 +250,24 @@ class EntriesManager{
 				$entryValues = get_post_meta( get_the_ID(), 'entry', true );
 
 				//merge the value with the fields object:
-				foreach( $entryFields as $field_id => $field ){
-
-					foreach( $entryValues as $value ){
-
-						$value_id = str_replace( $prefix, '', $value['name'] );
-						if( $value_id == $field_id ){
-							$entryFields[ $field_id ]['value'] = $value['value'];
-							break;
+				if( !empty( $entryFields ) ){
+					foreach( $entryFields as $field_id => $field ){
+	
+						if( !empty( $entryValues ) ){
+							foreach( $entryValues as $value ){
+		
+								$value_id = str_replace( $prefix, '', $value['name'] );
+								if( $value_id == $field_id ){
+									$entryFields[ $field_id ]['value'] = $value['value'];
+									break;
+								}
+		
+							}
+		
+							if( !isset( $entryFields[ $field_id ]['value'] ) )
+								$entryFields[ $field_id ]['value'] = false;
 						}
-
 					}
-
-					if( !isset( $entryFields[ $field_id ]['value'] ) )
-						$entryFields[ $field_id ]['value'] = false;
-
 				}
 
 				//package the entry

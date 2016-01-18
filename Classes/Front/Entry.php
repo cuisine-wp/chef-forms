@@ -29,14 +29,14 @@ namespace ChefForms\Front;
 
 			$this->form = $_form;
 
-			//setup the $entry variable
-			if( !empty( $_POST ) )
-				$this->sanitizeData();
-
-
 			//first upload files, if we have any:
 			if( !empty( $_FILES ) )
 				$this->uploadFiles();
+
+
+			//setup the $entry variable
+			if( !empty( $_POST ) )
+				$this->sanitizeData();
 
 
 			$entry = $this->save();
@@ -95,6 +95,7 @@ namespace ChefForms\Front;
 
 			if( !empty( $_FILES ) ){
 
+
 				$filesAvailable = false;
 
 				foreach( $_FILES as $file ){
@@ -133,7 +134,7 @@ namespace ChefForms\Front;
 									$file['path'] = $targetFile;
 									$file['url'] = $url . $filename;
 							
-									$this->files[] = $file;
+									$this->files[ $key ] = $file;
 		
 					    		}else{
 									//add an error:
@@ -231,6 +232,18 @@ namespace ChefForms\Front;
 					'value'	=> $value
 				);
 
+			}
+
+			//add files to entry:
+			if( !empty( $this->files ) ){
+
+				foreach( $this->files as $key => $info ){
+					$entry[] = array(
+								'name'	=> $key,
+								'value'	=> $info['url'],
+								'data'	=> $info
+					);
+				}
 			}
 
 			$_POST['entry'] = $entry;

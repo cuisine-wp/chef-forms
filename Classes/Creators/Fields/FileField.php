@@ -52,4 +52,67 @@ class FileField extends DefaultField{
 
     }
 
+
+
+
+    /**
+     * Get the value from this field, including the label for the notifications
+     * 
+     * @param  array $entry The entry being saved.
+     * @return string (html)
+     */
+    public function getNotificationPart( $entryItems ){
+
+        $html = '';
+
+
+        foreach( $entryItems as $entry ){
+
+            if( $this->name == $entry['name'] ){
+
+                $label = $this->label;
+                if( $label == '' && $this->properties['placeholder'] != '' )
+                    $label = $this->properties['placeholder'];
+
+
+                if( $this->isImage( $entry ) ){
+
+                    $url = $entry['value'];
+                    $entry['value'] = '<span style="text-align:center;width:100%;display:block;">';
+                    $entry['value'] .= '<img src="'.$url.'" style="width:auto;height:150px;"><br/>';
+                    $entry['value'] .= '<small><a href="'.$url.'">Download</a></small></span>';
+
+                }
+
+
+
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
+                $html .= '<td style="text-align:right">'.$entry['value'].'</td></tr>';
+
+            } 
+        }
+
+        return $html;
+
+    }
+
+    
+    /**
+     * Check to see if the upload is an image
+     * 
+     * @return boolean
+     */
+    public function isImage( $entry ){
+
+        if( isset( $entry['data']['type'] ) ){
+
+            if( substr( $entry['data']['type'], 0, 5 ) == 'image' )
+                return true;
+
+        }
+
+
+        return false;
+    }
+
 }
