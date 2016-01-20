@@ -166,15 +166,17 @@
 			//if the form can be filled in:
 			if( $this->notValid === false ){
 
-				do_action( 'chef_forms_before_form', $this );
-
 				//show messages, if needed:
 				$this->showMessages();
+
+				do_action( 'chef_forms_before_form', $this );
 
 				//render the form-tag, with all attributes
 				$this->renderFormTag();
 
 				$this->renderNonce();
+
+					do_action( 'chef_forms_before_fields', $this );
 
 					//anchor for message showing:
 					echo '<span class="form-anchor" id="f'.$this->id.'"></span>';
