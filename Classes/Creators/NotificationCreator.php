@@ -95,15 +95,8 @@ class NotificationCreator{
 
 		if( isset( $_POST['notifications'] ) ){
 
-			$notifications = $_POST['notifications'];
-			$_notifications = array();
-		
-			foreach( $notifications as $id => $field ){
-		
-				$_notifications[ $id ] = $field;
-		
-			}
-		
+
+			$_notifications = $this->fields->getFieldValues();
 			update_post_meta( $post_id, 'notifications', $_notifications );
 		
 			return true;

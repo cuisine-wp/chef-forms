@@ -70,7 +70,7 @@ class SettingsManager{
 		//save all settings:
 		if( !empty( $_POST['settings'] ) ){
 
-			$settings = self::sanitizeSettings( $_POST['settings'] );
+			$settings = $this->sanitizeSettings( $_POST['settings'] );
 
 			$_settings = array();
 			foreach( $settings as $id => $setting ){
@@ -96,7 +96,7 @@ class SettingsManager{
 	 * @param  array $setting
 	 * @return array $setting
 	 */
-	private static function sanitizeSettings( $settings ){
+	private function sanitizeSettings( $settings ){
 
 		if( $settings['entry_start'] != '' ){
 			$settings['entry_start_unix'] = strtotime( $settings['entry_start'] );
@@ -108,6 +108,18 @@ class SettingsManager{
 			$settings['entry_end_unix'] = strtotime( $settings['entry_end'] );
 		}else{
 			$settings['entry_end_unix'] = '';
+		}
+
+		//save the editor field:
+		$fields = $this->getFields();
+		foreach( $fields as $field ){
+
+			if( $field->type == 'editor' ){
+			
+				$name = str_replace( array( 'settings[', ']' ), '', $field->name );
+				$settings[ $name ] = $_POST[ $field->id ];
+
+			}
 		}
 
 		return $settings;
