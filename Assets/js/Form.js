@@ -346,7 +346,7 @@ define([
 						break;
 						case 'email':
 
-							if( Validate.email( value ) === false ){
+							if( value != '' && Validate.email( value ) === false ){
 								validated = false;
 								type = 'email';
 							}
@@ -354,7 +354,7 @@ define([
 						break;
 						case 'numerical':
 
-							if( Validate.number( value ) === false ){
+							if( value != '' && Validate.number( value ) === false ){
 								validated = false;
 								type = 'number';
 							}
@@ -362,7 +362,7 @@ define([
 						break;
 						case 'address':
 
-							if( Validate.has_number( value ) === false ){
+							if( value != '' && Validate.has_number( value ) === false ){
 								validated = false;
 								type = 'address';
 							}
@@ -370,7 +370,7 @@ define([
 						break;
 						case 'zipcode':
 
-							if( Validate.zipcode( value ) === false ){
+							if( value != '' && Validate.zipcode( value ) === false ){
 								validated = false;
 								type = 'zipcode';
 							}
