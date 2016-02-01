@@ -101,18 +101,18 @@
 
 				}	
 
-				if( strpos( $tag,'{{postmeta_') !== false || strpos( $tag, '{{ postmeta_' ) !== false ) ){
+				if( strpos( $tag,'{{postmeta_') !== false || strpos( $tag, '{{ postmeta_' ) !== false ){
 
 					$return = self::postMeta( $tag );
 
 				}
 
-				if( strpos( $tag, '{{user_' ) !== false || strpos( $tag, '{{ user_' !== false ) ){
+				if( strpos( $tag, '{{user_' ) !== false || strpos( $tag, '{{ user_' ) !== false ){
 
-					$return self::userData( $tag );
+					$return = self::userData( $tag );
 				}
 
-				if( strpos( $tag, '{{usermeta_' ) !== false || strpos( $tag, '{{ usermeta_' !== false ) ){
+				if( strpos( $tag, '{{usermeta_' ) !== false || strpos( $tag, '{{ usermeta_' ) !== false ){
 
 					$return = self::userMeta( $tag );
 
