@@ -4,6 +4,7 @@
 
 
 	use Cuisine\Utilities\Session;
+	use Cuisine\Utilities\User;
 
 	class Tag {
 
@@ -68,8 +69,8 @@
 					$tag = str_replace( array( '{{ entry_id }}', '{{entry_id}}'), $_POST['entry_id'], $tag );
 			
 
-				//replace post meta:
-				$tag = self::postMeta( $tag );
+				//replace post, meta and other values:
+				$tag = self::field( $tag );
 			}
 
 			return $tag;
@@ -98,11 +99,25 @@
 
 					$return = self::postData( $tag );
 
-				}else{
+				}	
+
+				if( strpos( $tag,'{{postmeta_') !== false || strpos( $tag, '{{ postmeta_' ) !== false ) ){
 
 					$return = self::postMeta( $tag );
 
 				}
+
+				if( strpos( $tag, '{{user_' ) !== false || strpos( $tag, '{{ user_' !== false ) ){
+
+					$return self::userData( $tag );
+				}
+
+				if( strpos( $tag, '{{usermeta_' ) !== false || strpos( $tag, '{{ usermeta_' !== false ) ){
+
+					$return = self::userMeta( $tag );
+
+				}
+
 
 				//filter the result:
 				return apply_filters( 'chef_form_tag', $return, $tag );
@@ -165,12 +180,49 @@
 				foreach( $metas as $key => $val ){
 	
 					$value = $val[0];
+					$key = 'post_meta_'.$key;
+
 					$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
 	
 				}
 			}
 
 			return $tag;
+		}
+
+
+		/**
+		 * Check for available user-data like names and emails
+		 * 
+		 * @param  string $tag
+		 * @return string
+		 */
+		public static function userData( $tag ){
+
+			if( is_user_logged_in() ){
+
+				$tag = str_replace( array( '{{ user_name }}', '{{user_name}}' ), User::get( 'display-name' ), $tag );
+				$tag = str_replace( array( '{{ user_email }}', '{{user_email}}' ), User::get( 'email' ), $tag );
+				$tag = str_replace( array( '{{ user_id }}', '{{user_id}}' ), User::get( 'ID' ), $tag );
+
+			}
+
+			return $tag;
+
+		}
+
+
+		/**
+		 * Check for available user-meta
+		 * 
+		 * @param  string $tag
+		 * @return string
+		 */
+		public static function userMeta( $tag ){
+
+
+			return $tag;
+
 		}
 
 
