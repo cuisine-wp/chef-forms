@@ -224,6 +224,8 @@ namespace ChefForms\Front;
 			unset( $_entry['post_id'] );
 			unset( $_entry['_chef_form_submit'] );
 			unset( $_entry['_wp_http_referer'] );
+			unset( $_entry['_fid'] );
+			unset( $_entry['_rootPid'] );
 
 			foreach( $_entry as $name => $value ){
 

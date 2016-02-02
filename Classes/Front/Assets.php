@@ -67,7 +67,11 @@
 				$vars = array(
 					'required' 	=> __( 'Dit is een verplicht veld', 'chefforms' ),
 					'email'		=> __( 'Dit is geen geldig e-mailadres', 'chefforms' ),
-					'numerical'	=> __( 'Dit is geen geldig nummer', 'chefforms' ),
+					'number'	=> __( 'Dit is geen geldig nummer', 'chefforms' ),
+					'equal-higher-zero'	=> __( 'Dit moet minimaal nul zijn', 'chefforms' ),
+					'equal-lower-zero'	=> __( 'Dit mag maximaal nul zijn', 'chefforms' ),
+					'higher-zero'		=> __( 'Dit moet hoger dan nul zijn', 'chefforms' ),
+					'lower-zero'		=> __( 'Dit moet lager dan nul zijn', 'chefforms' ),
 					'address'	=> __( 'Vergeet je het huisnummer niet?', 'chefforms' ),
 					'zipcode'	=> __( 'Dit is geen geldige postcode', 'chefforms' ),
 					'slug'		=> __( 'Dit is geen geldig domein', 'chefforms' )
