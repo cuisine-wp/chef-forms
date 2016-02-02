@@ -352,7 +352,7 @@ define([
 							}
 
 						break;
-						case 'numerical':
+						case 'number':
 
 							if( value != '' && Validate.number( value ) === false ){
 								validated = false;
@@ -360,6 +360,25 @@ define([
 							}
 
 						break;
+
+						case 'not-negative':
+
+							if( Validate.equalHigherZero( value ) === false ){
+								validated = false;
+								type = 'equalHigherZero';
+							}
+
+						break;
+
+						case 'not-positive':
+
+							if( Validate.equalLowerZero( value ) === false ){
+								validated = false;
+								type = 'equalLowerZero';
+							}
+
+						break;
+
 						case 'address':
 
 							if( value != '' && Validate.has_number( value ) === false ){
