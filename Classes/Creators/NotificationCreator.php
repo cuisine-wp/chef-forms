@@ -95,7 +95,6 @@ class NotificationCreator{
 
 		if( isset( $_POST['notifications'] ) ){
 
-
 			$_notifications = $this->fields->getFieldValues();
 			update_post_meta( $post_id, 'notifications', $_notifications );
 		

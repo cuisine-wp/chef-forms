@@ -1,6 +1,7 @@
 var FormManager = Backbone.View.extend({
 
 	formId: '',
+	availableTags: {},
 
 	/**
 	 * Events for this View
@@ -23,9 +24,30 @@ var FormManager = Backbone.View.extend({
 
 		self.formId = self.$el.data('form_id');
 
+		self.setAvailableTags();
+		self.setFieldHelperHtml();
+		
 		self.setEvents();
 
 		return this;
+	},
+
+
+	/**
+	 * Create the available-tags object:
+	 */
+	setAvailableTags: function(){
+
+		var self = this;
+		if( window.FormFields !== undefined ){
+
+			self.availableTags = FormFields;
+
+		}else{
+
+			self.availableTags = [];
+
+		}
 	},
 
 
@@ -40,7 +62,42 @@ var FormManager = Backbone.View.extend({
 
 			return false;
 		});
+
+		//jQuery( )
 	},
+
+
+	setFieldHelperHtml: function(){
+
+
+		var self = this;
+		var _html = '<span class="helper-selector">';
+
+			_html += '<span class="arrow-down"></span>';
+
+			_html += '<div class="field-helper-wrapper">';
+			for( var i = 0; self.availableTags.length > i; i++ ){
+
+				var _field = self.availableTags[ i ];
+
+				if( _field.label !== undefined ){
+
+					_html += '<span class="field-helper-item" ';
+					_html += 'data-field_id="'+_field.id+'">';
+						_html += _field.label;
+	
+					_html += '</span>';
+				}
+			}
+
+			_html += '</div>';
+
+		_html += '</span>';
+
+		jQuery('.notifications-container .field-wrapper').append( _html );
+
+	},
+
 
 	/**
 	 * Toggle different views:
@@ -87,10 +144,15 @@ var FormManager = Backbone.View.extend({
 
 			if( response !== 'error' ){
 
-				jQuery( '.section-wrapper.msg' ).remove();
-				jQuery( '.form-builder-fields' ).append( response );
+				response = JSON.parse( response );
 
+				jQuery( '.section-wrapper.msg' ).remove();
+				jQuery( '.form-builder-fields' ).append( response.html );
+
+
+				self.availableTags.push( response.field );
 				setFieldBlocks();
+
 			}
 
 		});

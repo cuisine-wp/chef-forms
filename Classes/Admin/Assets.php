@@ -3,6 +3,7 @@
 	namespace ChefForms\Admin;
 
 	use Cuisine\Utilities\Url;
+	use Cuisine\Utilities\Session;
 	use \ChefForms\Wrappers\StaticInstance;
 
 	class Assets extends StaticInstance{
@@ -48,6 +49,18 @@
 				);
 							
 				wp_enqueue_style( 'form-builder', $url.'/css/admin.css' );
+
+				if( isset( $_GET['post'] ) && get_post_type( Session::postId() ) === 'form' ){
+
+					$fields = get_post_meta( Session::postId(), 'fields', true );
+
+					foreach( $fields as $id => $field ){
+						$fields[ $id ]['id'] = $id;
+					}
+
+					wp_localize_script( 'form_manager', 'FormFields', $fields ); 
+
+				}
 							
 			});
 

@@ -206,6 +206,51 @@
   line-height: 100%;
 }
 
+.notifications-container .field-wrapper {
+  position: relative;
+}
+
+.helper-selector {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+  width: 30px;
+  height: 30px;
+  background: #eee;
+  border-radius: 4px;
+  text-align: center;
+  padding-top: 10px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.helper-selector .arrow-down {
+  border: 7px solid #444;
+  border-color: #444 transparent transparent transparent;
+  display: inline-block;
+}
+.helper-selector .field-helper-wrapper {
+  display: none;
+}
+.helper-selector:hover {
+  background: #444;
+  color: #fff;
+}
+.helper-selector:hover .field-helper-wrapper {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #eee;
+  border: 1px solid #ddd;
+  display: block;
+  width: 150px;
+}
+.helper-selector:hover .field-helper-wrapper .field-helper-item {
+  width: 100%;
+  display: block;
+  color: #444;
+}
+
 .form-builder-fields {
   padding: 15px;
 }

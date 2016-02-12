@@ -158,7 +158,15 @@ class FormCreator{
 
 
 		$field = Field::$type( $id, $form_id, $args );
-		return $field->build();
+		$_html = '';
+
+		ob_start();
+
+		$field->build();
+
+		$_html = ob_get_clean();
+
+		return json_encode( array( 'field' => $args, 'html' => $_html ) );
 
 	}
 
