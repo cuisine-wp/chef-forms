@@ -1,3 +1,15 @@
+### 2.1.4 2016-02-12
+
+* Added the HTML and Break fields
+* Added new number validation
+* Added more actions and filters for fields
+* Fixes for the Notification and Settingsmanager Editor-fields with Cuisine.
+* Only validate non-empty fields now
+* Tag refactoring: post, postmeta, user and usermeta
+* Minor styling fix to checkboxes
+
+
+
 ### 2.1.3 2016-01-15
 
 * Non JS form-submitting 
