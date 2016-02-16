@@ -88,7 +88,7 @@ namespace ChefForms\Front;
 		 * 
 		 * @return array
 		 */
-		public function map( $_form ){
+		public function map( $_form, $_entry = array() ){
 
 			$this->form = $_form;
 
@@ -98,13 +98,27 @@ namespace ChefForms\Front;
 
 			$_mapped = array();
 
-			//loop through the form fields:
-			foreach( $this->form->fields as $id => $field ){
+			//if there's no entry set:
+			if( empty( $_entry ) ){
 
+				//fallback on the $_POST global
+				if( empty( $_POST ) )
+					return false;
+
+				$_entry = $_POST['entry'];
+			} 
+
+			//set a prefix
+			$prefix = 'field_'.$this->form->id.'_';
+
+			//loop through the form fields:
+			foreach( $this->form->fields as $field ){
+
+				$id = str_replace( $prefix, '', $field->name );
 				$_mapped[ $id ] = array();
 				
 				//find the corresponding entry value:
-				foreach( $_POST['entry'] as $entryField ){
+				foreach( $_entry as $entryField ){
 					
 				    if( $field->name == $entryField['name'] ){
 
@@ -124,6 +138,8 @@ namespace ChefForms\Front;
 
 			return $_mapped;
 		}
+
+
 
 
 		/**
