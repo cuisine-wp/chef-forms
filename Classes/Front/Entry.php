@@ -29,14 +29,14 @@ namespace ChefForms\Front;
 
 			$this->form = $_form;
 
-			//first upload files, if we have any:
-			if( !empty( $_FILES ) )
-				$this->uploadFiles();
-
-
 			//setup the $entry variable
 			if( !empty( $_POST ) )
 				$this->sanitizeData();
+
+
+			//first upload files, if we have any:
+			if( !empty( $_FILES ) )
+				$this->uploadFiles();
 
 
 			$entry = $this->save();
@@ -83,6 +83,64 @@ namespace ChefForms\Front;
 		}
 
 
+		/**
+		 * Map entry values to form fields
+		 * 
+		 * @return array
+		 */
+		public function map( $_form, $_entry = array() ){
+
+			$this->form = $_form;
+
+			//setup the $entry variable
+			if( !empty( $_POST ) )
+				$this->sanitizeData();
+
+			$_mapped = array();
+
+			//if there's no entry set:
+			if( empty( $_entry ) ){
+
+				//fallback on the $_POST global
+				if( empty( $_POST ) )
+					return false;
+
+				$_entry = $_POST['entry'];
+			} 
+
+			//set a prefix
+			$prefix = 'field_'.$this->form->id.'_';
+
+			//loop through the form fields:
+			foreach( $this->form->fields as $field ){
+
+				$id = str_replace( $prefix, '', $field->name );
+				$_mapped[ $id ] = array();
+				
+				//find the corresponding entry value:
+				foreach( $_entry as $entryField ){
+					
+				    if( $field->name == $entryField['name'] ){
+
+				    	//get the label, from placeholders if we have to:
+				    	$label = $field->label;
+				    	if( $label == '' && $field->properties['placeholder'] != '' )
+				    	    $label = $field->properties['placeholder'];
+
+				    	//add the label, name and value to the mapped array:
+				    	$_mapped[ $id ]['label'] = $label;
+				    	$_mapped[ $id ]['name'] = $field->name;
+				    	$_mapped[ $id ]['value'] = $entryField['value'];
+	
+				    } 
+				}
+			}
+
+			return $_mapped;
+		}
+
+
+
 
 		/**
 		 * Upload files, if they're being send
@@ -94,7 +152,6 @@ namespace ChefForms\Front;
 		private function uploadFiles(){
 
 			if( !empty( $_FILES ) ){
-
 
 				$filesAvailable = false;
 
@@ -134,7 +191,7 @@ namespace ChefForms\Front;
 									$file['path'] = $targetFile;
 									$file['url'] = $url . $filename;
 							
-									$this->files[ $key ] = $file;
+									$this->files[] = $file;
 		
 					    		}else{
 									//add an error:
@@ -236,17 +293,6 @@ namespace ChefForms\Front;
 
 			}
 
-			//add files to entry:
-			if( !empty( $this->files ) ){
-
-				foreach( $this->files as $key => $info ){
-					$entry[] = array(
-								'name'	=> $key,
-								'value'	=> $info['url'],
-								'data'	=> $info
-					);
-				}
-			}
 
 			$_POST['entry'] = $entry;
 			return $entry;
