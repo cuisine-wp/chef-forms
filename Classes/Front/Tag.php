@@ -4,7 +4,7 @@
 
 
 	use Cuisine\Utilities\Session;
-	use Cuisine\Utilities\User;
+	use Cuisine\Wrappers\User;
 
 	class Tag {
 
@@ -180,7 +180,7 @@
 				foreach( $metas as $key => $val ){
 	
 					$value = $val[0];
-					$key = 'post_meta_'.$key;
+					$key = 'postmeta_'.$key;
 
 					$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
 	
@@ -199,12 +199,16 @@
 		 */
 		public static function userData( $tag ){
 
-			if( is_user_logged_in() ){
+			if( User::loggedIn() ){
 
 				$tag = str_replace( array( '{{ user_name }}', '{{user_name}}' ), User::get( 'display-name' ), $tag );
 				$tag = str_replace( array( '{{ user_email }}', '{{user_email}}' ), User::get( 'email' ), $tag );
 				$tag = str_replace( array( '{{ user_id }}', '{{user_id}}' ), User::get( 'ID' ), $tag );
 
+			}else{
+
+				//user isn't logged in, so return an empty string:
+				$tag = '';
 			}
 
 			return $tag;
@@ -220,6 +224,35 @@
 		 */
 		public static function userMeta( $tag ){
 
+			$originalTag = $tag;
+
+			if( User::loggedIn() ){
+
+				$metas = get_user_meta( User::getId() );
+
+				if( !empty( $metas ) ){
+					foreach( $metas as $key => $val ){
+				
+						$value = ( isset( $val[0] ) ? $val[0] : false );
+						$key = 'usermeta_'.$key;
+
+						if( $value )
+							$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
+				
+					}
+				}
+
+				//meta didn't exist; return an empty string:
+				if( $tag === $originalTag ){
+					$tag = '';
+				}
+
+			}else{
+
+				//user isn't logged in, so return an empty string:
+				$tag = '';
+
+			}
 
 			return $tag;
 
