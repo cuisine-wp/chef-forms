@@ -32,6 +32,7 @@ define([
 		var el = '';
 		var formId = '';
 		var fields = {};
+		var subfields = {};
 		var submitted = '';
 		var logMessages = '';
 		var dev = '';
@@ -59,6 +60,7 @@ define([
 			self.dev = false;
 
 			self.fields = self.el.find( '.field' );
+			self.subfields = self.el.find( '.subfield' );
 			self.formId = parseInt( self.el.attr('id').replace( 'form_', '' ) );
 			self.setEvents();
 			self.setFields();
@@ -234,20 +236,14 @@ define([
 
 					//remove message after 3 seconds, if the form doesn't have a data attribute set:
 					if( self.el.data( 'maintain-msg' ) === undefined ){
-
-						self.resetFields();
+						
+						setTimeout( function(){
 							
-						//remove message after 3 seconds, if the form doesn't have a data attribute set:
-						if( self.el.data( 'maintain-msg' ) === undefined ){
-
-							setTimeout( function(){
+							self.el.removeClass( 'msg' );
+							self.el.find('.message').remove();
 							
-								self.el.removeClass( 'msg' );
-								self.el.find('.message').remove();
-							
-							}, 5000 );
+						}, 5000 );
 
-						}	
 					}
 				}
 			}
@@ -290,6 +286,14 @@ define([
 				$( this ).removeClass('validated-false');
 				$( this ).removeClass('validated-true');
 			});
+
+
+			self.subfields.each( function(){
+				$( this ).val('');
+				$( this ).prop('checked', false);
+				$( this ).removeClass('validated-false');
+				$( this ).removeClass('validated-true');
+			})
 			
 		}
 

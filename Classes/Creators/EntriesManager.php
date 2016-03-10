@@ -128,9 +128,15 @@ class EntriesManager{
 	
 								echo '<div class="field-val">';
 	
-									if( $field['value'] )
-										echo $field['value'];
-								
+									if( $field['value'] ){
+
+										$value = $field['value'];
+										if( is_array( $value ) )
+											$value = implode( ', ', $value );
+
+										echo $value;
+									}
+
 								echo '</div>';
 
 							echo '</div>';
