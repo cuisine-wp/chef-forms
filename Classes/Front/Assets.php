@@ -56,11 +56,14 @@
 				Script::register( 'datepicker', Url::wp( 'jquery/ui/datepicker.min' ), false );
 
 
+
 				$url = Url::plugin( 'chef-forms', true ).'Assets/js/';
+				
+				Script::register( 'wysiwyg', $url.'libs/trumbowyg.min', false );
 				Script::register( 'send-form', $url.'Form', true );
 
 				$url = 'chef-forms/Assets/sass/';
-				Sass::register( 'form_styling', $url.'_form', false );
+				Sass::register( 'form_styling', $url.'_form', true );
 
 
 				//set validation errors:

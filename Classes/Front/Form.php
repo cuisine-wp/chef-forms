@@ -447,6 +447,7 @@
 				return json_encode( $this->message );
 			}
 
+
 			//init the Form object:
 			$this->init();
 
