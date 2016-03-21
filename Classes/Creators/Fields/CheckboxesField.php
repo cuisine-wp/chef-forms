@@ -17,6 +17,26 @@ class CheckboxesField extends ChoiceField{
     }
 
 
+    /**
+     * Render this field on the front-end
+     * @return [type] [description]
+     */
+    public function render(){
+
+        $this->sanitizeProperties();
+        $type = $this->type;
+        $this->properties['wrapper-class'] = array( 'checkboxes' );
+        
+        Field::$type(
+
+            $this->id,
+            $this->getLabel(),
+            $this->getChoices(),
+            $this->properties
+
+        )->render();
+
+    }
 
     /**
      * Get the value from this field, including the label for the notifications
