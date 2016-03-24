@@ -56,8 +56,8 @@ define([
 
 			//checks and debugging:
 			self.submitted = false;
-			self.logMessages = true;
-			self.dev = true;
+			self.logMessages = false;
+			self.dev = false;
 
 			self.fields = self.el.find( '.field' );
 			self.subfields = self.el.find( '.subfield' );
