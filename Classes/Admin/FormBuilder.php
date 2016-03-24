@@ -65,7 +65,7 @@ class FormBuilder {
 	public function set( $fields ){
 
 
-		if( !$this->exists ){
+		if( !$this->exists || $this->options['force-overwrite'] ){
 
 			$this->fields = $fields;
 
@@ -84,10 +84,16 @@ class FormBuilder {
 
 
 			//update the gatekeeper:
-			$forms = get_option( 'existingForms', array() );
-			$forms[ $this->id ] = $this->title;
-			update_option( 'existingForms', $forms );
+			if( !$this->exists ){
 
+				$forms = get_option( 'existingForms', array() );
+				$forms[ $this->id ] = $this->title;
+				update_option( 'existingForms', $forms );
+
+			}else{
+				//overwrite a certain form:
+				$this->updateFormID( $this->title, $this->id );
+			}
 
 			//save the meta-data:
 			$this->saveFields();
@@ -163,6 +169,8 @@ class FormBuilder {
 	private function saveSettings(){
 
 		$settings = $this->options;
+		unset( $settings['force-overwrite'] );
+
 		update_post_meta( $this->id, 'settings', $settings );
 
 	}
@@ -204,9 +212,37 @@ class FormBuilder {
 		if( !isset( $options['confirm'] ) )
 			$options['confirm'] = '{{ alle_velden }}';
 
+		if( !isset( $options['force-overwrite'] ) )
+			$options['force-overwrite'] = false;
+
 
 		return $options;
 	} 
+
+
+	/**
+	 * Update the ID of a certain form in Existing Forms:
+	 * 
+	 * @param  string $title 
+	 * @param  int $newId new Form ID
+	 * @return void
+	 */
+	public function updateFormID( $title, $newId ){
+
+		$allForms = get_option( 'existingForms', array() );
+
+		//get from the options table:
+		foreach( $allForms as $id => $formTitle ){
+
+			if( strtolower( $formTitle ) == strtolower( $name ) ){
+				unset( $allForms[ $id ] );
+				$allForms[ $newId ] = $formTitle;
+			}
+		}
+		
+		update_option( 'existingForms', $allForms );
+
+	}
 
 
 }

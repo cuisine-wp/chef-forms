@@ -29,14 +29,14 @@ namespace ChefForms\Front;
 
 			$this->form = $_form;
 
-			//first upload files, if we have any:
-			if( !empty( $_FILES ) )
-				$this->uploadFiles();
-
-
 			//setup the $entry variable
 			if( !empty( $_POST ) )
 				$this->sanitizeData();
+
+
+			//first upload files, if we have any:
+			if( !empty( $_FILES ) )
+				$this->uploadFiles();
 
 
 			$entry = $this->save();
@@ -69,18 +69,98 @@ namespace ChefForms\Front;
 
 			//set entry id in the post global, for easy acces:
 			$_POST['entry_id'] = $entryId;
-			$entry = $_POST['entry'];
+			$entry = $this->constructEntryArray();
 
-			$entry = apply_filters( 'chef_forms_entry_values', $entry );
 
 			//save all fields
 			update_post_meta( $entryId, 'entry', $entry );
+
+			if( !empty( $this->files ) )
+				update_post_meta( $entryId, 'files', array_values( $this->files ) ); 
 
 			do_action( 'after_entry_save', $this->form, $entry );
 
 			return $entry;
 
 		}
+
+		/**
+		 * Constructs the correct entry-array, with files if needbe
+		 * 
+		 * @return array
+		 */
+		public function constructEntryArray(){
+
+			$entry = $_POST['entry'];
+
+			if( !empty( $this->files ) )
+				$entry = array_merge( $entry, $this->files );
+			
+
+			$entry = apply_filters( 'chef_forms_entry_values', $entry );
+
+			return $entry;
+		}
+
+
+		/**
+		 * Map entry values to form fields
+		 * 
+		 * @return array
+		 */
+		public function map( $_form, $_entry = array() ){
+
+			$this->form = $_form;
+
+			//setup the $entry variable
+			if( !empty( $_POST ) )
+				$this->sanitizeData();
+
+			$_mapped = array();
+
+			//if there's no entry set:
+			if( empty( $_entry ) ){
+
+				//fallback on the $_POST global
+				if( empty( $_POST ) )
+					return false;
+
+				$_entry = $_POST['entry'];
+			} 
+
+			//set a prefix
+			$prefix = 'field_'.$this->form->id.'_';
+
+			//loop through the form fields:
+			foreach( $this->form->fields as $field ){
+
+				$id = str_replace( $prefix, '', $field->name );
+				$_mapped[ $id ] = array();
+
+				//find the corresponding entry value:
+				foreach( $_entry as $entryField ){
+					
+				    if( $field->name == $entryField['name'] ){
+
+				    	//get the label, from placeholders if we have to:
+				    	$label = $field->label;
+				    	if( $label == '' && $field->properties['placeholder'] != '' )
+				    	    $label = $field->properties['placeholder'];
+
+				    	//add the label, name and value to the mapped array:
+				    	$_mapped[ $id ]['label'] = $label;
+				    	$_mapped[ $id ]['name'] = $field->name;
+				    	$_mapped[ $id ]['value'] = $entryField['value'];
+	
+				    } 
+				}
+
+
+			}
+
+			return $_mapped;
+		}
+
 
 
 
@@ -94,7 +174,6 @@ namespace ChefForms\Front;
 		private function uploadFiles(){
 
 			if( !empty( $_FILES ) ){
-
 
 				$filesAvailable = false;
 
@@ -128,13 +207,35 @@ namespace ChefForms\Front;
 								$upload = move_uploaded_file( $tempFile, $targetFile );
 		
 								if( $upload ){
-									//add a response:
+									
+									//prep a response:
+									$value = array(
+										'name'		=> $file['name'],
+										'mime_type'	=> $file['type'],
+										'path' 		=> $targetFile,
+										'url'		=> $url . $filename,
+										'width'		=> 0,
+										'height'	=> 0
+									);
+
 									$info = getimagesize( $targetFile );
-							
-									$file['path'] = $targetFile;
-									$file['url'] = $url . $filename;
-							
-									$this->files[ $key ] = $file;
+
+									if( is_array( $info ) && !empty( $info ) ){
+
+										if( isset( $info[0] ) )
+											$value['width'] = $info[ 0 ];
+
+										if( isset( $info[1] ) )
+											$value['height'] = $info[ 1 ];
+									}
+
+									//add the response to the files array:
+									$this->files[] = array(
+
+										'name'	=> $key,
+										'value'	=> $value
+
+									);
 		
 					    		}else{
 									//add an error:
@@ -236,17 +337,6 @@ namespace ChefForms\Front;
 
 			}
 
-			//add files to entry:
-			if( !empty( $this->files ) ){
-
-				foreach( $this->files as $key => $info ){
-					$entry[] = array(
-								'name'	=> $key,
-								'value'	=> $info['url'],
-								'data'	=> $info
-					);
-				}
-			}
 
 			$_POST['entry'] = $entry;
 			return $entry;

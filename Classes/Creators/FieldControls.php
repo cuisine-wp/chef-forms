@@ -78,8 +78,8 @@ class FieldControls{
 
 
 
-		$in_standard = array( 'text', 'textarea', 'email', 'checkbox', 'number' );
-		$in_adv = array( 'file', 'checkboxes', 'radio', 'select', 'date', 'hidden', 'address' );
+		$in_standard = array( 'text', 'textarea', 'email', 'checkbox', 'number', 'checkboxes', 'radio', 'select' );
+		$in_adv = array( 'file', 'wysiwyg', 'date', 'hidden', 'address' );
 
 		$in_des = array( 'html', 'break' );
 

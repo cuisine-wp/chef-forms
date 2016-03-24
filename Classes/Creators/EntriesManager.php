@@ -3,6 +3,7 @@
 namespace ChefForms\Creators;
 
 use Cuisine\Utilities\Session;
+use ChefForms\Wrappers\Form;
 use WP_Query;
 
 
@@ -14,6 +15,13 @@ class EntriesManager{
 	 * @var array
 	 */
 	public $entries = array();
+
+	/**
+	 * Form object
+	 * 
+	 * @var ChefForms\Wrappers\Form;
+	 */
+	public $form;
 
 
 	/**
@@ -79,6 +87,7 @@ class EntriesManager{
 		}
 
 		$this->entries = $this->getEntries();
+		$this->form = Form::make( $this->postId );
 
 		return $this;
 	}
@@ -116,28 +125,18 @@ class EntriesManager{
 
 					echo '<div class="entry-fields">';
 
-						$fields = apply_filters( 'chef_forms_entry_fields', $entry['fields'] );
+						$fields = apply_filters( 
+							'chef_forms_entry_fields', 
+							$this->form->fields
+						);
 
-						foreach( $fields as $field ){
+						echo '<table cellpadding="0" cellspacing="0">';
+						
+							foreach( $fields as $field ){
+								echo $field->getNotificationPart( $entry['fields'] );
+							}
 
-							echo '<div class="field-wrapper">';
-
-								echo '<div class="field-label">';
-									echo $field['label'].': ';
-								echo '</div>';
-	
-								echo '<div class="field-val">';
-	
-									if( $field['value'] )
-										echo $field['value'];
-								
-								echo '</div>';
-
-							echo '</div>';
-
-
-						}
-
+						echo '</table>';
 
 					echo '</div>';
 
@@ -249,34 +248,13 @@ class EntriesManager{
 				$entryFields = $fields;
 				$entryValues = get_post_meta( get_the_ID(), 'entry', true );
 
-				//merge the value with the fields object:
-				if( !empty( $entryFields ) ){
-					foreach( $entryFields as $field_id => $field ){
-	
-						if( !empty( $entryValues ) ){
-							foreach( $entryValues as $value ){
-		
-								$value_id = str_replace( $prefix, '', $value['name'] );
-								if( $value_id == $field_id ){
-									$entryFields[ $field_id ]['value'] = $value['value'];
-									break;
-								}
-		
-							}
-		
-							if( !isset( $entryFields[ $field_id ]['value'] ) )
-								$entryFields[ $field_id ]['value'] = false;
-						}
-					}
-				}
-
 				//package the entry
 				$entry = array(
 
 					'entry_id'	=> get_the_ID(),
 					'date'		=> 	get_the_date(),
 					'timestamp'	=>	strtotime( get_the_date() ),
-					'fields'	=>  $entryFields
+					'fields'	=>  $entryValues
 				
 				);
 
