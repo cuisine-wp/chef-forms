@@ -68,26 +68,26 @@ class FileField extends DefaultField{
 
         foreach( $entryItems as $entry ){
 
-            if( $this->name == $entry['name'] ){
 
+            if( $this->name == $entry['name'] ){
                 $label = $this->label;
                 if( $label == '' && $this->properties['placeholder'] != '' )
                     $label = $this->properties['placeholder'];
 
 
-                if( $this->isImage( $entry ) ){
+                if( $this->isImage( $entry['value']['mime_type'] ) ){
 
-                    $url = $entry['value'];
-                    $entry['value'] = '<span style="text-align:center;width:100%;display:block;">';
-                    $entry['value'] .= '<img src="'.$url.'" style="width:auto;height:150px;"><br/>';
-                    $entry['value'] .= '<small><a href="'.$url.'">Download</a></small></span>';
+                    $url = $entry['value']['url'];
+                    $value = '<span style="text-align:center;width:100%;display:block;">';
+                    $value .= '<img src="'.$url.'" style="width:auto;height:150px;"><br/>';
+                    $value .= '<small><a href="'.$url.'" target="_blank">Download</a></small></span>';
 
+                }else{
+                    $value = $entry['value']['url'];
                 }
 
-
-
                 $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
-                $html .= '<td style="text-align:right">'.$entry['value'].'</td></tr>';
+                $html .= '<td style="text-align:right">'.$value.'</td></tr>';
 
             } 
         }
@@ -102,15 +102,10 @@ class FileField extends DefaultField{
      * 
      * @return boolean
      */
-    public function isImage( $entry ){
-
-        if( isset( $entry['data']['type'] ) ){
-
-            if( substr( $entry['data']['type'], 0, 5 ) == 'image' )
-                return true;
-
-        }
-
+    public function isImage( $mime_type ){
+      
+        if( substr( $mime_type, 0, 5 ) == 'image' )
+            return true;
 
         return false;
     }

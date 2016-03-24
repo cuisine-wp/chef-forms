@@ -347,17 +347,25 @@
   		border-top:1px solid #ccc;
   		padding:15px;
   		display:none;
-  		.field-wrapper{
+  		table{
   			box-sizing:border-box;
   			width:100%;
-  			padding:15px;
-  			div{
-  				width:47.5%;
-  				display:inline-block;
-  			}
-
-  			&:nth-child(even){
-  				background:#f9f9f9;
+  			padding:15px 0;
+  			tr{
+  				td{
+  					background:#fff;
+  					width:47.5% !important;
+  					padding:15px !important;
+  					font-size:16px !important;
+  					&:last-of-type{
+  						text-align:center !important;
+  						padding:15px 0 !important;
+  					}
+  				}
+ 
+  				&:nth-child(even) td{
+  					background:#f9f9f9;
+  				}
   			}
   		}
 

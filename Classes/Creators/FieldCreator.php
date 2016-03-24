@@ -79,6 +79,18 @@ class FieldCreator{
     }
 
     /**
+     * Return a WysiwygField instance.
+     *
+     * @param string $name The name attribute of the number input.
+     * @param array $extras Extra field properties.
+     * @return \ChefForms\Builder\Fields\WysiwygField
+     */
+    public function wysiwyg( $id, $form_id, array $properties = array()){
+        return $this->make( 'ChefForms\\Builders\\Fields\\WysiwygField', $id, $form_id, $properties );
+    }
+
+
+    /**
      * Return a DateField instance.
      *
      * @param string $name The name attribute of the date input.
@@ -296,6 +308,11 @@ class FieldCreator{
             'email'        => array(
                 'name'      => __( 'E-mailadres', 'cuisine' ),
                 'class'     => 'ChefForms\\Builders\\Fields\\EmailField',            
+            ),
+
+            'wysiwyg'      => array(
+                'name'      => __( 'Editor', 'chefforms' ),
+                'class'     => 'ChefForms\\Builders\\Fields\\WysiwygField'
             ),
 
             'date'          => array(

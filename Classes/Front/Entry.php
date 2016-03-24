@@ -69,17 +69,37 @@ namespace ChefForms\Front;
 
 			//set entry id in the post global, for easy acces:
 			$_POST['entry_id'] = $entryId;
-			$entry = $_POST['entry'];
+			$entry = $this->constructEntryArray();
 
-			$entry = apply_filters( 'chef_forms_entry_values', $entry );
 
 			//save all fields
 			update_post_meta( $entryId, 'entry', $entry );
+
+			if( !empty( $this->files ) )
+				update_post_meta( $entryId, 'files', array_values( $this->files ) ); 
 
 			do_action( 'after_entry_save', $this->form, $entry );
 
 			return $entry;
 
+		}
+
+		/**
+		 * Constructs the correct entry-array, with files if needbe
+		 * 
+		 * @return array
+		 */
+		public function constructEntryArray(){
+
+			$entry = $_POST['entry'];
+
+			if( !empty( $this->files ) )
+				$entry = array_merge( $entry, $this->files );
+			
+
+			$entry = apply_filters( 'chef_forms_entry_values', $entry );
+
+			return $entry;
 		}
 
 
@@ -116,7 +136,7 @@ namespace ChefForms\Front;
 
 				$id = str_replace( $prefix, '', $field->name );
 				$_mapped[ $id ] = array();
-				
+
 				//find the corresponding entry value:
 				foreach( $_entry as $entryField ){
 					
@@ -134,6 +154,8 @@ namespace ChefForms\Front;
 	
 				    } 
 				}
+
+
 			}
 
 			return $_mapped;
@@ -185,13 +207,35 @@ namespace ChefForms\Front;
 								$upload = move_uploaded_file( $tempFile, $targetFile );
 		
 								if( $upload ){
-									//add a response:
+									
+									//prep a response:
+									$value = array(
+										'name'		=> $file['name'],
+										'mime_type'	=> $file['type'],
+										'path' 		=> $targetFile,
+										'url'		=> $url . $filename,
+										'width'		=> 0,
+										'height'	=> 0
+									);
+
 									$info = getimagesize( $targetFile );
-							
-									$file['path'] = $targetFile;
-									$file['url'] = $url . $filename;
-							
-									$this->files[] = $file;
+
+									if( is_array( $info ) && !empty( $info ) ){
+
+										if( isset( $info[0] ) )
+											$value['width'] = $info[ 0 ];
+
+										if( isset( $info[1] ) )
+											$value['height'] = $info[ 1 ];
+									}
+
+									//add the response to the files array:
+									$this->files[] = array(
+
+										'name'	=> $key,
+										'value'	=> $value
+
+									);
 		
 					    		}else{
 									//add an error:
