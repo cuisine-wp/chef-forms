@@ -1,3 +1,16 @@
+### 2.1.5 2016-03-24
+
+* Added a wysiwyg field
+* Added entry-mapping as a default feature
+* Notifications are a bit wider
+* Bugs in multi-select fields are fixed
+* Checkboxes get there own class
+* Cleaned up the entry-manager in admin: every field uses the notification-function
+* File-fields are now stored as part of the entry.
+* Minor styling fix to checkboxes
+
+
+
 ### 2.1.4 2016-02-12
 
 * Added the HTML and Break fields
