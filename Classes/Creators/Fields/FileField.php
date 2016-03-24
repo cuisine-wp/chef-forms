@@ -80,7 +80,7 @@ class FileField extends DefaultField{
                     $url = $entry['value']['url'];
                     $value = '<span style="text-align:center;width:100%;display:block;">';
                     $value .= '<img src="'.$url.'" style="width:auto;height:150px;"><br/>';
-                    $value .= '<small><a href="'.$url.'">Download</a></small></span>';
+                    $value .= '<small><a href="'.$url.'" target="_blank">Download</a></small></span>';
 
                 }else{
                     $value = $entry['value']['url'];

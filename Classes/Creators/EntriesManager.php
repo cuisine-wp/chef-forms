@@ -125,37 +125,17 @@ class EntriesManager{
 
 					echo '<div class="entry-fields">';
 
-						//$fields = apply_filters( 'chef_forms_entry_fields', $entry['fields'] );
+						$fields = apply_filters( 
+							'chef_forms_entry_fields', 
+							$this->form->fields
+						);
 
-						cuisine_dump( $entry );
-						echo '<table>';
-						foreach( $this->form->fields as $field ){
+						echo '<table cellpadding="0" cellspacing="0">';
+						
+							foreach( $fields as $field ){
+								echo $field->getNotificationPart( $entry['fields'] );
+							}
 
-							echo $field->getNotificationPart( $entry['fields'] );
-
-							/*echo '<div class="field-wrapper">';
-
-								echo '<div class="field-label">';
-									echo $field->getLabel().': ';
-								echo '</div>';
-	
-								echo '<div class="field-val">';
-	
-									if( $field['value'] ){
-
-										$value = $field['value'];
-										if( is_array( $value ) )
-											$value = implode( ', ', $value );
-
-										echo $value;
-									}
-
-								echo '</div>';
-
-							echo '</div>';*/
-
-
-						}
 						echo '</table>';
 
 					echo '</div>';

@@ -360,16 +360,22 @@
   padding: 15px;
   display: none;
 }
-.single-entry .entry-fields .field-wrapper {
+.single-entry .entry-fields table {
   box-sizing: border-box;
   width: 100%;
-  padding: 15px;
+  padding: 15px 0;
 }
-.single-entry .entry-fields .field-wrapper div {
-  width: 47.5%;
-  display: inline-block;
+.single-entry .entry-fields table tr td {
+  background: #fff;
+  width: 47.5% !important;
+  padding: 15px !important;
+  font-size: 16px !important;
 }
-.single-entry .entry-fields .field-wrapper:nth-child(even) {
+.single-entry .entry-fields table tr td:last-of-type {
+  text-align: center !important;
+  padding: 15px 0 !important;
+}
+.single-entry .entry-fields table tr:nth-child(even) td {
   background: #f9f9f9;
 }
 .single-entry.active .entry-fields {
