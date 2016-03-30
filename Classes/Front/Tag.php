@@ -220,6 +220,33 @@
 		 */
 		public static function userMeta( $tag ){
 
+			$originalTag = $tag;
+
+			if( User::loggedIn() ){
+
+				$metas = get_user_meta( User::getId() );
+				if( !empty( $metas ) ){
+					foreach( $metas as $key => $val ){
+				
+						$value = ( isset( $val[0] ) ? $val[0] : false );
+						$key = 'usermeta_'.$key;
+
+						if( $value )
+							$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
+				
+					}
+				}
+
+				//meta didn't exist; return an empty string:
+				if( $tag === $originalTag )
+					$tag = '';
+
+			}else{
+
+				//user isn't logged in, so return an empty string:
+				$tag = '';
+
+			}
 
 			return $tag;
 
