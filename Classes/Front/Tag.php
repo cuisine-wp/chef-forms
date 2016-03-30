@@ -4,7 +4,7 @@
 
 
 	use Cuisine\Utilities\Session;
-	use Cuisine\Utilities\User;
+	use Cuisine\Wrappers\User;
 
 	class Tag {
 
