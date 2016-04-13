@@ -90,7 +90,7 @@
 * Added Tag support in notifications
 * Added Address-field validation
 * Added the option of overwriting the Notification HTML by template.
-* Each field-class can now submit there own html to a notification
+* Each field-class can now submit their own html to a notification
 * Fixed a bug where confirmation messages weren't being saved.
 * Minor bugfixes.
 
