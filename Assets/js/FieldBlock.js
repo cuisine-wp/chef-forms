@@ -73,6 +73,7 @@
 
 
 		setFieldBlocks();
+		setFieldPositions();
 
 
 		jQuery( '.form-builder-fields' ).sortable({
@@ -80,21 +81,34 @@
 			handle: '.field-preview',
 			update: function (event, ui) {
 
-				var i = 0;
-				jQuery('.field-block' ).each( function( index, obj ){
-
-					jQuery( this ).find( '.position-input' ).val( i );
-
-					i++;
-				});
-
-
+				setFieldPositions();
+		
 			}
 		});
 
 	});
 
 
+	/**
+	 * Set the position of each field as an incrementing number
+	 * 
+	 */
+	function setFieldPositions(){
+
+		var i = 0;
+		jQuery('.field-block' ).each( function( index, obj ){
+
+			jQuery( this ).find( '.position-input' ).val( i );
+			i++;
+
+		});
+	}
+
+
+	/**
+	 * Set the field backbone-objects
+	 * 
+	 */
 	function setFieldBlocks(){
 
 		jQuery('.field-block' ).each( function( index, obj ){
