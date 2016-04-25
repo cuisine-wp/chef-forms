@@ -261,10 +261,6 @@
 
 			echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
 			
-			//hard refresh settings:
-			echo ' action="'.$this->returnLink.'"';
-			echo ' method="'.$this->submitMethod.'"';
-			echo ' enctype="'.$this->enctype.'"';
 
 			//message stickyness
 			if( 
@@ -280,7 +276,11 @@
 				apply_filters( 'chef_forms_no_ajax', false, $this )
 			){
 				echo ' data-no-ajax="true"';
-
+			
+				//hard refresh settings:
+				echo ' action="'.$this->returnLink.'"';
+				echo ' method="'.$this->submitMethod.'"';
+				echo ' enctype="'.$this->enctype.'"';
 			}
 			
 			echo '>';

@@ -1,3 +1,13 @@
+### 2.1.5 2016-04-25
+
+* Support for password fields
+* Bugfix for switching field positions
+* Changed some private functions to protected for extendability
+* Added user-meta support in tags.
+* Fixes to spam
+* Minor styling fix to checkboxes
+
+
 ### 2.1.5 2016-03-24
 
 * Added a wysiwyg field
@@ -90,7 +100,7 @@
 * Added Tag support in notifications
 * Added Address-field validation
 * Added the option of overwriting the Notification HTML by template.
-* Each field-class can now submit there own html to a notification
+* Each field-class can now submit their own html to a notification
 * Fixed a bug where confirmation messages weren't being saved.
 * Minor bugfixes.
 

@@ -24,7 +24,7 @@ class Notification {
 	 * 
 	 * @var string ( email )
 	 */
-	private $from_email;
+	protected $from_email;
 
 
 	/**
@@ -32,7 +32,7 @@ class Notification {
 	 * 
 	 * @var string ( email )
 	 */
-	private $from_name;
+	protected $from_name;
 
 
 	/**
@@ -40,14 +40,14 @@ class Notification {
 	 * 
 	 * @var string
 	 */
-	private $subject;
+	protected $subject;
 
 	/**
 	 * Template file to send
 	 * 
 	 * @var string
 	 */
-	private $template;
+	protected $template;
 
 
 	/**
@@ -55,7 +55,7 @@ class Notification {
 	 * 
 	 * @var string
 	 */
-	private $message;
+	protected $message;
 
 
 	/**
@@ -71,7 +71,7 @@ class Notification {
 	 *
 	 * @var array
 	 */
-	private $attachments = array();
+	protected $attachments = array();
 
 
 	/**
@@ -232,7 +232,7 @@ class Notification {
 	 * @param  array $properties
 	 * @return array
 	 */
-	private function getProperties( $properties ){
+	protected function getProperties( $properties ){
 
 		if( !isset( $properties['title'] ) )
 			$properties['title'] = 'Bericht website';

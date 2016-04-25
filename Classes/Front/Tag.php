@@ -243,9 +243,9 @@
 				}
 
 				//meta didn't exist; return an empty string:
-				if( $tag === $originalTag ){
+
+				if( $tag === $originalTag )
 					$tag = '';
-				}
 
 			}else{
 
