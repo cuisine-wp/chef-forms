@@ -72,7 +72,6 @@ if (!class_exists('ChefForms')) {
                 'Classes/Hooks/Cuisine',
                 'Classes/Creators/Fields',
                 'Classes/Creators',
-                'Classes/Vendors',
                 'Classes/Front',
                 'Classes/Admin',
             );
