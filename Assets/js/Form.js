@@ -393,9 +393,47 @@ define([
 						break;
 						case 'zipcode':
 
-							if( value != '' && Validate.zipcode( value ) === false ){
+							//check for validati IDs:
+							var _valBy = obj.data('validate').split(',');
+							var _country = undefined;
+							var _field = false;
+
+							//if there's specific validate data set:
+							if( _valBy.length > 1 ){
+								
+								for( var i = 0; i < _valBy.length; i++ ){
+									
+									var _val = _valBy[ i ];
+									if( _val.substring( 0, 4 ) === 'zip-' ){
+
+										//we found a field:
+										_field = _val.replace( 'zip-', '' );
+									
+									}
+
+								}
+
+								//get the field-value:
+								if( _field !== false ){
+									var _name = 'field-field_'+self.formId+'_'+_field;
+									_country = $('.'+_name ).val();
+
+									self.setReverseZipValidate( $( '.'+_name ), obj.attr('id') );
+ 								}
+							}
+
+							if( value != '' && Validate.zipcode( value, _country ) === false ){
 								validated = false;
 								type = 'zipcode';
+							}
+
+						break;
+						case 'reverseValidateZip':
+
+							var _field = $('#'+obj.data('reverse-validate') );
+							console.log( _field );
+							if( _field ){
+								self.validateField( _field );
 							}
 
 						break;
@@ -411,6 +449,9 @@ define([
 
 				}
 			}
+
+			//check country drop
+
 			
 			var valError = obj.parent().find( '.validation-error' );
 			valError.remove();
@@ -432,6 +473,29 @@ define([
 			}
 
 			return validated;
+
+		}
+
+
+		this.setReverseZipValidate = function( obj, fieldId ){
+
+			var _validation = obj.data( 'validate' );
+
+			if( typeof( _validation ) !== 'undefined' ){
+				if( _validation.indexOf( 'reverseValidateZip' ) <= -1 ){
+	
+					if( _validation !== '' && _validation != false );
+						_validation += ',';
+				
+					_validation += 'reverseValidateZip';
+	
+				}
+			}else{
+				_validation = 'reverseValidateZip';
+			}
+
+			obj.data( 'validate', _validation );
+			obj.data( 'reverse-validate', fieldId );
 
 		}
 
