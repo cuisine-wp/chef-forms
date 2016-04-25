@@ -476,7 +476,13 @@ define([
 
 		}
 
-
+		/**
+		 * Reverse check zipcodes:
+		 * 
+		 * @param dropdown jquery-object obj
+		 * @param string id for the zipcode field
+		 * @return void
+		 */
 		this.setReverseZipValidate = function( obj, fieldId ){
 
 			var _validation = obj.data( 'validate' );
