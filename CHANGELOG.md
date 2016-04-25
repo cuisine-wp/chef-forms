@@ -1,3 +1,13 @@
+### 2.1.5 2016-04-25
+
+* Support for password fields
+* Bugfix for switching field positions
+* Changed some private functions to protected for extendability
+* Added user-meta support in tags.
+* Fixes to spam
+* Minor styling fix to checkboxes
+
+
 ### 2.1.5 2016-03-24
 
 * Added a wysiwyg field
