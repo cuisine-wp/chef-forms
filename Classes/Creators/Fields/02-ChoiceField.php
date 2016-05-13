@@ -133,6 +133,8 @@ class ChoiceField extends DefaultField{
 	            )
 	        ),
 
+
+
 	        Field::text(
 
 
@@ -140,6 +142,16 @@ class ChoiceField extends DefaultField{
 	            'Placeholder',
 	            array(
 	                'defaultValue'  => $this->getProperty( 'placeholder' )
+	            )
+	        ),
+
+	        Field::text(
+
+
+	            $prefix.'[defaultValue]',
+	            'Default value',
+	            array(
+	                'defaultValue'  => $this->getProperty( 'defaultValue' )
 	            )
 	        ),
 

@@ -229,6 +229,7 @@
 					foreach( $metas as $key => $val ){
 				
 						$value = ( isset( $val[0] ) ? $val[0] : false );
+						$value = maybe_unserialize( $value );
 						$key = 'usermeta_'.$key;
 
 						if( $value )
@@ -236,6 +237,7 @@
 				
 					}
 				}
+
 
 				//meta didn't exist; return an empty string:
 				if( $tag === $originalTag )
