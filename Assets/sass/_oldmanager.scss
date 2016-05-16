@@ -1,0 +1,171 @@
+
+
+
+.form-view{
+	display:none;
+	&.current{
+		display:block;
+	}
+}
+
+.form-view{
+	h2 span{
+		padding-right:15px;
+		color:#00a0d2;
+		font-size:22px;
+		line-height:90%;
+	}
+
+	h2{
+		font-size:26px !important;
+		color:#444;
+		line-height:100%;
+	}
+}
+
+.form-builder-fields{
+	padding:15px;
+}
+
+.confirmation-settings{
+	background:#fff;
+	background:#fff;
+	box-shadow:0 1px 1px rgba(0,0,0,0.04), 0 0 10px rgba(0,0,0,0.04);
+	border:1px solid #e5e5e5;
+	padding:15px;
+	margin:0 0 30px 0;
+}
+
+
+.single-entry{
+	box-sizing:border-box;
+	padding:15px;
+	background:#fff;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 0 10px rgba(0, 0, 0, 0.04);
+  	border: 1px solid #e5e5e5;
+
+  	&:nth-child( odd ){
+  		background:#f8f8f8;
+  	}
+
+  	.entry-date{
+  		font-size: 20px;
+  		color:#444;
+  		padding:5px 5px 10px 5px;
+  		cursor:pointer;
+  		position:relative;
+
+  		&:after{
+  			content:'';
+  			width:0;
+  			height:0;
+  			border:6px solid #444;
+  			border-color:#444 transparent transparent transparent;
+  			position:absolute;
+  			top:10px;
+  			right:15px;
+  		}
+
+  		&:hover{
+  			color:#00a0d2;
+
+  			&:after{
+  				border-color:#00a0d2 transparent transparent transparent;
+  			}
+  		}
+  	}
+
+  	.entry-fields{
+  		border-top:1px solid #ccc;
+  		padding:15px;
+  		display:none;
+  		table{
+  			box-sizing:border-box;
+  			width:100%;
+  			padding:15px 0;
+  			tr{
+  				td{
+  					background:#fff;
+  					width:47.5% !important;
+  					padding:15px !important;
+  					font-size:16px !important;
+  					&:last-of-type{
+  						text-align:center !important;
+  						padding:15px 0 !important;
+  					}
+  				}
+ 
+  				&:nth-child(even) td{
+  					background:#f9f9f9;
+  				}
+  			}
+  		}
+
+  	}
+
+  	&.active .entry-fields{
+  		display:block;
+  	}
+
+
+}
+
+.entry-pagination{
+	display:block;
+	width:100%;
+	text-align:center;
+	padding-top:30px;
+
+	a{
+		display:inline-block;
+		margin-right:10px;
+		padding:5px 10px;
+		text-align:center;
+		color:#444;
+		background:#fff;
+		text-decoration:none;
+		border:1px solid #fff;
+
+		&:hover{
+			border-color:0 0 3px rgba(0,0,0,.1);
+		}
+
+
+		&.current{
+			background:#00a0d2;
+			color:#fff;
+			border-color:#00a0d2;
+			&:hover{
+				background:#fff;
+			}
+		}
+
+
+		&:last-child{
+			margin-right:0;
+		}
+	}
+}
+
+
+.settings-panel{
+	clear:both;
+	padding-top:15px;
+	margin-top:30px;
+	border-top:1px solid #ccc;
+
+	.panel-icon{
+		height:42px;
+		line-height:100%;
+		width:auto;
+		display:inline-block;
+		margin:15px 15px 0 0;
+	}
+
+	h2{
+		line-height:100%;
+		display:inline-block;
+	}
+
+
+}

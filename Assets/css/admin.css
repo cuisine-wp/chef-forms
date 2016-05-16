@@ -104,89 +104,6 @@
   margin-right: 5%;
 }
 
-/** Controls */
-.add-field.button {
-  width: 100%;
-  margin-bottom: 5px;
-}
-
-.form-nav {
-  background: #fff;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 0 10px rgba(0, 0, 0, 0.04);
-  border: 1px solid #e5e5e5;
-  padding: 10px;
-  margin: 30px 0;
-}
-.form-nav .nav-btn {
-  border: 1px solid #eee;
-  padding: 10px 20px;
-  display: inline-block;
-  margin: 0 10px 0 0;
-  border-radius: 4px;
-  cursor: pointer;
-  position: relative;
-}
-.form-nav .nav-btn .dashicons {
-  padding-right: 15px;
-}
-.form-nav .nav-btn span, .form-nav .nav-btn b {
-  pointer-events: none;
-}
-.form-nav .nav-btn:hover {
-  background: #f7f7f7;
-  border-color: #cccccc;
-}
-.form-nav .nav-btn.current, .form-nav .nav-btn.current:hover {
-  background: #00a0d2;
-  border-color: #0073aa;
-  color: #fff;
-}
-.form-nav .nav-btn.current:after, .form-nav .nav-btn.current:hover:after {
-  position: absolute;
-  content: '';
-  border: 12px solid #0073aa;
-  border-color: #0073aa transparent transparent transparent;
-  width: 0;
-  height: 0;
-  bottom: -23px;
-  left: 50%;
-  margin-left: -6px;
-}
-.form-nav .nav-link {
-  background: none;
-  border: 1px solid transparent;
-  float: right;
-}
-.form-nav .nav-link:hover {
-  background: none;
-  border: 1px solid transparent;
-  color: #00a0d2;
-}
-
-.field-container {
-  position: relative;
-}
-.field-container .loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.6);
-  text-align: center;
-  z-index: 999;
-  display: none;
-}
-.field-container .loader .spinner {
-  position: absolute;
-  left: 47.5%;
-  top: 45%;
-  display: inline-block;
-}
-.field-container .loader.show {
-  display: block;
-}
-
 .form-view {
   display: none;
 }
@@ -208,109 +125,6 @@
 
 .form-builder-fields {
   padding: 15px;
-}
-
-.field-container {
-  /*	background:#ccc;
-  	box-shadow:inset 0 0 10px rgba(0,0,0,.2);
-  	border-radius:3px;
-  	border:1px solid #ccc;
-  */
-}
-.field-container .field-dashed {
-  width: 100%;
-  height: 50px;
-  border: 3px dashed #00a0d2;
-  margin-bottom: 15px;
-  border-radius: 3px;
-}
-.field-container .field-block {
-  box-sizing: border-box;
-  position: relative;
-  padding: 15px;
-  border: 1px solid #ccc;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), inset 3px 3px 3px rgba(0, 0, 0, 0.04);
-  background: #fff;
-  border-radius: 3px;
-  margin-bottom: 15px;
-}
-.field-container .field-block.hidden {
-  display: block;
-}
-.field-container .field-block .field-preview {
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
-  position: relative;
-  width: 100%;
-}
-.field-container .field-block .field-preview label {
-  display: block;
-  width: 90%;
-  font-size: 20px;
-  min-height: 18px;
-}
-.field-container .field-block .field-preview .field-type {
-  position: absolute;
-  right: 6%;
-  top: 0px;
-  width: 150px;
-  text-align: right;
-}
-.field-container .field-block .field-preview .toggle-field {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  display: block;
-  top: -7px;
-  right: -5px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
-.field-container .field-block .field-preview .toggle-field:after {
-  content: '';
-  border: 8px solid #444;
-  border-color: #444 transparent transparent transparent;
-  position: absolute;
-  top: 12px;
-  left: 7px;
-}
-.field-container .field-block .field-preview:hover .toggle-field {
-  background: #f9f9f9;
-  border: 1px solid #ccc;
-}
-.field-container .field-block .field-options {
-  border-top: 1px solid #eee;
-  padding-top: 15px;
-  margin-top: 30px;
-  display: none;
-}
-.field-container .field-block .field-options .delete-field {
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
-  margin-top: -20px;
-  color: red;
-  float: right;
-  cursor: pointer;
-  opacity: .6;
-}
-.field-container .field-block .field-options .delete-field:hover {
-  opacity: 1;
-}
-.field-container .field-block .field-options .field-wrapper:last-of-type {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-  margin-bottom: 0;
-}
-.field-container .field-block.fold-out {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 0 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
-}
-.field-container .field-block.fold-out .field-preview {
-  box-shadow: none;
-}
-.field-container .field-block.fold-out .field-options {
-  display: block;
 }
 
 .confirmation-settings {
@@ -429,6 +243,319 @@
 .settings-panel h2 {
   line-height: 100%;
   display: inline-block;
+}
+
+.toolbar {
+  box-sizing: border-box;
+  padding: 15px 15px 5px 15px;
+  text-align: left;
+  top: 0px;
+  height: 69px;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+.toolbar.sticky {
+  box-sizing: content-box;
+  position: fixed;
+  margin-left: -15px;
+  z-index: 1020;
+  top: 31px;
+  height: 44px;
+}
+.toolbar .main-form-nav {
+  list-style: none;
+  padding-left: 0;
+  position: relative;
+  margin: 0;
+}
+.toolbar .main-form-nav li {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-right: 15px;
+  background: #00a0d2;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #006686;
+  border-radius: 4px;
+}
+.toolbar .main-form-nav li > span {
+  pointer-events: none;
+}
+.toolbar .main-form-nav li i {
+  padding-right: 10px;
+}
+.toolbar .main-form-nav li ul {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 900;
+  top: 45px;
+  left: 0;
+  right: 0;
+  padding-bottom: 15px;
+  width: 100%;
+  padding: 15px;
+  background: #00a0d2;
+  display: none;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+.toolbar .main-form-nav li ul li {
+  -webkit-flex: 1 0 22%;
+  -ms-flex: 1 0 22%;
+  flex: 1 0 22%;
+  background: #fff;
+  margin: 15px 20px 0 0;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  color: #444;
+  vertical-align: middle;
+  text-align: center;
+  height: auto !important;
+  padding: 4px 0;
+}
+.toolbar .main-form-nav li ul li i {
+  margin-top: 4px;
+}
+.toolbar .main-form-nav li ul li:nth-child(4n) {
+  margin-right: 0;
+}
+.toolbar .main-form-nav > li:hover {
+  padding-bottom: 18px;
+  border-radius: 4px 4px 0 0;
+}
+.toolbar .main-form-nav > li:hover > ul {
+  display: flex;
+}
+.toolbar .spinner {
+  position: absolute;
+  right: 125px;
+  top: 15px;
+  visibility: visible;
+  margin: 6px 10px 0 0;
+}
+.toolbar .spinner.show {
+  visibility: visible;
+}
+.toolbar .update-btn-wrapper {
+  position: absolute;
+  padding: 6px 0 0 15px;
+  margin-left: 15px;
+  border-left: 1px solid #ccc;
+  height: 28px;
+  right: 15px;
+  top: 15px;
+  vertical-align: middle;
+}
+.toolbar .update-btn {
+  background: #2ea2cc;
+  box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.5), 0 1px 0 rgba(0, 0, 0, 0.15);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 7px 14px;
+  border: 1px solid #0074a2;
+  cursor: pointer;
+}
+
+/**
+ * Form Rows:
+ */
+.field-container {
+  padding-top: 30px;
+}
+.field-container > h2 {
+  padding-top: 30px !important;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row no-wrap;
+  align-items: center;
+  min-height: 15px;
+}
+.row .field-block {
+  position: relative;
+  flex: 1;
+  min-height: 50px;
+  margin: 0 30px 0 0;
+  pointer: crosshair;
+}
+.row .field-block .field-controls {
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  padding-top: 10px;
+  padding-bottom: 0;
+  margin-bottom: -10px;
+}
+.row .field-block .field-controls .delete-field {
+  display: inline-block;
+  position: relative;
+  float: none;
+  color: crimson !important;
+  margin: 3px 0 -3px 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.row .field-block .field-controls .delete-field i {
+  text-decoration: none;
+}
+.row .field-block .field-controls .button {
+  float: right;
+}
+.row .field-block:hover {
+  background: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.row .field-block:hover .field-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+.row .placeholder {
+  position: relative;
+  flex: 1;
+  min-height: 50px;
+  margin: 0 30px 30px 0;
+  border: 3px dashed #00a0d2;
+}
+.row .add-field.placeholder {
+  height: auto !important;
+  box-shadow: none;
+  text-align: center;
+  min-height: 50px;
+  padding: 25px 0;
+}
+.row .add-field.placeholder .spinner {
+  visibility: visible;
+}
+
+.field-preview, .field-live-preview {
+  display: block;
+  padding: 20px;
+  position: relative;
+}
+.field-preview label, .field-live-preview label {
+  font-size: 18px;
+  padding-bottom: 6px;
+  color: #888;
+  display: block;
+}
+.field-preview input, .field-preview textarea, .field-live-preview input, .field-live-preview textarea {
+  width: 100%;
+  display: block;
+  padding: 5px 10px;
+  font-size: 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+.field-preview input[type="radio"], .field-preview input[type="checkbox"], .field-live-preview input[type="radio"], .field-live-preview input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  background: #fff;
+}
+.field-preview span.dashicons, .field-live-preview span.dashicons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #888;
+}
+
+.field-options {
+  box-sizing: border-box;
+  display: none;
+  z-index: 2000;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  margin-left: -400px;
+  width: 850px;
+  height: 600px;
+  border-radius: 3px;
+}
+.field-options.active {
+  display: block;
+}
+.field-options .field-live-preview {
+  position: relative;
+  background: #ccc;
+  padding: 30px 30px 60px 30px;
+  background: #f9f9f9;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 3px 3px 0 0;
+  border: 1px solid #ccc;
+}
+.field-options .field-live-preview .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 32px;
+  cursor: pointer;
+}
+.field-options .field-live-preview .close:hover {
+  color: #00a0d2;
+}
+.field-options .field-live-preview .tab-container {
+  list-style: none;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  margin: 0;
+}
+.field-options .field-live-preview .tab-container li {
+  padding: 8px 16px;
+  background: #888;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+  margin: 0 3px 0 0;
+  display: inline-block;
+  cursor: pointer;
+}
+.field-options .field-live-preview .tab-container li i {
+  color: #fff;
+  padding-right: 10px;
+}
+.field-options .field-live-preview .tab-container li.active, .field-options .field-live-preview .tab-container li:hover {
+  background: #fff;
+  color: #888;
+  padding-bottom: 9px;
+  margin-bottom: -1px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
+.field-options .field-live-preview .tab-container li.active i, .field-options .field-live-preview .tab-container li:hover i {
+  color: #888;
+}
+.field-options .field-setting-tabs {
+  padding: 15px;
+}
+.field-options .field-setting-tabs .field-wrapper {
+  width: 45%;
+  float: left;
+  margin-right: 10%;
+}
+.field-options .field-setting-tabs .field-wrapper:nth-of-type(even) {
+  margin-right: 0;
+}
+
+.row.empty {
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0;
+  min-height: 50px;
+  display: none;
+}
+
+.sorting .row.empty {
+  display: block;
 }
 
 /*# sourceMappingURL=admin.css.map */

@@ -17,8 +17,8 @@
 		function __construct(){
 
 			$this->listen();
-			$this->metaBoxEvents();
-			$this->settingsPage();
+			$this->setMetabox();
+			$this->setSettingsPage();
 
 		}
 
@@ -57,12 +57,12 @@
 		 * 
 		 * @return void
 		 */
-		private function metaBoxEvents(){
+		private function setMetabox(){
 
 
 
 			$options = array( 'context' => 'side' );
-			
+
 			//standard fields
 			Metabox::make( 
 
@@ -70,23 +70,7 @@
 				'form', 
 				$options
 
-			)->set( '\\ChefForms\\Wrappers\\FieldControls::standard' );
-
-			//advanced fields
-			Metabox::make( 
-				__( 'Geavanceerde velden', 'chefforms' ), 
-				'form', 
-				$options
-
-			)->set( '\\ChefForms\\Wrappers\\FieldControls::advanced' );
-
-			//design fields
-			Metabox::make(
-				__( 'Design velden', 'chefforms' ),
-				'form',
-				$options
-
-			)->set( '\\ChefForms\\Wrappers\\FieldControls::design' );
+			)->set( '\\ChefForms\\Wrappers\\Toolbar::sidebar' );
 
 		}
 
@@ -96,7 +80,7 @@
 		 * 
 		 * @return void
 		 */
-		private function settingsPage(){
+		private function setSettingsPage(){
 
 			$options = array(
 				'parent'		=> 'form',

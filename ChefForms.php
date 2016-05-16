@@ -70,10 +70,17 @@ if (!class_exists('ChefForms')) {
             $includes = array( 
                 'Classes/Wrappers',
                 'Classes/Hooks/Cuisine',
-                'Classes/Creators/Fields',
-                'Classes/Creators',
+                'Classes/Fields',
+
                 'Classes/Front',
-                'Classes/Admin',
+                'Classes/Front/Form',
+
+                'Classes/Admin/Form/Builder',
+                'Classes/Admin/Form/Entries',
+                'Classes/Admin/Form/Notifications',
+                'Classes/Admin/Form/Settings',
+                'Classes/Admin/Form',
+                'Classes/Admin'
             );
 
             $includes = apply_filters( 'chef_forms_autoload_dirs', $includes );

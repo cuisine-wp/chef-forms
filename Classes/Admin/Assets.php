@@ -37,13 +37,13 @@
 
 				wp_enqueue_script( 
 					'field_block', 
-					$url.'/js/FieldBlock.js', 
+					$url.'/js/Field.js', 
 					array( 'backbone' )
 				);
 
 				wp_enqueue_script( 
 					'form_manager', 
-					$url.'/js/FormManager.js', 
+					$url.'/js/Manager.js', 
 					array( 'backbone' )
 				);
 							

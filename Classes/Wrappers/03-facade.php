@@ -54,19 +54,19 @@ abstract class Wrapper {
     private static function getFacadeName( $name ) {
         
         $aliases = array(
-            'form-manager'                  => 'ChefForms\Admin\FormManager',
-            'form-builder'                  => 'ChefForms\Admin\FormBuilder',
-            'entries-manager'               => 'ChefForms\Creators\EntriesManager',
-            'form-creator'                  => 'ChefForms\Creators\FormCreator',
-            'notification-creator'          => 'ChefForms\Creators\NotificationCreator',
-            'settings-manager'              => 'ChefForms\Creators\SettingsManager',
-            'field-block'                   => 'ChefForms\Creators\FieldCreator',
-            'field'                         => 'ChefForms\Creators\FieldCreator',
-            'settings-panel'                => 'ChefForms\Creators\SettingsPanel',
-            'controls'                      => 'ChefForms\Creators\FieldControls',
-            'form'                          => 'ChefForms\Front\Form',
-            'entry'                         => 'ChefForms\Front\Entry',
-            'notification'                  => 'ChefForms\Front\Notification',
+            'form-builder'                  => 'ChefForms\Admin\FormBuilder', //from code
+            'form-manager'                  => 'ChefForms\Admin\Form\Manager', //cpt ui
+            'entries-manager'               => 'ChefForms\Admin\Form\Entries\Manager',
+            'form-builder-manager'          => 'ChefForms\Admin\Form\Builder\Builder',
+            'notification-manager'          => 'ChefForms\Admin\Form\Notifications\Manager',
+            'settings-manager'              => 'ChefForms\Admin\Form\Settings\Manager',
+            'field-block'                   => 'ChefForms\Fields\FieldFactory',
+            'field'                         => 'ChefForms\Fields\FieldFactory',
+            'settings-panel'                => 'ChefForms\Admin\Form\Settings\Panel',
+            'toolbar'                       => 'ChefForms\Admin\Form\Builder\Toolbar',
+            'form'                          => 'ChefForms\Front\Form\Form',
+            'entry'                         => 'ChefForms\Front\Form\Entry',
+            'notification'                  => 'ChefForms\Front\Form\Notification',
         );
 
         return $aliases[ $name ];

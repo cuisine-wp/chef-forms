@@ -4,7 +4,7 @@
 
 	use \stdClass;
 	use \ChefForms\Wrappers\AjaxInstance;
-	use \ChefForms\Wrappers\FormCreator;
+	use \ChefForms\Wrappers\FormBuilderManager;
 
 	class Ajax extends AjaxInstance{
 
@@ -33,7 +33,7 @@
 
 				$this->setPostGlobal();
 
-				echo FormCreator::createField();
+				echo FormBuilderManager::createField();
 				die();
 
 			});
@@ -43,7 +43,7 @@
 
 				$this->setPostGlobal();
 
-				FormCreator::deleteField();
+				FormBuilderManager::deleteField();
 				die();
 
 			});
