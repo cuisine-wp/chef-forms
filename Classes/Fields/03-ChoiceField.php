@@ -209,33 +209,16 @@ class ChoiceField extends DefaultField{
 	            $prefix.'[label]',
 	            'Label',
 	            array(
+	            	'class'			=> array( 'update', 'update-label', 'label-field' ),
 	                'defaultValue'  => $this->getProperty( 'label', 'Label' )
 	            )
 	        ),
-
-
-
-	        Field::text(
-	            $prefix.'[placeholder]',
-	            'Placeholder',
-	            array(
-	                'defaultValue'  => $this->getProperty( 'placeholder' )
-	            )
-	        ),
-
-	        Field::text(
-	            $prefix.'[defaultValue]',
-	            'Default value',
-	            array(
-	                'defaultValue'  => $this->getProperty( 'defaultValue' )
-	            )
-	        ),
-
 
 	        Field::checkbox(
 	            $prefix.'[required]',
 	            'Verplicht?',
 	            array(
+	            	'class'			=> array( 'update', 'update-label', 'req-field' ),
 	                'defaultValue'  => $this->getProperty( 'required' )
 	            )
 	        ),
@@ -254,6 +237,23 @@ class ChoiceField extends DefaultField{
                     'defaultValue' => ( $this->deletable ? 'true' : 'false' )
                 )
             ),
+
+
+
+            Field::hidden(
+			    $prefix.'[placeholder]',
+			    array(
+			        'defaultValue'  => $this->getProperty( 'placeholder' )
+			    )
+			),
+
+			Field::hidden(
+			    $prefix.'[defaultValue]',
+			    array(
+			        'defaultValue'  => $this->getProperty( 'defaultValue' )
+			    )
+			),
+
 
 	        Field::hidden(
                 $prefix.'[position]',

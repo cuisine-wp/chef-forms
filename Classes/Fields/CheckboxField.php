@@ -25,7 +25,7 @@ class CheckboxField extends DefaultField{
 
         $html .= '<span class="single-checkbox-wrapper">';
 
-            $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="'.$this->type.'"';
+            $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="'.$this->type.'">';
 
             $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
 

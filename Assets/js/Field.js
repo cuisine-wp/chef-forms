@@ -89,6 +89,7 @@
 			if( jQuery( e.target ).hasClass( 'update-label' ) ){
 				var _preview = self.$el.find('.preview-label');
 				var _value = self.$el.find('.label-field').val();
+				console.log( _value );
 
 				if( self.$el.find('.req-field').is(':checked') )
 					_value += ' *';
