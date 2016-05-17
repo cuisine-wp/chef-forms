@@ -71,6 +71,7 @@
 
 					i{
 						margin-top: 4px;
+						pointer-events:none;
 					}
 
 					&:nth-child( 4n ){
@@ -192,6 +193,11 @@
 				opacity:1;
 				pointer-events:auto;
 			}
+		}
+
+		&.hidden{
+			visibility:visible;
+			display:block !important;
 		}
 	}
 

@@ -14,6 +14,35 @@ class CheckboxField extends DefaultField{
         $this->type = 'checkbox';
     }
 
+    /**
+     * Generate the preview for this field:
+     * 
+     * @return string (html)
+     */
+    public function buildPreview( $mainOverview = false ){
+
+        $html = '';
+
+        $html .= '<span class="single-checkbox-wrapper">';
+
+            $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="'.$this->type.'"';
+
+            $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
+
+        $html .= '</span>';
+    
+        //do not display these in the lightbox:
+        if( $mainOverview ){
+
+            $html .= $this->getFieldIcon();
+            $html .= $this->previewControls();
+
+        }
+
+        echo $html;
+
+    }
+
 
     /**
      * Set a default label:

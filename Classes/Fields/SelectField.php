@@ -27,7 +27,14 @@ class SelectField extends ChoiceField{
 
     	$html .= '<label class="preview-label">'.$this->getLabel().'</label>';
 
-    	$choices = $this->getProperty( 'choices', array() );
+        $choices = $this->getProperty( 'choices', false );
+        if( !$choices ){
+            $choices = array(
+                array( 'label' => 'Optie 1' ),
+                array( 'label' => 'Optie 2' ),
+                array( 'label' => 'Optie 3' )
+            );
+        }
 
     	$html .= '<select class="preview-select preview-input" disabled">';
     	foreach( $choices as $choice ){

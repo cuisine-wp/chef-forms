@@ -238,13 +238,13 @@ var FormManager = Backbone.View.extend({
 	 * 
 	 * @param void
 	 */
-	addFieldByClick: function( _type ){
+	addFieldByClick: function( e ){
 
 		e.preventDefault();
 
 		var self = this;
-
 		var _type = jQuery( e.target ).data('type');
+		console.log( _type );
 		
 		var data = {
 			action: 'createField',
@@ -252,14 +252,21 @@ var FormManager = Backbone.View.extend({
 			type: _type
 		}
 
+
+		console.log( data );
+
 		jQuery.post( ajaxurl, data, function( response ){
+			console.log( response );
 
 			if( response !== 'error' ){
 
 				jQuery( '.section-wrapper.msg' ).remove();
-				jQuery( '.form-builder-fields' ).append( response );
+
+				var _response = '<div class="row">'+response+'</div>';
+				jQuery( '.form-builder-fields' ).append( _response );
 
 				self.setFields();
+				self.calculateRowsAndPositions();
 			}
 
 		});

@@ -219,7 +219,7 @@ class Builder{
 			if( $fields ){
 
 				foreach( $fields as $id => $field ){
-
+					
 					$type = $field['type'];	
 					$array[] = Field::$type( $id, $this->postId, $field );
 			

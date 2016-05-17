@@ -41,6 +41,24 @@
 		color:#888;
 	}
 
+	//single checkbox:
+	.single-checkbox-wrapper{
+		input{
+			display:inline-block;
+			width:16px;
+			height:16px;
+			margin-right:10px;
+			border:1px solid #ddd;
+		}
+
+		label{
+			display:inline-block;
+			font-size:18px;
+		}
+
+		padding-bottom:10px;
+	}
+
 	//file:
 	.preview-file{
 		border:transparent;
@@ -52,6 +70,11 @@
 		background-repeat:no-repeat;
 		background-position:1% 10px;
 		padding-top:60px;
+	}
+
+	.preview-hidden{
+		opacity:.9;
+		margin-top:25px;
 	}
 
 	//date:

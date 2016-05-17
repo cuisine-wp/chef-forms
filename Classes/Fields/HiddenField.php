@@ -41,4 +41,33 @@ class HiddenField extends DefaultField{
     }
 
 
+    /**
+     * Generate the preview for this field:
+     * 
+     * @return string (html)
+     */
+    public function buildPreview( $mainOverview = false ){
+
+        $html = '';
+
+        $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="text"';
+
+        if( $this->getProperty( 'placeholder', false ) )
+            $html .= ' placeholder="'.$this->getProperty( 'placeholder' ).'"';
+
+        $html .= '>';
+    
+        //do not display these in the lightbox:
+        if( $mainOverview ){
+
+            $html .= $this->getFieldIcon();
+            $html .= $this->previewControls();
+
+        }
+
+        echo $html;
+
+    }
+
+
 }
