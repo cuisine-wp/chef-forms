@@ -89,7 +89,7 @@ class Entry{
 				echo '</div>';
 		
 				//which form?
-				echo '<span class="form title">';
+				echo '<span class="form-title">';
 					echo get_the_title( $this->form->id );
 				echo '</span>';
 

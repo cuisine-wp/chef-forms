@@ -106,26 +106,27 @@ class Manager{
 
 			echo '<div class="entries-wrap">';
 
-			if( $this->entries ){
-
 				$this->buildControls();
 
-				echo '<div class="entries-list">';
-	
-				foreach( $this->entries as $entry ){
-	
-					$entry->build();
+				if( $this->entries ){
 
+
+					echo '<div class="entries-list">';
+	
+					foreach( $this->entries as $entry ){
+	
+						$entry->build();
+
+					}
+	
+					$this->buildPagination();
+
+					echo '</div>';
+	
+				}else{
+	
+					echo  '<p>'.__( 'No entries yet', 'chefforms' ).'</p>';
 				}
-	
-				$this->buildPagination();
-
-				echo '</div>';
-	
-			}else{
-	
-				echo  '<p>'.__( 'No entries yet', 'chefforms' ).'</p>';
-			}
 
 
 			echo '</div>';
@@ -145,7 +146,7 @@ class Manager{
 
 		$forms = $this->getForms();
 		$parent = ( isset( $_GET['parent'] ) ? $_GET['parent'] : 'all' );
-		$url = admin_url( 'edit.php?post_type=form&page=form-entries' );
+		$url = admin_url( 'edit.php' );
 
 		echo '<form class="entry-filter" action="'.$url.'" method="get">';
 
@@ -158,6 +159,9 @@ class Manager{
 				)
 
 			)->render();
+
+			echo '<input type="hidden" name="post_type" value="form"/>';
+			echo '<input type="hidden" name="page" value="form-entries"/>';
 
 			echo '<button>'.__( 'Filter', 'chefforms' ).'</button>';
 
@@ -305,7 +309,7 @@ class Manager{
 			Sort::pluck( $forms, 'post_title' )
 		);
 
-		$forms = array_merge( 
+		$forms = array_replace( 
 			array( 'all' => __( 'All forms', 'chefforms' ) ),
 			$forms
 		);

@@ -91,7 +91,7 @@ class Builder{
 					echo '</div><div class="row">';
 
 				$field->build();
-				$currentRow = $field->row;
+				$currentRow = ( $field->row != '' ? $field->row : $currentRow++ );
 			}
 
 			echo '</div>';

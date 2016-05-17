@@ -204,7 +204,11 @@ class DefaultField{
 
 
                 $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
-                $html .= '<td style="text-align:right">'.$entry['value'].'</td></tr>';
+                $html .= '<td style="text-align:right">';
+
+                    $html .= esc_html( $entry['value'] );
+
+                $html .= '</td></tr>';
 
             } 
         }

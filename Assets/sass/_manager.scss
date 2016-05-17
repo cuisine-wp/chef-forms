@@ -143,6 +143,10 @@
 	align-items:center;
 	min-height:15px;
 
+	ul, li{
+		list-style:none;
+	}
+
 	.field-block{
 		position: relative;
 		flex:1;
@@ -155,11 +159,12 @@
 			opacity:0;
 			pointer-events:none;
 			padding-top:10px;
+			text-align: right;
 
 			.delete-field{
 				display:inline-block;
 				position:relative;
-				float:none;
+				float:left;
 				color:crimson !important;
 				margin:3px 0 -3px 0;
 				text-decoration:underline;
@@ -175,7 +180,7 @@
 			}
 
 			.button{
-				float:right;
+				display:inline-block;
 			}
 		}
 
@@ -193,8 +198,8 @@
 	.placeholder{
 		position: relative;
 		flex:1;
-		min-height:50px;
-		margin:0 30px 30px 0;
+		min-height:25px;
+		margin:0 30px 0 0;
 		border:3px dashed #00a0d2;
 	}
 
@@ -215,10 +220,10 @@
 .row.empty{
 	background:rgba(0,0,0,.1);
 	margin:0;
-	min-height:50px;
-	display:none;
+	min-height:15px;
+	opacity:0;
 }
 
 .sorting .row.empty{
-   display:block;
+	opacity:1;
 }

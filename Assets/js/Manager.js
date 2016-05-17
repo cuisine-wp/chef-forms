@@ -8,10 +8,8 @@ var FormManager = Backbone.View.extend({
 	 * @return object
 	 */
 	events: {
-
 		'click .nav-btn': 'toggleView',
 		'click .add-field': 'addFieldByClick'
-
 	},
 
 
@@ -28,8 +26,9 @@ var FormManager = Backbone.View.extend({
 		self.setToolbar();
 
 		self.setFields();
-		self.setupRows();
 		self.setEvents();
+
+		self.calculateRowsAndPositions();
 
 		return this;
 	},
@@ -119,8 +118,6 @@ var FormManager = Backbone.View.extend({
 	setEvents: function(){
 
 		var self = this;
-
-		self.setSorting();
 		self.addFieldByDrag();
 
 	},
@@ -139,19 +136,25 @@ var FormManager = Backbone.View.extend({
 		if( $( '.row' ).data( 'sortable' ) )
 			$( ".row" ).sortable( "destroy" );
 
+		var _extraOffset = 0;
 		$('.row').sortable({
 			connectWith: '.row:not(.full)',
 			tolerance: 'pointer',
 			placeholder: 'placeholder',
-			
-			start: function(){
+			scroll: true,
+			scrollSensitivity: 80,
+			scrollSpeed: 30,	
+			forcePlaceholderSize: true,
+			cursorAt: {top: 50, left: 50},
+			start: function( e, ui ){
 				
 				$('.form-builder-fields').addClass('sorting');
-
+				
 			},
 		    stop: function( e, ui ){
 				
 				$('.form-builder-fields').removeClass('sorting');
+				_extraOffset = 0;
 				if( jQuery( ui.item ).hasClass( 'add-field') == false )
 					self.calculateRowsAndPositions();
 		    
@@ -338,5 +341,9 @@ jQuery( document ).ready( function( $ ){
 
 	var formManager = new FormManager( { el: jQuery('.form-manager' ) } );
 
+	//handle entry-toggling:
+	$('.single-entry .entry-preview').on( 'click tap', function(){
+		$( this ).parent().toggleClass( 'active' );
+	});
 });
 

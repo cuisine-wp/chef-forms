@@ -24,5 +24,136 @@
 		border-radius: 3px;
 		padding: 7px 14px;
 		border: 1px solid #0074a2;
+		cursor:pointer;
+
+		&:hover{
+			background:darken( #2ea2cc, 20% );
+		}
+	}
+}
+
+
+.single-entry{
+	box-sizing:border-box;
+	padding:15px;
+	background:#fff;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04), 0 0 10px rgba(0, 0, 0, 0.04);
+  	border: 1px solid #e5e5e5;
+
+  	&:nth-child( odd ){
+  		background:#f8f8f8;
+  	}
+
+  	.form-title{
+  		float:right;
+  		padding:4px 8px;
+  		background:#0074a2;
+  		border-radius:3px;
+  		color:#fff;
+  		margin:-30px 60px 0 0;
+  	}
+
+  	.entry-preview{
+  		padding-bottom:10px;
+  	}
+
+  	.entry-date{
+  		font-size: 20px;
+  		color:#444;
+  		padding:5px;
+  		cursor:pointer;
+  		position:relative;
+
+  		
+
+  		&:after{
+  			content:'';
+  			width:0;
+  			height:0;
+  			border:6px solid #444;
+  			border-color:#444 transparent transparent transparent;
+  			position:absolute;
+  			top:10px;
+  			right:15px;
+  		}
+
+  		&:hover{
+  			color:#00a0d2;
+
+  			&:after{
+  				border-color:#00a0d2 transparent transparent transparent;
+  			}
+  		}
+  	}
+
+  	.entry-fields{
+  		border-top:1px solid #ccc;
+  		padding:15px;
+  		display:none;
+  		table{
+  			box-sizing:border-box;
+  			width:100%;
+  			padding:15px 0;
+  			tr{
+  				td{
+  					background:#fff;
+  					width:47.5% !important;
+  					padding:15px !important;
+  					font-size:16px !important;
+  					&:last-of-type{
+  						text-align:center !important;
+  						padding:15px 0 !important;
+  					}
+  				}
+ 
+  				&:nth-child(even) td{
+  					background:#f9f9f9;
+  				}
+  			}
+  		}
+
+  	}
+
+  	&.active .entry-fields{
+  		display:block;
+  	}
+
+
+}
+
+.entry-pagination{
+	display:block;
+	width:100%;
+	text-align:center;
+	padding-top:30px;
+
+	a{
+		display:inline-block;
+		margin-right:10px;
+		padding:5px 10px;
+		text-align:center;
+		color:#444;
+		background:#fff;
+		text-decoration:none;
+		border:1px solid #fff;
+
+		&:hover{
+			border-color:0 0 3px rgba(0,0,0,.1);
+		}
+
+
+		&.current{
+			background:#00a0d2;
+			color:#fff;
+			border-color:#00a0d2;
+			&:hover{
+				background:#fff;
+			}
+		}
+
+
+		&:last-child{
+			margin-right:0;
+		}
 	}
 }
