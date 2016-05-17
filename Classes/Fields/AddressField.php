@@ -172,7 +172,7 @@ class AddressField extends DefaultField{
      * 
      * @return string ( html, echoed )
      */
-    public function build(){
+    /*public function build(){
 
         echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
 
@@ -210,8 +210,62 @@ class AddressField extends DefaultField{
 
         echo '</div>';
 
+    }*/
+
+
+    /**
+     * Build up the field block
+     * 
+     * @return string ( html, echoed )
+     */
+    public function build(){
+
+        echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
+
+            echo '<div class="field-preview">';
+                $this->buildPreview( true );
+            echo '</div>';
+
+            $this->buildLightbox();
+
+            echo '<div class="loader"><span class="spinner"></span></div>';
+
+        echo '</div>';
+
     }
 
+    /**
+     * Generate the preview for this field:
+     * 
+     * @return string (html)
+     */
+    public function buildPreview( $mainOverview = false ){
+
+        $html = '';
+
+        $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
+        $html .= '<div class="preview-input-wrapper">';
+            
+            $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'chefforms' ).'">';
+
+            $html .= '<input type="text" class="preview-input preview-zip" disabled placeholder="'.__( 'Zipcode', 'chefforms' ).'">';
+
+            $html .= '<input type="text" class="preview-input preview-city" disabled placeholder="'.__( 'City', 'chefforms' ).'">';
+
+        $html .= '</div>';
+
+    
+        //do not display these in the lightbox:
+        if( $mainOverview ){
+
+            $html .= $this->getFieldIcon();
+            $html .= $this->previewControls();
+
+        }
+
+        echo $html;
+
+    }
 
 
     /*=============================================================*/

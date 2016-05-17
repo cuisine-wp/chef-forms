@@ -3,7 +3,8 @@
 namespace ChefForms\Admin\Form\Entries;
 
 use Cuisine\Utilities\Session;
-use ChefForms\Wrappers\Form;
+use Cuisine\Utilities\Sort;
+use Cuisine\Wrappers\Field;
 use WP_Query;
 
 
@@ -16,12 +17,6 @@ class Manager{
 	 */
 	public $entries = array();
 
-	/**
-	 * Form object
-	 * 
-	 * @var ChefForms\Wrappers\Form;
-	 */
-	public $form;
 
 
 	/**
@@ -87,8 +82,6 @@ class Manager{
 		}
 
 		$this->entries = $this->getEntries();
-		$this->form = Form::make( $this->postId );
-
 		return $this;
 	}
 
@@ -107,55 +100,73 @@ class Manager{
 		//show the entries list:
 		do_action( 'chef_forms_before_entry_list', $this->entries, $this->postId  );
 
+		echo '<div class="wrap">';
 
-		if( $this->entries ){
+			echo '<h2>'.__( 'Form Entries', 'chefforms' ).'</h2>';
 
-			foreach( $this->entries as $entry ){
+			echo '<div class="entries-wrap">';
 
-				echo '<div class="single-entry">';
+			if( $this->entries ){
 
-					echo '<div class="entry-date">';
+				$this->buildControls();
 
-						echo $entry['date'];
+				echo '<div class="entries-list">';
+	
+				foreach( $this->entries as $entry ){
+	
+					$entry->build();
 
-					echo '</div>';
-
-
-					do_action( 'chef_forms_before_entry_fields', $entry, $this->postId );
-
-					echo '<div class="entry-fields">';
-
-						$fields = apply_filters( 
-							'chef_forms_entry_fields', 
-							$this->form->fields
-						);
-
-						echo '<table cellpadding="0" cellspacing="0">';
-						
-							foreach( $fields as $field ){
-								echo $field->getNotificationPart( $entry['fields'] );
-							}
-
-						echo '</table>';
-
-					echo '</div>';
-
-					do_action( 'chef_forms_after_entry_fields', $entry, $this->postId );
-
+				}
+	
+				$this->buildPagination();
 
 				echo '</div>';
+	
+			}else{
+	
+				echo  '<p>'.__( 'No entries yet', 'chefforms' ).'</p>';
 			}
 
-			$this->buildPagination();
 
-		}else{
+			echo '</div>';
 
-			echo  '<p>'.__( 'Nog geen inzendingen', 'chefforms' ).'</p>';
-		}
+		echo '</div>';
 
 
 		do_action( 'chef_forms_after_entry_list', $this->entries, $this->postId  );
 	}
+
+	/**
+	 * Create the controls to filter entries
+	 * 
+	 * @return string ( html,echoed )
+	 */
+	private function buildControls(){
+
+		$forms = $this->getForms();
+
+
+		$parent = ( isset( $_GET['parent'] ) ? $_GET['parent'] : 'all' );
+		$url = admin_url( 'edit.php?post_type=form&page=form-entries' );
+
+		echo '<form class="entry-filter" action="'.$url.'" method="get">';
+
+			Field::select(
+				'parent',
+				__( 'Entries from form', 'chefforms' ),
+				$forms,
+				array(
+					'defaultValue' => $parent
+				)
+
+			)->render();
+
+			echo '<button>'.__( 'Filter', 'chefforms' ).'</button>';
+
+		echo '</form>';
+
+	}
+
 
 	/**
 	 * Build the pagination for these entries
@@ -164,9 +175,17 @@ class Manager{
 	 */
 	private function buildPagination(){
 
-		$url = admin_url( 'post.php?post='.$_GET['post'].'&action=edit&entry_page=' );
+		//build the pagination url:
+		$url = admin_url( 'edit.php?post_type=form&page=form-entries' );
+
+		if( isset( $_GET['parent'] ) )
+			$url .= '&parent='.$_GET['parent'];
+
+		$url .= '&entry_page=';
+
 		$current = ( isset( $_GET['entry_page' ] ) ? $_GET['entry_page']  : 1 );
 
+		//show pagination only if the count is higher than 1
 		if( $this->pageCount > 1 ){
 
 			echo '<div class="entry-pagination">';
@@ -205,21 +224,23 @@ class Manager{
 
 		$args = array(
 
-			'post_parent'	=> $this->postId,
 			'post_type'		=> 'form-entry',
 			'paged'			=> ( isset( $_GET['entry_page'] ) ? $_GET['entry_page'] : 0 ),
 			'posts_per_page'=> $this->entriesPerPage
 
 		);
 
+		if( isset( $_GET['parent'] ) )
+			$args['post_parent'] = $_GET['parent'];
+
 		$args = apply_filters( 'chef_forms_entries_query', $args );
+
 		$entryPosts = new WP_Query( $args );
+		
 		$this->totalEntries = $entryPosts->found_posts;
 		$this->pageCount = $entryPosts->max_num_pages;
 
 		$entries = $this->sanitizeEntries( $entryPosts );
-
-
 		return $entries;
 
 	}
@@ -233,9 +254,6 @@ class Manager{
 	 */
 	private function sanitizeEntries( $query ){
 
-		$fields = get_post_meta( $this->postId, 'fields', true );
-		$prefix = 'field_'.$this->postId.'_';
-
 		$entries = false;
 
 		if( $query->have_posts() ){
@@ -245,21 +263,18 @@ class Manager{
 			while( $query->have_posts() ){
 
 				$query->the_post();
-				$entryFields = $fields;
-				$entryValues = get_post_meta( get_the_ID(), 'entry', true );
 
-				//package the entry
-				$entry = array(
-
-					'entry_id'	=> get_the_ID(),
-					'date'		=> 	get_the_date(),
-					'timestamp'	=>	strtotime( get_the_date() ),
-					'fields'	=>  $entryValues
-				
+				global $post;
+				$args = array(
+					'entry_id' 	=> get_The_ID(),
+					'form_id'	=> $post->post_parent,
+					'date'		=> strtotime( get_the_date() )
 				);
 
-				//add it to the array
-				$entries[ $i ] = $entry;
+				$entry = new Entry();
+				$entries[ $i ] = $entry->make( $args );
+
+
 				$i++;
 			}
 		}
@@ -274,6 +289,30 @@ class Manager{
 		}
 
 		return $entries;
+	}
+
+	/**
+	 * Get all forms in an ID - Title array
+	 * 
+	 * @return array
+	 */
+	private function getForms(){
+		$forms = get_posts( array( 
+			'post_type' => 'form', 
+			'posts_per_page' => -1
+		) );
+
+		$forms = array_combine( 
+			Sort::pluck( $forms, 'ID' ),
+			Sort::pluck( $forms, 'post_title' )
+		);
+
+		$forms = array_merge( 
+			array( 'all' => __( 'All forms', 'chefforms' ) ),
+			$forms
+		);
+
+		return $forms;
 	}
 
 

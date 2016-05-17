@@ -41,45 +41,48 @@ var FormManager = Backbone.View.extend({
 
 		var self = this;
 
-		//set width:
-		var _w = $('.form-builder-fields').innerWidth();
-		var _builder = $('.form-field-bar');
-		var _container = $('.form-builder-fields');
-		var _offset = _builder.offset().top;
+		if( $( '.form-builder-fields').length > 0 ){
 
-		_builder.css({
-			width: _w+'px'
-		});
-
-
-
-		//set the builder as sticky:
-		$( window ).on( 'scroll', function(){
-
-			var _scrollPos = $( window ).scrollTop();
-			_scrollPos += $( '#wpadminbar' ).outerHeight();
-
-
-			if( _scrollPos > _offset && _builder.hasClass( 'sticky' ) == false ){
-				
-				var _padding = _builder.outerHeight() + 30;
-				_builder.addClass( 'sticky' );
-				_container.css({
-					'padding-top' : _padding+'px'
-				});
-			}else if( _scrollPos < _offset && _builder.hasClass( 'sticky' ) == true ){
-				_builder.removeClass( 'sticky' );
-				_container.css({
-					'padding-top' : '0px'
-				});
-			}
-
-		});
-
-		$('#updatePost').on( 'click tap', function(){
-			$('.form-field-bar .spinner').addClass( 'show' );
-			$('#publish').trigger( 'click' );
-		});
+			//set width:
+			var _w = $('.form-builder-fields').innerWidth();
+			var _builder = $('.form-field-bar');
+			var _container = $('.form-builder-fields');
+			var _offset = _builder.offset().top;
+	
+			_builder.css({
+				width: _w+'px'
+			});
+	
+	
+	
+			//set the builder as sticky:
+			$( window ).on( 'scroll', function(){
+	
+				var _scrollPos = $( window ).scrollTop();
+				_scrollPos += $( '#wpadminbar' ).outerHeight();
+	
+	
+				if( _scrollPos > _offset && _builder.hasClass( 'sticky' ) == false ){
+					
+					var _padding = _builder.outerHeight() + 30;
+					_builder.addClass( 'sticky' );
+					_container.css({
+						'padding-top' : _padding+'px'
+					});
+				}else if( _scrollPos < _offset && _builder.hasClass( 'sticky' ) == true ){
+					_builder.removeClass( 'sticky' );
+					_container.css({
+						'padding-top' : '0px'
+					});
+				}
+	
+			});
+	
+			$('#updatePost').on( 'click tap', function(){
+				$('.form-field-bar .spinner').addClass( 'show' );
+				$('#publish').trigger( 'click' );
+			});
+		}
 	},
 
 

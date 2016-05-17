@@ -88,6 +88,7 @@ class DefaultField{
     var $validation = '';
 
 
+
     /**
      * Define a core Field.
      *
@@ -329,7 +330,7 @@ class DefaultField{
         $html = '';
 
         $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
-        $html .= '<input class="preview-input" disabled type="'.$this->type.'"';
+        $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="'.$this->type.'"';
 
         if( $this->getProperty( 'placeholder', false ) )
             $html .= ' placeholder="'.$this->getProperty( 'placeholder' ).'"';

@@ -84,8 +84,34 @@
 
 			$options = array(
 				'parent'		=> 'form',
-				'menu_title'	=> 'Instellingen'
+				'menu_title'	=> __( 'Entries', 'chefforms' )
 			);
+
+			SettingsPage::make(
+
+				__( 'Form Entries', 'chefforms' ),
+				'form-entries',
+				$options
+				
+			)->set( 'ChefForms\\Wrappers\\EntriesManager::build' );
+
+			$options['menu_title'] = __( 'Settings', 'chefforms' );
+			SettingsPage::make(
+
+				__( 'Form Settings', 'chefforms' ), 
+				'form-settings', 
+				$options
+
+			)->set( $this->getSettingFields() );
+
+		}
+
+		/**
+		 * Returns an array of settng fields
+		 * 
+		 * @return array
+		 */
+		private function getSettingFields(){
 
 			$fields = array(
 
@@ -122,14 +148,8 @@
 				)
 			);
 
-			SettingsPage::make(
-
-				'Formulier instellingen', 
-				'form-settings', 
-				$options
-
-			)->set( $fields );
-
+			$fields = apply_filters( 'chef_forms_setting_fields', $fields );
+			return $fields;
 		}
 
 	}

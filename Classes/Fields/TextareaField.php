@@ -23,8 +23,8 @@ class TextareaField extends DefaultField{
 
         $html = '';
 
-        $html .= '<label>'.$this->getLabel().'</label>';
-        $html .= '<textarea disabled style="min-height:50px;">';
+        $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
+        $html .= '<textarea class="preview-input" disabled style="min-height:50px;">';
 
         if( $this->getProperty( 'placeholder', false ) )
             $html .= $this->getProperty( 'placeholder' );
