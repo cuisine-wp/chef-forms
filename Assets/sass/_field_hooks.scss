@@ -1,0 +1,130 @@
+.multifield-top-controls{
+	.toggle-keys{
+		float:right;
+		margin:-50px 0 0 0;
+		font-size:14px;
+		color:#00a0d2;
+		text-decoration:underline;
+		cursor:pointer;
+		&:hover{
+			color:#444;
+		}
+	}
+
+	margin:0 0 0 0;
+}
+
+.row-placeholder{
+	width:200%;
+	display:block;
+	border-top:4px dashed #00a1d5;
+	height:1px;
+	margin-top:30px;
+}
+
+.multifield-field-wrapper{
+	box-sizing:border-box;
+	clear:both;
+	margin-top:30px;
+	width:100%;
+	background:#f9f9f9;
+	padding:15px;
+	box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.2);
+	border-radius:4px;
+	border:1px solid #ccc;
+
+
+	table{
+		width:100%;
+	
+		th{
+			border-bottom:1px solid #ccc;
+			padding:0 0 5px 0;
+		}
+
+		td{
+			padding:10px 30px 0 0;
+
+			input{
+				box-sizing:border-box;
+				width:100%;
+				padding:5px;
+			}
+
+			&.checkb input{
+				max-width:16px;
+				height:16px;
+			}
+		}
+	
+
+		.actions{
+			width:130px;
+			text-align:right;
+
+			&> span{
+				cursor:pointer;
+				box-sizing:border-box;
+				border-radius:14px;
+				text-align:center;
+				margin:5px 0 0 10px;
+				position:relative;
+				display:inline-block;
+				width:28px;
+				height:28px;
+				background:#444;
+				padding-top:5px;
+	
+				span{
+					color:#fff;
+					pointer-events:none;
+				}
+	
+				.tooltip{
+					position:absolute;
+					top:-30px;
+					background:rgba(0,0,0,.8);
+					padding:4px 8px;
+					left:0;
+					display:none;
+					white-space:nowrap;
+	
+					&:after{
+						position:absolute;
+						top:30px;
+						width:0;
+						height:0;
+						left:10px;
+						border:5px solid #444;
+						border-color:#444 transparent transparent transparent;
+					}
+				}
+	
+				&:hover{
+					background:#00a1d5;
+					.tooltip{
+					//	display:block;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+.map-field{
+
+	width:100%;
+	margin-bottom:20px;
+
+	select, label{
+		font-size:16px;
+		padding:4px 8px;
+		width:45%;
+		display:inline-block;
+	}
+
+	label{
+		margin-right:5%;
+	}
+}

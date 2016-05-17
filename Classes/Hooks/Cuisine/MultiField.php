@@ -36,8 +36,7 @@
 	
 		    $html = '';
 		    $choices = $this->getChoices();
-		    $choices = $this->parseChoices( $choices );
-			
+		    $choices = $this->parseChoices( $choices );			
 
 			$class = ( $this->hasDifferentKeys() ? 'key active' : 'key' );
 
@@ -53,6 +52,7 @@
 
 		    	$html .= '<thead><tr>';
 
+		    		$html .= '<th></th>';
 	    			$html .= '<th class="'.$class.'">Waarde</th>';
 	    			$html .= '<th>Label</th>';
 	    			$html .= '<th></th>';
@@ -85,7 +85,15 @@
 			$class = ( $this->hasDifferentKeys() ? 'key active' : 'key' );
 			$prefix = $this->name.'['.$choice['id'].']';
 			
-			$html .= '<tr class="multi-row"><td class="'.$class.'">';
+			$html .= '<tr class="multi-row"><td class="checkb">';
+
+				$html .= '<input type="checkbox" value="true" name="'.$prefix.'[isDefault]"';
+				if( $this->isDefaultSelected( $choice ) )
+					$html .= ' checked';
+
+				$html .= '>';
+
+			$html .= '</td><td class="'.$class.'">';
 
 				$html .= '<input type="text" data-name="key" name="'.$prefix.'[key]" value="'.$choice['key'].'"/>';
 
@@ -200,6 +208,7 @@
 
 		    $i = 0;
 		    $choices = array();
+		    $default = $this->getDefaultValue();
 
 		    foreach( $inputs as $key => $input ){
 		    	
@@ -219,6 +228,13 @@
 		        $choice['id'] = $i;
 		        $choice['key'] = $key;
 		        $choice['label'] = $label;
+		        $choice['isDefault'] = false;
+
+		        if( is_array( $default ) && in_array( $key, $default ) )
+		        	$choice['isDefault'] = true;
+
+		        if( isset( $input['isDefault'] ) && ( $input['isDefault'] == 'on' || $input['isDefault'] == true ) )
+		        	$choice['isDefault'] = true;
 		      
 		        $choices[] = $choice;
 
@@ -229,5 +245,42 @@
 
 		}
 
+		/**
+		 * Check if this choice is selected on default
+		 * 
+		 * @param  array  $choice
+		 * @return boolean
+		 */
+		public function isDefaultSelected( $choice ){
+
+			if( isset( $choice['isDefault'] ) ){
+
+				if( $choice['isDefault'] == 'on' || $choice['isDefault'] == true )
+					return true;
+
+			}
+
+			return false;
+		}
+
+
+		/**
+		 * Returns an array of default choices
+		 * 
+		 * @return array
+		 */
+		public function getDefaultValue(){
+
+			$default = false;
+			if( $this->properties['defaultValue'] ){
+				
+				$default = $this->properties['defaultValue'];
+				if( !is_array( $def ) )
+					$default = array( $default );
+				
+			}
+			
+			return $default;
+		}
 
 	}

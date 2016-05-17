@@ -3,6 +3,7 @@
 namespace ChefForms\Fields;
 
 use Cuisine\Wrappers\Field;
+use Cuisine\Utilities\Sort;
 use ChefForms\Front\Form\Tag;
 
 class DefaultField{
@@ -228,8 +229,6 @@ class DefaultField{
 
             $this->buildLightbox();
 
-            echo '<div class="loader"><span class="spinner"></span></div>';
-
         echo '</div>';
 
     }
@@ -255,33 +254,48 @@ class DefaultField{
 
             echo '<div class="field-setting-tabs">';
 
-                echo '<div class="field-settings-basics field-setting-tab-content" id="tab-basics">';
+                echo '<div class="field-settings-basics field-setting-tab-content active" id="tab-basics">';
 
-                    $fields = $this->getFields();
-        
-                    foreach( $fields as $field ){
-        
-                        $field->render();
-                    }
-        
-                    //render the javascript-templates seperate, to prevent doubles
-                    $rendered = array();
-                    foreach( $fields as $field ){
-        
-                        if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
-        
-                            echo $field->renderTemplate();
-                            $rendered[] = $field->name;
-        
-                        }
-                    }
+                    $this->buildDefaultSettingsTab();
 
                 echo '</div>';
-            
+
+                do_action( 'chef_forms_field_tab_content', $this );
+
             echo '</div>';
-            //    $this->bottomControls();
+            $this->bottomControls();
 
         echo '</div>'; 
+    }
+
+
+    /**
+     * The first tab in the lightbox
+     * 
+     * @return string ( html, echoed )
+     */
+    public function buildDefaultSettingsTab(){
+
+        echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
+
+        $fields = $this->getFields();
+    
+        foreach( $fields as $field ){
+    
+            $field->render();
+        }
+    
+        //render the javascript-templates seperate, to prevent doubles
+        $rendered = array();
+        foreach( $fields as $field ){
+    
+            if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
+    
+                echo $field->renderTemplate();
+                $rendered[] = $field->name;
+    
+            }
+        }
     }
 
 
@@ -359,10 +373,12 @@ class DefaultField{
 
         $html = '<div class="field-controls">';
 
-            $html .= '<span class="delete-field">';
-                $html .= '<i class="dashicons dashicons-trash"></i>';
-                $html .= __( 'Delete field', 'chefforms' );
-            $html .= '</span>';
+            if( $this->deletable ){
+                $html .= '<span class="delete-field">';
+                    $html .= '<i class="dashicons dashicons-trash"></i>';
+                    $html .= __( 'Delete field', 'chefforms' );
+                $html .= '</span>';
+            }
 
             $html .= '<span class="open-lightbox button button-primary">';
                 $html .= __( 'Edit', 'chefforms' );
@@ -387,13 +403,18 @@ class DefaultField{
      */
     public function bottomControls(){
 
-        if( $this->deletable ){
-            echo '<p class="delete-field">';
-                echo '<span class="dashicons dashicons-trash"></span>';
-                echo __( 'Delete', 'chefsections' ).'</p>';
-            echo '</p>';
-        }
-        
+        echo '<div class="bottom-controls">';
+            if( $this->deletable ){
+                echo '<p class="delete-field">';
+                    echo '<span class="dashicons dashicons-trash"></span>';
+                    echo __( 'Delete', 'chefforms' ).'</p>';
+                echo '</p>';
+            }
+    
+            echo '<span class="save-field button">';
+                _e( 'Save field', 'chefforms' );
+            echo '</span>';
+        echo '</div>';
     }
 
 
@@ -592,16 +613,15 @@ class DefaultField{
         $default = array(
             'basics' => array(
                 'label'     => __( 'Basic options', 'chefforms' ),
-                'icon'      => 'dashicons-admin-generic'
-            ),
-
-            'advanced' => array(
-                'label'     => __( 'Advanced options', 'chefforms' ),
-                'icon'      => 'dashicons-chart-area'
-            ),
+                'icon'      => 'dashicons-admin-generic',
+                'position'  => -1
+            )
         );
 
         $tabs = apply_filters( 'chef_forms_field_tabs', $default );
+
+        $tabs = Sort::byField( $tabs, 'position', 'ASC' );
+
         return $tabs;
     }
 

@@ -155,8 +155,6 @@
 			opacity:0;
 			pointer-events:none;
 			padding-top:10px;
-			padding-bottom:0;
-			margin-bottom:-10px;
 
 			.delete-field{
 				display:inline-block;
@@ -169,6 +167,10 @@
 
 				i{
 					text-decoration:none;
+				}
+
+				&:hover{
+					opacity:.7;
 				}
 			}
 
@@ -209,137 +211,6 @@
 	}
 }
 
-
-.field-preview, .field-live-preview{
-	display:block;
-	padding:20px;
-	position:relative;
-
-	label{
-		font-size:18px;
-		padding-bottom:6px;
-		color:#888;
-		display:block;
-	}
-
-	input, textarea{
-		width:100%;
-		display:block;
-		padding:5px 10px;
-		font-size:16px;
-		background:#fff;
-		border:1px solid #ddd;
-		box-shadow:0 1px 2px rgba(0,0,0,.1);
-		border-radius:4px;
-	}
-
-	input[type="radio"], input[type="checkbox"]{
-		width:16px;
-		height:16px;
-		padding:0;
-		display:inline-block;
-		float:left;
-		margin-right:5px;
-		background:#fff;
-	}
-
-	span.dashicons{
-		position:absolute;
-		top:20px;
-		right:20px;
-		color:#888;
-	}
-}
-
-.field-options{
-	box-sizing:border-box;
-	display:none;
-	z-index:2000;
-	background:#fff;
-	box-shadow:0 0 10px rgba(0,0,0,.3);
-	position:fixed;
-	top:50px;
-	left:50%;
-	margin-left:-400px;
-	width:850px;
-	height:600px;
-	border-radius:3px;
-
-	&.active{
-		display:block;
-	}
-
-	.field-live-preview{
-		position:relative;
-		background:#ccc;
-		padding:30px 30px 60px 30px;
-		background: #f9f9f9;
-		box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-		border-radius: 3px 3px 0 0;
-		border: 1px solid #ccc;
-
-		.close{
-			position:absolute;
-			top:15px;
-			right:15px;
-			font-size:32px;
-			cursor:pointer;
-			&:hover{
-				color:#00a0d2;
-			}
-		}
-
-		.tab-container{
-			list-style:none;
-			position:absolute;
-			bottom:0;
-			left:20px;
-			margin:0;
-
-			li{
-				padding:8px 16px;
-				background:#888;
-				color:#fff;
-				border-radius:3px 3px 0 0;
-				margin:0 3px 0 0;
-				display:inline-block;
-				cursor:pointer;
-
-				i{
-					color:#fff;
-					padding-right:10px;
-				}
-
-				&.active, &:hover{
-					background:#fff;
-					color:#888;
-					padding-bottom:9px;
-					margin-bottom:-1px;
-					border:1px solid #ccc;
-					border-bottom:0;
-
-					i{
-						color:#888;
-					}
-				}
-			}
-		}
-	}
-
-	.field-setting-tabs{
-		padding:15px;
-
-		.field-wrapper{
-			width:45%;
-			float:left;
-			margin-right:10%;
-
-			&:nth-of-type( even ){
-				margin-right:0;
-			}
-		}
-	}
-}
 
 .row.empty{
 	background:rgba(0,0,0,.1);

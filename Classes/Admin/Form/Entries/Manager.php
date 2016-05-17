@@ -144,8 +144,6 @@ class Manager{
 	private function buildControls(){
 
 		$forms = $this->getForms();
-
-
 		$parent = ( isset( $_GET['parent'] ) ? $_GET['parent'] : 'all' );
 		$url = admin_url( 'edit.php?post_type=form&page=form-entries' );
 

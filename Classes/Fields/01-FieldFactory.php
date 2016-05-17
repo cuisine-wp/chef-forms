@@ -167,9 +167,7 @@ class FieldFactory{
      */
     public function checkboxes($id, $form_id, array $options = array(), array $properties = array()){
 
-        $extras = compact( 'options');
-
-        $properties = array_merge( $extras, $properties );
+        $properties = array_merge( $options, $properties );
 
         return $this->make( 'ChefForms\\Fields\\CheckboxesField', $id, $form_id, $properties );
     }
@@ -184,9 +182,7 @@ class FieldFactory{
      */
     public function radio($id, $form_id, array $options = array(), array $properties = array()){
 
-        $extras = compact( 'options' );
-
-        $properties = array_merge($extras, $properties);
+        $properties = array_merge( $options, $properties );
 
         return $this->make( 'ChefForms\\Fields\\RadioField', $id, $form_id, $properties );
     }
@@ -202,9 +198,7 @@ class FieldFactory{
      */
     public function select( $id, $form_id, array $options = array(), array $properties = array() ){
 
-        $extras = compact( 'options' );
-        
-        $properties = array_merge( $extras, $properties );
+        $properties = array_merge( $options, $properties );
 
         return $this->make( 'ChefForms\\Fields\\SelectField', $id, $form_id, $properties );
     }

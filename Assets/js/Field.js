@@ -14,6 +14,8 @@
 
 			'click .field-preview .button': 'showLightbox',
 			'click .field-options .close': 'closeLightbox',
+			'click .field-options .save-field': 'closeLightbox',
+			'click .tab': 'openTab', 
 			'change .update': 'updatePreview',
 			'click .delete-field': 'deleteField',
 		},
@@ -31,6 +33,8 @@
 			self.formId = self.$el.data( 'form_id' );
 			self.postId = self.formId;
 
+			self.setValidateSelect();
+
 			return this;
 		},
 
@@ -42,15 +46,34 @@
 		showLightbox: function(){
 
 			var self = this;
-			console.log( 'show!' );
 			self.$el.find( '.field-options' ).addClass( 'active' );
 
+			//set the first tab as active:
+			self.$el.find('.tab:first').trigger('click');
 		},
 
 		closeLightbox: function(){
 
 			var self = this;
 			self.$el.find( '.field-options' ).removeClass( 'active' );
+
+		},
+
+		/**
+		 * Make tabs work in lightbox:
+		 * 
+		 * @return void
+		 */
+		openTab: function( e ){
+
+			var self = this;
+			var _type = $( e.target ).data('tab');
+
+			self.$el.find('.field-setting-tab-content').removeClass( 'active' );
+			self.$el.find('#tab-'+_type).addClass('active');
+			self.$el.find('.tab').removeClass( 'active' );
+
+			$( e.target ).addClass( 'active' );
 
 		},
 
@@ -79,6 +102,22 @@
 
 				_preview.prop('placeholder', _value );
 			}
+
+		},
+
+		/**
+		 * Set validate selector:
+		 *
+		 * @return void
+		 */
+		setValidateSelect: function(){
+
+			var self = this;
+			var _validate = self.$el.find('.validate-selector');
+			if( _validate.length > 0 ){
+
+				_validate.chosen()
+			}			
 
 		},
 

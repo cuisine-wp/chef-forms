@@ -71,10 +71,11 @@ var MultiField = Backbone.View.extend({
 
 			var key = jQuery( item ).find('.key input');
 			var value = jQuery( item ).find( '.value input');
+			var def = jQuery( item ).find( '.checkb input' );
 
 			key.attr( 'name', _prefix+'[key]' );
-			value.attr( 'name', _prefix+'[label]' );
-
+			value.attr( 'name', _prefix+'[label]' );	
+			def.attr('name', _prefix+'[isDefault]' );
 
 			if( self.showKeys === false ){
 				key.val( value.val() );
@@ -108,27 +109,41 @@ var MultiField = Backbone.View.extend({
 			_parent.remove();
 		});
 
+	},
+
+	/**
+	 * Remove all field-events
+	 * 
+	 * @return void
+	 */
+	destroy: function(){
+		this.undelegateEvents();
 	}
-
-
 
 });
 
 
 jQuery( document ).ready( function( $ ){
-
-
 	setMultiFields();
-
-
-
 });
 
 
+var _multifields = [];
 function setMultiFields(){
 
+	if( _multifields.length > 0 ){
+
+		for( var i = 0; _multifields.length > i; i++ ){
+			_multifields[ i ].destroy();
+		}
+	}
+
+
+	self.fields = [];
+
 	jQuery('.multifield-builder' ).each( function( index, obj ){
-		var fblock = new MultiField( { el: obj } );
+		var _mfield = new MultiField( { el: obj } );
+		_multifields.push( _mfield );
 	});
 
 }

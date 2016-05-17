@@ -36,9 +36,17 @@
 				);
 
 				wp_enqueue_script( 
+				    'chosen', 
+				    $url.'/js/libs/chosen.min.js', 
+				    array( 'jquery' ),
+				    false,
+				    true
+				);
+
+				wp_enqueue_script( 
 					'field_block', 
 					$url.'/js/Field.js', 
-					array( 'backbone' )
+					array( 'backbone', 'chosen' )
 				);
 
 				wp_enqueue_script( 

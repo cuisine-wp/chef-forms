@@ -70,7 +70,9 @@ if (!class_exists('ChefForms')) {
             $includes = array( 
                 'Classes/Wrappers',
                 'Classes/Hooks/Cuisine',
+
                 'Classes/Fields',
+                'Classes/Fields/Tabs',
 
                 'Classes/Front',
                 'Classes/Front/Form',

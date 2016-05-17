@@ -60,6 +60,7 @@ abstract class Wrapper {
             'form-builder-manager'          => 'ChefForms\Admin\Form\Builder\Builder',
             'notification-manager'          => 'ChefForms\Admin\Form\Notifications\Manager',
             'settings-manager'              => 'ChefForms\Admin\Form\Settings\Manager',
+            'tab-builder'                   => 'ChefForms\Fields\Tabs\TabBuilder',
             'field-block'                   => 'ChefForms\Fields\FieldFactory',
             'field'                         => 'ChefForms\Fields\FieldFactory',
             'settings-panel'                => 'ChefForms\Admin\Form\Settings\Panel',
