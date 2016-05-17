@@ -171,6 +171,12 @@ class DefaultField{
         if( isset( $this->properties['defaultValue'] ) )
             $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
 
+        if( empty( $this->properties['validation'][0] ) )
+            unset( $this->properties['validation'] );
+
+        if( empty( $this->properties['classes'] ) )
+            unset( $this->properties['classes'] );
+
 
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
             $this->properties['required'] = false;

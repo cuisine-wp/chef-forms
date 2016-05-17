@@ -232,7 +232,7 @@
 						$value = maybe_unserialize( $value );
 						$key = 'usermeta_'.$key;
 
-						if( $value )
+						if( $value && !is_array( $value ) )
 							$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
 				
 					}

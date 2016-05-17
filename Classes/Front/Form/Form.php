@@ -181,10 +181,30 @@
 					//anchor for message showing:
 					echo '<span class="form-anchor" id="f'.$this->id.'"></span>';
 					echo '<div class="form-fields">';
-							
+						
+						$currentRow = 0;
+						$currentField = 0;
+
 						foreach( $this->fields as $field ){
-				
+								
+							//open a field row:
+							if( $field->row !== $currentRow )
+								echo '<div class="field-row">'; 
+
 							$field->render();
+
+							$currentField++;
+							$currentRow = $field->row;
+
+							//close the field row:
+							if( isset( $this->fields[ $currentField ] ) ){
+								if( $this->fields[ $currentField ]->row !== $currentRow )
+									echo '</div>';
+
+							}else{
+								echo '</div>';
+							}
+
 				
 						}
 				
