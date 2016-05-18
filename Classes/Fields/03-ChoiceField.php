@@ -2,6 +2,8 @@
 namespace ChefForms\Fields;
 
 use Cuisine\Wrappers\Field;
+use Cuisine\Utilities\Sort;
+use ChefForms\Front\Form\Tag;
 
 class ChoiceField extends DefaultField{
 
@@ -17,6 +19,7 @@ class ChoiceField extends DefaultField{
      */
     public function render(){
 
+
         $this->sanitizeProperties();
         $type = $this->type;
         
@@ -29,6 +32,35 @@ class ChoiceField extends DefaultField{
 
         )->render();
 
+    }
+
+
+    /**
+     * Check the default value, before rendering
+     *
+     */
+    public function sanitizeProperties(){
+
+    	$this->getDefaultValue();
+
+        $this->properties['defaultValue'] = apply_filters( 'chef_forms_field_default_value', $this->properties['defaultValue'], $this );
+
+        if( isset( $this->properties['defaultValue'] ) && !is_array( $this->properties['defaultValue'] ) )
+            $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
+
+        if( !empty( $default ) )
+        	$this->properties['defaultValue'] = $default;
+
+        if( empty( $this->properties['validation'][0] ) )
+            unset( $this->properties['validation'] );
+
+        if( empty( $this->properties['classes'] ) )
+            unset( $this->properties['classes'] );
+
+
+        if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
+            $this->properties['required'] = false;
+        
     }
 	
     /*=============================================================*/
@@ -313,15 +345,23 @@ class ChoiceField extends DefaultField{
 	}
 
 	/**
-	 * Get choices
+	 * Get choices from the properties and convert
+	 * them into key - value pairs
 	 *
 	 * @return Array / void
 	 */
 	public function getChoices(){
 
-	    if( $this->properties['choices'] )
-	        return $this->properties['choices'];
+	    if( $this->properties['choices'] ){
 
+	    	$_choices = $this->properties['choices'];
+	    	$choices = array_combine( 
+	    					Sort::pluck( $_choices, 'key' ),
+	    					Sort::pluck( $_choices, 'label' )
+	    	);
+
+	    	return $choices;
+	    }
 	}
 
 	/**
@@ -331,16 +371,22 @@ class ChoiceField extends DefaultField{
 	 */
 	public function getDefaultValue(){
 
-		$default = false;
-		if( $this->properties['defaultValue'] ){
+		$default = array();
 
-			$default = $this->properties['defaultValue'];
-			if( !is_array( $def ) )
-				$default = array( $default );
+		$choices = $this->getProperty( 'choices');
+		foreach( $choices as $choice ){
+			if( $this->isDefaultSelected( $choice ) )
+				$default[] = $choice['key'];
 
+
+		}		
+
+		if( !empty( $default ) ){
+			$this->properties['defaultValue'] = $default;
+			return $default;
 		}
-		
-		return $default;
+
+		return false;
 	}
 
 
@@ -361,44 +407,6 @@ class ChoiceField extends DefaultField{
 	    $output = implode( ' ', $classes );
 
 	    return $output;
-	}
-
-
-	/**
-	 * Makes the choices array complete
-	 * 
-	 * @param  Array $inputs  all default choices
-	 * @return Array
-	 */
-	public function parseChoices( $inputs ){
-
-	    $i = 0;
-	    $choices = array();
-
-	    //check to see if it's an associative array
-	    $isIndexed = ( array_values( $inputs ) === $inputs );
-
-	    foreach( $inputs as $key => $input ){
-	    	
-	    	if( is_array( $input ) && isset( $input['label'] ) ){
-	    		$label = $input['label'];
-	    	}else{
-	    		$label = $input;
-	    	}
-
-
-	        $choice = array();
-	        $choice['id'] = $i;
-	        $choice['key'] = ( $isIndexed ? $input : $key );
-	        $choice['label'] = $label;
-	      
-	        $choices[] = $choice;
-
-	        $i++;
-	    }
-
-	    return $choices;
-
 	}
 
 }

@@ -628,18 +628,6 @@
 				$field['name'] = 'field_'.$this->id.'_'.$id;
 			}
 
-			if( isset( $field['choices'] ) ){
-
-				$choices = array();
-				foreach( $field['choices'] as $val ){
-
-					$choices[ $val['key'] ] = $val['label'];
-
-				}
-
-				$field['choices'] = $choices;
-			}
-
 
 			//get the label value from the settings:
 			$field['labelPosition'] = $this->getSetting( 'labels', 'top' );
