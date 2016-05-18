@@ -17,6 +17,8 @@
 			'click .field-options .save-field': 'closeLightbox',
 			'click .tab': 'openTab', 
 			'change .update': 'updatePreview',
+			'sorted .multifield-field-wrapper table': 'updateChoicePreview',
+			'change .multifield-field-wrapper input': 'updateChoicePreview',
 			'click .delete-field': 'deleteField',
 		},
 
@@ -89,7 +91,6 @@
 			if( jQuery( e.target ).hasClass( 'update-label' ) ){
 				var _preview = self.$el.find('.preview-label');
 				var _value = self.$el.find('.label-field').val();
-				console.log( _value );
 
 				if( self.$el.find('.req-field').is(':checked') )
 					_value += ' *';
@@ -105,6 +106,76 @@
 			}
 
 		},
+
+		/**
+		 * Update choice field previews
+		 * 
+		 * @return void
+		 */
+		updateChoicePreview: function(){
+
+			var self = this;
+			var _choices = '';
+			var _type = 'checkbox';
+
+			var i = 0;
+
+			if( self.$el.find('.preview-select').length > 0 )
+				_type = 'select';
+
+			self.$el.find('.multi-row').each( function(){
+
+				var _checked = $( this ).find('.checkb input').is(':checked');
+				var _label = $( this ).find('.value input').val();
+					
+				if( _type !== 'select' ){
+
+					if( i <= 3 ){
+						_choices += '<span class="choice-wrapper">';
+
+							_choices += '<input class="preview-input preview-checkbox" disabled type="'+_type+'"';
+							if( _checked )
+								_choices += ' checked';
+
+							_choices += '>';
+							_choices += '<span class="choice-label">'+_label+'</span>';
+
+						_choices += '</span>';
+					}
+
+				}else{
+					if( i <= 3 ){
+						_choices += '<option';
+						if( _checked )
+							_choices += ' selected';
+
+						_choices += '>'+_label+'</option>';
+
+					}
+				}
+
+				i++;
+			});
+
+			if( _type == 'select' ){
+			
+				self.$el.find('.preview-select').html( _choices );
+			
+			}else{
+
+				var _value = self.$el.find('.label-field').val();
+				if( self.$el.find('.req-field').is(':checked') )
+					_value += ' *';
+
+				var _html = '<label class="preview-label">';
+				_html += _value;
+				_html += '</label>';
+				_html += _choices;
+				self.$el.find('.field-live-preview, .field-preview').html( _html );
+
+			}
+		},
+
 
 		/**
 		 * Set validate selector:

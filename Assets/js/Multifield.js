@@ -47,10 +47,16 @@ var MultiField = Backbone.View.extend({
 		self.table.sortable({
 			handle: '.drag-row',
 			placeholder: 'row-placeholder',
+			start: function(){
+				self.table.trigger( 'sorting' );
+			},
 			update: function (event, ui) {
 
 				self.refreshHtml();
 
+			},
+			stop: function(){
+				self.table.trigger( 'sorted' );
 			}
 		})
 
