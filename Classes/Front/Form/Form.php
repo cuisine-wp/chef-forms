@@ -316,9 +316,13 @@
 
 			//add the post-nonce:
 			wp_nonce_field( 'form_'.$this->id.'_submit', '_chef_form_submit' );
+
+			//form information:
 			echo '<input type="hidden" name="_fid" value="'.$this->id.'"/>';
 			echo '<input type="hidden" name="_rootPid" value="'.Session::rootPostId().'"/>';
 
+			//antispam:
+			AntiSpam::honeypot();
 
 		}
 
@@ -461,12 +465,23 @@
 
 				$this->message = array(
 						'error'		=> 	true,
-						'message'	=> 	__( 'Geen geldige Nonce.', 'chefforms' )
+						'message'	=> 	__( 'No valid nonce.', 'chefforms' )
 				);
-
-				return json_encode( $this->message );
 			}
 
+			//then, check for spam
+			if( !AntiSpam::isClean() ){
+				$this->message = array(
+						'error'		=> true,
+						'message'	=> __( 'You seem to be spamming', 'chefforms' )
+				);
+			}
+
+
+			//if the message has already been set, return it right away:
+			if( !empty( $this->message ) && $this->message['error'] )
+				return json_encode( $this->message );
+			
 
 			//init the Form object:
 			$this->init();
@@ -497,6 +512,7 @@
 			//after notifying
 			do_action( 'after_notification', $this, $entry );
 
+
 			//set the message, if it's empty
 			if( empty( $this->message ) ){
 				$this->message = array(
@@ -517,9 +533,7 @@
 		 * @return void
 		 */
 		public function notify(){
-
 			$this->notifications = $this->setNotifications();
-
 
 			if( !empty( $this->notifications ) ){
 
@@ -839,14 +853,15 @@
 
 			$notifications = array();
 			$datas = get_post_meta( $this->id, 'notifications', true );
-
 			//if( !empty( $this->files ) ) 
 			//	$data['attachments'] = $this->files;
 
 			if( !empty( $datas ) ){
 				foreach( $datas as $data ){
 
-					$notifications[] = FormNotification::make( $data, $this->fields );
+					//check if a recipient has been filled in:
+					if( $data['to'] != '' )
+						$notifications[] = FormNotification::make( $data, $this->fields );
 				
 				}
 			}

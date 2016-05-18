@@ -54,20 +54,20 @@ abstract class Wrapper {
     private static function getFacadeName( $name ) {
         
         $aliases = array(
-            'form-builder'                  => 'ChefForms\Admin\FormBuilder', //from code
-            'form-manager'                  => 'ChefForms\Admin\Form\Manager', //cpt ui
-            'entries-manager'               => 'ChefForms\Admin\Form\Entries\Manager',
-            'form-builder-manager'          => 'ChefForms\Admin\Form\Builder\Builder',
-            'notification-manager'          => 'ChefForms\Admin\Form\Notifications\Manager',
-            'settings-manager'              => 'ChefForms\Admin\Form\Settings\Manager',
-            'tab-builder'                   => 'ChefForms\Fields\Tabs\TabBuilder',
-            'field-block'                   => 'ChefForms\Fields\FieldFactory',
-            'field'                         => 'ChefForms\Fields\FieldFactory',
-            'settings-panel'                => 'ChefForms\Admin\Form\Settings\Panel',
-            'toolbar'                       => 'ChefForms\Admin\Form\Builder\Toolbar',
-            'form'                          => 'ChefForms\Front\Form\Form',
-            'entry'                         => 'ChefForms\Front\Form\Entry',
-            'notification'                  => 'ChefForms\Front\Form\Notification',
+            'form-builder'          => 'ChefForms\Admin\FormBuilder', //from code
+            'form-manager'          => 'ChefForms\Admin\Form\Manager', //cpt ui
+            'entries-manager'       => 'ChefForms\Admin\Form\Entries\Manager',
+            'form-builder-manager'  => 'ChefForms\Admin\Form\Builder\Builder',
+            'notification-manager'  => 'ChefForms\Admin\Form\Notifications\Manager',
+            'settings-manager'      => 'ChefForms\Admin\Form\Settings\Manager',
+            'tab-builder'           => 'ChefForms\Fields\Tabs\TabBuilder',
+            'field-block'           => 'ChefForms\Fields\FieldFactory',
+            'field'                 => 'ChefForms\Fields\FieldFactory',
+            'settings-panel'        => 'ChefForms\Admin\Form\Settings\Panel',
+            'toolbar'               => 'ChefForms\Admin\Form\Builder\Toolbar',
+            'form'                  => 'ChefForms\Front\Form\Form',
+            'entry'                 => 'ChefForms\Front\Form\Entry',
+            'notification'          => 'ChefForms\Front\Form\Notification'
         );
 
         return $aliases[ $name ];

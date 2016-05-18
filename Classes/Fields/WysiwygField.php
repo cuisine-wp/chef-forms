@@ -49,7 +49,7 @@ class WysiwygField extends DefaultField{
      */
     private function setScript(){
 
-    	$url = Url::plugin( 'chef-forms', true ).'Assets/js/';
+    	$url = Url::plugin( 'chef-forms', true ).'Assets/js/front/';
     	Script::register( 'wysiwyg-trigger', $url.'Editor', true );
 
     }

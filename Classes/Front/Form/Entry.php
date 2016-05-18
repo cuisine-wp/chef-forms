@@ -328,6 +328,9 @@ namespace ChefForms\Front\Form;
 			unset( $_entry['_fid'] );
 			unset( $_entry['_rootPid'] );
 
+			//remove anti-spam measures before saving
+			$_entry = AntiSpam::sanitizeEntry( $_entry );
+
 			foreach( $_entry as $name => $value ){
 
 				$entry[] = array(

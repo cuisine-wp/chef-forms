@@ -60,7 +60,7 @@
 				$url = Url::plugin( 'chef-forms', true ).'Assets/js/';
 				
 				Script::register( 'wysiwyg', $url.'libs/trumbowyg.min', false );
-				Script::register( 'send-form', $url.'Form', true );
+				Script::register( 'send-form', $url.'front/Form', true );
 
 				$url = 'chef-forms/Assets/sass/';
 				Sass::register( 'form_styling', $url.'_form', false );
