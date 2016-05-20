@@ -17,7 +17,7 @@
 		function __construct(){
 
 			$this->listen();
-			$this->setMetabox();
+			//$this->setMetabox();
 			$this->setSettingsPage();
 
 		}
@@ -59,18 +59,6 @@
 		 */
 		private function setMetabox(){
 
-
-
-			$options = array( 'context' => 'side' );
-
-			//standard fields
-			Metabox::make( 
-
-				__( 'Standaard velden', 'chefforms' ), 
-				'form', 
-				$options
-
-			)->set( '\\ChefForms\\Wrappers\\Toolbar::sidebar' );
 
 		}
 

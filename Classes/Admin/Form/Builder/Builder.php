@@ -220,7 +220,10 @@ class Builder{
 
 				foreach( $fields as $id => $field ){
 					
-					$type = $field['type'];	
+					$type = $field['type'];
+					if( !is_string( $type ) )
+						continue;
+
 					$array[] = Field::$type( $id, $this->postId, $field );
 			
 				}

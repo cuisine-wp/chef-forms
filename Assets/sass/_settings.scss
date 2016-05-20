@@ -1,29 +1,6 @@
 
-.form-view{
-	display:none;
-	&.current{
-		display:block;
-	}
-}
 
-.form-view{
-	h2 span{
-		padding-right:15px;
-		color:#00a0d2;
-		font-size:22px;
-		line-height:90%;
-	}
 
-	h2{
-		font-size:26px !important;
-		color:#444;
-		line-height:100%;
-	}
-}
-
-.form-builder-fields{
-	padding:15px;
-}
 
 .confirmation-settings{
 	background:#fff;

@@ -67,16 +67,16 @@ class Manager{
 
 		echo '<div class="form-manager" data-form_id="'.$this->postId.'">';
 
+			Toolbar::build();
+
 			$class = 'field-container form-view';
 			if( !isset( $_GET['entry_page'] ) )
-				$class .= ' current';
+				$class .= ' active';
 
 			echo '<div class="'.$class.'" id="field-container">';
 
-				Toolbar::build();
-
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
-				echo __( 'Formulierenbouwer', 'chefforms' ).'</h2>';
+				echo __( 'Form builder', 'chefforms' ).'</h2>';
 
 				FormBuilderManager::build();
 				
@@ -86,7 +86,7 @@ class Manager{
 			echo '<div class="notifications-container form-view" id="notifications-container">';
 				
 				echo '<h2><span class="dashicons dashicons-megaphone"></span>';
-				echo __( 'Notificaties', 'chefforms' ).'</h2>';
+				echo __( 'Notifications', 'chefforms' ).'</h2>';
 				
 				NotificationManager::build();
 			
@@ -96,7 +96,7 @@ class Manager{
 			echo '<div class="settings-container form-view" id="settings-container">';
 			
 				echo '<h2><span class="dashicons dashicons-admin-generic"></span>';
-				echo __( 'Instellingen', 'chefforms' ).'</h2>';
+				echo __( 'Settings', 'chefforms' ).'</h2>';
 			
 				SettingsManager::build();
 			

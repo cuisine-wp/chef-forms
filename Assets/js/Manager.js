@@ -44,7 +44,7 @@ var FormManager = Backbone.View.extend({
 
 			//set width:
 			var _w = $('.form-builder-fields').innerWidth();
-			var _builder = $('.form-field-bar');
+			var _builder = $('.toolbar');
 			var _container = $('.form-builder-fields');
 			var _offset = _builder.offset().top;
 	
@@ -120,6 +120,10 @@ var FormManager = Backbone.View.extend({
 		var self = this;
 		self.addFieldByDrag();
 
+		$('#updatePost').on( 'click tap', function(){
+			$('.toolbar .spinner').addClass( 'show' );
+		});
+
 	},
 
 
@@ -177,12 +181,15 @@ var FormManager = Backbone.View.extend({
 		var btn = jQuery( e.target );
 		var type = btn.data('type');
 
-		jQuery( '.nav-btn' ).removeClass( 'current' );
-		btn.addClass( 'current' );
+		jQuery( '.nav-btn' ).removeClass( 'active' );
+		btn.addClass( 'active' );
 
-		jQuery( '.form-view' ).removeClass( 'current' );
-		jQuery( '#'+type+'-container' ).addClass( 'current' );
+		console.log( type );
 
+		jQuery( '.form-view' ).removeClass( 'active' );
+		jQuery( '.main-form-nav').removeClass( 'active' );
+		jQuery( '#'+type+'-container' ).addClass( 'active' );
+		jQuery( '#nav-bar-'+type).addClass('active');
 	},
 
 
@@ -244,7 +251,6 @@ var FormManager = Backbone.View.extend({
 
 		var self = this;
 		var _type = jQuery( e.target ).data('type');
-		console.log( _type );
 		
 		var data = {
 			action: 'createField',
@@ -253,10 +259,7 @@ var FormManager = Backbone.View.extend({
 		}
 
 
-		console.log( data );
-
 		jQuery.post( ajaxurl, data, function( response ){
-			console.log( response );
 
 			if( response !== 'error' ){
 
@@ -291,6 +294,8 @@ var FormManager = Backbone.View.extend({
 		var self = this;
 		var rowId = 1;
 		var position = 0;
+
+		console.log('ello');
 
 		$('.form-builder-fields .row').each( function(){
 
@@ -346,7 +351,7 @@ var FormManager = Backbone.View.extend({
 
 jQuery( document ).ready( function( $ ){
 
-	var formManager = new FormManager( { el: jQuery('.form-manager' ) } );
+	window.formManager = new FormManager( { el: jQuery('.form-manager' ) } );
 
 	//handle entry-toggling:
 	$('.single-entry .entry-preview').on( 'click tap', function(){

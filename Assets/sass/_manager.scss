@@ -1,3 +1,42 @@
+.post-type-form.post-php, .post-type-form.post-new-php{
+	#poststuff #post-body.columns-2{
+		margin-right:0;
+	}
+	#postbox-container-1{
+		display:none;
+	}
+}
+
+.form-nav{
+	list-style:none;
+	margin:30px 0 0 0;
+
+	.nav-btn{
+		padding:10px 20px 12px 20px;
+		border-radius:3px 3px 0 0;
+		text-align:center;
+		display:inline-block;
+		cursor:pointer;
+		margin:0 5px -2px 0;
+		border:1px solid transparent ;
+
+		b, span{
+			pointer-events:none;
+		}
+
+		b{
+			padding-left:10px;
+			display:inline-block;
+		}
+
+		&.active, &:hover{
+			background:#fff;
+			border-color: #ccc;
+			border-bottom:0;
+		}
+	}
+}
+
 .toolbar{
 	box-sizing:border-box;
 	padding:15px 15px 5px 15px;
@@ -22,7 +61,15 @@
 		padding-left:0;
 		position:relative;
 		margin:0;
+		display:none;
+		pointer-events:none;
+
+		&.active{
+			display:block;
+		}
+
 		li{
+			pointer-events:auto;
 			display:inline-block;
 			padding:8px 16px;
 			margin-right:15px;
@@ -81,21 +128,34 @@
 			}
 		}
 
-		> li:hover{
+		&.fields-nav > li:hover{
 			padding-bottom:18px;
 			border-radius:4px 4px 0 0;
 			&> ul{
 				display:flex;
 			}
 		}
+
+		&.settings-nav li.active{
+			position:relative;
+			&:after{
+				position:absolute;
+				content:'';
+				border:12px solid #0073aa;
+				border-color:#0073aa transparent transparent transparent;
+				width:0;
+				height:0;
+				bottom:-23px;
+				left:50%;
+				margin-left:-6px;
+			}
+		}
 	}
 
 
 	.spinner{
-		position:absolute;
-		right: 125px;
-		top: 15px;
-		margin:6px 10px 0 0;
+		float:right;
+		margin:-36px 125px 0 0;
 
 		&.show{
 			visibility:visible;	
@@ -103,13 +163,12 @@
 	}
 
 	.update-btn-wrapper{
-		position:absolute;
+		float:right;
+		margin:-42px 0 0 0;
 		padding:6px 0 0 15px;
 		margin-left:15px;
 		border-left :1px solid #ccc;
 		height:28px;
-		right: 15px;
-		top: 15px;
 		vertical-align: middle;
 	}
 
@@ -129,7 +188,7 @@
  * Form Rows:
  */
 
-.field-container{
+.form-view{
 	padding-top:30px;
 
 	> h2{
@@ -232,4 +291,33 @@
 
 .sorting .row.empty{
 	opacity:1;
+}
+
+
+.form-view{
+	display:none;
+	&.active{
+		display:block;
+	}
+}
+
+
+
+.form-view{
+	h2 span{
+		padding-right:15px;
+		color:#00a0d2;
+		font-size:22px;
+		line-height:90%;
+	}
+
+	h2{
+		font-size:26px !important;
+		color:#444;
+		line-height:100%;
+	}
+}
+
+.form-builder-fields{
+	padding:15px;
 }

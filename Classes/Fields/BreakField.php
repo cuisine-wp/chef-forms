@@ -51,53 +51,6 @@ class BreakField extends DefaultField{
     /**             BACKEND                                        */
     /*=============================================================*/
 
-
-    /**
-     * Build up the field block
-     * 
-     * @return string ( html, echoed )
-     */
-    public function build(){
-
-        echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
-
-            echo '<div class="field-preview">';
-                echo $this->buildPreview();
-                echo '<span class="toggle-field"></span>';
-            echo '</div>';
-
-            echo '<div class="field-options">';
-
-                $fields = $this->getFields();
-
-                foreach( $fields as $field ){
-
-                    $field->render();
-                }
-
-
-                //render the javascript-templates seperate, to prevent doubles
-                $rendered = array();
-                foreach( $fields as $field ){
-
-                    if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
-
-                        echo $field->renderTemplate();
-                        $rendered[] = $field->name;
-
-                    }
-                }
-
-                $this->bottomControls();
-
-            echo '</div>';          
-            echo '<div class="loader"><span class="spinner"></span></div>';
-
-        echo '</div>';
-
-    }
-
-
     /**
      * Generate the preview for this field:
      * 
@@ -107,15 +60,50 @@ class BreakField extends DefaultField{
 
         $html = '';
 
-        $html .= '<label>Break</label>';
+        $html .= '<label>'.$this->getLabel().'</label>';
+        $html .= '<span class="field-type"><hr/></span>';
 
+        //do not display these in the lightbox:
+        if( $mainOverview ){
 
-        return $html;
+            $html .= $this->getFieldIcon();
+            $html .= $this->previewControls();
+
+        }
+
+        echo $html;
 
     }
 
 
+    /**
+     * The first tab in the lightbox
+     * 
+     * @return string ( html, echoed )
+     */
+    public function buildDefaultSettingsTab(){
 
+        echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
+
+        $fields = $this->getFields();
+    
+        foreach( $fields as $field ){
+    
+            $field->render();
+        }
+    
+        //render the javascript-templates seperate, to prevent doubles
+        $rendered = array();
+        foreach( $fields as $field ){
+    
+            if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
+    
+                echo $field->renderTemplate();
+                $rendered[] = $field->name;
+    
+            }
+        }
+    }
     /**
      * Creator fields
      * 
@@ -130,13 +118,13 @@ class BreakField extends DefaultField{
             Field::hidden(
                 $prefix.'[label]',
                 array(
+                    'classes'       => array( 'update', 'update-label', 'label-field' ),
                     'defaultValue'  => $this->getProperty( 'label', 'Titel' )
                 )
             ),
 
             Field::hidden(
                 $prefix.'[placeholder]',
-                'Placeholder',
                 array(
                     'defaultValue'  => $this->getProperty( 'placeholder' )
                 )

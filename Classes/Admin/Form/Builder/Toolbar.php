@@ -16,55 +16,119 @@ class Toolbar{
 	public function build(){
 
 
+		echo '<nav class="form-nav">';
+			echo '<span class="nav-btn active" data-type="field">';
+				echo '<span class="dashicons dashicons-hammer"></span>';
+				echo '<b>'.__( 'Form builder', 'chefforms' ).'</b>';
+			echo '</span>';
+
+			echo '<span class="nav-btn" data-type="notifications">';
+				echo '<span class="dashicons dashicons-megaphone"></span>';
+				echo '<b>'.__( 'Notifications', 'chefforms' ).'</b>';
+			echo '</span>';
+
+			echo '<span class="nav-btn" data-type="settings">';
+				echo '<span class="dashicons dashicons-admin-generic"></span>';
+				echo '<b>'.__( 'Settings', 'chefforms' ).'</b>';
+			echo '</span>';
+		echo '</nav>';
+		echo '<div class="toolbar">';
+
+			$this->buildFieldButtons();
+
+			$this->buildNotificationButtons();
+
+			$this->buildSettingButtons();
+
+			echo '<span class="update-btn-wrapper">';
+				echo '<span class="update-btn" id="updatePost">'.__( 'Update' ).'</span>';
+			echo '</span>';
+			echo '<span class="spinner"></span>';
+
+		echo '</div>';
+
+	}
+
+
+	/**
+	 * Create the field buttons
+	 * 
+	 * @return string (html, echoed)
+	 */
+	private function buildFieldButtons(){
+
 		$labels = $this->getLabels();
 		$fields = $this->getFields();
 
-
 		$html = '';
-		$html .= '<div class="toolbar form-field-bar">';
+		$html .= '<ul id="nav-bar-field" class="main-form-nav fields-nav active">';
 
-			$html .= '<ul class="main-form-nav">';
+			foreach( $labels as $key => $label ){
 
-				foreach( $labels as $key => $label ){
+				if( !empty( $fields[ $key ] ) ){
 
-					if( !empty( $fields[ $key ] ) ){
+					$html .= '<li class="form-nav-item">';
+		
+						$html .= '<span class="btn">';
+						$html .= '<i class="dashicons '.$label['icon'].'"></i>';
+						$html .= $label['label'].'</span>';
+		
+						$html .= '<ul class="submenu">';
+						foreach( $fields[$key] as $type => $item ){
 
-						$html .= '<li class="form-nav-item">';
-	
-							$html .= '<span class="btn">';
-							$html .= '<i class="dashicons '.$label['icon'].'"></i>';
-							$html .= $label['label'].'</span>';
-	
-							$html .= '<ul class="submenu">';
-							foreach( $fields[$key] as $type => $item ){
+							$html .= '<li class="add-field button" data-type="'.$type.'">';
 
-								$html .= '<li class="add-field button" data-type="'.$type.'">';
+							if( isset( $item['icon'] ) )
+								$html .= '<i class="dashicons '.$item['icon'].'"></i>';
 
-								if( isset( $item['icon'] ) )
-									$html .= '<i class="dashicons '.$item['icon'].'"></i>';
+							$html .= $item['name'].'</li>';
 
-								$html .= $item['name'].'</li>';
+						}
+						$html .= '</ul>';
+		
+					$html .= '</li>';
 
-							}
-							$html .= '</ul>';
-	
-						$html .= '</li>';
-
-					}
 				}
+			}
 
-			$html .= '</ul>';
+		$html .= '</ul>';
 
-			$html .= '<span class="update-btn-wrapper">';
-				$html .= '<span class="update-btn" id="updatePost">'.__( 'Update' ).'</span>';
-			$html .= '</span>';
-			$html .= '<span class="spinner"></span>';
+		echo $html;
 
-		$html .= '</div>';
+	}
 
+	/**
+	 * Notification buttons
+	 * 
+	 * @return string (html, echoed)
+	 */
+	private function buildNotificationButtons(){
+
+		$html = '<ul id="nav-bar-notifications" class="main-form-nav">';
+			$html .= '<li class="form-nav-item add-notification">';
+				$html .= '<i class="dashicons dashicons-plus"></i>';
+				$html .= __( 'Add notification', 'chefforms' );
+			$html .= '</li>';
+		$html .= '</ul>';
 		echo $html;
 	}
 
+	/**
+	 * Setting buttons
+	 * 
+	 * @return string
+	 */
+	private function buildSettingButtons(){
+
+		$html = '<ul id="nav-bar-settings" class="main-form-nav settings-nav">';
+			$html .= '<li class="form-nav-item main-settings active">';
+				$html .= '<i class="dashicons dashicons-admin-generic"></i>';
+				$html .= __( 'Main Settings', 'chefforms' );
+			$html .= '</li>';
+		$html .= '</ul>';
+
+		echo $html;
+	}
 
 
 	/**
@@ -137,32 +201,5 @@ class Toolbar{
 		return $labels;
 	}
 
-	/**
-	 * Create the sidebar to switch between the builder, notifications and settings
-	 * 
-	 * @return string (html, echoed)
-	 */ 
-	public function sidebar(){
-
-		echo '<nav class="form-nav">';
-
-			echo '<span class="nav-btn current" data-type="field">';
-				echo '<span class="dashicons dashicons-hammer"></span>';
-				echo '<b>'.__( 'Form builder', 'chefforms' ).'</b>';
-			echo '</span>';
-
-			echo '<span class="nav-btn" data-type="notifications">';
-				echo '<span class="dashicons dashicons-megaphone"></span>';
-				echo '<b>'.__( 'Notifications', 'chefforms' ).'</b>';
-			echo '</span>';
-
-			echo '<span class="nav-btn nav-link settings" data-type="settings">';
-				echo '<span class="dashicons dashicons-admin-generic"></span>';
-				echo '<b>'.__( 'Settings', 'chefforms' ).'</b>';
-			echo '</span>';
-
-		echo '</nav>';
-
-	}
 
 }

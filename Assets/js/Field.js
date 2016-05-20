@@ -206,6 +206,9 @@
 				self.$el.slideUp( 'slow', function(){
 					self.destroy();
 					self.$el.remove();
+
+					//recalculate rows and positions:
+					window.formManager.calculateRowsAndPositions();
 				});
 			}
 		},

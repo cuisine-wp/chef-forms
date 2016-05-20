@@ -796,11 +796,11 @@
 					foreach( $fields as $id => $field ){
 						
 						$type = $field['type'];
+						if( !is_string( $type ) )
+							continue;
 
 						$field = $this->sanitizeFieldArgs( $id, $field );
-						
 						if( !isset( $field['choices'] ) ){
-
 
 							$array[] = Field::$type(
 									
