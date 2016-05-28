@@ -184,8 +184,6 @@ var FormManager = Backbone.View.extend({
 		jQuery( '.nav-btn' ).removeClass( 'active' );
 		btn.addClass( 'active' );
 
-		console.log( type );
-
 		jQuery( '.form-view' ).removeClass( 'active' );
 		jQuery( '.main-form-nav').removeClass( 'active' );
 		jQuery( '#'+type+'-container' ).addClass( 'active' );
@@ -295,8 +293,6 @@ var FormManager = Backbone.View.extend({
 		var rowId = 1;
 		var position = 0;
 
-		console.log('ello');
-
 		$('.form-builder-fields .row').each( function(){
 
 			var _children = $( this ).find( '.field-block' ); 
@@ -351,7 +347,8 @@ var FormManager = Backbone.View.extend({
 
 jQuery( document ).ready( function( $ ){
 
-	window.formManager = new FormManager( { el: jQuery('.form-manager' ) } );
+	if( $('.form-manager').length > 0 )
+		window.formManager = new FormManager( { el: $('.form-manager' ) } );
 
 	//handle entry-toggling:
 	$('.single-entry .entry-preview').on( 'click tap', function(){

@@ -264,7 +264,12 @@ define([
 			if( self.el.find( '.datepicker' ).length > 0 ){
 				requirejs( [ 'datepicker' ], function( datepicker ){
 
-					$( ".datepicker" ).datepicker();
+					$( ".datepicker.field" ).datepicker();
+
+					//datepicker fields need rechecking of validation:
+					$( ".datepicker.field" ).change( function(){
+						self.validateField( $( this ) );
+					});
 
 				});
 			}
