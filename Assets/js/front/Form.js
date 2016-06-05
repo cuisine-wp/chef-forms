@@ -50,7 +50,7 @@ define([
 			self.el = $( obj );
 
 			//stop a form from initting if it's just an arbitrary .form class:
-			if( self.el.attr('id') === undefined )
+			if( typeof( self.el.attr('id') ) == 'undefined' )
 				return false;
 
 
@@ -436,7 +436,6 @@ define([
 						case 'reverseValidateZip':
 
 							var _field = $('#'+obj.data('reverse-validate') );
-							console.log( _field );
 							if( _field ){
 								self.validateField( _field );
 							}
