@@ -99,7 +99,7 @@ class Builder{
 		}else{
 
 			echo '<div class="section-wrapper msg">';
-				echo '<p>'.__('Nog geen velden aangemaakt.', 'chefforms').'</p>';
+				echo '<p>'.__('No fields created yet.', 'chefforms').'</p>';
 			echo '</div>';
 		
 		}

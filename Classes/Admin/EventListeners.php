@@ -105,7 +105,7 @@
 
 				Field::checkbox( 
 					'use_mandrill', 
-					'Gebruik Mandrill',
+					__( 'Use Mandrill', 'chefforms' ),
 					array(
 						'defaultValue' => 'true'
 					)
@@ -113,7 +113,7 @@
 
 				Field::text(
 					'host',
-					'Mandrill Host',
+					__( 'Mandrill Host', 'chefforms' ),
 					array(
 						'defaultValue'	=> 'smtp.mandrillapp.com'
 					)
@@ -121,7 +121,7 @@
 
 				Field::text(
 					'user',
-					'Mandrill User',
+					__( 'Mandrill User', 'chefforms' ),
 					array(
 						'defaultValue'	=> 'luc.princen@gmail.com'
 					)
@@ -129,7 +129,7 @@
 
 				Field::text(
 					'password',
-					'Mandrill Password',
+					__( 'Mandrill Password', 'chefforms' ),
 					array(
 						'defaultValue'	=> '_gEwO60stNDpGZFyrYaadQ'
 					)

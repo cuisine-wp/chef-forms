@@ -148,7 +148,7 @@ class Manager{
 		$parent = ( isset( $_GET['parent'] ) ? $_GET['parent'] : 'all' );
 		$url = admin_url( 'edit.php' );
 
-		echo '<form class="entry-filter" action="'.$url.'" method="get">';
+		echo '<form class="entry-filter" action="'.esc_url( $url ).'" method="get">';
 
 			Field::select(
 				'parent',
@@ -200,8 +200,8 @@ class Manager{
 					if( $pageNum == $current )
 						$class .= ' current';
 
-					echo '<a href="'.$url.$pageNum.'" class="'.$class.'">';
-						echo $pageNum;
+					echo '<a href="'.esc_url( $url.$pageNum ).'" class="'.esc_attr( $class ).'">';
+						echo esc_html( $pageNum );
 					echo '</a>';
 
 				}

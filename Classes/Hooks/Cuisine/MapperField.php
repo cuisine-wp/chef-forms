@@ -83,7 +83,7 @@
 			}else{
 
 				if( $this->label )
-					$html .= '<label>'.$this->label.'</label>';
+					$html .= '<label>'.esc_html( $this->label ).'</label>';
 
 			}
 

@@ -179,7 +179,7 @@
 					do_action( 'chef_forms_before_fields', $this );
 
 					//anchor for message showing:
-					echo '<span class="form-anchor" id="f'.$this->id.'"></span>';
+					echo '<span class="form-anchor" id="f'.esc_attr( $this->id ).'"></span>';
 					echo '<div class="form-fields">';
 						
 						$currentRow = 0;
@@ -279,7 +279,7 @@
 		 */
 		public function renderFormTag(){
 
-			echo '<form class="'.$this->getClasses().'" id="form_'.$this->id.'"';
+			echo '<form class="'.esc_attr( $this->getClasses() ).'" id="form_'.esc_attr( $this->id ).'"';
 			
 
 			//message stickyness
@@ -298,9 +298,9 @@
 				echo ' data-no-ajax="true"';
 			
 				//hard refresh settings:
-				echo ' action="'.$this->returnLink.'"';
-				echo ' method="'.$this->submitMethod.'"';
-				echo ' enctype="'.$this->enctype.'"';
+				echo ' action="'.esc_attr( $this->returnLink ).'"';
+				echo ' method="'.esc_attr( $this->submitMethod ).'"';
+				echo ' enctype="'.esc_attr( $this->enctype ).'"';
 			}
 			
 			echo '>';
@@ -318,8 +318,8 @@
 			wp_nonce_field( 'form_'.$this->id.'_submit', '_chef_form_submit' );
 
 			//form information:
-			echo '<input type="hidden" name="_fid" value="'.$this->id.'"/>';
-			echo '<input type="hidden" name="_rootPid" value="'.Session::rootPostId().'"/>';
+			echo '<input type="hidden" name="_fid" value="'.esc_attr( $this->id ).'"/>';
+			echo '<input type="hidden" name="_rootPid" value="'.esc_attr( Session::rootPostId() ).'"/>';
 
 			//antispam:
 			AntiSpam::honeypot();

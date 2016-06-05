@@ -90,8 +90,8 @@ class TabBuilder{
 	public function build( $fieldBlock ){
 			
 
-		echo '<div class="field-settings-'.$this->slug.' field-setting-tab-content" id="tab-'.$this->slug.'">';
-			echo '<h2>'.$this->title.'</h2>';
+		echo '<div class="field-settings-'.esc_attr( $this->slug ).' field-setting-tab-content" id="tab-'.esc_attr( $this->slug ).'">';
+			echo '<h2>'.esc_html( $this->title ).'</h2>';
 
 			foreach( $this->fields as $field ){
 

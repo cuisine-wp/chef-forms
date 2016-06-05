@@ -98,7 +98,7 @@ class Panel{
 
 
 		if( $this->get('icon' ) )
-			echo '<img src="'.$this->get('icon').'" class="panel-icon">';
+			echo '<img src="'.esc_url( $this->get('icon') ).'" class="panel-icon">';
 
 		echo '<h2>'.$this->title.'</h2>';
 

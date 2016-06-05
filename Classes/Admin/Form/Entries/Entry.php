@@ -113,7 +113,7 @@ class Entry{
 				
 					foreach( $fields as $field ){
 
-						echo $field->getNotificationPart( $this->fields );
+						echo esc_html( $field->getNotificationPart( $this->fields ) );
 					
 					}
 		

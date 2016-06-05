@@ -60,7 +60,7 @@ class BreakField extends DefaultField{
 
         $html = '';
 
-        $html .= '<label>'.$this->getLabel().'</label>';
+        $html .= '<label>'.esc_html( $this->getLabel() ).'</label>';
         $html .= '<span class="field-type"><hr/></span>';
 
         //do not display these in the lightbox:

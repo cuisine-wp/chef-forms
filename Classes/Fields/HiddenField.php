@@ -50,10 +50,10 @@ class HiddenField extends DefaultField{
 
         $html = '';
 
-        $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="text"';
+        $html .= '<input class="preview-input preview-'.esc_attr( $this->type ).'" disabled type="text"';
 
         if( $this->getProperty( 'placeholder', false ) )
-            $html .= ' placeholder="'.$this->getProperty( 'placeholder' ).'"';
+            $html .= ' placeholder="'.esc_attr( $this->getProperty( 'placeholder' ) ).'"';
 
         $html .= '>';
     

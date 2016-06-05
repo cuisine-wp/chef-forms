@@ -65,7 +65,7 @@ class Manager{
 
 		wp_nonce_field( Session::nonceAction, Session::nonceName );
 
-		echo '<div class="form-manager" data-form_id="'.$this->postId.'">';
+		echo '<div class="form-manager" data-form_id="'.esc_attr( $this->postId ).'">';
 
 			Toolbar::build();
 
@@ -73,7 +73,7 @@ class Manager{
 			if( !isset( $_GET['entry_page'] ) )
 				$class .= ' active';
 
-			echo '<div class="'.$class.'" id="field-container">';
+			echo '<div class="'.esc_attr( $class ).'" id="field-container">';
 
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
 				echo __( 'Form builder', 'chefforms' ).'</h2>';

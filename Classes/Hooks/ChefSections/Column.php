@@ -31,7 +31,7 @@
 		 */
 		public function buildPreview(){
 	
-			echo '<strong>'.$this->getField( 'title' ).'</strong>';
+			echo '<strong>'.esc_html( $this->getField( 'title' ) ).'</strong>';
 	
 		}
 	

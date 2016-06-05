@@ -203,7 +203,7 @@ class DefaultField{
                     $label = $this->properties['placeholder'];
 
 
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.esc_html( $label ).'</strong></td>';
                 $html .= '<td style="text-align:right">';
 
                     $html .= esc_html( $entry['value'] );
@@ -231,7 +231,7 @@ class DefaultField{
      */
     public function build(){
 
-        echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
+        echo '<div class="field-block '.esc_attr( $this->type ).'" data-form_id="'.esc_attr( $this->formId ).'" data-field_id="'.esc_attr( $this->id ).'">';
 
             echo '<div class="field-preview">';
                 $this->buildPreview( true );
@@ -325,12 +325,12 @@ class DefaultField{
                 foreach( $tabs as $key => $tab ){
 
                     $html .= '<li class="tab '.( $i == 0 ? 'active' : '' ).'"';
-                    $html .= ' data-tab="'.$key.'">';
+                    $html .= ' data-tab="'.esc_attr( $key ).'">';
 
                         if( isset( $tab['icon'] ) && $tab['icon'] != '' )
-                            $html .= '<i class="dashicons '.$tab['icon'].'"></i>';
+                            $html .= '<i class="dashicons '.esc_attr( $tab['icon'] ).'"></i>';
 
-                        $html .= $tab['label'];
+                        $html .= esc_html( $tab['label'] );
 
                     $html .= '</li>';
 
@@ -354,10 +354,10 @@ class DefaultField{
         $html = '';
 
         $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
-        $html .= '<input class="preview-input preview-'.$this->type.'" disabled type="'.$this->type.'"';
+        $html .= '<input class="preview-input preview-'.esc_attr( $this->type ).'" disabled type="'.esc_attr( $this->type ).'"';
 
         if( $this->getProperty( 'placeholder', false ) )
-            $html .= ' placeholder="'.$this->getProperty( 'placeholder' ).'"';
+            $html .= ' placeholder="'.esc_attr( $this->getProperty( 'placeholder' ) ).'"';
 
         $html .= '>';
     
@@ -560,7 +560,7 @@ class DefaultField{
         $types = FieldFactory::getAvailableTypes();
         $icon = $types[ $this->type ]['icon' ];
         if( isset( $icon ) && $icon !== '' )
-            $html = '<span class="dashicons '.$icon.'"></span>';
+            $html = '<span class="dashicons '.esc_attr( $icon ).'"></span>';
 
         return $html;
     }

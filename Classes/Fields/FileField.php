@@ -30,18 +30,18 @@ class FileField extends DefaultField{
        	if( $this->properties['label'] )
        	    $class .= ' label-'.$this->properties['label'];
 
-       	echo '<div class="'.$class.'">';
+       	echo '<div class="'.esc_attr( $class ).'">';
 
        		if( $this->label !== '' && $this->properties['label'] )
-       		    echo '<label for="'.$this->id.'">'.$this->label.'</label>';
+       		    echo '<label for="'.esc_attr( $this->id ).'">'.esc_html( $this->label ).'</label>';
 
        		echo '<input type="file" ';
 
-       		    echo 'id="'.$this->id.'" ';
+       		    echo 'id="'.esc_attr( $this->id ).'" ';
 
        		    echo 'class="" ';
 
-       		    echo 'name="'.$this->name.'" ';
+       		    echo 'name="'.esc_attr( $this->name ).'" ';
 
        		    if( $this->properties['required'] )
        		    	echo 'data-validate="required" ';
@@ -79,15 +79,15 @@ class FileField extends DefaultField{
 
                     $url = $entry['value']['url'];
                     $value = '<span style="text-align:center;width:100%;display:block;">';
-                    $value .= '<img src="'.$url.'" style="width:auto;height:150px;"><br/>';
-                    $value .= '<small><a href="'.$url.'" target="_blank">Download</a></small></span>';
+                    $value .= '<img src="'.esc_url( $url ).'" style="width:auto;height:150px;"><br/>';
+                    $value .= '<small><a href="'.esc_url( $url ).'" target="_blank">Download</a></small></span>';
 
                 }else{
                     $value = $entry['value']['url'];
                 }
 
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
-                $html .= '<td style="text-align:right">'.$value.'</td></tr>';
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.esc_html( $label ).'</strong></td>';
+                $html .= '<td style="text-align:right">'.esc_html( $value ).'</td></tr>';
 
             } 
         }

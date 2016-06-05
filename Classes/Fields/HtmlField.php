@@ -33,7 +33,7 @@ class HtmlField extends DefaultField{
         echo '<div class="field-wrapper html-field">';
             
             if( $this->getProperty( 'label' ) !== '' )
-                echo '<h3>'.$this->getProperty( 'label' ).'</h3>';
+                echo '<h3>'.esc_html( $this->getProperty( 'label' ) ).'</h3>';
 
             if( $this->getProperty( 'defaultValue' ) !== '' )
                 echo $this->getProperty( 'defaultValue' );
@@ -73,8 +73,8 @@ class HtmlField extends DefaultField{
 
         $html = '';
 
-        $html .= '<label>'.$this->getLabel().'</label>';
-        $html .= '<span class="field-type">'.$this->type.'</span>';
+        $html .= '<label>'.esc_html( $this->getLabel() ).'</label>';
+        $html .= '<span class="field-type">'.esc_html( $this->type ).'</span>';
 
         //do not display these in the lightbox:
         if( $mainOverview ){

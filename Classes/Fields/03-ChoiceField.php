@@ -75,7 +75,7 @@ class ChoiceField extends DefaultField{
 	 */
 	public function build(){
 
-	    echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
+	    echo '<div class="field-block '.esc_attr( $this->type ).'" data-form_id="'.esc_attr( $this->formId ).'" data-field_id="'.esc_attr( $this->id ).'">';
 
 	        echo '<div class="field-preview">';
 	            echo $this->buildPreview( true );
@@ -183,14 +183,14 @@ class ChoiceField extends DefaultField{
 					$type = 'checkbox';
 
 				$html .= '<span class="choice-wrapper">';
-					$html .= '<input class="preview-input preview-'.$type.'" disabled type="'.$type.'" ';
+					$html .= '<input class="preview-input preview-'.esc_attr( $type ).'" disabled type="'.esc_attr( $type ).'" ';
 
 					if( $this->isDefaultSelected( $choice ) )
 						$html .= 'checked';
 
 					$html .= '>';
 
-					$html .= '<span class="choice-label">'.$choice['label'].'</span>';
+					$html .= '<span class="choice-label">'.esc_html( $choice['label'] ).'</span>';
 				$html .= '</span>';
 			}
 

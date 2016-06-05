@@ -61,8 +61,8 @@ class CheckboxesField extends ChoiceField{
                 if( is_array( $entry['value'] ) )
                     $value = implode( ', ', $value );
     
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
-                $html .= '<td style="text-align:right">'.$value.'</td></tr>';
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.esc_html( $label ).'</strong></td>';
+                $html .= '<td style="text-align:right">'.esc_html( $value ).'</td></tr>';
     
             } 
         }

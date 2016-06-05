@@ -41,9 +41,9 @@ class AddressField extends DefaultField{
         if( $this->properties['label'] )
             $class .= ' label-'.$this->properties['label'];
 
-        echo '<div class="'.$class.'">';
+        echo '<div class="'.esc_attr( $class ).'">';
 
-            echo '<label>'.$this->getLabel().'</label>';
+            echo '<label>'.esc_html( $this->getLabel() ).'</label>';
 
             echo '<div class="address-field-wrapper">';
 
@@ -154,8 +154,8 @@ class AddressField extends DefaultField{
         if( $label == '' && $this->properties['placeholder'] != '' )
             $label = $this->properties['placeholder'];
         
-        $html .= '<tr><td><strong>'.$label.'</strong></td>';
-        $html .= '<td>'.$address.'</td></tr>';
+        $html .= '<tr><td><strong>'.esc_html( $label ).'</strong></td>';
+        $html .= '<td>'.esc_html( $address ).'</td></tr>';
 
         return $html;
 
@@ -220,7 +220,7 @@ class AddressField extends DefaultField{
      */
     public function build(){
 
-        echo '<div class="field-block '.$this->type.'" data-form_id="'.$this->formId.'" data-field_id="'.$this->id.'">';
+        echo '<div class="field-block '.esc_attr( $this->type ).'" data-form_id="'.esc_attr( $this->formId ).'" data-field_id="'.esc_attr( $this->id ).'">';
 
             echo '<div class="field-preview">';
                 $this->buildPreview( true );
@@ -243,7 +243,7 @@ class AddressField extends DefaultField{
 
         $html = '';
 
-        $html .= '<label class="preview-label">'.$this->getLabel().'</label>';
+        $html .= '<label class="preview-label">'.esc_html( $this->getLabel() ).'</label>';
         $html .= '<div class="preview-input-wrapper">';
             
             $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'chefforms' ).'">';

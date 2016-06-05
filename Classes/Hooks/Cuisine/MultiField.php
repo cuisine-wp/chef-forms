@@ -53,7 +53,7 @@
 		    	$html .= '<thead><tr>';
 
 		    		$html .= '<th></th>';
-	    			$html .= '<th class="'.$class.'">Waarde</th>';
+	    			$html .= '<th class="'.esc_attr( $class ).'">Waarde</th>';
 	    			$html .= '<th>Label</th>';
 	    			$html .= '<th></th>';
 
@@ -93,13 +93,13 @@
 
 				$html .= '>';
 
-			$html .= '</td><td class="'.$class.'">';
+			$html .= '</td><td class="'.esc_attr( $class ).'">';
 
-				$html .= '<input type="text" data-name="key" name="'.$prefix.'[key]" value="'.$choice['key'].'"/>';
+				$html .= '<input type="text" data-name="key" name="'.$prefix.'[key]" value="'.esc_attr( $choice['key'] ).'"/>';
 
 			$html .= '</td><td class="value">';
 
-			$html .= '<input type="text" data-name="label" name="'.$prefix.'[label]" value="'.$choice['label'].'"/>';
+			$html .= '<input type="text" data-name="label" name="'.$prefix.'[label]" value="'.esc_attr( $choice['label'] ).'"/>';
 
 
 			$html .= '</td><td class="actions">';
@@ -166,7 +166,7 @@
 			}
 
 			$html = '<div class="multifield-top-controls">';
-				$html .= '<a class="'.$class.'">'.$btnText.'</a>';
+				$html .= '<a class="'.esc_attr( $class ).'">'.esc_html( $btnText ).'</a>';
 			$html .= '</div>';
 
 			return $html;

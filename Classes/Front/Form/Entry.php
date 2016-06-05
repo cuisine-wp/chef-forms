@@ -239,7 +239,7 @@ namespace ChefForms\Front\Form;
 		
 					    		}else{
 									//add an error:
-									$this->message = array( 'error' => true, 'message' => 'Uploaden 		mislukt, probeer het later nog eens.' );
+									$this->message = array( 'error' => true, 'message' => __( 'Upload failed, please try again later', 'chefforms' ) );
 		
 					    		}
 	
@@ -251,7 +251,7 @@ namespace ChefForms\Front\Form;
 					   	//add an error; no upload folder.
 						$this->form->message = array( 
 							'error' => true, 
-							'message' => 'De upload-map kan niet aangemaakt worden...'
+							'message' => __( 'The upload-folder couldn\'t be created...', 'chefforms' )
 						);
 					}
 				}

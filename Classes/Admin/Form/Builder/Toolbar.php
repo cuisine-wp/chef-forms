@@ -70,18 +70,18 @@ class Toolbar{
 					$html .= '<li class="form-nav-item">';
 		
 						$html .= '<span class="btn">';
-						$html .= '<i class="dashicons '.$label['icon'].'"></i>';
-						$html .= $label['label'].'</span>';
+						$html .= '<i class="dashicons '.esc_attr( $label['icon'] ).'"></i>';
+						$html .= esc_html( $label['label'] ).'</span>';
 		
 						$html .= '<ul class="submenu">';
 						foreach( $fields[$key] as $type => $item ){
 
-							$html .= '<li class="add-field button" data-type="'.$type.'">';
+							$html .= '<li class="add-field button" data-type="'.esc_attr( $type ).'">';
 
 							if( isset( $item['icon'] ) )
-								$html .= '<i class="dashicons '.$item['icon'].'"></i>';
+								$html .= '<i class="dashicons '.esc_attr( $item['icon'] ).'"></i>';
 
-							$html .= $item['name'].'</li>';
+							$html .= esc_html( $item['name'] ).'</li>';
 
 						}
 						$html .= '</ul>';
