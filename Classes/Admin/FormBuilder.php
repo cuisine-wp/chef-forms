@@ -149,8 +149,11 @@ class FormBuilder {
 				'deletable'		=> $field->getProperty( 'deletable' ),
 				'defaultValue'	=> $field->getDefault(),
 				'validation'	=> $field->getProperty( 'validation' ),
+				'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $i ),
 				'position'		=> $i + 1
 			);
+
+
 
 			$i++;
 		}
