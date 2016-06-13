@@ -3,6 +3,7 @@
 namespace ChefForms\Admin\Form\Settings;
 
 use Cuisine\Wrappers\Field;
+use Cuisine\Utilities\Session;
 
 class Manager{
 
@@ -137,6 +138,8 @@ class Manager{
 
 			global $post;
 			$fields = $this->getFields();
+
+			echo '<span class="shortcode">Shortcode: <ins>[cuisine_form id="'.Session::postId().'"]</ins></span>';
 
 			foreach( $fields as $field ){
 
