@@ -17,6 +17,7 @@
 
 			$this->listen();
 			$this->hooks();
+			$this->shortcodes();
 
 		}
 	
@@ -95,6 +96,26 @@
 				}
 
 			}, 200, 0 );
+		}
+
+
+
+		/**
+		 * All code for the shortcodes
+		 * 
+		 * @return void
+		 */
+		private function shortcodes(){
+
+			add_shortcode( 'cuisine_form', function( $atts ){
+
+				if( !isset( $atts['id'] ) )
+					return '';
+
+				return Form::make( $atts['id'] )->render();
+
+			});
+
 		}
 
 

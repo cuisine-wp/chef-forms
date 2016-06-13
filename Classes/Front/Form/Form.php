@@ -241,6 +241,9 @@
 			}
 
 			$this->html = ob_get_clean();
+
+			//return the outputted html
+			return $this->html;
 		}
 
 
