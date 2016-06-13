@@ -140,7 +140,6 @@ class Manager{
 						'defaultValue' 		=> '{{ alle_velden }}'
 					)
 				)
-
 		);
 
 		$field = Field::repeater(

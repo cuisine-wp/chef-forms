@@ -480,7 +480,6 @@
 				);
 			}
 
-
 			//if the message has already been set, return it right away:
 			if( !empty( $this->message ) && $this->message['error'] )
 				return json_encode( $this->message );
@@ -491,6 +490,7 @@
 
 			//create the entry:
 			$entry = FormEntry::make( $this );
+
 
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
@@ -514,7 +514,6 @@
 
 			//after notifying
 			do_action( 'after_notification', $this, $entry );
-
 
 			//set the message, if it's empty
 			if( empty( $this->message ) ){
@@ -542,7 +541,7 @@
 
 				foreach( $this->notifications as $notification ){
 
-					$notification->send();
+					//$notification->send();
 				}
 			}
 
@@ -856,7 +855,7 @@
 				
 				}
 			}
-			
+
 			//allow other plugins to filter this stuff:
 			$notifications = apply_filters( 'chef_forms_notifications', $notifications, $this );	
 			return $notifications;

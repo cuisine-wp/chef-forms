@@ -4,7 +4,7 @@ namespace ChefForms\Front\Form;
 
 use Cuisine\Utilities\Url;
 use Cuisine\Wrappers\Template;
-use ChefForms\Front\Tag;
+use ChefForms\Front\Form\Tag;
 
 
 class Notification {
@@ -132,6 +132,8 @@ class Notification {
 		$this->to = Tag::notification( $this->properties['to'], $this->entry );
 		$this->subject = Tag::notification( $this->properties['title'], $this->entry );
 
+
+		$this->setHeaders();
 		$this->createMessage();
 
 		return $this;
@@ -220,6 +222,44 @@ class Notification {
 
 		return $html;
 	}
+
+
+	/*======================================*/
+	/*========= E-mail headers     =========*/
+	/*======================================*/
+
+	/**
+	 * Set the headers for this notification
+	 *
+	 * @return void
+	 */
+	public function setHeaders(){
+
+		$replyTo = '';
+		$entryItems = $_POST['entry'];
+
+		//The reply-to header gets populated by the first email input value:
+		foreach( $this->fields as $field ){
+			
+			$type = $field->type;
+			if( !is_string( $type ) )
+				continue;
+
+			if( $type == 'email' && $replyTo == '' ){
+				foreach( $entryItems as $entry ){
+
+					if( $entry['name'] == $field->name )
+						$replyTo = $entry['value'];
+
+				}
+			}
+		}
+
+		if( $replyTo != '' )
+			$this->headers[] = "Reply-To: <$replyTo>\r\n";
+
+	}
+
 
 
 	/*======================================*/
