@@ -81,7 +81,7 @@ class Entry{
 			echo '<div class="entry-preview">';
 			
 				//status:
-
+				do_action( 'chef_forms_status_indicator', $this, $this->form->id );
 
 				//date:
 				echo '<div class="entry-date">';
@@ -113,7 +113,7 @@ class Entry{
 				
 					foreach( $fields as $field ){
 
-						echo esc_html( $field->getNotificationPart( $this->fields ) );
+						echo $field->getNotificationPart( $this->fields );
 					
 					}
 		
