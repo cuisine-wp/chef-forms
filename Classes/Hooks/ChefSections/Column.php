@@ -81,7 +81,7 @@
 
 				Field::text( 
 					'title', 				//id
-					'Titel Label',			//label
+					__('Title Label','chefforms'),			//label
 					
 					array(
 						'label' 		=> false,	// Show Label false - top - left
@@ -92,7 +92,7 @@
 
 				Field::select(
 					'form',
-					'Formulier',
+					__( 'Form', 'chefforms' ),
 					$this->getForms(),
 					array(
 						'defaultValue' => $this->getField( 'form' )

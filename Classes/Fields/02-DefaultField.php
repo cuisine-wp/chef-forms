@@ -465,7 +465,7 @@ class DefaultField{
 
              Field::text(
                 $prefix.'[defaultValue]',
-                'Standaard Waarde',
+                __( 'Default value', 'chefforms' ),
                 array(
                     'defaultValue'  => $this->getProperty( 'defaultValue' )
                 )
@@ -474,7 +474,7 @@ class DefaultField{
 
             Field::checkbox(
                 $prefix.'[required]',
-                'Verplicht?',
+                __( 'Required', 'chefforms' ),
                 array(
                     'class'         => array( 'update', 'update-label', 'req-field' ),
                     'defaultValue'  => $this->getProperty( 'required' )

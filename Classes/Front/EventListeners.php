@@ -35,8 +35,8 @@
 				PostType::make( 
 					
 					'form', 
-					__( 'Formulieren', 'chefforms' ),
-					__( 'Formulier', 'chefforms' )
+					__( 'Forms', 'chefforms' ),
+					__( 'Form', 'chefforms' )
 
 				)->set( array( 
 					'supports' => array( 'title' ),
@@ -135,7 +135,7 @@
 				$base = Url::path( 'plugin', 'chef-forms', true );
 
 				$types['form'] = array(
-							'name'		=> 'Formulier',
+							'name'		=> __( 'Form', 'chefforms' ),
 							'class'		=> 'ChefForms\Hooks\Column',
 							'template'	=> $base.'Templates/Column.php'
 				);

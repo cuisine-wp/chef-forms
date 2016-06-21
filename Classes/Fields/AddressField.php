@@ -87,20 +87,20 @@ class AddressField extends DefaultField{
 
             Field::text(
                 $this->id.'_street',
-                'Straatnaam & Huisnummer',
+                __('Address','chefforms'),
                 array(
                     'label'         => false,
-                    'placeholder'   => 'Straatnaam & Huisnummer',
+                    'placeholder'   => __('Address','chefforms'),
                     'validation'    => $sVal
                 )
             ),
 
             Field::text(
                 $this->id.'_zip',
-                'Postcode',
+                __('Zipcode','chefforms'),
                 array(
                     'label'         => false,
-                    'placeholder'   => 'Postcode',
+                    'placeholder'   => __('Zipcode','chefforms'),
                     'validation'    => $zVal,
                     'class'         => array( 'zip' )
                 )
@@ -108,10 +108,10 @@ class AddressField extends DefaultField{
 
             Field::text(
                 $this->id.'_city',
-                'Stad',
+                __('City','chefforms'),
                 array(
                     'label' => false,
-                    'placeholder' => 'Stad',
+                    'placeholder' => __('City','chefforms'),
                     'class' => array( 'city' ),
                     'validation' => $cVal
                 )
@@ -303,7 +303,7 @@ class AddressField extends DefaultField{
 
              Field::text(
                 $prefix.'[defaultValue]',
-                'Standaard Waarde',
+                __('Default value','chefforms'),
                 array(
                     'defaultValue'  => $this->getProperty( 'defaultValue' )
                 )
@@ -311,7 +311,7 @@ class AddressField extends DefaultField{
 
             Field::select(
                 $prefix.'[countrySelect]',
-                __( 'Land dropdown', 'chefforms' ),
+                __( 'Country dropdown', 'chefforms' ),
                 $countryOptions,
                 array(
                     'defaultValue' => $this->getProperty( 'countrySelect' ) 
@@ -320,7 +320,7 @@ class AddressField extends DefaultField{
 
             Field::checkbox(
                 $prefix.'[required]',
-                'Verplicht?',
+                __('Required?','chefforms'),
                 array(
                     'defaultValue'  => $this->getProperty( 'required' )
                 )
@@ -377,7 +377,7 @@ class AddressField extends DefaultField{
 
         $_id = ( isset( $_GET['post'] ) ? $_GET['post'] : Session::postId() );
 
-        $_dropdowns = array( 'none' => 'Geen veld' );
+        $_dropdowns = array( 'none' => __('No field','chefforms') );
         $fields = get_post_meta( $_id, 'fields', true );
 
         foreach( $fields as $fid => $field ){

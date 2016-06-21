@@ -115,9 +115,9 @@ class Manager{
 
 				Field::text(
 					'to',
-					'E-mail naar',
+					__( 'E-mail to', 'chefforms' ),
 					array(
-						'placeholder' 	=> 'E-mail naar',
+						'placeholder' 	=> __( 'E-mail to', 'chefforms' ),
 						'label'			=> true,
 						'defaultValue'	=> '{{ admin_email }}'
 					)
@@ -125,7 +125,7 @@ class Manager{
 
 				Field::text(
 					'title',
-					'Onderwerp',
+					__( 'Subject', 'chefforms' ),
 					array(
 						'placeholder' 	=> 'Title',
 						'label'			=> true
@@ -160,8 +160,8 @@ class Manager{
 	private function getNotifications(){
 
 		return array('notifications' => array(
-						'title'				=> 'Notificatie',
-						'content_{uniq}'	=> '{alle_velden}'
+						'title'				=> __( 'Notification', 'chefforms' ),
+						'content_{uniq}'	=> '{{ alle_velden }}'
 		));
 
 	}

@@ -103,10 +103,10 @@
 		public function buildOperator(){
 
 			$choices = array(
-					'='		=> 		__( 'is', 'chefforms' ),
-					'!='	=>		__( 'is niet', 'chefforms' ),
-					'>='	=>		__( 'is groter dan', 'chefforms' ),
-					'<='	=>		__( 'is kleiner dan', 'chefforms' )	
+					'='		=> 		__( 'equals', 'chefforms' ),
+					'!='	=>		__( 'not equals', 'chefforms' ),
+					'>='	=>		__( 'is higher then', 'chefforms' ),
+					'<='	=>		__( 'is smaller then', 'chefforms' )	
 			);
 
 			
@@ -151,7 +151,7 @@
 					Sort::pluck( $fields, 'label' )
 				);
 	
-				$choices = array_replace( array( 'none' => 'Geen veld' ), $choices );
+				$choices = array_replace( array( 'none' => __('No field','chefforms') ), $choices );
 	
 				$types = $this->getIncluded();
 	

@@ -1,1 +1,1 @@
-<p class="form-msg error">Het formulier is nu niet geldig op dit moment</p>
+<p class="form-msg error">This form is not valid at this moment</p>

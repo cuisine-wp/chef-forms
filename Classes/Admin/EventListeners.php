@@ -123,7 +123,7 @@
 					'user',
 					__( 'Mandrill User', 'chefforms' ),
 					array(
-						'defaultValue'	=> 'luc.princen@gmail.com'
+						'defaultValue'	=> ''
 					)
 				),
 
@@ -131,7 +131,7 @@
 					'password',
 					__( 'Mandrill Password', 'chefforms' ),
 					array(
-						'defaultValue'	=> '_gEwO60stNDpGZFyrYaadQ'
+						'defaultValue'	=> ''
 					)
 				)
 			);

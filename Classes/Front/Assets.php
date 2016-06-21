@@ -68,16 +68,16 @@
 
 				//set validation errors:
 				$vars = array(
-					'required' 	=> __( 'Dit is een verplicht veld', 'chefforms' ),
-					'email'		=> __( 'Dit is geen geldig e-mailadres', 'chefforms' ),
-					'number'	=> __( 'Dit is geen geldig nummer', 'chefforms' ),
-					'equalHigherZero'	=> __( 'Dit moet minimaal nul zijn', 'chefforms' ),
-					'equalLowerZero'	=> __( 'Dit mag maximaal nul zijn', 'chefforms' ),
-					'higherZero'		=> __( 'Dit moet hoger dan nul zijn', 'chefforms' ),
-					'lowerZero'			=> __( 'Dit moet lager dan nul zijn', 'chefforms' ),
-					'address'	=> __( 'Vergeet je het huisnummer niet?', 'chefforms' ),
-					'zipcode'	=> __( 'Dit is geen geldige postcode', 'chefforms' ),
-					'slug'		=> __( 'Dit is geen geldig domein', 'chefforms' )
+					'required' 	=> __( 'This field is required', 'chefforms' ),
+					'email'		=> __( 'Invalid e-mailaddress', 'chefforms' ),
+					'number'	=> __( 'Invalid number', 'chefforms' ),
+					'equalHigherZero'	=> __( 'Must be zero or higher', 'chefforms' ),
+					'equalLowerZero'	=> __( 'Mast be zero or lower', 'chefforms' ),
+					'higherZero'		=> __( 'Must be higer then zero', 'chefforms' ),
+					'lowerZero'			=> __( 'Must be lower then zero', 'chefforms' ),
+					'address'	=> __( 'Don\'t forget your house number', 'chefforms' ),
+					'zipcode'	=> __( 'Invalid zipcode', 'chefforms' ),
+					'slug'		=> __( 'This is not a valid domain', 'chefforms' )
 				);
 	
 				Script::variable( 'ValidationErrors', $vars );

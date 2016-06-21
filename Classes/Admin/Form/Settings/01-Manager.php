@@ -166,18 +166,18 @@ class Manager{
 
 			Field::text( 
 				'settings[btn-text]',
-				'Knop Text',
+				__('Button text','chefforms'),
 				array(
-					'defaultValue'	=> $this->getSetting( 'btn-text', 'Verstuur' )
+					'defaultValue'	=> $this->getSetting( 'btn-text', __('Send','chefforms') )
 				)
 			),
 			Field::select( 
 				'settings[labels]',
 				'Labels',
 				array(
-					false 	=> 'Geen labels',
-					'top'	=> 'Labels boven',
-					'left'	=> 'Labels links'
+					false 	=> __('No labels','chefforms'),
+					'top'	=> __('Labels above','chefforms'),
+					'left'	=> __('Labels left','chefforms')
 				),
 				array(
 					'defaultValue'	=> $this->getSetting( 'labels', 'top' )
@@ -185,15 +185,15 @@ class Manager{
 			),
 			Field::editor( 
 				'settings[confirm]',
-				'Bevestigings-bericht',
+				__('Confirmation-message','chefforms'),
 				array(
-					'defaultValue'	=> $this->getSetting( 'confirm', __('Hartelijk dank voor uw bericht, we nemen zo spoedig mogelijk contact met u op', 'chef-forms' ) )
+					'defaultValue'	=> $this->getSetting( 'confirm', __('Your message has been successfully sent. We will contact you very soon!', 'chefforms' ) )
 				)
 			),
 
 			Field::text(
 				'settings[max_entries]',
-				'Maximaal aantal berichten',
+				__('Max number of submissions','chefforms'),
 				array(
 					'defaultValue' => $this->getSetting( 'max_entries', '' )
 				)
@@ -201,7 +201,7 @@ class Manager{
 
 			Field::date(
 				'settings[entry_start]',
-				'Geldig vanaf',
+				__('Valid from','chefforms'),
 				array(
 					'defaultValue' => $this->getSetting( 'entry_start', '' )
 				)
@@ -209,7 +209,7 @@ class Manager{
 
 			Field::date(
 				'settings[entry_end]',
-				'Geldig tot',
+				__('Valid to','chefforms'),
 				array(
 					'defaultValue' => $this->getSetting( 'entry_end', '' )
 				)
@@ -217,7 +217,7 @@ class Manager{
 
 			Field::checkbox(
 				'settings[maintain_msg]',
-				'Laat bevestigings-bericht staan',
+				__('Leave confirmation message on the page after form submission','chefforms'),
 				array(
 					'defaultValue' => $this->getSetting( 'maintain_msg', 'false' )
 				)
@@ -225,7 +225,7 @@ class Manager{
 
 			Field::checkbox(
 				'settings[no_ajax]',
-				'Gebruik nooit ajax voor dit formulier',
+				__('Never use ajax for submitting this form','chefforms'),
 				array(
 					'defaultValue' => $this->getSetting( 'no_ajax', 'false' )
 				)
