@@ -118,6 +118,7 @@
 			//allow plugins to change the ID of this form on-the-fly
 			do_action( 'chef_forms_init_form', $this );
 
+
 			$this->setSettings();
 			$this->setMessages();
 			$this->setValidity();
@@ -694,6 +695,7 @@
 
 			//combined with the post:
 			$formPost = get_post( $this->id );
+
 			$post_values = array(
 
 				'title'	=> $formPost->post_title,
