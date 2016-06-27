@@ -1,4 +1,15 @@
-### 2.1.5 2016-04-25
+### 2.1.7 2016-06-27
+
+* Completely new UI
+* Support for fields in rows
+* Translated into english
+* Escaping all output
+* Added a shortcode
+* Antispam honeypot added
+* International zipcode validation
+* Minor fixes
+
+### 2.1.6 2016-04-25
 
 * Support for password fields
 * Bugfix for switching field positions
