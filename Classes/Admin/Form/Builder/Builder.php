@@ -87,6 +87,9 @@ class Builder{
 			
 			foreach( $this->fields as $field ){
 
+				if( empty( $field ) )
+					continue;
+
 				if( !isset( $field->row ) || $field->row !== $currentRow )
 					echo '</div><div class="row">';
 
