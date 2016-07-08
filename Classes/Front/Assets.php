@@ -62,9 +62,22 @@
 				Script::register( 'wysiwyg', $url.'libs/trumbowyg.min', false );
 				Script::register( 'send-form', $url.'front/Form', true );
 
-				$url = 'chef-forms/Assets/sass/';
-				Sass::register( 'form_styling', $url.'_form', false );
+				//set sass files:
+				if( !Sass::ignore() ){
+					
+					$url = 'chef-forms/Assets/sass/';
+					Sass::register( 'form_styling', $url.'_form', false );
+				
+				}else{
 
+					//we need to ignore sass and enqueue a regular css file:
+					add_action( 'wp_enqueue_scripts', function(){
+
+						wp_enqueue_style( 'chef_forms', Url::plugin( 'chef-forms', true ).'Assets/css/compiled.css' );
+
+					});
+
+				}
 
 				//set validation errors:
 				$vars = array(
