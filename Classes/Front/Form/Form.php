@@ -542,7 +542,8 @@
 
 				foreach( $this->notifications as $notification ){
 
-					//$notification->send();
+					$notification->send();
+				
 				}
 			}
 
