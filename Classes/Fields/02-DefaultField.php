@@ -203,7 +203,7 @@ class DefaultField{
                     $label = $this->properties['placeholder'];
 
 
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.esc_html( $label ).'</strong></td>';
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
                 $html .= '<td style="text-align:right">';
 
                     $html .= esc_html( $entry['value'] );
