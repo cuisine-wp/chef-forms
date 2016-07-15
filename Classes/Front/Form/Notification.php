@@ -298,7 +298,7 @@ class Notification {
 	 * 
 	 * @return string
 	 */
-	protected function mime_type(){
+	public function mime_type(){
 		return "text/html";
 	}
 
@@ -307,7 +307,7 @@ class Notification {
 	 * 
 	 * @return string
 	 */
-	protected function from(){
+	public function from(){
 		return $this->from_email;
 	}
 
@@ -317,7 +317,7 @@ class Notification {
 	 *
 	 * @return string
 	 */
-	protected function from_name(){
+	public function from_name(){
 		return $this->from_name;
 	}
 
