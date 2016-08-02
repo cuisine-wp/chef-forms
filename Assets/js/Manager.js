@@ -293,6 +293,8 @@ var FormManager = Backbone.View.extend({
 		var rowId = 1;
 		var position = 0;
 
+		$( window ).trigger( 'before-row-calculation' );
+
 		$('.form-builder-fields .row').each( function(){
 
 			var _children = $( this ).find( '.field-block' ); 
@@ -321,6 +323,8 @@ var FormManager = Backbone.View.extend({
 			}
 
 		});
+
+		$( window ).trigger( 'before-row-calculation' );
 
 		//after changing that, add new empty rows:
 		self.setupRows();

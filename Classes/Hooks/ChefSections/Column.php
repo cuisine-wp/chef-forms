@@ -100,7 +100,9 @@
 				)
 				
 			);
-	
+			
+			$fields = apply_filters( 'chef_form_column_fields', $fields, $this );
+			
 			return $fields;
 	
 		}
