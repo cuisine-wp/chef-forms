@@ -14,5 +14,14 @@ class PasswordField extends DefaultField{
         $this->type = 'password';
     }
 
+	/**
+     * Get the value from this field, including the label for the notifications
+     * 
+     * @param  array $entry The entry being saved.
+     * @return string (html)
+     */
+    public function getNotificationPart( $entryItems ){
 
+        return '';
+    }
 }

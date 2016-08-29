@@ -209,6 +209,9 @@ class Notification {
 	 */
 	public function generateDefaultMessage(){
 
+		if( !isset( $_POST['entry'] ) )
+			return '';
+
 		$entryItems = $_POST['entry'];
 		$html = '<table style="width:540px">';
 
@@ -234,6 +237,9 @@ class Notification {
 	 * @return void
 	 */
 	public function setHeaders(){
+
+		if( !isset( $_POST['entry'] ) )
+ 			$this->headers = [];
 
 		$replyTo = '';
 		$entryItems = $_POST['entry'];
