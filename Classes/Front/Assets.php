@@ -92,6 +92,9 @@
 					'zipcode'	=> __( 'Invalid zipcode', 'chefforms' ),
 					'slug'		=> __( 'This is not a valid domain', 'chefforms' )
 				);
+
+
+				$vars = apply_filters( 'chef_forms_validation_errors', $vars );
 	
 				Script::variable( 'ValidationErrors', $vars );
 
