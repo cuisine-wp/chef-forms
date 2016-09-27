@@ -9,12 +9,12 @@
 	use Cuisine\Wrappers\Template;
 	use ChefForms\Wrappers\Notification as FormNotification;
 	use ChefForms\Wrappers\Entry as FormEntry;
-	
+
 	class Form {
-	
+
 		/**
 		 * The ID for this form
-		 * 
+		 *
 		 * @var integer
 		 */
 		public $id = 0;
@@ -22,7 +22,7 @@
 
 		/**
 		 * Store the html for this form
-		 * 
+		 *
 		 * @var string
 		 */
 		private $html = '';
@@ -30,7 +30,7 @@
 
 		/**
 		 * Array containing all the fields
-		 * 
+		 *
 		 * @var array
 		 */
 		public $fields = array();
@@ -38,7 +38,7 @@
 
 		/**
 		 * Array containing all notifications
-		 * 
+		 *
 		 * @var array
 		 */
 		private $notifications = array();
@@ -46,7 +46,7 @@
 
 		/**
 		 * Array of errors to display before the form
-		 * 
+		 *
 		 * @var array
 		 */
 		public $messages = array();
@@ -54,7 +54,7 @@
 
 		/**
 		 * Json object with the callback message
-		 * 
+		 *
 		 * @var array
 		 */
 		public $message = array();
@@ -62,14 +62,14 @@
 
 		/**
 		 * Allow plugins to pass redirects for this form
-		 * 
+		 *
 		 * @var array
 		 */
 		public $redirect = array();
 
 		/**
 		 * All of this forms settings
-		 * 
+		 *
 		 * @var array
 		 */
 		private $settings = array();
@@ -84,7 +84,7 @@
 
 		/**
 		 * Method of submitting, defaults to post
-		 * 
+		 *
 		 * @var string
 		 */
 		public $submitMethod = 'post';
@@ -92,7 +92,7 @@
 
 		/**
 		 * Default enctype:
-		 * 
+		 *
 		 * @var string
 		 */
 		public $enctype = 'multipart/form-data';
@@ -102,7 +102,7 @@
 
 		/**
 		 * Check if this form can be filled in
-		 * 
+		 *
 		 * @var boolean / string
 		 */
 		public $notValid = false;
@@ -110,7 +110,7 @@
 
 		/**
 		 * Init this form
-		 * 
+		 *
 		 * @return void
 		 */
 		private function init(){
@@ -125,7 +125,7 @@
 			$this->setFields();
 
 			do_action( 'chef_forms_after_init', $this );
-			
+
 		}
 
 
@@ -138,7 +138,7 @@
 
 		/**
 		 * Build this form for frontend use
-		 * 
+		 *
 		 * @param  int $id form id
 		 * @return \ChefForms\Front\Form
 		 */
@@ -150,18 +150,18 @@
 			$this->init();
 
 			$this->render();
-			
+
 			return $this;
 		}
 
 
 		/**
 		 * Render the actual form and store it in the html variable
-		 * 
+		 *
 		 * @return string (html)
 		 */
 		public function render(){
-			
+
 			ob_start();
 
 			//if the form can be filled in:
@@ -182,15 +182,15 @@
 					//anchor for message showing:
 					echo '<span class="form-anchor" id="f'.esc_attr( $this->id ).'"></span>';
 					echo '<div class="form-fields">';
-						
+
 						$currentRow = 0;
 						$currentField = 0;
 
 						foreach( $this->fields as $field ){
-								
+
 							//open a field row:
 							if( $field->row !== $currentRow )
-								echo '<div class="field-row">'; 
+								echo '<div class="field-row">';
 
 							$field->render();
 
@@ -206,29 +206,29 @@
 								echo '</div>';
 							}
 
-				
+
 						}
-				
+
 					echo '</div>';
-	
-					if( apply_filters( 'chef_forms_show_footer', true, $this ) ){	
-						
+
+					if( apply_filters( 'chef_forms_show_footer', true, $this ) ){
+
 						echo '<div class="form-footer">';
-				
+
 							echo '<button class="submit-form">';
-				
+
 								echo $this->getSetting( 'btn-text', 'Verstuur' );
-				
+
 							echo '</button>';
-				
+
 						echo '</div>';
-	
+
 					}
-							
-					
+
+
 					$default = Url::path( 'plugin', 'chef-forms/Templates/Loader' );
 					Template::element( 'loader', $default )->display();
-				
+
 				//close the form-tag
 				echo '</form>';
 
@@ -251,7 +251,7 @@
 
 		/**
 		 * Show messages in the message-array, if they are set.
-		 * 
+		 *
 		 * @return string ( html, echoed )
 		 */
 		public function showMessages(){
@@ -278,16 +278,16 @@
 
 		/**
 		 * Add the form tag, with all attributes
-		 * 
+		 *
 		 * @return string (html, echoed)
 		 */
 		public function renderFormTag(){
 
 			echo '<form class="'.esc_attr( $this->getClasses() ).'" id="form_'.esc_attr( $this->id ).'"';
-			
+
 
 			//message stickyness
-			if( 
+			if(
 				$this->getSetting( 'maintain_msg' ) === 'true' ||
 				apply_filters('chef_forms_maintain_msg', false, $this )
 			){
@@ -300,20 +300,20 @@
 				apply_filters( 'chef_forms_no_ajax', false, $this )
 			){
 				echo ' data-no-ajax="true"';
-			
+
 				//hard refresh settings:
 				echo ' action="'.esc_attr( $this->returnLink ).'"';
 				echo ' method="'.esc_attr( $this->submitMethod ).'"';
 				echo ' enctype="'.esc_attr( $this->enctype ).'"';
 			}
-			
+
 			echo '>';
 
 		}
 
 		/**
 		 * Render the nonce-tag, and various hidden fields
-		 * 
+		 *
 		 * @return string (html,echoed)
 		 */
 		public function renderNonce(){
@@ -333,7 +333,7 @@
 
 		/**
 		 * Render this form:
-		 * 
+		 *
 		 * @return void
 		 */
 		public function display(){
@@ -346,7 +346,7 @@
 		/**
 		 * Return the form object
 		 *
-		 * 
+		 *
 		 * @return \ChefForms\Front\Form
 		 */
 		public function get( $name ){
@@ -359,7 +359,7 @@
 
 				if( strtolower( $formTitle ) == strtolower( $name ) )
 					$_id = $id;
-				
+
 			}
 
 			//try a query on the name:
@@ -377,7 +377,7 @@
 				$this->id = $_id;
 
 				//return the made form:
-				return self::make();	
+				return self::make();
 			}
 
 			//else return false
@@ -395,18 +395,18 @@
 
 			if( !isset( $_SESSION['form'] ) )
 				$_SESSION['form'] = array();
-			
+
 
 			$_SESSION['form'] = array_merge(
 
-				$_SESSION['form'], 
+				$_SESSION['form'],
 
 				array(
-				
+
 					'id'		=> $this->id,
 					'entry'		=> $_POST['entry'],
 					'entry_id'	=> $_POST['entry_id']
-				
+
 				)
 			);
 		}
@@ -414,14 +414,14 @@
 
 		/**
 		 * Retrieves this form from an existing session.
-		 * 
+		 *
 		 * @return ChefForms\Front\Form
 		 */
 		public function retrieve(){
 
 			if( isset( $_SESSION['form'] ) ){
-				
-				//reset all used vars:				
+
+				//reset all used vars:
 				$this->id = $_SESSION['form']['id'];
 				$_POST['entry'] = $_SESSION['form']['entry'];
 				$_POST['entry_id'] = $_SESSION['form']['entry_id'];
@@ -439,7 +439,7 @@
 
 		/**
 		 * Kill the form session
-		 * 
+		 *
 		 * @return void
 		 */
 		public function flush(){
@@ -456,12 +456,12 @@
 
 		/**
 		 * Save an entry to this form
-		 * 
+		 *
 		 * @param   Int $id ( the id for this form )
 		 * @return  \ChefForms\Front\Form
 		 */
 		public function save( $id ){
-		
+
 			$this->id = $id;
 
 			//first, check if the nonce is valid:
@@ -484,7 +484,7 @@
 			//if the message has already been set, return it right away:
 			if( !empty( $this->message ) && $this->message['error'] )
 				return json_encode( $this->message );
-			
+
 
 			//init the Form object:
 			$this->init();
@@ -492,6 +492,8 @@
 			//create the entry:
 			$entry = FormEntry::make( $this );
 
+			//set files back into the entry
+			$_POST['entry'] = $entry;
 
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
@@ -504,7 +506,7 @@
 
 				//return the redirect data
 				return json_encode( $this->redirect );
-			
+
 			}
 
 			//else, carry on to notifications:
@@ -529,10 +531,10 @@
 			return json_encode( $this->message );
 		}
 
-		
+
 		/**
 		 * Notify about this form:
-		 * 
+		 *
 		 * @return void
 		 */
 		public function notify(){
@@ -543,7 +545,7 @@
 				foreach( $this->notifications as $notification ){
 
 					$notification->send();
-				
+
 				}
 			}
 
@@ -560,7 +562,7 @@
 		/**
 		 * Get a setting
 		 *
-		 * @param string $name 
+		 * @param string $name
 		 * @param mixed $default
 		 * @return mixed
 		 */
@@ -575,8 +577,8 @@
 
 		/**
 		 * Get the value of a single field in this form
-		 * 
-		 * @param  string  $field   
+		 *
+		 * @param  string  $field
 		 * @param  mixed $default
 		 * @return mixed
 		 */
@@ -593,7 +595,7 @@
 
 		/**
 		 * Returns all classes for this form, and makes them filterable
-		 * 
+		 *
 		 * @return string
 		 */
 		public function getClasses(){
@@ -611,7 +613,7 @@
 
 		/**
 		 * Returns the arguments for field generation:
-		 * 
+		 *
 		 * @param  array $field
 		 * @return array
 		 */
@@ -642,7 +644,7 @@
 
 		/**
 		 * Get the default settings of a form:
-		 * 
+		 *
 		 * @return void
 		 */
 		private function getDefaultSettings(){
@@ -660,7 +662,7 @@
 
 		/**
 		 * Get the amount of entries currently tied to this form:
-		 * 
+		 *
 		 * @return int
 		 */
 		private function getEntriesCount(){
@@ -688,7 +690,7 @@
 
 			//regular settings:
 			$settings = get_post_meta( $this->id, 'settings', true );
-			
+
 			if( !$settings )
 				$settings = array();
 
@@ -716,22 +718,22 @@
 			$this->settings = array_merge( $settings, $post_values );
 
 			//allow filters on all all hard refresh variables:
-			$this->submitMethod = apply_filters( 
-				'chef_forms_submit_method', 
-				$this->submitMethod, 
-				$this 
+			$this->submitMethod = apply_filters(
+				'chef_forms_submit_method',
+				$this->submitMethod,
+				$this
 			);
 
-			$this->enctype = apply_filters( 
-				'chef_forms_enctype', 
-				$this->enctype, 
+			$this->enctype = apply_filters(
+				'chef_forms_enctype',
+				$this->enctype,
 				$this
 			);
 
 			$this->returnLink = get_permalink( Session::rootPostId() ).'#f'.$this->id;
-			$this->returnLink = apply_filters( 
-				'chef_forms_return_link', 
-				$this->returnLink, 
+			$this->returnLink = apply_filters(
+				'chef_forms_return_link',
+				$this->returnLink,
 				$this
 			);
 
@@ -793,13 +795,13 @@
 			$array = array();
 
 			if( is_array( $fields ) ){
-			
+
 				$fields = Sort::byField( $fields, 'position', 'ASC' );
-			
+
 				if( $fields ){
 
 					foreach( $fields as $id => $field ){
-						
+
 						$type = $field['type'];
 						if( !is_string( $type ) )
 							continue;
@@ -808,15 +810,15 @@
 						if( !isset( $field['choices'] ) ){
 
 							$array[] = Field::$type(
-									
-								$field['name'], 
-								$this->id, 
+
+								$field['name'],
+								$this->id,
 								$field
-								
+
 							);
-					
+
 						}else{
-							
+
 							$array[] = Field::$type(
 
 								$field['name'],
@@ -826,7 +828,7 @@
 							);
 
 						}
-				
+
 					}
 				}
 			}
@@ -846,7 +848,7 @@
 
 			$notifications = array();
 			$datas = get_post_meta( $this->id, 'notifications', true );
-			//if( !empty( $this->files ) ) 
+			//if( !empty( $this->files ) )
 			//	$data['attachments'] = $this->files;
 
 			if( !empty( $datas ) ){
@@ -855,15 +857,15 @@
 					//check if a recipient has been filled in:
 					if( $data['to'] != '' )
 						$notifications[] = FormNotification::make( $data, $this->fields );
-				
+
 				}
 			}
 
 			//allow other plugins to filter this stuff:
-			$notifications = apply_filters( 'chef_forms_notifications', $notifications, $this );	
+			$notifications = apply_filters( 'chef_forms_notifications', $notifications, $this );
 			return $notifications;
 		}
 
 
-	
+
 	}

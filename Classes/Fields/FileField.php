@@ -14,7 +14,7 @@ class FileField extends DefaultField{
         $this->type = 'file';
     }
 
-   
+
 
     /**
      * Render this field on the front-end
@@ -33,7 +33,7 @@ class FileField extends DefaultField{
        	echo '<div class="'.esc_attr( $class ).'">';
 
        		if( $this->label !== '' && $this->properties['label'] )
-       		    echo '<label for="'.esc_attr( $this->id ).'">'.esc_html( $this->label ).'</label>';
+                echo '<label for="'.esc_attr( $this->id ).'">'.$this->label.'</label>';
 
        		echo '<input type="file" ';
 
@@ -57,7 +57,7 @@ class FileField extends DefaultField{
 
     /**
      * Get the value from this field, including the label for the notifications
-     * 
+     *
      * @param  array $entry The entry being saved.
      * @return string (html)
      */
@@ -86,24 +86,24 @@ class FileField extends DefaultField{
                     $value = $entry['value']['url'];
                 }
 
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.esc_html( $label ).'</strong></td>';
+                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
                 $html .= '<td style="text-align:right">'.esc_html( $value ).'</td></tr>';
 
-            } 
+            }
         }
 
         return $html;
 
     }
 
-    
+
     /**
      * Check to see if the upload is an image
-     * 
+     *
      * @return boolean
      */
     public function isImage( $mime_type ){
-      
+
         if( substr( $mime_type, 0, 5 ) == 'image' )
             return true;
 
@@ -113,7 +113,7 @@ class FileField extends DefaultField{
 
     /**
      * Set a default label:
-     * 
+     *
      * @return string
      */
     public function getDefaultLabel(){
