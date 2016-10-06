@@ -1,3 +1,11 @@
+### 2.1.8 2016-10-06
+
+* Added support for ignoring the sass-pipeline
+* Notification fixes
+* Support for the multipage form plugin
+* File field errors fixed
+* Minor fixes
+
 ### 2.1.7 2016-06-27
 
 * Completely new UI
@@ -46,7 +54,7 @@
 
 ### 2.1.3 2016-01-15
 
-* Non JS form-submitting 
+* Non JS form-submitting
 * Added support for file-uploads
 * Added support for tab-indexing
 * Added support for entry pagination
