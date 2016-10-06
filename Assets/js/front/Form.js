@@ -7,9 +7,9 @@ define([
 
 
 	$( document ).ready( function( $ ){
-	
+
 		$('.form').each( function( index, obj ){
-			
+
 			var _form = new FormObject();
 			_form.init( obj );
 
@@ -40,8 +40,8 @@ define([
 
 		/**
 		 * Init this form object
-		 * 
-		 * @param  jQuerySelector obj 
+		 *
+		 * @param  jQuerySelector obj
 		 * @return void
 		 */
 		this.init = function( obj ){
@@ -88,7 +88,7 @@ define([
 				//don't prevent default in case of no-ajax
 				if( self.allowAjax() )
 					e.preventDefault();
-				
+
 
 				var allValidated = true;
 				self.logger( 'submit triggered' );
@@ -105,18 +105,18 @@ define([
 
 				//if all fields are validated
 				if( allValidated === true && self.submitted == false ){
-					
+
 					self.logger( 'everything validated.' );
 					self.showLoader();
 					self.send();
-				
+
 				}
 
 
 				//only return false in the case of no ajax:
 				if( self.allowAjax() || allValidated == false )
 					return false;
-				
+
 			});
 
 
@@ -125,29 +125,29 @@ define([
 			self.el.find( '.field' ).on( 'blur', function( e ){
 
 				self.validate( e );
-			
+
 			});
 		}
 
 		/**
 		 * Send the form, either with Ajax ( preferred ) or regularly
-		 * 
+		 *
 		 * @return void
 		 */
 		this.send = function(){
 
 			var self = this;
 
-			//catch non FormData capable browsers ( <IE9 & Opera Mini )	
+			//catch non FormData capable browsers ( <IE9 & Opera Mini )
 			if( self.allowAjax() === false ){
-				
+
 				self.el.data( 'no-ajax', 'true' );
 				self.submitted = true;
 				self.el.trigger( 'submit' );
 
 				self.logger( 'non-ajax submit' );
 
-			}else{ 
+			}else{
 
 				var _data = new FormData( self.el[0] );
 				_data.append( 'action', 'sendForm' );
@@ -158,6 +158,8 @@ define([
 
 				self.logger( 'ajax submit' );
 
+				self.trackAnalytics();
+
 				$.ajax({
 
 					url: Cuisine.ajax,
@@ -166,12 +168,12 @@ define([
 					processData: false,
 					contentType: false,
 					success: function( response ){
-	
+
 						self.onSuccess( response, self );
-	
+
 					},
 					error: function( response ){
-	
+
 					}
 				});
 
@@ -180,7 +182,7 @@ define([
 
 		/**
 		 * Allow ajax
-		 * 
+		 *
 		 * @return bool
 		 */
 		this.allowAjax = function(){
@@ -194,8 +196,27 @@ define([
 
 
 		/**
+		 * Track an analytics event
+		 *
+		 * @return void
+		 */
+		this.trackAnalytics = function(){
+			if( typeof( ga ) !== 'undefined' ){
+
+				self.logger( 'google analytics event send' );
+				var _formName = self.el.data( 'title' );
+
+				ga('send', 'event', 'Form', 'Submit', _formName );
+
+			}else{
+				self.logger( 'google analytics not defined; event not send' );
+			}
+		}
+
+
+		/**
 		 * Function for succesful send handeling
-		 * 
+		 *
 		 * @param  json response
 		 * @param  FormObject self
 		 * @return void
@@ -207,10 +228,10 @@ define([
 
 			if( self.dev )
 				self.el.append( response );
-			
-					
+
+
 			if( Validate.json( response ) && self.dev === false ){
-						
+
 				self.hideLoader();
 
 				var response = JSON.parse( response );
@@ -219,29 +240,29 @@ define([
 				if( response.redirect == true ){
 
 					self.el.trigger( 'beforeRedirect', response, self );
-						
+
 					window.location.href = response.redirect_url;
 
 				}else{
 
 					self.el.trigger( 'onResponse', response, self );
 
-	
+
 					//otherwise, clear the loader and display the message.
 					self.el.addClass( 'msg' );
 					self.el.append('<div class="message">'+ response.message +'</div>' );
 
-					self.resetFields();						
+					self.resetFields();
 					self.el.trigger( 'onComplete', response, self );
 
 					//remove message after 3 seconds, if the form doesn't have a data attribute set:
 					if( self.el.data( 'maintain-msg' ) === undefined ){
-						
+
 						setTimeout( function(){
-							
+
 							self.el.removeClass( 'msg' );
 							self.el.find('.message').remove();
-							
+
 						}, 5000 );
 
 					}
@@ -278,7 +299,7 @@ define([
 
 		/**
 		 * Reset all fields:
-		 * 
+		 *
 		 * @return void
 		 */
 		this.resetFields = function(){
@@ -299,13 +320,13 @@ define([
 				$( this ).removeClass('validated-false');
 				$( this ).removeClass('validated-true');
 			})
-			
+
 		}
 
 
 		/**
 		 * Figure out the jQuery object behind what we need to validate
-		 * 
+		 *
 		 * @param  Event evt
 		 * @return bool ( self.validateField )
 		 */
@@ -320,8 +341,8 @@ define([
 
 		/**
 		 * Actually validate a field
-		 * 
-		 * @param  jQueryObject obj 
+		 *
+		 * @param  jQueryObject obj
 		 * @return bool
 		 */
 		this.validateField = function( obj ){
@@ -340,7 +361,7 @@ define([
 				var validators = obj.data('validate').split(',');
 
 				for( var i = 0; i < validators.length; i++ ){
-	
+
 					var criterium = validators[ i ];
 
 					switch( criterium ){
@@ -405,15 +426,15 @@ define([
 
 							//if there's specific validate data set:
 							if( _valBy.length > 1 ){
-								
+
 								for( var i = 0; i < _valBy.length; i++ ){
-									
+
 									var _val = _valBy[ i ];
 									if( _val.substring( 0, 4 ) === 'zip-' ){
 
 										//we found a field:
 										_field = _val.replace( 'zip-', '' );
-									
+
 									}
 
 								}
@@ -448,7 +469,7 @@ define([
 						if( obj.is(':checked') === false ){
 							validated = false;
 							type = 'notchecked';
-						}	
+						}
 					}
 
 				}
@@ -456,18 +477,18 @@ define([
 
 			//check country drop
 
-			
+
 			var valError = obj.parent().find( '.validation-error' );
 			valError.remove();
-			
+
 			if( validated ){
-	
+
 				obj.removeClass('validated-false');
 				obj.addClass('validated-true');
 
 
 			}else if( validated === false ){
-				
+
 				obj.removeClass('validated-true');
 				obj.addClass('validated-false');
 
@@ -482,7 +503,7 @@ define([
 
 		/**
 		 * Reverse check zipcodes:
-		 * 
+		 *
 		 * @param dropdown jquery-object obj
 		 * @param string id for the zipcode field
 		 * @return void
@@ -493,12 +514,12 @@ define([
 
 			if( typeof( _validation ) !== 'undefined' ){
 				if( _validation.indexOf( 'reverseValidateZip' ) <= -1 ){
-	
+
 					if( _validation !== '' && _validation != false );
 						_validation += ',';
-				
+
 					_validation += 'reverseValidateZip';
-	
+
 				}
 			}else{
 				_validation = 'reverseValidateZip';
@@ -512,7 +533,7 @@ define([
 
 		/**
 		 * Show a loader
-		 * 
+		 *
 		 * @return void
 		 */
 		this.showLoader = function(){
@@ -524,7 +545,7 @@ define([
 
 		/**
 		 * Hide a loader
-		 * 
+		 *
 		 * @return void
 		 */
 		this.hideLoader = function(){
@@ -536,7 +557,7 @@ define([
 
 		/**
 		 * Log errors and responses, when self.logErrors is set.
-		 * 
+		 *
 		 * @return void
 		 */
 		this.logger = function( _msg ){

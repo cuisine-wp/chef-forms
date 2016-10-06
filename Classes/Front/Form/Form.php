@@ -285,6 +285,7 @@
 
 			echo '<form class="'.esc_attr( $this->getClasses() ).'" id="form_'.esc_attr( $this->id ).'"';
 
+			echo ' data-title="'.get_the_title( $this->id ).'"';
 
 			//message stickyness
 			if(
