@@ -201,6 +201,9 @@ define([
 		 * @return void
 		 */
 		this.trackAnalytics = function(){
+
+			var self = this;
+
 			if( typeof( ga ) !== 'undefined' ){
 
 				self.logger( 'google analytics event send' );
