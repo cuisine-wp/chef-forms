@@ -22,7 +22,7 @@ var FormManager = Backbone.View.extend({
 		var self = this;
 
 		self.formId = self.$el.data('form_id');
-		
+
 		self.setToolbar();
 
 		self.setFields();
@@ -47,22 +47,22 @@ var FormManager = Backbone.View.extend({
 			var _builder = $('.toolbar');
 			var _container = $('.form-builder-fields');
 			var _offset = _builder.offset().top;
-	
+
 			_builder.css({
 				width: _w+'px'
 			});
-	
-	
-	
+
+
+
 			//set the builder as sticky:
 			$( window ).on( 'scroll', function(){
-	
+
 				var _scrollPos = $( window ).scrollTop();
 				_scrollPos += $( '#wpadminbar' ).outerHeight();
-	
-	
+
+
 				if( _scrollPos > _offset && _builder.hasClass( 'sticky' ) == false ){
-					
+
 					var _padding = _builder.outerHeight() + 30;
 					_builder.addClass( 'sticky' );
 					_container.css({
@@ -74,9 +74,9 @@ var FormManager = Backbone.View.extend({
 						'padding-top' : '0px'
 					});
 				}
-	
+
 			});
-	
+
 			$('#updatePost').on( 'click tap', function(){
 				$('.form-field-bar .spinner').addClass( 'show' );
 				$('#publish').trigger( 'click' );
@@ -136,7 +136,7 @@ var FormManager = Backbone.View.extend({
 	setSorting: function(){
 
 		var self = this;
-		
+
 		if( $( '.row' ).data( 'sortable' ) )
 			$( ".row" ).sortable( "destroy" );
 
@@ -147,24 +147,26 @@ var FormManager = Backbone.View.extend({
 			placeholder: 'placeholder',
 			scroll: true,
 			scrollSensitivity: 80,
-			scrollSpeed: 30,	
+			scrollSpeed: 30,
 			forcePlaceholderSize: true,
 			cursorAt: {top: 50, left: 50},
 			start: function( e, ui ){
-				
+
+				//$( this ).disableSelection();
 				$('.form-builder-fields').addClass('sorting');
-				
+
 			},
 		    stop: function( e, ui ){
-				
+
+				//$( this ).enableSelection();
 				$('.form-builder-fields').removeClass('sorting');
 				_extraOffset = 0;
 				if( jQuery( ui.item ).hasClass( 'add-field') == false )
 					self.calculateRowsAndPositions();
-		    
+
 		    }
 
-		}).disableSelection();;
+		});
 	},
 
 
@@ -172,7 +174,7 @@ var FormManager = Backbone.View.extend({
 
 	/**
 	 * Toggle different views:
-	 * 
+	 *
 	 * @return void
 	 */
 	toggleView: function( e ){
@@ -198,7 +200,7 @@ var FormManager = Backbone.View.extend({
 
 	/**
 	 * Add a field by dragging a button:
-	 * 
+	 *
 	 * @return void
 	 */
 	 addFieldByDrag: function( e ){
@@ -210,7 +212,7 @@ var FormManager = Backbone.View.extend({
 	 		helper: 'clone',
 
 	 		stop: function( event, ui ){
-	 			
+
 	 			var _placeholder = $('.row .add-field.ui-draggable-handle' );
 	 			_placeholder.addClass('placeholder placeholder-block');
 	 			_placeholder.html( '<span class="spinner"></span> Adding field...' );
@@ -240,7 +242,7 @@ var FormManager = Backbone.View.extend({
 
 	/**
 	 * Add a field to the builder by clicking the button
-	 * 
+	 *
 	 * @param void
 	 */
 	addFieldByClick: function( e ){
@@ -249,7 +251,7 @@ var FormManager = Backbone.View.extend({
 
 		var self = this;
 		var _type = jQuery( e.target ).data('type');
-		
+
 		var data = {
 			action: 'createField',
 			post_id: self.formId,
@@ -284,7 +286,7 @@ var FormManager = Backbone.View.extend({
 
 	/**
 	 * Recalculate every row and field position:
-	 * 
+	 *
 	 * @return void
 	 */
 	calculateRowsAndPositions: function(){
@@ -297,7 +299,7 @@ var FormManager = Backbone.View.extend({
 
 		$('.form-builder-fields .row').each( function(){
 
-			var _children = $( this ).find( '.field-block' ); 
+			var _children = $( this ).find( '.field-block' );
 
 			if( _children.length > 0 ){
 
@@ -315,7 +317,7 @@ var FormManager = Backbone.View.extend({
 					$( this ).addClass( 'full' );
 
 				rowId++;
-			
+
 			}else{
 
 				//remove empty rows:
@@ -336,7 +338,7 @@ var FormManager = Backbone.View.extend({
 
 	/**
 	 * Setup the initial empty rows
-	 * 
+	 *
 	 * @return {[type]} [description]
 	 */
 	setupRows: function(){
