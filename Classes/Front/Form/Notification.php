@@ -13,7 +13,7 @@ class Notification {
 
 	/**
 	 * Send this to
-	 * 
+	 *
 	 * @var string ( email )
 	 */
 	public $to;
@@ -21,30 +21,30 @@ class Notification {
 
 	/**
 	 * Send this from
-	 * 
+	 *
 	 * @var string ( email )
 	 */
-	protected $from_email;
+	protected $fromEmail;
 
 
 	/**
 	 * Name to send this from
-	 * 
+	 *
 	 * @var string ( email )
 	 */
-	protected $from_name;
+	protected $fromName;
 
 
 	/**
 	 * Subject of the mail
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $subject;
 
 	/**
 	 * Template file to send
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $template;
@@ -52,7 +52,7 @@ class Notification {
 
 	/**
 	 * The eventual message
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $message;
@@ -76,14 +76,14 @@ class Notification {
 
 	/**
 	 * All properties for this notification
-	 * 
+	 *
 	 * @var array
 	 */
 	public $properties;
 
 	/**
 	 * All fields for this form
-	 * 
+	 *
 	 * @var array
 	 */
 	public $fields;
@@ -91,7 +91,7 @@ class Notification {
 
 	/**
 	 * Current entry
-	 * 
+	 *
 	 * @var array
 	 */
 	public $entry;
@@ -100,16 +100,16 @@ class Notification {
 
 	/**
 	 * Setup the basics
-	 * 
+	 *
 	 * @param  array $notify
-	 * @return void       
+	 * @return void
 	 */
 	function __construct(){
 
 		$adminMail = get_bloginfo( 'admin_email' );
 		$siteName = get_bloginfo( 'blogname' );
-		$this->from_email = get_option( 'chef_forms_from_email', $adminMail );
-		$this->from_name = get_option( 'chef_forms_from_name', $siteName );
+		$this->fromEmail = get_option( 'chef_forms_from_email', $adminMail );
+		$this->fromName = get_option( 'chef_forms_from_name', $siteName );
 
 	}
 
@@ -120,13 +120,13 @@ class Notification {
 
 	/**
 	 * Create notification
-	 * 
+	 *
 	 * @return ChefForms\Front\Notification
 	 */
 	public function make( $notify, $fields ){
 
 		$this->fields = $fields;
-		$this->properties = $this->getProperties( $notify );
+		$this->properties = $this->sanitizeProperties( $notify );
 		$this->entry = ( isset( $_POST['entry'] ) ? $_POST['entry'] : array() );
 
 		$this->to = Tag::notification( $this->properties['to'], $this->entry );
@@ -142,27 +142,26 @@ class Notification {
 
 	/**
 	 * Send the notification
-	 * 
+	 *
 	 * @return void
 	 */
 	public function send(){
 
-		add_filter( "wp_mail_from", array( &$this, 'from' ) );
-		add_filter( "wp_mail_from_name", array( &$this, 'from_name' ) );
-		add_filter( "wp_mail_content_type", array( &$this, 'mime_type' ) );
+		add_filter( "wp_mail_from", array( &$this, 'setFrom' ) );
+		add_filter( "wp_mail_from_name", array( &$this, 'setFromName' ) );
+		add_filter( "wp_mail_content_type", array( &$this, 'setMimeType' ) );
 
-			$test = wp_mail( 
-				$this->to, 
-				$this->subject, 
-				$this->message, 
-				$this->headers, 
+			$test = wp_mail(
+				$this->to,
+				$this->subject,
+				$this->message,
+				$this->headers,
 				$this->attachments
 			);
 
-
-		remove_filter( "wp_mail_content_type", array( &$this, 'mime_type' ) );
-		remove_filter( "wp_mail_from_name", array( &$this, 'from_name' ) );
-		remove_filter( "wp_mail_from", array( &$this, 'from' ) );
+		remove_filter( "wp_mail_content_type", array( &$this, 'setMimeType' ) );
+		remove_filter( "wp_mail_fromName", array( &$this, 'setFromName' ) );
+		remove_filter( "wp_mail_from", array( &$this, 'setFrom' ) );
 
 	}
 
@@ -175,7 +174,7 @@ class Notification {
 
 	/**
 	 * Create the html message
-	 * 
+	 *
 	 * @return void
 	 */
 	public function createMessage(){
@@ -191,7 +190,7 @@ class Notification {
 		$msg = Tag::notification( $msg, $this->entry );
 
 		$default = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
-		
+
 		ob_start();
 
 			$params = array( 'msg' => $msg );
@@ -204,7 +203,7 @@ class Notification {
 
 	/**
 	 * Create all the fields
-	 * 
+	 *
 	 * @return void
 	 */
 	public function generateDefaultMessage(){
@@ -246,7 +245,7 @@ class Notification {
 
 		//The reply-to header gets populated by the first email input value:
 		foreach( $this->fields as $field ){
-			
+
 			$type = $field->type;
 			if( !is_string( $type ) )
 				continue;
@@ -278,7 +277,7 @@ class Notification {
 	 * @param  array $properties
 	 * @return array
 	 */
-	protected function getProperties( $properties ){
+	protected function sanitizeProperties( $properties ){
 
 		if( !isset( $properties['title'] ) )
 			$properties['title'] = 'Bericht website';
@@ -301,20 +300,20 @@ class Notification {
 
 	/**
 	 * Sets the right mime type
-	 * 
+	 *
 	 * @return string
 	 */
-	public function mime_type(){
+	public function setMimeType(){
 		return "text/html";
 	}
 
 	/**
 	 * Set the sendee's email
-	 * 
+	 *
 	 * @return string
 	 */
-	public function from(){
-		return $this->from_email;
+	public function setFrom(){
+		return $this->fromEmail;
 	}
 
 
@@ -323,8 +322,8 @@ class Notification {
 	 *
 	 * @return string
 	 */
-	public function from_name(){
-		return $this->from_name;
+	public function setFromName(){
+		return $this->fromName;
 	}
 
 }

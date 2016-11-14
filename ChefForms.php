@@ -9,7 +9,7 @@
  * License: GPLv2
  * Bitbucket Plugin URI: https://bitbucket.org/chefduweb/chef-forms
  * Bitbucket Branch:     master
- * 
+ *
  * @package ChefForms
  * @category Core
  * @author Chef du Web
@@ -25,7 +25,7 @@ defined('DS') ? DS : define('DS', DIRECTORY_SEPARATOR);
 if (!class_exists('ChefForms')) {
 
     class ChefForms {
-    
+
         /**
          * ChefForms bootstrap instance.
          *
@@ -67,7 +67,7 @@ if (!class_exists('ChefForms')) {
         private function load(){
 
             //auto-loads all .php files in these directories.
-            $includes = array( 
+            $includes = array(
                 'Classes/Wrappers',
                 'Classes/Hooks/Cuisine',
 
@@ -89,7 +89,7 @@ if (!class_exists('ChefForms')) {
 
 
             foreach( $includes as $inc ){
-                
+
                 $root = static::getPluginPath();
                 $files = glob( $root.$inc.'/*.php' );
 

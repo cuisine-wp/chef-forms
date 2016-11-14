@@ -6,14 +6,14 @@ class FormBuilder {
 
 	/**
 	 * Get the post id for this form:
-	 * 
+	 *
 	 * @var integer
 	 */
 	var $id = 0;
 
 	/**
 	 * Title of this new form
-	 * 
+	 *
 	 * @var string
 	 */
 	var $title;
@@ -21,7 +21,7 @@ class FormBuilder {
 
 	/**
 	 * Boolean to see if this form already exists
-	 * 
+	 *
 	 * @var boolean
 	 */
 	var $exists = false;
@@ -29,16 +29,16 @@ class FormBuilder {
 
 	/**
 	 * An array of fields this form can have
-	 * 
+	 *
 	 * @var array
 	 */
-	var $fields = array();	
+	var $fields = array();
 
 
 
 	/**
 	 * Init a form builder and return this object
-	 * 
+	 *
 	 * @param  string $title
 	 * @param  array  $options
 	 * @return \ChefForms\Admin\FormBuilder
@@ -58,8 +58,8 @@ class FormBuilder {
 
 
 	/**
-	 * Trigger the save functions 
-	 * 
+	 * Trigger the save functions
+	 *
 	 * @param array $fields array of field objects
 	 */
 	public function set( $fields ){
@@ -107,7 +107,7 @@ class FormBuilder {
 
 	/**
 	 * Get the form based on the first given title
-	 * 
+	 *
 	 * @param  String $title
 	 * @return Int
 	 */
@@ -128,13 +128,13 @@ class FormBuilder {
 
 
 	/**
-	 * Save all fields 
-	 * 
+	 * Save all fields
+	 *
 	 * @return void
 	 */
 	private function saveFields(){
-	
-		$fields = array();		
+
+		$fields = array();
 
 		$i = 0;
 
@@ -145,15 +145,13 @@ class FormBuilder {
 				'label'			=> ( $field->label != '' ? $field->label : $field->name ),
 				'type'			=> $field->type,
 				'placeholder'	=> $field->getProperty( 'placeholder' ),
-				'required'		=> $field->getProperty( 'required' ),
 				'deletable'		=> $field->getProperty( 'deletable' ),
 				'defaultValue'	=> $field->getDefault(),
 				'validation'	=> $field->getProperty( 'validation' ),
+				'required'		=> ( $field->getProperty( 'required' ) ? 'true' : 'false' ),
 				'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $i ),
 				'position'		=> $i + 1
 			);
-
-
 
 			$i++;
 		}
@@ -166,7 +164,7 @@ class FormBuilder {
 
 	/**
 	 * Save all settings
-	 * 
+	 *
 	 * @return void
 	 */
 	private function saveSettings(){
@@ -182,7 +180,7 @@ class FormBuilder {
 
 	/**
 	 * Check to see if this form is already build:
-	 * 
+	 *
 	 * @return bool
 	 */
 	private function checkExistence(){
@@ -199,9 +197,9 @@ class FormBuilder {
 
 	/**
 	 * Sanitize the form options and set the defaults:
-	 * 
-	 * @param  array $options 
-	 * @return array          
+	 *
+	 * @param  array $options
+	 * @return array
 	 */
 	private function sanitizeOptions( $options ){
 
@@ -220,13 +218,13 @@ class FormBuilder {
 
 
 		return $options;
-	} 
+	}
 
 
 	/**
 	 * Update the ID of a certain form in Existing Forms:
-	 * 
-	 * @param  string $title 
+	 *
+	 * @param  string $title
 	 * @param  int $newId new Form ID
 	 * @return void
 	 */
@@ -237,12 +235,12 @@ class FormBuilder {
 		//get from the options table:
 		foreach( $allForms as $id => $formTitle ){
 
-			if( strtolower( $formTitle ) == strtolower( $name ) ){
+			if( strtolower( $formTitle ) == strtolower( $this->title ) ){
 				unset( $allForms[ $id ] );
 				$allForms[ $newId ] = $formTitle;
 			}
 		}
-		
+
 		update_option( 'existingForms', $allForms );
 
 	}
