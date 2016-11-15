@@ -10,6 +10,9 @@
  * Bitbucket Plugin URI: https://bitbucket.org/chefduweb/chef-forms
  * Bitbucket Branch:     master
  *
+ * Text Domain: chefforms
+ * Domain Path: /Languages/
+ *
  * @package ChefForms
  * @category Core
  * @author Chef du Web
@@ -65,6 +68,10 @@ if (!class_exists('ChefForms')) {
          * @return void
          */
         private function load(){
+
+            //load text-domain:
+            $path = dirname( plugin_basename( __FILE__ ) ).'/Languages/';
+            load_plugin_textdomain( 'chefforms', false, $path );
 
             //auto-loads all .php files in these directories.
             $includes = array(

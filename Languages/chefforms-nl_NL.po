@@ -1,0 +1,472 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chef Forms\n"
+"POT-Creation-Date: 2016-11-15 12:54+0100\n"
+"PO-Revision-Date: 2016-11-15 13:54+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: Classes/Admin/EventListeners.php:75 Classes/Front/EventListeners.php:50
+msgid "Entries"
+msgstr "Inzendingen"
+
+#: Classes/Admin/EventListeners.php:80
+#: Classes/Admin/Form/Entries/Manager.php:105
+msgid "Form Entries"
+msgstr "Formulier inzendingen"
+
+#: Classes/Admin/EventListeners.php:86
+#: Classes/Admin/Form/Builder/Toolbar.php:32 Classes/Admin/Form/Manager.php:99
+msgid "Settings"
+msgstr "Instellingen"
+
+#: Classes/Admin/EventListeners.php:89
+msgid "Form Settings"
+msgstr "Formulier instellingen"
+
+#: Classes/Admin/EventListeners.php:108
+msgid "Use Mandrill"
+msgstr "Mandrill gebruiken"
+
+#: Classes/Admin/EventListeners.php:116
+msgid "Mandrill Host"
+msgstr "Mandrill host"
+
+#: Classes/Admin/EventListeners.php:124
+msgid "Mandrill User"
+msgstr "Mandrill gebruiker"
+
+#: Classes/Admin/EventListeners.php:132
+msgid "Mandrill Password"
+msgstr "Mandrill wachtwoord"
+
+#: Classes/Admin/Form/Builder/Builder.php:105
+msgid "No fields created yet."
+msgstr "Nog geen velden aangemaakt."
+
+#: Classes/Admin/Form/Builder/Toolbar.php:22 Classes/Admin/Form/Manager.php:79
+msgid "Form builder"
+msgstr "Formulier bouwer"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:27 Classes/Admin/Form/Manager.php:89
+msgid "Notifications"
+msgstr "Notificaties"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:44
+msgid "Update"
+msgstr "Bewerken"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:110
+msgid "Add notification"
+msgstr "Nieuwe notificatie"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:126
+msgid "Main Settings"
+msgstr "Hoofdinstellingen"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:185
+msgid "Default fields"
+msgstr "Standaard velden"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:190
+msgid "Advanced fields"
+msgstr "Geavanceerde velden"
+
+#: Classes/Admin/Form/Builder/Toolbar.php:195
+msgid "Design elements"
+msgstr "Design elementen"
+
+#: Classes/Admin/Form/Entries/Manager.php:128
+msgid "No entries yet"
+msgstr "Nog geen inzendingen"
+
+#: Classes/Admin/Form/Entries/Manager.php:155
+msgid "Entries from form"
+msgstr "Inzendingen van formulier"
+
+#: Classes/Admin/Form/Entries/Manager.php:166
+msgid "Filter"
+msgstr "Filteren"
+
+#: Classes/Admin/Form/Entries/Manager.php:313
+msgid "All forms"
+msgstr "Alle formulieren"
+
+#: Classes/Admin/Form/Notifications/Manager.php:118
+#: Classes/Admin/Form/Notifications/Manager.php:120
+msgid "E-mail to"
+msgstr "E-mail naar"
+
+#: Classes/Admin/Form/Notifications/Manager.php:128
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: Classes/Admin/Form/Notifications/Manager.php:163
+msgid "Notification"
+msgstr "Notificatie"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:169
+msgid "Button text"
+msgstr "Knoptekst"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:171
+msgid "Send"
+msgstr "Verzenden"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:178
+msgid "No labels"
+msgstr "Geen labels"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:179
+msgid "Labels above"
+msgstr "Labels boven"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:180
+msgid "Labels left"
+msgstr "Labels links"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:188
+msgid "Confirmation-message"
+msgstr "Bevestigingsbericht"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:190
+msgid "Your message has been successfully sent. We will contact you very soon!"
+msgstr ""
+"Jouw bericht is succesvol verzonden. We zullen zo snel mogelijk contact met "
+"je opnemen"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:196
+msgid "Max number of submissions"
+msgstr "Maximaal aantal inzendingen"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:204
+msgid "Valid from"
+msgstr "Geldig van"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:212
+msgid "Valid to"
+msgstr "Geldig tot"
+
+#: Classes/Admin/Form/Settings/01-Manager.php:220
+msgid "Leave confirmation message on the page after form submission"
+msgstr "Laat het bevestigingsbericht langer dan 30 seconden in beeld staa."
+
+#: Classes/Admin/Form/Settings/01-Manager.php:228
+msgid "Never use ajax for submitting this form"
+msgstr "Nooit ajax gebruiken om dit formulier te posten"
+
+#: Classes/Fields/01-FieldFactory.php:291
+msgid "Tekst"
+msgstr "Tekst"
+
+#: Classes/Fields/01-FieldFactory.php:297
+msgid "Nummer"
+msgstr "Nummer"
+
+#: Classes/Fields/01-FieldFactory.php:303
+msgid "E-mailadres"
+msgstr "E-mailadres"
+
+#: Classes/Fields/01-FieldFactory.php:309
+msgid "Editor"
+msgstr "Editor"
+
+#: Classes/Fields/01-FieldFactory.php:316
+msgid "Datum"
+msgstr "Datum"
+
+#: Classes/Fields/01-FieldFactory.php:323
+msgid "Wachtwoord"
+msgstr "Wachtwoord"
+
+#: Classes/Fields/01-FieldFactory.php:330
+msgid "Tekstvlak"
+msgstr "Tekstvlak"
+
+#: Classes/Fields/01-FieldFactory.php:337
+msgid "File upload"
+msgstr "File uploaden"
+
+#: Classes/Fields/01-FieldFactory.php:344
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: Classes/Fields/01-FieldFactory.php:351
+msgid "Checkboxes"
+msgstr "Checkboxes"
+
+#: Classes/Fields/01-FieldFactory.php:357
+msgid "Radio buttons"
+msgstr "Radio buttons"
+
+#: Classes/Fields/01-FieldFactory.php:363
+msgid "Select"
+msgstr "Select"
+
+#: Classes/Fields/01-FieldFactory.php:370
+msgid "Verborgen"
+msgstr "Verborgen"
+
+#: Classes/Fields/01-FieldFactory.php:377
+msgid "HTML Block"
+msgstr "HTML Blok"
+
+#: Classes/Fields/01-FieldFactory.php:384
+msgid "Break"
+msgstr "Break"
+
+#: Classes/Fields/01-FieldFactory.php:392
+msgid "Adres"
+msgstr "Adres"
+
+#: Classes/Fields/02-DefaultField.php:292
+#: Classes/Fields/03-ChoiceField.php:133 Classes/Fields/BreakField.php:86
+#: Classes/Fields/HtmlField.php:100
+msgid "Default Options"
+msgstr "Standaard opties"
+
+#: Classes/Fields/02-DefaultField.php:392
+msgid "Delete field"
+msgstr "Veld verwijderen"
+
+#: Classes/Fields/02-DefaultField.php:397
+msgid "Edit"
+msgstr "Bewerken"
+
+#: Classes/Fields/02-DefaultField.php:423
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: Classes/Fields/02-DefaultField.php:428
+msgid "Save field"
+msgstr "Veld opslaan"
+
+#: Classes/Fields/02-DefaultField.php:471 Classes/Fields/AddressField.php:306
+msgid "Default value"
+msgstr "Standaard waarde"
+
+#: Classes/Fields/02-DefaultField.php:480
+msgid "Required"
+msgstr "Verplicht"
+
+#: Classes/Fields/02-DefaultField.php:615
+msgid "Some text"
+msgstr "Wat tekst"
+
+#: Classes/Fields/02-DefaultField.php:628
+msgid "Basic options"
+msgstr "Basis opties"
+
+#: Classes/Fields/AddressField.php:90 Classes/Fields/AddressField.php:93
+#: Classes/Fields/AddressField.php:249 Classes/Fields/AddressField.php:402
+msgid "Address"
+msgstr "Adres"
+
+#: Classes/Fields/AddressField.php:100 Classes/Fields/AddressField.php:103
+#: Classes/Fields/AddressField.php:251
+msgid "Zipcode"
+msgstr "Postcode"
+
+#: Classes/Fields/AddressField.php:111 Classes/Fields/AddressField.php:114
+#: Classes/Fields/AddressField.php:253
+msgid "City"
+msgstr "Stad"
+
+#: Classes/Fields/AddressField.php:314
+msgid "Country dropdown"
+msgstr "Landen dropdown"
+
+#: Classes/Fields/AddressField.php:323
+msgid "Required?"
+msgstr "Verplicht?"
+
+#: Classes/Fields/AddressField.php:380
+#: Classes/Hooks/Cuisine/MapperField.php:154
+msgid "No field"
+msgstr "Geen veld"
+
+#: Classes/Fields/CheckboxField.php:54
+msgid "True or false?"
+msgstr "Waar / niet waar?"
+
+#: Classes/Fields/CheckboxesField.php:82
+msgid "Please select some"
+msgstr "Selecteer enkele"
+
+#: Classes/Fields/DateField.php:51
+msgid "Please pick a date"
+msgstr "Selecteen een datum"
+
+#: Classes/Fields/EmailField.php:25
+msgid "E-mail"
+msgstr "E-mail"
+
+#: Classes/Fields/FileField.php:121
+msgid "Upload"
+msgstr "Upload"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:35
+msgid "Advanced options"
+msgstr "Geavanceerde opties"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:56
+msgid "Filled in"
+msgstr "Ingevuld"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:57
+msgid "Valid email"
+msgstr "Geldig e-mail"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:58
+msgid "Valid address"
+msgstr "Geldig adres"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:59
+msgid "Valid zipcode"
+msgstr "Geldige postcode"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:60
+msgid "Valid number"
+msgstr "Geldig nummer"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:61
+msgid "Higher than zero"
+msgstr "Hoger dan nul"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:62
+msgid "Lower than zero"
+msgstr "Lager dan nul"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:69
+msgid "Validate as"
+msgstr "Valideer als"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:79
+msgid "CSS Classes"
+msgstr "Css Classes"
+
+#: Classes/Fields/Tabs/AdvancedSettingsTab.php:81
+msgid "Seperate with commas's"
+msgstr "Scheiden met comma's"
+
+#: Classes/Front/Assets.php:84
+msgid "This field is required"
+msgstr "Dit veld is verplicht"
+
+#: Classes/Front/Assets.php:85
+msgid "Invalid e-mailaddress"
+msgstr "Ongeldig e-mailadres"
+
+#: Classes/Front/Assets.php:86
+msgid "Invalid number"
+msgstr "Ongeldig nummer"
+
+#: Classes/Front/Assets.php:87
+msgid "Must be zero or higher"
+msgstr "Dit moet nul of hoger zijn"
+
+#: Classes/Front/Assets.php:88
+msgid "Mast be zero or lower"
+msgstr "Dit moet nul of lager zijn"
+
+#: Classes/Front/Assets.php:89
+msgid "Must be higer then zero"
+msgstr "Dit moet hoger dan nul zijn"
+
+#: Classes/Front/Assets.php:90
+msgid "Must be lower then zero"
+msgstr "Dit moet lager dan nul zijn"
+
+#: Classes/Front/Assets.php:91
+msgid "Don't forget your house number"
+msgstr "Vergeet je huisnummer niet"
+
+#: Classes/Front/Assets.php:92
+msgid "Invalid zipcode"
+msgstr "Ongeldige postcode"
+
+#: Classes/Front/Assets.php:93
+msgid "This is not a valid domain"
+msgstr "Dit is geen geldig domein"
+
+#: Classes/Front/EventListeners.php:38
+msgid "Forms"
+msgstr "Formulieren"
+
+#: Classes/Front/EventListeners.php:39 Classes/Front/EventListeners.php:138
+#: Classes/Hooks/ChefSections/Column.php:95
+msgid "Form"
+msgstr "Formulier"
+
+#: Classes/Front/EventListeners.php:51
+msgid "Entry"
+msgstr "Inschrijving"
+
+#: Classes/Front/Form/Entry.php:242
+msgid "Upload failed, please try again later"
+msgstr "Uploaden mislukt, probeer het later nog eens"
+
+#: Classes/Front/Form/Entry.php:254
+msgid "The upload-folder couldn't be created..."
+msgstr "De upload-map kan niet aangemaakt worden"
+
+#: Classes/Front/Form/Form.php:473
+msgid "No valid nonce."
+msgstr "Geen geldige nonce"
+
+#: Classes/Front/Form/Form.php:481
+msgid "You seem to be spamming"
+msgstr "Het lijkt er op dat je aan het spammen bent"
+
+#: Classes/Hooks/ChefSections/Column.php:84
+msgid "Title Label"
+msgstr "Titel Label"
+
+#: Classes/Hooks/Cuisine/MapperField.php:106
+msgid "equals"
+msgstr "hetzelfde als"
+
+#: Classes/Hooks/Cuisine/MapperField.php:107
+msgid "not equals"
+msgstr "niet hetzelfde als"
+
+#: Classes/Hooks/Cuisine/MapperField.php:108
+msgid "is higher then"
+msgstr "is hoger dan"
+
+#: Classes/Hooks/Cuisine/MapperField.php:109
+msgid "is smaller then"
+msgstr "is lager dan"
+
+#: Classes/Hooks/Cuisine/MultiField.php:110
+msgid "Nieuwe rij"
+msgstr "Nieuwe rij"
+
+#: Classes/Hooks/Cuisine/MultiField.php:116
+msgid "Rij weghalen"
+msgstr "Rij weghalen"
+
+#: Classes/Hooks/Cuisine/MultiField.php:122
+msgid "Sorteren"
+msgstr "Sorteren"
+
+#: Classes/Hooks/Cuisine/MultiField.php:160
+msgid "Waardes verschillen van label"
+msgstr "Waardes verschillen van label"
+
+#: Classes/Hooks/Cuisine/MultiField.php:164
+msgid "Waardes verschillen niet van label"
+msgstr "Waardes verschillen niet van label"

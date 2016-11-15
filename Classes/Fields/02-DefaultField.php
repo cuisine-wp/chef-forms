@@ -174,7 +174,7 @@ class DefaultField{
         if( empty( $this->properties['validation'][0] ) )
             unset( $this->properties['validation'] );
 
-        if( !is_array( $this->properties['classes'] ) )
+        if( isset( $this->properties['classes'] ) && !is_array( $this->properties['classes'] ) )
             $this->properties['classes'] = array( $this->properties['classes'] );
 
         if( empty( $this->properties['classes'] ) )
