@@ -1,5 +1,5 @@
 <?php
-    
+
 namespace ChefForms\Fields;
 
 use Cuisine\Wrappers\Field;
@@ -10,42 +10,42 @@ class DefaultField{
 
     /**
      * Id of this field
-     * 
+     *
      * @var String
      */
     var $id;
 
     /**
      * The id of this fields' form.
-     * 
+     *
      * @var Integer
      */
     var $formId;
 
     /**
      * Type of this field
-     * 
+     *
      * @var String
      */
     var $type;
 
     /**
      * Position of this field in the form
-     * 
+     *
      * @var Int
      */
     var $position;
 
     /**
      * Row ID for this field in the form:
-     * 
+     *
      * @var Int
      */
     var $row;
 
     /**
      * Name of this field in the form
-     * 
+     *
      * @var string
      */
     var $name;
@@ -53,7 +53,7 @@ class DefaultField{
 
     /**
      * Public var for the label
-     * 
+     *
      * @var string
      */
     var $label;
@@ -61,21 +61,21 @@ class DefaultField{
 
     /**
      * Properties of this field
-     * 
+     *
      * @var array
      */
     var $properties;
 
     /**
      * Array of custom classes
-     * 
+     *
      * @var array
      */
     var $classes = array();
 
     /**
      * Is this field deletable by the user?
-     * 
+     *
      * @var boolean
      */
     var $deletable = true;
@@ -83,7 +83,7 @@ class DefaultField{
 
     /**
      * Extra validation settings for this field
-     * 
+     *
      * @var string
      */
     var $validation = '';
@@ -122,7 +122,7 @@ class DefaultField{
             if( !is_array( $this->properties['validation'] ) )
                 $this->properties['validation'] = explode( ',', $this->properties['validation'] );
 
-                
+
             //validation property as a string
             $this->validation = implode( ',', $this->properties['validation'] );
 
@@ -162,7 +162,7 @@ class DefaultField{
 
     /**
      * Check the default value, before rendering
-     * 
+     *
      */
     public function sanitizeProperties(){
 
@@ -174,19 +174,22 @@ class DefaultField{
         if( empty( $this->properties['validation'][0] ) )
             unset( $this->properties['validation'] );
 
+        if( !is_array( $this->properties['classes'] ) )
+            $this->properties['classes'] = array( $this->properties['classes'] );
+
         if( empty( $this->properties['classes'] ) )
             unset( $this->properties['classes'] );
 
 
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
             $this->properties['required'] = false;
-        
+
     }
 
 
     /**
      * Get the value from this field, including the label for the notifications
-     * 
+     *
      * @param  array $entry The entry being saved.
      * @return string (html)
      */
@@ -210,7 +213,7 @@ class DefaultField{
 
                 $html .= '</td></tr>';
 
-            } 
+            }
         }
 
         return $html;
@@ -226,7 +229,7 @@ class DefaultField{
 
     /**
      * Build up the field block
-     * 
+     *
      * @return string ( html, echoed )
      */
     public function build(){
@@ -257,7 +260,7 @@ class DefaultField{
                 echo $this->buildPreview();
 
                 echo '<span class="close">&times;</span>';
-            
+
                 echo $this->buildTabs();
 
             echo '</div>';
@@ -275,13 +278,13 @@ class DefaultField{
             echo '</div>';
             $this->bottomControls();
 
-        echo '</div>'; 
+        echo '</div>';
     }
 
 
     /**
      * The first tab in the lightbox
-     * 
+     *
      * @return string ( html, echoed )
      */
     public function buildDefaultSettingsTab(){
@@ -289,21 +292,21 @@ class DefaultField{
         echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
 
         $fields = $this->getFields();
-    
+
         foreach( $fields as $field ){
-    
+
             $field->render();
         }
-    
+
         //render the javascript-templates seperate, to prevent doubles
         $rendered = array();
         foreach( $fields as $field ){
-    
+
             if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
-    
+
                 echo $field->renderTemplate();
                 $rendered[] = $field->name;
-    
+
             }
         }
     }
@@ -346,7 +349,7 @@ class DefaultField{
 
     /**
      * Generate the preview for this field:
-     * 
+     *
      * @return string (html)
      */
     public function buildPreview( $mainOverview = false ){
@@ -360,7 +363,7 @@ class DefaultField{
             $html .= ' placeholder="'.esc_attr( $this->getProperty( 'placeholder' ) ).'"';
 
         $html .= '>';
-    
+
         //do not display these in the lightbox:
         if( $mainOverview ){
 
@@ -376,7 +379,7 @@ class DefaultField{
 
     /**
      * Returns the preview button and delete text
-     * 
+     *
      * @return string
      */
     public function previewControls(){
@@ -408,7 +411,7 @@ class DefaultField{
 
     /**
      * Create the bottom controls:
-     * 
+     *
      * @return string ( html, echoed )
      */
     public function bottomControls(){
@@ -420,7 +423,7 @@ class DefaultField{
                     echo __( 'Delete', 'chefforms' ).'</p>';
                 echo '</p>';
             }
-    
+
             echo '<span class="save-field button">';
                 _e( 'Save field', 'chefforms' );
             echo '</span>';
@@ -436,7 +439,7 @@ class DefaultField{
 
     /**
      * Creator fields
-     * 
+     *
      * @return array
      */
     private function getFields(){
@@ -492,7 +495,7 @@ class DefaultField{
                 $prefix.'[type]',
                 array(
                     'defaultValue'  => $this->type
-                )    
+                )
             ),
 
             Field::hidden(
@@ -507,9 +510,9 @@ class DefaultField{
                 array(
                     'class'         => array( 'field-input', 'position-input' ),
                     'defaultValue'  => $this->position
-                )    
+                )
             ),
-            
+
             Field::hidden(
                 $prefix.'[row]',
                 array(
@@ -527,7 +530,7 @@ class DefaultField{
 
     /**
      * Returns the label with a required astrix
-     * 
+     *
      * @return string ( html )
      */
     public function getLabel(){
@@ -550,7 +553,7 @@ class DefaultField{
 
     /**
      * Returns the field icon as registered with Chef Forms
-     * 
+     *
      * @return string
      */
     public function getFieldIcon(){
@@ -567,7 +570,7 @@ class DefaultField{
 
     /**
      * Return a property
-     * 
+     *
      * @param  string $name
      * @param  string $default
      * @return mixed (string/bool)
@@ -589,7 +592,7 @@ class DefaultField{
     public function setDefaults(){
 
         if( !isset( $this->properties['position' ] ) )
-            $this->properties['position'] = 999; 
+            $this->properties['position'] = 999;
 
         if( !isset( $this->properties['name'] ) )
             $this->properties['name'] = 'field_'.$this->id.'_'.$this->formId;
@@ -604,7 +607,7 @@ class DefaultField{
 
     /**
      * Set a default label:
-     * 
+     *
      * @return string
      */
     public function getDefaultLabel(){
@@ -615,7 +618,7 @@ class DefaultField{
 
     /**
      * Return tabs
-     * 
+     *
      * @return array
      */
     public function getTabs(){
@@ -638,4 +641,4 @@ class DefaultField{
 }
 
 
-   
+
