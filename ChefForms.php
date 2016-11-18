@@ -3,7 +3,7 @@
  * Plugin Name: Chef Forms
  * Plugin URI: http://chefduweb.nl/plugins/chef-forms
  * Description: Create easy-to-use forms in seconds
- * Version: 2.1.7
+ * Version: 2.1.8
  * Author: Luc Princen
  * Author URI: http://www.chefduweb.nl/
  * License: GPLv2
