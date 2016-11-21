@@ -237,8 +237,10 @@ class Notification {
 	 */
 	public function setHeaders(){
 
-		if( !isset( $_POST['entry'] ) )
+		if( !isset( $_POST['entry'] ) ){
  			$this->headers = [];
+ 			return false;
+		}
 
 		$replyTo = '';
 		$entryItems = $_POST['entry'];

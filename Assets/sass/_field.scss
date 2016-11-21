@@ -221,6 +221,26 @@
  			width:50%;
  			float:left;
  			padding-right:5%;
+
+ 			&.checkboxes, &.radio{
+ 				> label{
+ 					font-weight: bold;
+ 				}
+ 			}
+
+ 			.subfield-wrapper{
+ 				display: block;
+ 				width: 100%;
+
+ 				input{
+ 					display: inline-block;
+ 					margin-right: 5px;
+ 				}
+ 				label{
+ 					display: inline-block;
+ 					width: auto;
+ 				}
+ 			}
  		}
  	}
 
@@ -255,7 +275,7 @@
  	/**
  	 * Advanced setting styling:
  	 */
- 	
+
  	.field-settings-advanced{
  		.field-wrapper{
  			width:100% !important;
@@ -280,11 +300,11 @@
 					font-weight:normal;
 					font-size:17px;
 					height:32px;
-		
+
 					span{
 						line-height:30px;
 					}
-		
+
 					div b{
 						background-position:0px 5px;
 					}
