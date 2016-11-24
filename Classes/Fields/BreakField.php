@@ -36,7 +36,7 @@ class BreakField extends DefaultField{
 
     /**
      * Get the value from this field, including the label for the notifications
-     * 
+     *
      * @param  array $entry The entry being saved.
      * @return string (html)
      */
@@ -53,7 +53,7 @@ class BreakField extends DefaultField{
 
     /**
      * Generate the preview for this field:
-     * 
+     *
      * @return void
      */
     public function buildPreview( $mainOverview = false ){
@@ -78,7 +78,7 @@ class BreakField extends DefaultField{
 
     /**
      * The first tab in the lightbox
-     * 
+     *
      * @return string ( html, echoed )
      */
     public function buildDefaultSettingsTab(){
@@ -86,30 +86,30 @@ class BreakField extends DefaultField{
         echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
 
         $fields = $this->getFields();
-    
+
         foreach( $fields as $field ){
-    
+
             $field->render();
         }
-    
+
         //render the javascript-templates seperate, to prevent doubles
         $rendered = array();
         foreach( $fields as $field ){
-    
+
             if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
-    
+
                 echo $field->renderTemplate();
                 $rendered[] = $field->name;
-    
+
             }
         }
     }
     /**
      * Creator fields
-     * 
+     *
      * @return array
      */
-    private function getFields(){
+    protected function getFields(){
 
         $prefix = 'fields['.$this->id.']';
 
@@ -156,7 +156,7 @@ class BreakField extends DefaultField{
                 $prefix.'[type]',
                 array(
                     'defaultValue'  => $this->type
-                )    
+                )
             ),
 
             Field::hidden(
@@ -171,7 +171,7 @@ class BreakField extends DefaultField{
                 array(
                     'class'         => array( 'field-input', 'position-input' ),
                     'defaultValue'  => $this->position
-                )    
+                )
             ),
 
 

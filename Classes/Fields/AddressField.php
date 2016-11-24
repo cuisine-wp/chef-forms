@@ -48,13 +48,13 @@ class AddressField extends DefaultField{
             echo '<div class="address-field-wrapper">';
 
             foreach( $fields as $field ){
-            
+
                 $field->render();
-            
+
             }
 
             echo '</div>';
-                    
+
         echo '</div>';
 
     }
@@ -62,7 +62,7 @@ class AddressField extends DefaultField{
 
     /**
      * Get The front-end fields for tha Address Field:
-     * 
+     *
      * @return array
      */
     private function getFrontendFields(){
@@ -72,7 +72,7 @@ class AddressField extends DefaultField{
 
         if( $this->getProperty( 'countrySelect' ) && $this->getProperty( 'countrySelect' ) !== 'none' )
             $zVal = array( 'zipcode', 'zip-'.$this->getProperty( 'countrySelect' ) );
-        
+
         $cVal = array();
 
         if( $this->getProperty( 'required' ) ){
@@ -123,7 +123,7 @@ class AddressField extends DefaultField{
 
     /**
      * Get the value from this field
-     * 
+     *
      * @param  array $entry The entry being saved.
      * @return string (html)
      */
@@ -138,22 +138,22 @@ class AddressField extends DefaultField{
             if( in_array( $entry['name'], $allowed ) ){
 
                 $address .= $entry['value'];
-                
+
                 if( $entry['name'] !== $this->id.'_zip' ){
                     $address .= '<br/>';
 
                 }else{
                     $address .= ' ';
-                
+
                 }
 
-            } 
+            }
         }
 
         $label = $this->label;
         if( $label == '' && $this->properties['placeholder'] != '' )
             $label = $this->properties['placeholder'];
-        
+
         $html .= '<tr><td><strong>'.esc_html( $label ).'</strong></td>';
         $html .= '<td>'.esc_html( $address ).'</td></tr>';
 
@@ -169,7 +169,7 @@ class AddressField extends DefaultField{
 
     /**
      * Build up the field block
-     * 
+     *
      * @return string ( html, echoed )
      */
     /*public function build(){
@@ -205,7 +205,7 @@ class AddressField extends DefaultField{
 
                 $this->bottomControls();
 
-            echo '</div>';          
+            echo '</div>';
             echo '<div class="loader"><span class="spinner"></span></div>';
 
         echo '</div>';
@@ -215,7 +215,7 @@ class AddressField extends DefaultField{
 
     /**
      * Build up the field block
-     * 
+     *
      * @return string ( html, echoed )
      */
     public function build(){
@@ -236,7 +236,7 @@ class AddressField extends DefaultField{
 
     /**
      * Generate the preview for this field:
-     * 
+     *
      * @return string (html)
      */
     public function buildPreview( $mainOverview = false ){
@@ -245,7 +245,7 @@ class AddressField extends DefaultField{
 
         $html .= '<label class="preview-label">'.esc_html( $this->getLabel() ).'</label>';
         $html .= '<div class="preview-input-wrapper">';
-            
+
             $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'chefforms' ).'">';
 
             $html .= '<input type="text" class="preview-input preview-zip" disabled placeholder="'.__( 'Zipcode', 'chefforms' ).'">';
@@ -254,7 +254,7 @@ class AddressField extends DefaultField{
 
         $html .= '</div>';
 
-    
+
         //do not display these in the lightbox:
         if( $mainOverview ){
 
@@ -275,10 +275,10 @@ class AddressField extends DefaultField{
 
     /**
      * Creator fields
-     * 
+     *
      * @return array
      */
-    private function getFields(){
+    protected function getFields(){
 
         $prefix = 'fields['.$this->id.']';
         $countryOptions = $this->getCountryOptions();
@@ -314,7 +314,7 @@ class AddressField extends DefaultField{
                 __( 'Country dropdown', 'chefforms' ),
                 $countryOptions,
                 array(
-                    'defaultValue' => $this->getProperty( 'countrySelect' ) 
+                    'defaultValue' => $this->getProperty( 'countrySelect' )
                 )
             ),
 
@@ -337,7 +337,7 @@ class AddressField extends DefaultField{
                 $prefix.'[type]',
                 array(
                     'defaultValue'  => $this->type
-                )    
+                )
             ),
 
             Field::hidden(
@@ -352,7 +352,7 @@ class AddressField extends DefaultField{
                 array(
                     'class'         => array( 'field-input', 'position-input' ),
                     'defaultValue'  => $this->position
-                )    
+                )
             ),
 
             Field::hidden(
@@ -370,7 +370,7 @@ class AddressField extends DefaultField{
 
     /**
      * Returns a key-value array of available fields
-     * 
+     *
      * @return array
      */
     private function getCountryOptions(){
@@ -394,7 +394,7 @@ class AddressField extends DefaultField{
 
     /**
      * Set a default label:
-     * 
+     *
      * @return string
      */
     public function getDefaultLabel(){

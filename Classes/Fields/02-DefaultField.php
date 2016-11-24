@@ -442,7 +442,7 @@ class DefaultField{
      *
      * @return array
      */
-    private function getFields(){
+    protected function getFields(){
 
         $prefix = 'fields['.$this->id.']';
 

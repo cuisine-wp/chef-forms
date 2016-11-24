@@ -22,7 +22,7 @@ class ChoiceField extends DefaultField{
 
         $this->sanitizeProperties();
         $type = $this->type;
-        
+
         Field::$type(
 
             $this->id,
@@ -60,9 +60,9 @@ class ChoiceField extends DefaultField{
 
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
             $this->properties['required'] = false;
-        
+
     }
-	
+
     /*=============================================================*/
     /**             BACKEND                                        */
     /*=============================================================*/
@@ -70,7 +70,7 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Build up the field block
-	 * 
+	 *
 	 * @return string ( html, echoed )
 	 */
 	public function build(){
@@ -101,7 +101,7 @@ class ChoiceField extends DefaultField{
 	            echo $this->buildPreview();
 
 	            echo '<span class="close">&times;</span>';
-	        
+
 	            echo $this->buildTabs();
 
 	        echo '</div>';
@@ -119,13 +119,13 @@ class ChoiceField extends DefaultField{
 	        echo '</div>';
 	        $this->bottomControls();
 
-	    echo '</div>'; 
+	    echo '</div>';
 	}
 
 
 	/**
 	 * The first tab in the lightbox
-	 * 
+	 *
 	 * @return string ( html, echoed )
 	 */
 	public function buildDefaultSettingsTab(){
@@ -133,21 +133,21 @@ class ChoiceField extends DefaultField{
 	    echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
 
 
-	    $fields = $this->getFields();	
+	    $fields = $this->getFields();
 	    foreach( $fields as $field ){
-	
+
 	        $field->render();
 	    }
-	
+
 	    //render the javascript-templates seperate, to prevent doubles
 	    $rendered = array();
 	    foreach( $fields as $field ){
-	
+
 	        if( method_exists( $field, 'renderTemplate' ) && !in_array( $field->name, $rendered ) ){
-	
+
 	            echo $field->renderTemplate();
 	            $rendered[] = $field->name;
-	
+
 	        }
 	    }
 	}
@@ -155,7 +155,7 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Generate the preview for this field:
-	 * 
+	 *
 	 * @return void
 	 */
 	public function buildPreview( $mainOverview = false ){
@@ -196,7 +196,7 @@ class ChoiceField extends DefaultField{
 
 			$amountChoices++;
 		}
-	       
+
 		//do not display these in the lightbox:
 		if( $mainOverview ){
 
@@ -212,10 +212,10 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Get the fields for this class
-	 * 
+	 *
 	 * @return array
 	 */
-	private function getFields(){
+	protected function getFields(){
 
 	    $prefix = 'fields['.$this->id.']';
 
@@ -259,7 +259,7 @@ class ChoiceField extends DefaultField{
 	            $prefix.'[type]',
 	            array(
 	                'defaultValue'  => $this->type
-	            )    
+	            )
 
 	        ),
 
@@ -292,9 +292,9 @@ class ChoiceField extends DefaultField{
                 array(
                     'class'         => array( 'field-input', 'position-input' ),
                     'defaultValue'  => $this->position
-                )    
+                )
             ),
-            
+
             Field::hidden(
                 $prefix.'[row]',
                 array(
@@ -308,7 +308,7 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Check if this choice is selected on default
-	 * 
+	 *
 	 * @param  array  $choice
 	 * @return boolean
 	 */
@@ -328,7 +328,7 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Return a property
-	 * 
+	 *
 	 * @param  string $name
 	 * @param  string $default
 	 * @return mixed (string/bool)
@@ -355,7 +355,7 @@ class ChoiceField extends DefaultField{
 	    if( $this->properties['choices'] ){
 
 	    	$_choices = $this->properties['choices'];
-	    	$choices = array_combine( 
+	    	$choices = array_combine(
 	    					Sort::pluck( $_choices, 'key' ),
 	    					Sort::pluck( $_choices, 'label' )
 	    	);
@@ -366,7 +366,7 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Returns an array of default choices
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getDefaultValue(){
@@ -379,7 +379,7 @@ class ChoiceField extends DefaultField{
 				$default[] = $choice['key'];
 
 
-		}		
+		}
 
 		if( !empty( $default ) ){
 			$this->properties['defaultValue'] = $default;
@@ -392,7 +392,7 @@ class ChoiceField extends DefaultField{
 
 	/**
 	 * Get the class of sub-inputs like radios and checkboxes
-	 * 
+	 *
 	 * @return String;
 	 */
 	public function getSubClass(){
