@@ -142,14 +142,15 @@
 		 * @param  int $id form id
 		 * @return \ChefForms\Front\Form
 		 */
-		public function make( $id = null ){
+		public function make( $id = null, $render = true ){
 
 			if( $id !== null )
 				$this->id = $id;
 
 			$this->init();
 
-			$this->render();
+			if( $render )
+				$this->render();
 
 			return $this;
 		}
