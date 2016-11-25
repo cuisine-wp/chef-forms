@@ -140,6 +140,7 @@
 		 * Build this form for frontend use
 		 *
 		 * @param  int $id form id
+		 * @param  bool $render
 		 * @return \ChefForms\Front\Form
 		 */
 		public function make( $id = null, $render = true ){
