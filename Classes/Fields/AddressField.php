@@ -130,6 +130,27 @@ class AddressField extends DefaultField{
     public function getNotificationPart( $entryItems ){
 
         $html = '';
+        $address = $this->getFormattedAddress( $entryItems );
+
+        $label = $this->label;
+        if( $label == '' && $this->properties['placeholder'] != '' )
+            $label = $this->properties['placeholder'];
+
+        $html .= '<tr><td><strong>'.esc_html( $label ).'</strong></td>';
+        $html .= '<td>'.$address.'</td></tr>';
+
+        return $html;
+
+    }
+
+    /**
+     * Return a formatted address from the current entry
+     *
+     * @param  array $entryItems
+     * @return string
+     */
+    public function getFormattedAddress( $entryItems )
+    {
         $address = '';
         $allowed = array( $this->id.'_street', $this->id.'_zip', $this->id.'_city' );
 
@@ -150,15 +171,7 @@ class AddressField extends DefaultField{
             }
         }
 
-        $label = $this->label;
-        if( $label == '' && $this->properties['placeholder'] != '' )
-            $label = $this->properties['placeholder'];
-
-        $html .= '<tr><td><strong>'.esc_html( $label ).'</strong></td>';
-        $html .= '<td>'.$address.'</td></tr>';
-
-        return $html;
-
+        return $address;
     }
 
 
