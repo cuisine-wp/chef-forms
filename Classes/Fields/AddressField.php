@@ -155,7 +155,7 @@ class AddressField extends DefaultField{
             $label = $this->properties['placeholder'];
 
         $html .= '<tr><td><strong>'.esc_html( $label ).'</strong></td>';
-        $html .= '<td>'.esc_html( $address ).'</td></tr>';
+        $html .= '<td>'.$address.'</td></tr>';
 
         return $html;
 
