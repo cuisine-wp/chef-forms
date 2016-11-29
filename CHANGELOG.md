@@ -1,3 +1,13 @@
+### 2.1.9 2016-11-29
+
+* Compatibility release for Chef Payment & Chef Invoices
+* Extendability increased
+* Form rendering is now optional when invoking the Form object
+* Various compatibility issues fixed with the FormBuilder
+* Firefox lightbox bug fixed
+* Minor fixes
+
+
 ### 2.1.8 2016-10-06
 
 * Added support for ignoring the sass-pipeline
