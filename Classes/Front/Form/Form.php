@@ -447,7 +447,9 @@
 		 */
 		public function flush(){
 			//kill the session
-			unset( $_SESSION['form'] );
+			if( isset( $_SESSION['form'] ) )
+				unset( $_SESSION['form'] );
+
 		}
 
 
