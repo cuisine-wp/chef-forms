@@ -26,7 +26,7 @@ class CheckboxesField extends ChoiceField{
         $this->sanitizeProperties();
         $type = $this->type;
         $this->properties['wrapper-class'] = array( 'checkboxes' );
-        
+
         Field::$type(
 
             $this->id,
@@ -41,40 +41,32 @@ class CheckboxesField extends ChoiceField{
 
     /**
      * Get the value from this field, including the label for the notifications
-     * 
+     *
      * @param  array $entry The entry being saved.
      * @return string (html)
      */
     public function getNotificationPart( $entryItems ){
-    
+
         $html = '';
-    
-        foreach( $entryItems as $entry ){
-    
-            if( $this->name == $entry['name'] ){
-    
-                $label = $this->label;
-                if( $label == '' && $this->properties['placeholder'] != '' )
-                    $label = $this->properties['placeholder'];
-        
-                $value = $entry['value'];
-                if( is_array( $entry['value'] ) )
-                    $value = implode( ', ', $value );
-    
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.esc_html( $label ).'</strong></td>';
-                $html .= '<td style="text-align:right">'.esc_html( $value ).'</td></tr>';
-    
-            } 
-        }
-    
+        $entry = $this->getValueFromEntry( $entryItems );
+
+        $value = $entry['value'];
+        if( is_array( $entry['value'] ) )
+            $value = implode( ', ', $value );
+
+        $html .= '<tr><td style="text-align:left;width:200px" width="200px">';
+            $html .= '<strong>'.esc_html( $entry['label'] ).'</strong></td>';
+        $html .= '<td style="text-align:right">'.esc_html( $value ).'</td></tr>';
+
+
         return $html;
-    
+
     }
 
 
     /**
      * Set a default label:
-     * 
+     *
      * @return string
      */
     public function getDefaultLabel(){

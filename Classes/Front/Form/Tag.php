@@ -12,9 +12,9 @@
 
 		/**
 		 * Check if a tag exists
-		 * 
+		 *
 		 * @param  string $tag
-		 * @return string     
+		 * @return string
 		 */
 		public static function check( $tag ){
 
@@ -33,41 +33,39 @@
 
 		/**
 		 * Replace certain tags in notifications
-		 * 
+		 *
 		 * @param  string $tag
-		 * @return string     
+		 * @return string
 		 */
-		public static function notification( $tag, $fields = array() ){
+		public static function notification( $tag, $fields = array(), $entry = array() ){
 
 			if( self::check( $tag ) ){
 
-				foreach( $fields as $entry ){
+				//replace field entry values:
+				foreach( $fields as $field ){
 
-					$name = $entry['name'];
+					$fieldValue = $field->getValueFromEntry( $entry );
 
-					$tag = str_replace( 
-			
-						array( 
-							'{{'.$name.'}}',
-							'{{ '.$name.' }}'
+					$tag = str_replace(
+
+						array(
+							'{{'.$field->name.'}}',
+							'{{ '.$field->name.' }}'
 						),
-		
-						$entry['value'],
-		
-					$tag );
-				}
+						$fieldValue['value'],
+						$tag
 
+					);
+				}
 
 				//replace admin_email:
 				$admin_email = get_option( 'admin_email' );
 				$tag = str_replace( array( '{{ admin_email }}', '{{admin_email}}' ), $admin_email, $tag );
 
-
-
 				//replace entry id's:
 				if( isset( $_POST['entry_id'] ) )
 					$tag = str_replace( array( '{{ entry_id }}', '{{entry_id}}'), $_POST['entry_id'], $tag );
-			
+
 
 				//replace post, meta and other values:
 				$tag = self::field( $tag );
@@ -87,11 +85,13 @@
 
 		/**
 		 * Check a tag, return a replacement value
-		 * 
-		 * @param  string $tag 
-		 * @return string      
+		 *
+		 * @param  string $tag
+		 * @return string
 		 */
 		public static function field( $tag ){
+
+			$return = $tag;
 
 			if( self::check( $tag ) ){
 
@@ -99,7 +99,7 @@
 
 					$return = self::postData( $tag );
 
-				}	
+				}
 
 				if( strpos( $tag,'{{postmeta_') !== false || strpos( $tag, '{{ postmeta_' ) !== false ){
 
@@ -130,7 +130,7 @@
 
 		/**
 		 * Check for available post-data like titles and dates
-		 * 
+		 *
 		 * @param  string $tag
 		 * @return string
 		 */
@@ -161,7 +161,7 @@
 
 		/**
 		 * Check for post meta
-		 * 
+		 *
 		 * @param  string $tag
 		 * @return string
 		 */
@@ -178,12 +178,12 @@
 
 			if( !empty( $metas ) ){
 				foreach( $metas as $key => $val ){
-	
+
 					$value = $val[0];
 					$key = 'post_meta_'.$key;
 
 					$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
-	
+
 				}
 			}
 
@@ -193,7 +193,7 @@
 
 		/**
 		 * Check for available user-data like names and emails
-		 * 
+		 *
 		 * @param  string $tag
 		 * @return string
 		 */
@@ -214,7 +214,7 @@
 
 		/**
 		 * Check for available user-meta
-		 * 
+		 *
 		 * @param  string $tag
 		 * @return string
 		 */
@@ -227,14 +227,14 @@
 				$metas = get_user_meta( User::getId() );
 				if( !empty( $metas ) ){
 					foreach( $metas as $key => $val ){
-				
+
 						$value = ( isset( $val[0] ) ? $val[0] : false );
 						$value = maybe_unserialize( $value );
 						$key = 'usermeta_'.$key;
 
 						if( $value && !is_array( $value ) )
 							$tag = str_replace( array( '{{ '. $key .' }}', '{{'.$key.'}}' ), $value, $tag );
-				
+
 					}
 				}
 

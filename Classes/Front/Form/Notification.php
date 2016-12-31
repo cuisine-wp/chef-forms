@@ -129,9 +129,17 @@ class Notification {
 		$this->properties = $this->sanitizeProperties( $notify );
 		$this->entry = ( isset( $_POST['entry'] ) ? $_POST['entry'] : array() );
 
-		$this->to = Tag::notification( $this->properties['to'], $this->entry );
-		$this->subject = Tag::notification( $this->properties['title'], $this->entry );
+		$this->to = Tag::notification(
+						$this->properties['to'],
+						$this->fields,
+						$this->entry
+		);
 
+		$this->subject = Tag::notification(
+							$this->properties['title'],
+							$this->fields,
+							$this->entry
+		);
 
 		$this->setHeaders();
 		$this->createMessage();
@@ -187,7 +195,7 @@ class Notification {
 
 		$all_fields = array( '{{alle_velden}}', '{{ alle_velden }}' );
 		$msg = str_replace( $all_fields , $this->generateDefaultMessage(), $msg );
-		$msg = Tag::notification( $msg, $this->entry );
+		$msg = Tag::notification( $msg, $this->fields, $this->entry );
 
 		$default = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
 
