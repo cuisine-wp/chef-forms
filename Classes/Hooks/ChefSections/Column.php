@@ -73,9 +73,9 @@
 		/**
 		 * Get the fields for this column
 		 * 
-		 * @return [type] [description]
+		 * @return Array
 		 */
-		private function getFields(){
+		public function getFields(){
 	
 			$fields = array(
 
