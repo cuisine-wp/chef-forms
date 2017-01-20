@@ -341,7 +341,9 @@
 		 */
 		public function display(){
 
-			echo $this->html;
+
+			cuisine_dump( $this );
+			//echo $this->html;
 
 		}
 
@@ -503,7 +505,7 @@
 			//allow plugins to hook into this event:
 			do_action( 'form_submitted', $this, $entry );
 
-			//check if a redirect has been set
+			//check if an external redirect has been set
 			if( !empty( $this->redirect ) ){
 
 				//store this form-session in a php session:
@@ -525,11 +527,27 @@
 
 			//set the message, if it's empty
 			if( empty( $this->message ) ){
-				$this->message = array(
 
-						'error'		=> 	false,
-						'message'	=> 	$this->getSetting( 'confirm' )
-				);
+				//if this form isn't supposed to redirect
+				if( 
+					( $this->getSetting( 'redirect' ) == 'false' || $this->getSetting( 'redirect' ) == false ) &&
+					( $this->getSetting( 'redirect_to' ) && $this->getSetting( 'redirect_to') != '' )
+				 ){
+
+					$this->message = [ 
+						'error' => false, 
+						'message' => $this->getSetting( 'confirm' )
+					];
+
+				//else create a redirect message:
+				}else{
+
+					$this->message = [ 
+						'error' => false, 
+						'redirect' => true, 
+						'redirect_to' => get_permalink( $this->getSetting( 'redirect_to' ) )
+					];
+				}
 			}
 
 			//return the message
@@ -660,6 +678,8 @@
 				'entry_start' => '',
 				'entry_end_unix' => '',
 				'entry_end' => '',
+				'redirect' => 'false',
+				'redirect_to' => '',
 				'no_ajax' => 'false'
 			);
 		}
@@ -695,6 +715,11 @@
 
 			//regular settings:
 			$settings = get_post_meta( $this->id, 'settings', true );
+			$confirmations = get_post_meta( $this->id, 'confirmation', true );
+			if( !$confirmations )
+				$confirmations = array();
+
+			$settings = array_merge( $settings, $confirmations );
 
 			if( !$settings )
 				$settings = array();

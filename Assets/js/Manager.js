@@ -9,6 +9,7 @@ var FormManager = Backbone.View.extend({
 	 */
 	events: {
 		'click .nav-btn': 'toggleView',
+		'click .settings-nav .form-nav-item': 'toggleSettingsPanel',
 		'click .add-field': 'addFieldByClick'
 	},
 
@@ -190,6 +191,27 @@ var FormManager = Backbone.View.extend({
 		jQuery( '.main-form-nav').removeClass( 'active' );
 		jQuery( '#'+type+'-container' ).addClass( 'active' );
 		jQuery( '#nav-bar-'+type).addClass('active');
+	},
+
+
+	/**
+	 * Toggle the settings panels 
+	 * 
+	 * @param Event e
+	 * @return void
+	 */
+	toggleSettingsPanel: function( e ){
+
+		var self = this;
+		var btn = jQuery( e.target );
+		var slug = btn.data( 'slug' );
+
+		jQuery( '.settings-nav .form-nav-item' ).removeClass( 'active' );
+		btn.addClass( 'active' );
+
+		jQuery( '.settings-panel' ).removeClass( 'active' );
+		jQuery( '#panel-'+slug ).addClass( 'active' );
+
 	},
 
 

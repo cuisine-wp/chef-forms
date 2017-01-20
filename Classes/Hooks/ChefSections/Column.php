@@ -31,7 +31,8 @@
 		 */
 		public function buildPreview(){
 	
-			echo '<strong>'.esc_html( $this->getField( 'title' ) ).'</strong>';
+			$title = $this->getField( 'title' );
+			echo '<strong>'.esc_html( $title['text'] ).'</strong>';
 	
 		}
 	
@@ -79,7 +80,7 @@
 	
 			$fields = array(
 
-				Field::text( 
+				Field::title( 
 					'title', 				//id
 					__('Title Label','chefforms'),			//label
 					

@@ -31,9 +31,15 @@
 
 .settings-panel{
 	clear:both;
-	padding-top:15px;
-	margin-top:30px;
-	border-top:1px solid #ccc;
+	padding: 15px 30px;
+	background: #fff;
+	box-shadow: 0 0 10px rgba(0,0,0,.3);
+	margin-top: 15px;
+	display: none;
+
+	&.active{
+		display: block;
+	}
 
 	.panel-icon{
 		height:42px;
@@ -46,6 +52,11 @@
 	h2{
 		line-height:100%;
 		display:inline-block;
+		padding-bottom: 20px; 
+		.dashicons{
+			float: left;
+			margin-top: 10px;
+		}
 	}
 
 
