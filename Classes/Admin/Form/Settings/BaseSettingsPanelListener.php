@@ -156,7 +156,9 @@
 		public function getPages()
 		{
 			$pages = get_pages();
-			return array_combine( Sort::pluck( $pages, 'ID' ), Sort::pluck( $pages, 'post_title' ) );
+			$pages = array_combine( Sort::pluck( $pages, 'ID' ), Sort::pluck( $pages, 'post_title' ) );
+			$pages = [ 'none' => __( 'Don\'t redirect to a page', 'chefforms') ] + $pages;
+			return $pages;
 		}
 
 	}

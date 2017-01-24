@@ -341,9 +341,7 @@
 		 */
 		public function display(){
 
-
-			cuisine_dump( $this );
-			//echo $this->html;
+			echo $this->html;
 
 		}
 
@@ -470,6 +468,7 @@
 		public function save( $id ){
 
 			$this->id = $id;
+			$this->setSettings();
 
 			//first, check if the nonce is valid:
 			if( !wp_verify_nonce( $_POST['_chef_form_submit'], 'form_'.$id.'_submit' ) ){
@@ -531,7 +530,7 @@
 				//if this form isn't supposed to redirect
 				if( 
 					( $this->getSetting( 'redirect' ) == 'false' || $this->getSetting( 'redirect' ) == false ) &&
-					( $this->getSetting( 'redirect_to' ) && $this->getSetting( 'redirect_to') != '' )
+					( $this->getSetting( 'redirect_to' ) && $this->getSetting( 'redirect_to') != 'none' )
 				 ){
 
 					$this->message = [ 
@@ -545,7 +544,7 @@
 					$this->message = [ 
 						'error' => false, 
 						'redirect' => true, 
-						'redirect_to' => get_permalink( $this->getSetting( 'redirect_to' ) )
+						'redirect_url' => get_permalink( $this->getSetting( 'redirect_to' ) )
 					];
 				}
 			}
@@ -863,6 +862,7 @@
 				}
 			}
 
+			$array = apply_filters( 'chef_forms_fields', $array, $this );
 			$this->fields = $array;
 		}
 

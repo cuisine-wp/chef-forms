@@ -56,8 +56,8 @@ define([
 
 			//checks and debugging:
 			self.submitted = false;
-			self.logMessages = true;
-			self.dev = true;
+			self.logMessages = false;
+			self.dev = false;
 
 			self.fields = self.el.find( '.field' );
 			self.subfields = self.el.find( '.subfield' );
@@ -266,6 +266,7 @@ define([
 
 							self.el.removeClass( 'msg' );
 							self.el.find('.message').remove();
+							self.el.trigger( 'onMessageDisappear', self );
 
 						}, 5000 );
 
