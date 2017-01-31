@@ -43,7 +43,7 @@ class AddressField extends DefaultField{
 
         echo '<div class="'.esc_attr( $class ).'">';
 
-            echo '<label>'.esc_html( $this->getLabel() ).'</label>';
+            echo '<label>'.$this->getLabel().'</label>';
 
             echo '<div class="address-field-wrapper">';
 
