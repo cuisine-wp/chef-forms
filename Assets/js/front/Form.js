@@ -204,11 +204,17 @@ define([
 		this.trackAnalytics = function(){
 
 			var self = this;
+			var _formName = self.el.data( 'title' );
 
-			if( typeof( ga ) !== 'undefined' ){
+			if( typeof( window.dataLayer ) !== 'undefined' ){
+
+				self.logger( 'google analytics event send via tag manager' );
+				window.dataLayer.push({ 'event': 'Form submit: '+_formName });
+
+
+			else if( typeof( ga ) !== 'undefined' ){
 
 				self.logger( 'google analytics event send' );
-				var _formName = self.el.data( 'title' );
 
 				ga('send', 'event', 'Form', 'Submit', _formName );
 
