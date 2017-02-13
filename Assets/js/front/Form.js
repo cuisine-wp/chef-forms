@@ -212,7 +212,7 @@ define([
 				window.dataLayer.push({ 'event': 'Form submit: '+_formName });
 
 
-			else if( typeof( ga ) !== 'undefined' ){
+			}else if( typeof( ga ) !== 'undefined' ){
 
 				self.logger( 'google analytics event send' );
 
