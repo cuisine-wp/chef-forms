@@ -140,6 +140,7 @@ class FormBuilder {
 
 		foreach( $this->fields as $field ){
 
+			$row = $i + 1;
 			$fields[ $i ] = array(
 
 				'label'			=> ( $field->label != '' ? $field->label : $field->name ),
@@ -149,7 +150,7 @@ class FormBuilder {
 				'defaultValue'	=> $field->getDefault(),
 				'validation'	=> $field->getProperty( 'validation' ),
 				'required'		=> ( $field->getProperty( 'required' ) ? 'true' : 'false' ),
-				'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $i ),
+				'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $row ),
 				'position'		=> $i + 1
 			);
 
