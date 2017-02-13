@@ -154,7 +154,7 @@ define([
 				_data.append( 'action', 'sendForm' );
 				_data.append( 'post_id', self.formId );
 
-				self.el.trigger( 'beforeSubmit', _data, self );
+				self.el.trigger( 'beforeSubmit', [ _data, self ] );
 				self.submitted = true;
 
 				self.logger( 'ajax submit' );
@@ -249,13 +249,13 @@ define([
 				//check if we need to redirect;
 				if( response.redirect == true ){
 
-					self.el.trigger( 'beforeRedirect', response, self );
+					self.el.trigger( 'beforeRedirect', [ response, self ] );
 
 					window.location.href = response.redirect_url;
 
 				}else{
 
-					self.el.trigger( 'onResponse', response, self );
+					self.el.trigger( 'onResponse', [ response, self ] );
 
 
 					//otherwise, clear the loader and display the message.
@@ -263,7 +263,7 @@ define([
 					self.el.append('<div class="message">'+ response.message +'</div>' );
 
 					self.resetFields();
-					self.el.trigger( 'onComplete', response, self );
+					self.el.trigger( 'onComplete', [ response, self ] );
 
 					//remove message after 3 seconds, if the form doesn't have a data attribute set:
 					if( self.el.data( 'maintain-msg' ) === undefined ){
