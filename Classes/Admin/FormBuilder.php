@@ -73,7 +73,8 @@ class FormBuilder {
 			$args = array(
 				'post_title'	=> $this->title,
 				'post_name'		=> sanitize_title( $this->title ),
-				'post_type'		=> 'form'
+				'post_type'		=> 'form',
+				'post_status'	=> 'publish'
 			);
 
 			$this->id = wp_insert_post( $args, true );
