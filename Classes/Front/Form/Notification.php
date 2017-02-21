@@ -71,7 +71,7 @@ class Notification {
 	 *
 	 * @var array
 	 */
-	protected $attachments = array();
+	public $attachments = array();
 
 
 	/**
