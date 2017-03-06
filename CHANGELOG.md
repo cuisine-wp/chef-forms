@@ -1,3 +1,14 @@
+### 2.2.0 2017-03-06
+
+* Added support for redirect after submit
+* Added fully extenable settings panels 
+* Added support for Google tag manager
+* Fixes to notification system in compatibility with other plugins
+* Various compatibility issues fixed with the FormBuilder
+* Minor fixes
+
+
+
 ### 2.1.9 2016-11-29
 
 * Compatibility release for Chef Payment & Chef Invoices
