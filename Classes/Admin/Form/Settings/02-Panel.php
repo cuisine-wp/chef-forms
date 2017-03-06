@@ -225,8 +225,13 @@ class Panel{
 		foreach( $this->fields as $field ){
 
 			$name = $field->name;
-			if( isset( $_POST[ $name ] ) )
-				$save[ $name ] = $_POST[ $name ];
+			$key = $name;
+
+			if( $field->type == 'editor' )
+	    		$key = $field->id;
+
+			if( isset( $_POST[ $key ] ) )
+				$save[ $name ] = $_POST[ $key ];
 
 		}	
 

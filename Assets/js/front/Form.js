@@ -239,7 +239,6 @@ define([
 			if( self.dev )
 				self.el.append( response );
 
-
 			if( Validate.json( response ) && self.dev === false ){
 
 				self.hideLoader();

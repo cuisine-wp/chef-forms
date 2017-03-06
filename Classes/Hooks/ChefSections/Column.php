@@ -50,7 +50,7 @@
 			echo '<div class="main-content">';
 			
 				foreach( $fields as $field ){
-	
+				
 					$field->render();
 	
 					//if a field has a JS-template, we need to render it:

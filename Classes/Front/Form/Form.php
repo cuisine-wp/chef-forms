@@ -527,10 +527,11 @@
 			//set the message, if it's empty
 			if( empty( $this->message ) ){
 
+
 				//if this form isn't supposed to redirect
 				if( 
 					( $this->getSetting( 'redirect' ) == 'false' || $this->getSetting( 'redirect' ) == false ) &&
-					( $this->getSetting( 'redirect_to' ) && $this->getSetting( 'redirect_to') != 'none' )
+					( $this->getSetting( 'redirect_to' ) && $this->getSetting( 'redirect_to') == 'none' )
 				 ){
 
 					$this->message = [ 
@@ -719,6 +720,7 @@
 				$confirmations = array();
 
 			$settings = array_merge( $settings, $confirmations );
+
 
 			if( !$settings )
 				$settings = array();
