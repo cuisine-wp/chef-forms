@@ -4,6 +4,7 @@ namespace ChefForms\Admin\Form\Builder;
 
 use Cuisine\Utilities\Sort;
 use ChefForms\Fields\FieldFactory;
+use ChefForms\Wrappers\SettingsManager;
 
 class Toolbar{
 
@@ -120,12 +121,7 @@ class Toolbar{
 	 */
 	private function buildSettingButtons(){
 
-		$html = '<ul id="nav-bar-settings" class="main-form-nav settings-nav">';
-			$html .= '<li class="form-nav-item main-settings active">';
-				$html .= '<i class="dashicons dashicons-admin-generic"></i>';
-				$html .= __( 'Main Settings', 'chefforms' );
-			$html .= '</li>';
-		$html .= '</ul>';
+		$html = SettingsManager::buildNavigation();
 
 		echo $html;
 	}

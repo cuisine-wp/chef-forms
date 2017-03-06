@@ -196,28 +196,48 @@ class DefaultField{
     public function getNotificationPart( $entryItems ){
 
         $html = '';
+        $entry = $this->getValueFromEntry( $entryItems );
+
+        $html .= '<tr><td style="text-align:left;width:200px" width="200px">';
+
+            $html .= '<strong>'.$entry['label'].'</strong></td>';
+
+        $html .= '<td style="text-align:right">';
+
+            $html .= esc_html( $entry['value'] );
+
+        $html .= '</td></tr>';
+
+        return $html;
+
+    }
+
+
+    /**
+     * Returns the correct value for this field out of the supplied entry items
+     *
+     * @param  array $entryItems
+     *
+     * @return array
+     */
+    public function getValueFromEntry( $entryItems )
+    {
+
+        $value = [ 'label' => '', 'value' => '' ];
 
         foreach( $entryItems as $entry ){
 
             if( $this->name == $entry['name'] ){
 
-                $label = $this->label;
-                if( $label == '' && $this->properties['placeholder'] != '' )
-                    $label = $this->properties['placeholder'];
+                $value['label'] = $this->label;
+                if( $value['label'] == '' && $this->properties['placeholder'] != '' )
+                    $value['label'] = $this->properties['placeholder'];
 
-
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
-                $html .= '<td style="text-align:right">';
-
-                    $html .= esc_html( $entry['value'] );
-
-                $html .= '</td></tr>';
-
+                $value['value'] = $entry['value'];
             }
         }
 
-        return $html;
-
+        return $value;
     }
 
 

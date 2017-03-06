@@ -12,21 +12,29 @@ class Panel{
 	 * 
 	 * @var string
 	 */
-	private $title;
+	public $title;
 
 	/**
 	 * String with this slug
 	 * 
 	 * @var string
 	 */
-	private $slug;
+	public $slug;
 
 	/**
 	 * Array containing all options
 	 * 
 	 * @var array
 	 */
-	private $options;
+	public $options;
+
+
+	/**
+	 * Values of all settings
+	 * 
+	 * @var array
+	 */
+	public $values;
 
 
 	/**
@@ -67,7 +75,11 @@ class Panel{
 		$this->slug = $name;
 		$this->title = $title;
 		$this->options = $this->sanitizeOptions( $options );
-		
+		$values = get_post_meta( $this->postId, $this->slug, true );
+		if( !$values ) $values = [];
+
+		$this->values = $values;
+
 
 		return $this;
 	}
@@ -82,8 +94,29 @@ class Panel{
 
 		$this->fields = $fields;
 
-		add_action( 'chef_forms_panels', array( &$this, 'build' ) );
+		add_action( 'chef_forms_render_settings_panels', array( &$this, 'build' ) );
+		add_action( 'chef_forms_form_settings_nav', array( &$this, 'navigation' ) );
+		add_action( 'chef_forms_form_settings_save', array( &$this, 'save' ) );
 
+	}
+
+
+	/**
+	 * Returns the navigational button
+	 * 
+	 * @return string
+	 */
+	public function navigation()
+	{
+
+		$active = '';
+		$classes = ( is_array( $this->get( 'classes' ) ) ? $this->get( 'classes' ) : array() );
+		if( in_array( 'active', $classes ) )
+			$active = ' active';
+
+		echo '<li class="form-nav-item '.$active.'" data-slug="'.$this->slug.'">';
+			echo $this->title;
+		echo '</li>';
 	}
 
 
@@ -94,13 +127,18 @@ class Panel{
 	 */
 	public function build(){
 		
-		echo '<div class="settings-panel '.sanitize_title( $this->title ).'">';
 
+		$class = $this->getClass();
+		echo '<div class="settings-panel '.$class.'" id="panel-'.$this->slug.'">';
 
-		if( $this->get('icon' ) )
-			echo '<img src="'.esc_url( $this->get('icon') ).'" class="panel-icon">';
+		
 
-		echo '<h2>'.$this->title.'</h2>';
+		echo '<h2>';
+
+			echo $this->getIcon();
+			echo $this->title;
+
+		echo'</h2>';
 
 		if( $this->get( 'content' ) )
 			echo wpautop( $this->get( 'content' ) );
@@ -108,11 +146,8 @@ class Panel{
 
 		foreach( $this->fields as $field ){
 
-			//set values
-			$value = get_post_meta( Session::postId(), $field->name, true );
-			if( $value )
-				$field->properties['defaultValue'] = $value;
-
+			if( isset( $this->values[ $field->name ] ) )
+				$field->properties['defaultValue'] = $this->values[ $field->name ];
 
 			$field->render();
 
@@ -136,6 +171,42 @@ class Panel{
 
 	}
 
+	/**
+	 * Returns the class of this panel
+	 * 
+	 * @return string
+	 */
+	public function getClass()
+	{
+		$class = sanitize_title( $this->title );
+
+		if( $this->get( 'classes' ) && is_array( $this->get( 'classes' ) ) )
+			$class .= ' '.implode( ' ', $this->get( 'classes' ) );
+
+		return $class;
+
+	}
+
+	/**
+	 * Returns the icon of this panel
+	 * 
+	 * @return string
+	 */
+	public function getIcon()
+	{
+		$html = '';
+		if( $this->get('icon' ) ){
+
+			if( strpos( $this->get( 'icon' ), 'dashicon' ) !== false ){
+				$html = '<span class="'.$this->get( 'icon' ).'"></span>';
+			}else{
+				$html = '<img src="'.esc_url( $this->get('icon') ).'" class="panel-icon">';
+			}
+		}
+
+		return $html;
+	}
+
 
 	/*=============================================================*/
 	/**             Saving                                         */
@@ -149,17 +220,23 @@ class Panel{
 	 */
 	public function save( $post_id ){
 
+		$save = [];
+
 		foreach( $this->fields as $field ){
 
 			$name = $field->name;
+			$key = $name;
 
-			if( isset( $_POST[ $name ] ) ){
-			
-				update_post_meta( $post_id, $name, $_POST[ $name ] );
+			if( $field->type == 'editor' )
+	    		$key = $field->id;
 
-			}
+			if( isset( $_POST[ $key ] ) )
+				$save[ $name ] = $_POST[ $key ];
 
 		}	
+
+		if( !empty( $save ) )
+			update_post_meta( $post_id, $this->slug, $save );
 
 	}
 
@@ -177,7 +254,12 @@ class Panel{
 	 */
 	private function get( $name ){
 
-		if( isset( $this->options[ $name ] ) )
+		if( 
+			isset( $this->options[ $name ] ) && 
+			!empty( $this->options[ $name ]	) &&
+			$this->options[ $name ] != null &&
+			$this->options[ $name ] != '' 
+		)
 			return $this->options[ $name ];
 
 		return false;
@@ -195,8 +277,8 @@ class Panel{
 	private function sanitizeOptions( $options ){
 
 		$defaults = array(
-						'icon'		=> false,
-						'content'	=> false
+			'icon'		=> false,
+			'content'	=> false
 		);
 
 

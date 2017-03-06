@@ -154,7 +154,7 @@ define([
 				_data.append( 'action', 'sendForm' );
 				_data.append( 'post_id', self.formId );
 
-				self.el.trigger( 'beforeSubmit', _data, self );
+				self.el.trigger( 'beforeSubmit', [ _data, self ] );
 				self.submitted = true;
 
 				self.logger( 'ajax submit' );
@@ -204,11 +204,17 @@ define([
 		this.trackAnalytics = function(){
 
 			var self = this;
+			var _formName = self.el.data( 'title' );
 
-			if( typeof( ga ) !== 'undefined' ){
+			if( typeof( window.dataLayer ) !== 'undefined' ){
+
+				self.logger( 'google analytics event send via tag manager' );
+				window.dataLayer.push({ 'event': 'Form submit: '+_formName });
+
+
+			}else if( typeof( ga ) !== 'undefined' ){
 
 				self.logger( 'google analytics event send' );
-				var _formName = self.el.data( 'title' );
 
 				ga('send', 'event', 'Form', 'Submit', _formName );
 
@@ -233,7 +239,6 @@ define([
 			if( self.dev )
 				self.el.append( response );
 
-
 			if( Validate.json( response ) && self.dev === false ){
 
 				self.hideLoader();
@@ -243,13 +248,13 @@ define([
 				//check if we need to redirect;
 				if( response.redirect == true ){
 
-					self.el.trigger( 'beforeRedirect', response, self );
+					self.el.trigger( 'beforeRedirect', [ response, self ] );
 
 					window.location.href = response.redirect_url;
 
 				}else{
 
-					self.el.trigger( 'onResponse', response, self );
+					self.el.trigger( 'onResponse', [ response, self ] );
 
 
 					//otherwise, clear the loader and display the message.
@@ -257,7 +262,7 @@ define([
 					self.el.append('<div class="message">'+ response.message +'</div>' );
 
 					self.resetFields();
-					self.el.trigger( 'onComplete', response, self );
+					self.el.trigger( 'onComplete', [ response, self ] );
 
 					//remove message after 3 seconds, if the form doesn't have a data attribute set:
 					if( self.el.data( 'maintain-msg' ) === undefined ){
@@ -266,6 +271,7 @@ define([
 
 							self.el.removeClass( 'msg' );
 							self.el.find('.message').remove();
+							self.el.trigger( 'onMessageDisappear', self );
 
 						}, 5000 );
 

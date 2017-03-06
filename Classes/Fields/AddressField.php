@@ -43,7 +43,7 @@ class AddressField extends DefaultField{
 
         echo '<div class="'.esc_attr( $class ).'">';
 
-            echo '<label>'.esc_html( $this->getLabel() ).'</label>';
+            echo '<label>'.$this->getLabel().'</label>';
 
             echo '<div class="address-field-wrapper">';
 
@@ -122,26 +122,32 @@ class AddressField extends DefaultField{
 
 
     /**
-     * Get the value from this field
+     * Returns the correct value for this field out of the supplied entry items
      *
-     * @param  array $entry The entry being saved.
-     * @return string (html)
+     * @param  array $entryItems
+     *
+     * @return array
      */
-    public function getNotificationPart( $entryItems ){
+    public function getValueFromEntry( $entryItems )
+    {
 
-        $html = '';
-        $address = $this->getFormattedAddress( $entryItems );
+        $value = [ 'label' => '', 'value' => '' ];
 
-        $label = $this->label;
-        if( $label == '' && $this->properties['placeholder'] != '' )
-            $label = $this->properties['placeholder'];
+        foreach( $entryItems as $entry ){
 
-        $html .= '<tr><td><strong>'.esc_html( $label ).'</strong></td>';
-        $html .= '<td>'.$address.'</td></tr>';
+            if( $this->name == $entry['name'] ){
 
-        return $html;
+                $value['label'] = $this->label;
+                if( $value['label'] == '' && $this->properties['placeholder'] != '' )
+                    $value['label'] = $this->properties['placeholder'];
 
+                $value['value'] = $this->getFormattedAddress( $entryItems );
+            }
+        }
+
+        return $value;
     }
+
 
     /**
      * Return a formatted address from the current entry

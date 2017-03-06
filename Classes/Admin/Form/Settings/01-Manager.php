@@ -12,7 +12,7 @@ class Manager{
 	 * 
 	 * @var array
 	 */
-	public $settings = array();
+	public $panels = array();
 
 
 	/**
@@ -51,230 +51,50 @@ class Manager{
 		if( isset( $post ) )
 			$this->postId = $post->ID;
 		
-		$this->settings = $this->getSettings();
-
 		return $this;
 	}
 
 
-	/*=============================================================*/
-	/**             Metabox functions                              */
-	/*=============================================================*/
 
 	/**
-	 * Save the settings:
+	 * Build the main tabs
 	 * 
-	 * @return bool $success
+	 * @return string (html, echoed)
 	 */
-	public function save( $post_id ){
+	public function build()
+	{
 
-		//save all settings:
-		if( !empty( $_POST['settings'] ) ){
+		echo '<div class="settings-panel-wrapper">';
 
-			$settings = $this->sanitizeSettings( $_POST['settings'] );
-
-			$_settings = array();
-			foreach( $settings as $id => $setting ){
-
-				$_settings[ $id ] = $setting;
-			
-			}
-			
-			update_post_meta( $post_id, 'settings', $_settings );
-
-			do_action( 'panel_save', $post_id );
-
-			return true;
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * Clean up certain setting aspects, if needed:
-	 * 
-	 * @param  array $setting
-	 * @return array $setting
-	 */
-	private function sanitizeSettings( $settings ){
-
-		if( $settings['entry_start'] != '' ){
-			$settings['entry_start_unix'] = strtotime( $settings['entry_start'] );
-		}else{
-			$settings['entry_start_unix'] = '';
-		}
-
-		if( $settings['entry_end'] != '' ){
-			$settings['entry_end_unix'] = strtotime( $settings['entry_end'] );
-		}else{
-			$settings['entry_end_unix'] = '';
-		}
-
-		//save the editor field:
-		$fields = $this->getFields();
-		foreach( $fields as $field ){
-
-			if( $field->type == 'editor' ){
-			
-				$name = str_replace( array( 'settings[', ']' ), '', $field->name );
-				$settings[ $name ] = $_POST[ $field->id ];
-
-			}
-		}
-
-		return $settings;
-	}
-
-
-	/**
-	 * Output the settings page
-	 *
-	 * @return void (echoes html)
-	 */
-	public function build(){
-
-		echo '<div class="confirmation-settings">';
-
-			global $post;
-			$fields = $this->getFields();
-
-			echo '<span class="shortcode">Shortcode: <ins>[cuisine_form id="'.Session::postId().'"]</ins></span>';
-
-			foreach( $fields as $field ){
-
-				$field->render();
-
-			}
-
-
-
-			echo '<div class="form-panels">';
-				do_action( 'chef_forms_panels' );
-			echo '</div>';
+			do_action( 'chef_forms_render_settings_panels', $this );
 
 		echo '</div>';
-
-
 	}
-
-
-	private function getFields(){
-
-		$fields = array(
-
-
-			Field::text( 
-				'settings[btn-text]',
-				__('Button text','chefforms'),
-				array(
-					'defaultValue'	=> $this->getSetting( 'btn-text', __('Send','chefforms') )
-				)
-			),
-			Field::select( 
-				'settings[labels]',
-				'Labels',
-				array(
-					false 	=> __('No labels','chefforms'),
-					'top'	=> __('Labels above','chefforms'),
-					'left'	=> __('Labels left','chefforms')
-				),
-				array(
-					'defaultValue'	=> $this->getSetting( 'labels', 'top' )
-				)
-			),
-			Field::editor( 
-				'settings[confirm]',
-				__('Confirmation-message','chefforms'),
-				array(
-					'defaultValue'	=> $this->getSetting( 'confirm', __('Your message has been successfully sent. We will contact you very soon!', 'chefforms' ) )
-				)
-			),
-
-			Field::text(
-				'settings[max_entries]',
-				__('Max number of submissions','chefforms'),
-				array(
-					'defaultValue' => $this->getSetting( 'max_entries', '' )
-				)
-			),
-
-			Field::date(
-				'settings[entry_start]',
-				__('Valid from','chefforms'),
-				array(
-					'defaultValue' => $this->getSetting( 'entry_start', '' )
-				)
-			),
-
-			Field::date(
-				'settings[entry_end]',
-				__('Valid to','chefforms'),
-				array(
-					'defaultValue' => $this->getSetting( 'entry_end', '' )
-				)
-			),
-
-			Field::checkbox(
-				'settings[maintain_msg]',
-				__('Leave confirmation message on the page after form submission','chefforms'),
-				array(
-					'defaultValue' => $this->getSetting( 'maintain_msg', 'false' )
-				)
-			),
-
-			Field::checkbox(
-				'settings[no_ajax]',
-				__('Never use ajax for submitting this form','chefforms'),
-				array(
-					'defaultValue' => $this->getSetting( 'no_ajax', 'false' )
-				)
-			)
-		);
-
-		$fields = apply_filters( 'chef_forms_setting_fields', $fields );
-		return $fields;
-
-	}
-
-
-	/*=============================================================*/
-	/**             Getters & Setters                              */
-	/*=============================================================*/
-
 
 
 	/**
-	 * Get all settings
+	 * Build out the navigation
 	 * 
-	 * @return array
+	 * @return string (html, echoed)
 	 */
-	private function getSettings(){
-
-		$settings = get_post_meta( $this->postId, 'settings', true );
-		return $settings;
+	public function buildNavigation()
+	{
+		ob_start();
+		echo '<ul id="nav-bar-settings" class="main-form-nav settings-nav">';
+			do_action( 'chef_forms_form_settings_nav', $this );
+		echo '</ul>';
+		return ob_get_clean();
 	}
 
-
-
 	/**
-	 * Return a setting
+	 * Save all panels
 	 * 
-	 * @param  string  $name
-	 * @param  boolean $default
 	 * @return string
 	 */
-	private function getSetting( $name, $default = false ){
-
-		if( isset( $this->settings[ $name ] ) )
-			return $this->settings[ $name ];
-
-		return $default;
-
-
+	public function save( $post_id )
+	{
+		do_action( 'chef_forms_form_settings_save', $post_id, $this );	
 	}
-
-
 
 
 }?>

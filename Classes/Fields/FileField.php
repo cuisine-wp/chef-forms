@@ -55,25 +55,26 @@ class FileField extends DefaultField{
 
 
 
+
     /**
-     * Get the value from this field, including the label for the notifications
+     * Returns the correct value for this field out of the supplied entry items
      *
-     * @param  array $entry The entry being saved.
-     * @return string (html)
+     * @param  array $entryItems
+     *
+     * @return array
      */
-    public function getNotificationPart( $entryItems ){
+    public function getValueFromEntry( $entryItems )
+    {
 
-        $html = '';
-
+        $value = [ 'label' => '', 'value' => '' ];
 
         foreach( $entryItems as $entry ){
 
-
             if( $this->name == $entry['name'] ){
-                $label = $this->label;
-                if( $label == '' && $this->properties['placeholder'] != '' )
-                    $label = $this->properties['placeholder'];
 
+                $value['label'] = $this->label;
+                if( $value['label'] == '' && $this->properties['placeholder'] != '' )
+                    $value['label'] = $this->properties['placeholder'];
 
                 if( $this->isImage( $entry['value']['mime_type'] ) ){
 
@@ -86,16 +87,13 @@ class FileField extends DefaultField{
                     $value = $entry['value']['url'];
                 }
 
-                $html .= '<tr><td style="text-align:left;width:200px" width="200px"><strong>'.$label.'</strong></td>';
-                $html .= '<td style="text-align:right">'.esc_html( $value ).'</td></tr>';
+                $value['value'] = $value;
 
             }
         }
 
-        return $html;
-
+        return $value;
     }
-
 
     /**
      * Check to see if the upload is an image

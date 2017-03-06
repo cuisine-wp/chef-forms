@@ -31,7 +31,8 @@
 		 */
 		public function buildPreview(){
 	
-			echo '<strong>'.esc_html( $this->getField( 'title' ) ).'</strong>';
+			$title = $this->getField( 'title' );
+			echo '<strong>'.esc_html( $title['text'] ).'</strong>';
 	
 		}
 	
@@ -49,7 +50,7 @@
 			echo '<div class="main-content">';
 			
 				foreach( $fields as $field ){
-	
+				
 					$field->render();
 	
 					//if a field has a JS-template, we need to render it:
@@ -73,13 +74,13 @@
 		/**
 		 * Get the fields for this column
 		 * 
-		 * @return [type] [description]
+		 * @return Array
 		 */
-		private function getFields(){
+		public function getFields(){
 	
 			$fields = array(
 
-				Field::text( 
+				Field::title( 
 					'title', 				//id
 					__('Title Label','chefforms'),			//label
 					
