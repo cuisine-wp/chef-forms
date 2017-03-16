@@ -487,6 +487,12 @@
 				);
 			}
 
+			//then, check required fields in php again:
+			$validator = new Validator( $this );
+			if( !$validator->isValid() ){
+				$this->message = $validator->getMessage();
+			}
+
 			//if the message has already been set, return it right away:
 			if( !empty( $this->message ) && $this->message['error'] )
 				return json_encode( $this->message );

@@ -24,7 +24,7 @@
 		 * 
 		 * @return bool
 		 */
-		public static function isClean(){
+		public static function isClean( $form ){
 
 			//this is spam
 			if( isset( $_POST['url'] ) && $_POST['url'] !== '' )
