@@ -718,6 +718,9 @@
 			$confirmations = get_post_meta( $this->id, 'confirmation', true );
 			if( !$confirmations )
 				$confirmations = array();
+				
+			if( !is_array($settings) )
+				$settings = Array( $settings );
 
 			$settings = array_merge( $settings, $confirmations );
 
