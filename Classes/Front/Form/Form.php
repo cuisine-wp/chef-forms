@@ -191,7 +191,7 @@
 						foreach( $this->fields as $field ){
 
 							//open a field row:
-							if( $field->row !== $currentRow )
+							if( $field->row !== $currentRow && ( !isset( $field->properties['ignoreRow'] ) || $field->properties['ignoreRow'] == false ) )
 								echo '<div class="field-row">';
 
 							$field->render();
@@ -201,7 +201,11 @@
 
 							//close the field row:
 							if( isset( $this->fields[ $currentField ] ) ){
-								if( $this->fields[ $currentField ]->row !== $currentRow )
+								
+								if( 
+									$this->fields[ $currentField ]->row !== $currentRow &&
+									( !isset( $field->properties['ignoreRow'] ) || $field->properties['ignoreRow'] == false )
+								)
 									echo '</div>';
 
 							}else{
@@ -212,6 +216,8 @@
 						}
 
 					echo '</div>';
+
+					do_action( 'chef_forms_after_fields', $this );
 
 					if( apply_filters( 'chef_forms_show_footer', true, $this ) ){
 

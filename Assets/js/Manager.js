@@ -41,12 +41,12 @@ var FormManager = Backbone.View.extend({
 
 		var self = this;
 
-		if( $( '.form-builder-fields').length > 0 ){
+		if( jQuery( '.form-builder-fields').length > 0 ){
 
 			//set width:
-			var _w = $('.form-builder-fields').innerWidth();
-			var _builder = $('.toolbar');
-			var _container = $('.form-builder-fields');
+			var _w = jQuery('.form-builder-fields').innerWidth();
+			var _builder = jQuery('.toolbar');
+			var _container = jQuery('.form-builder-fields');
 			var _offset = _builder.offset().top;
 
 			_builder.css({
@@ -56,10 +56,10 @@ var FormManager = Backbone.View.extend({
 
 
 			//set the builder as sticky:
-			$( window ).on( 'scroll', function(){
+			jQuery( window ).on( 'scroll', function(){
 
-				var _scrollPos = $( window ).scrollTop();
-				_scrollPos += $( '#wpadminbar' ).outerHeight();
+				var _scrollPos = jQuery( window ).scrollTop();
+				_scrollPos += jQuery( '#wpadminbar' ).outerHeight();
 
 
 				if( _scrollPos > _offset && _builder.hasClass( 'sticky' ) == false ){
@@ -78,9 +78,9 @@ var FormManager = Backbone.View.extend({
 
 			});
 
-			$('#updatePost').on( 'click tap', function(){
-				$('.form-field-bar .spinner').addClass( 'show' );
-				$('#publish').trigger( 'click' );
+			jQuery('#updatePost').on( 'click tap', function(){
+				jQuery('.form-field-bar .spinner').addClass( 'show' );
+				jQuery('#publish').trigger( 'click' );
 			});
 		}
 	},
@@ -121,8 +121,8 @@ var FormManager = Backbone.View.extend({
 		var self = this;
 		self.addFieldByDrag();
 
-		$('#updatePost').on( 'click tap', function(){
-			$('.toolbar .spinner').addClass( 'show' );
+		jQuery('#updatePost').on( 'click tap', function(){
+			jQuery('.toolbar .spinner').addClass( 'show' );
 		});
 
 	},
@@ -138,11 +138,11 @@ var FormManager = Backbone.View.extend({
 
 		var self = this;
 
-		if( $( '.row' ).data( 'sortable' ) )
-			$( ".row" ).sortable( "destroy" );
+		if( jQuery( '.row' ).data( 'sortable' ) )
+			jQuery( ".row" ).sortable( "destroy" );
 
 		var _extraOffset = 0;
-		$('.row').sortable({
+		jQuery('.row:not(.ignore)').sortable({
 			connectWith: '.row:not(.full)',
 			tolerance: 'pointer',
 			placeholder: 'placeholder',
@@ -153,14 +153,16 @@ var FormManager = Backbone.View.extend({
 			cursorAt: {top: 50, left: 50},
 			start: function( e, ui ){
 
-				//$( this ).disableSelection();
-				$('.form-builder-fields').addClass('sorting');
+				//jQuery( this ).disableSelection();
+				jQuery('.form-builder-fields').addClass('sorting');
 
 			},
 		    stop: function( e, ui ){
 
-				//$( this ).enableSelection();
-				$('.form-builder-fields').removeClass('sorting');
+				//jQuery( this ).enableSelection();
+				jQuery('.form-builder-fields').removeClass('sorting');
+				jQuery('.row:not(.ignore)').sortable('refresh');
+
 				_extraOffset = 0;
 				if( jQuery( ui.item ).hasClass( 'add-field') == false )
 					self.calculateRowsAndPositions();
@@ -229,14 +231,28 @@ var FormManager = Backbone.View.extend({
 
 	 	var self = this;
 
-	 	$('.add-field').draggable({
+	 	jQuery('.add-field').draggable({
 	 		connectToSortable: '.row:not(.full)',
 	 		helper: 'clone',
 
+	 		create: function( event, ui ){
+
+				var _ignoreRows = $( this ).data('ignorerows');
+				if( _ignoreRows == true || _ignoreRows == 'true' ){
+					jQuery( this ).draggable( "option", "connectToSortable", ".row.empty" );
+				}
+
+	 		},
+
 	 		stop: function( event, ui ){
 
-	 			var _placeholder = $('.row .add-field.ui-draggable-handle' );
+				var _ignoreRows = $( this ).data('ignorerows');
+	 			var _placeholder = jQuery('.row .add-field.ui-draggable-handle' );
 	 			_placeholder.addClass('placeholder placeholder-block');
+
+	 			if( _ignoreRows == true || _ignoreRows == 'true' )
+	 				_placeholder.addClass('full ignoreRows');
+
 	 			_placeholder.html( '<span class="spinner"></span> Adding field...' );
 	 			_placeholder.parent().removeClass( 'empty' );
 
@@ -248,7 +264,7 @@ var FormManager = Backbone.View.extend({
 	 				type: _placeholder.data( 'type' )
 	 			}
 
-	 			$.post( ajaxurl, data, function( response ){
+	 			jQuery.post( ajaxurl, data, function( response ){
 
 	 				if( response !== 'error' ){
 	 					_placeholder.replaceWith( response );
@@ -257,6 +273,7 @@ var FormManager = Backbone.View.extend({
 	 				}
 
 	 			});
+
 	 		}
 	 	});
 	},
@@ -317,38 +334,38 @@ var FormManager = Backbone.View.extend({
 		var rowId = 1;
 		var position = 0;
 
-		$( window ).trigger( 'before-row-calculation' );
+		jQuery( window ).trigger( 'before-row-calculation' );
 
-		$('.form-builder-fields .row').each( function(){
+		jQuery('.form-builder-fields .row').each( function(){
 
-			var _children = $( this ).find( '.field-block' );
+			var _children = jQuery( this ).find( '.field-block' );
 
-			if( _children.length > 0 ){
+			if( _children.length > 0 && jQuery( this ).hasClass( 'ignoreRows') == false ){
 
-				$( this ).removeClass( 'full' );
-				$( this ).removeClass( 'empty' );
+				jQuery( this ).removeClass( 'full' );
+				jQuery( this ).removeClass( 'empty' );
 
 				_children.each( function(){
 
-					$( this ).find('.position-input').val( position );
-					$( this ).find('.row-input').val( rowId );
+					jQuery( this ).find('.position-input').val( position );
+					jQuery( this ).find('.row-input').val( rowId );
 					position++;
 				});
 
 				if( _children.length >= 3 )
-					$( this ).addClass( 'full' );
+					jQuery( this ).addClass( 'full' );
 
 				rowId++;
 
 			}else{
 
 				//remove empty rows:
-				$( this ).remove();
+				jQuery( this ).remove();
 			}
 
 		});
 
-		$( window ).trigger( 'before-row-calculation' );
+		jQuery( window ).trigger( 'before-row-calculation' );
 
 		//after changing that, add new empty rows:
 		self.setupRows();
@@ -373,14 +390,14 @@ var FormManager = Backbone.View.extend({
 });
 
 
-jQuery( document ).ready( function( $ ){
+jQuery( document ).ready( function( jQuery ){
 
-	if( $('.form-manager').length > 0 )
-		window.formManager = new FormManager( { el: $('.form-manager' ) } );
+	if( jQuery('.form-manager').length > 0 )
+		window.formManager = new FormManager( { el: jQuery('.form-manager' ) } );
 
 	//handle entry-toggling:
-	$('.single-entry .entry-preview').on( 'click tap', function(){
-		$( this ).parent().toggleClass( 'active' );
+	jQuery('.single-entry .entry-preview').on( 'click tap', function(){
+		jQuery( this ).parent().toggleClass( 'active' );
 	});
 });
 

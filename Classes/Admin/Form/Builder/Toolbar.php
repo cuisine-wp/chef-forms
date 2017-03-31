@@ -77,7 +77,12 @@ class Toolbar{
 						$html .= '<ul class="submenu">';
 						foreach( $fields[$key] as $type => $item ){
 
-							$html .= '<li class="add-field button" data-type="'.esc_attr( $type ).'">';
+							$html .= '<li class="add-field button" data-type="'.esc_attr( $type ).'"';
+
+								if( isset( $item['ignoreRows'] ) && $item['ignoreRows'] == true )
+									$html .= ' data-ignoreRows="true"';
+
+							$html .= '>';
 
 							if( isset( $item['icon'] ) )
 								$html .= '<i class="dashicons '.esc_attr( $item['icon'] ).'"></i>';

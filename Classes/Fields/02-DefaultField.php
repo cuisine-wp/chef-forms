@@ -623,6 +623,9 @@ class DefaultField{
         if( !isset( $this->properties['row'] ) )
             $this->properties['row'] = false;
 
+        if( !isset( $this->properties['ignoreRow'] ) )
+            $this->properties['ignoreRow'] = false;
+
     }
 
     /**

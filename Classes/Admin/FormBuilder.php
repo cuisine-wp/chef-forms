@@ -1,6 +1,7 @@
 <?php
 namespace ChefForms\Admin;
 
+use Cuisine\Utilities\Sort;
 
 class FormBuilder {
 

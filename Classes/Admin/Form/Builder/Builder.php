@@ -90,8 +90,14 @@ class Builder{
 				if( empty( $field ) )
 					continue;
 
-				if( !isset( $field->row ) || $field->row !== $currentRow )
-					echo '</div><div class="row">';
+				if( !isset( $field->row ) || $field->row !== $currentRow ){
+					$class = 'row';
+
+					if( $field->properties['ignoreRow'] )
+						$class .= ' full ignore';
+
+					echo '</div><div class="'.$class.'">';
+				}
 
 				$field->build();
 				$currentRow = ( $field->row != '' ? $field->row : $currentRow++ );
@@ -277,7 +283,7 @@ class Builder{
 
 			foreach( $this->fields as $field ){
 
-				if( $field->id > $highID )
+				if( isset( $field->id ) && $field->id > $highID )
 					$highID = $field->id;
 
 			}
