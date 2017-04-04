@@ -191,8 +191,17 @@
 						foreach( $this->fields as $field ){
 
 							//open a field row:
-							if( $field->row !== $currentRow && ( !isset( $field->properties['ignoreRow'] ) || $field->properties['ignoreRow'] == false ) )
-								echo '<div class="field-row">';
+							if( 
+								$field->row !== $currentRow && 
+								( 
+									!isset( $field->properties['ignoreRow'] ) || 
+									$field->properties['ignoreRow'] == false )
+							){
+
+								$class = apply_filters( 'chef_forms_row_class', 'field-row', $field );
+								echo '<div class="'.$class.'">';
+							
+							}
 
 							$field->render();
 

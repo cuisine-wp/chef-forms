@@ -128,8 +128,11 @@ namespace ChefForms\Front\Form;
 				$_entry = $_POST['entry'];
 			} 
 
+			
 			//set a prefix
 			$prefix = 'field_'.$this->form->id.'_';
+
+			dd( $this->form );
 
 			//loop through the form fields:
 			foreach( $this->form->fields as $field ){

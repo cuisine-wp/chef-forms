@@ -184,6 +184,8 @@ class DefaultField{
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
             $this->properties['required'] = false;
 
+        $this->properties = apply_filters( 'chef_forms_field_properties', $this->properties, $this );
+
     }
 
 
