@@ -108,6 +108,7 @@ class DefaultField{
         $this->name = $this->properties['name'];
         $this->fieldType();
 
+
         if( isset( $this->properties['deletable'] ) ){
 
             if( $this->properties['deletable'] == 'false' || $this->properties['deletable'] == false )
@@ -130,7 +131,6 @@ class DefaultField{
 
         //set the label
         $this->label = $this->getLabel();
-
 
     }
 

@@ -143,17 +143,21 @@ class FormBuilder {
 		foreach( $this->fields as $field ){
 
 			$row = $i + 1;
-			$fields[ $i ] = array(
+			$position = $i + 1;
+			$classes = $this->getClasses( $field );
+			$validation = $this->getValidation( $field );
 
+			$fields[ $i ] = array(
 				'label'			=> ( $field->label != '' ? $field->label : $field->name ),
-				'type'			=> $field->type,
 				'placeholder'	=> $field->getProperty( 'placeholder' ),
 				'deletable'		=> $field->getProperty( 'deletable' ),
 				'defaultValue'	=> $field->getDefault(),
-				'validation'	=> $field->getProperty( 'validation' ),
 				'required'		=> ( $field->getProperty( 'required' ) ? 'true' : 'false' ),
 				'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $row ),
-				'position'		=> $i + 1
+				'type'			=> ( $field->getProperty( 'field_type' ) ? $field->getProperty( 'field_type' ) : $field->type ),
+				'position'		=> ( ( $field->getProperty( 'position', 0 ) > 0 ) ? $field->getProperty( 'position' ) : $position ),
+				'classes'		=> $classes,
+				'validation'	=> $validation
 			);
 
 			$i++;
@@ -162,6 +166,57 @@ class FormBuilder {
 		//save it:
 		update_post_meta( $this->id, 'fields', $fields );
 
+	}
+
+	/**
+	 * Returns the field's classes
+	 * 
+	 * @param  Cuisine\Wrappers\Field $field
+	 * 
+	 * @return String
+	 */
+	public function getClasses( $field )
+	{
+		$classes = [];
+		if( $field->getProperty( 'classes', false ) ){
+			if( is_array( $field->getProperty( 'classes' ) ) ){
+				$classes = $field->getProperty( 'classes' );
+			}else{
+				$classes = explode( ' ', $field->getProperty( 'classes' ) );
+			}
+		}
+
+		if( $field->getProperty( 'class', false ) )
+			$classes[] = $field->getProperty( 'class' );
+		
+		if( is_array( $classes ) )
+			return implode( ' ', $classes );
+	
+		return '';
+	}
+
+	/**
+	 * Return validation strings
+	 * 
+	 * @param  Cuisine\Wrappers\Field $field
+	 * 
+	 * @return String
+	 */
+	public function getValidation( $field )
+	{
+		$validation = [];
+		if( $field->getProperty( 'validation', false ) ){
+			if( is_array( $field->getProperty( 'validation' ) ) ){
+				$validation = $field->getProperty( 'validation' );
+			}else{
+				$validation = explode( ' ', $field->getProperty( 'validation' ) );
+			}
+		}
+
+		if( $field->getProperty( 'validate', false ) )
+			$validation[] = $field->getProperty( 'validate' );
+		
+		return implode( ' ', $validation );	
 	}
 
 
