@@ -65,6 +65,8 @@ define([
 			self.setEvents();
 			self.setFields();
 
+			self.el.trigger( 'form-initted' );
+
 		}
 
 
@@ -121,6 +123,13 @@ define([
 			});
 
 
+			//validate fields initially, if they're not empty:
+			self.fields.each( function(){
+				if( jQuery( this ).val() !== '' ){
+					self.validateField( jQuery( this ) )
+				}
+			});
+
 
 			//field validation on blur:
 			self.el.find( '.field' ).on( 'blur', function( e ){
@@ -128,6 +137,7 @@ define([
 				self.validate( e );
 
 			});
+
 		}
 
 		/**
