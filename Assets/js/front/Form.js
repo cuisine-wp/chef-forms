@@ -266,13 +266,24 @@ define([
 
 					self.el.trigger( 'onResponse', [ response, self ] );
 
+					var isError = false;
+					if( typeof( response.error ) != 'undefined' && response.error == true )
+						isError = true;
 
 					//otherwise, clear the loader and display the message.
 					self.el.addClass( 'msg' );
-					self.el.append('<div class="message">'+ response.message +'</div>' );
+					var _class = 'message';
+					if( isError )
+						_class += ' error';
 
-					self.resetFields();
-					self.el.trigger( 'onComplete', [ response, self ] );
+					self.el.append('<div class="'+_class+'">'+ response.message +'</div>' );
+
+					if( isError == false  ){
+						self.resetFields();
+						self.el.trigger( 'onComplete', [ response, self ] );
+					}else{
+						self.submitted = false;
+					}
 
 					//remove message after 3 seconds, if the form doesn't have a data attribute set:
 					if( self.el.data( 'maintain-msg' ) === undefined ){
