@@ -32,25 +32,31 @@
 			//creating post types:
 			add_action( 'init', function(){
 
+				$formOptions = apply_filters( 'chef_forms_form_post_type_options', array( 
+					'supports' => array( 'title' ),
+					'menu_icon' => 'dashicons-editor-quote'
+				));
+
 				PostType::make( 
 					
 					'form', 
 					__( 'Forms', 'chefforms' ),
 					__( 'Form', 'chefforms' )
 
-				)->set( array( 
-					'supports' => array( 'title' ),
-					'menu_icon' => 'dashicons-editor-quote'
-				) );
+				)->set( $formOptions );
 
 
+				$entryOptions = apply_filters( 'chef_forms_entry_post_type_options', array( 
+					'public' => false 
+				));
+				
 				PostType::make( 
 					
 					'form-entry', 
 					__( 'Entries', 'chefforms' ),
 					__( 'Entry', 'chefforms' )
 
-				)->set( array( 'public' => false ) );	
+				)->set( $entryOptions );	
 
 
 			}, 100, 0 );

@@ -65,6 +65,7 @@ namespace ChefForms\Front\Form;
 				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
 			);
 
+			$args = apply_filters( 'chef-forms-entry-postdata', $args, $this->form );
 			$entryId = wp_insert_post( $args );
 
 			//set entry id in the post global, for easy acces:

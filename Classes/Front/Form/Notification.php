@@ -202,7 +202,7 @@ class Notification {
 		ob_start();
 
 			$params = array( 'msg' => $msg );
-			Template::element( 'forms/Notification', $default )->display( $params );
+			Template::find( 'email/layout', $default )->display( $params );
 
 		$this->message = ob_get_clean();
 

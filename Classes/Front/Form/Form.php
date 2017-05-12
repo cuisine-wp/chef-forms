@@ -356,7 +356,8 @@
 		 */
 		public function display(){
 
-			echo $this->html;
+			if( apply_filters( 'chef_forms_display_form', true, $this ) )
+				echo $this->html;
 
 		}
 
