@@ -115,10 +115,13 @@ define([
 
 				}
 
+				if( allValidated == false )
+					self.el.trigger('validationErrors');
 
 				//only return false in the case of no ajax:
-				if( self.allowAjax() || allValidated == false )
+				if( self.allowAjax() || allValidated == false ){
 					return false;
+				}
 
 			});
 
@@ -394,6 +397,7 @@ define([
 				for( var i = 0; i < validators.length; i++ ){
 
 					var criterium = validators[ i ];
+					var isRequired = ( validators.indexOf( 'required' ) > -1 ? true : false );
 
 					switch( criterium ){
 
@@ -407,7 +411,10 @@ define([
 						break;
 						case 'email':
 
-							if( value != '' && Validate.email( value ) === false ){
+							if( 
+								( isRequired && value == '' ) || 
+								( value != '' && Validate.email( value ) === false )
+							){
 								validated = false;
 								type = 'email';
 							}
@@ -415,7 +422,10 @@ define([
 						break;
 						case 'number':
 
-							if( value != '' && Validate.number( value ) === false ){
+							if( 
+								( isRequired && value == '' ) || 
+								( value != '' && Validate.number( value ) === false )
+							){
 								validated = false;
 								type = 'number';
 							}
@@ -442,7 +452,10 @@ define([
 
 						case 'address':
 
-							if( value != '' && Validate.has_number( value ) === false ){
+							if( 
+								( isRequired && value == '' ) || 
+								( value != '' && Validate.has_number( value ) === false )
+							){
 								validated = false;
 								type = 'address';
 							}
@@ -450,10 +463,34 @@ define([
 						break;
 						case 'zipcode':
 
+							//Netherlands & Belgium:
+							var _countryField = obj.parent().parent().next().find('.country');
+							var reg = /^[1-9][0-9]{3} ?[a-z]{2}$/i;	
+
+							//check for belgium:
+							if( _countryField.length > 0 ){
+								var _country = _countryField.val().toLowerCase();
+
+								if( _country != 'nl' && _country != 'nederland' && _country != 'the netherlands' ){
+									reg = /^[0-9]{4}$/;
+								}
+							}
+							
+                			if( 
+                				( isRequired && value == '' ) || 
+                				( value != '' && !reg.test( value ) )
+                			){
+                				validated = false;
+                				type = 'zipcode';
+                			}
+
+						break;
+						case 'international-zip':
 							//check for validati IDs:
 							var _valBy = obj.data('validate').split(',');
 							var _country = undefined;
 							var _field = false;
+							
 
 							//if there's specific validate data set:
 							if( _valBy.length > 1 ){
@@ -477,9 +514,15 @@ define([
 
 									self.setReverseZipValidate( $( '.'+_name ), obj.attr('id') );
  								}
+
+ 								
 							}
 
-							if( value != '' && Validate.zipcode( value, _country ) === false ){
+				
+							if( 
+								( isRequired && value == '' ) || 
+								( value != '' && Validate.zipcode( value, _country ) === false )
+							){
 								validated = false;
 								type = 'zipcode';
 							}
