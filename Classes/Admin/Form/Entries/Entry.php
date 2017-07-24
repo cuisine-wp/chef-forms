@@ -119,6 +119,8 @@ class Entry{
 
 				echo '</table>';
 
+				$this->deleteButton();
+
 			echo '</div>';
 
 			do_action(
@@ -129,6 +131,37 @@ class Entry{
 
 
 		echo '</div>';
+	}
+
+
+
+	/**
+	 * Create the delete button
+	 * 
+	 * @return String (html, echoed)
+	 */
+	public function deleteButton()
+	{
+		
+		echo '<form method="post">';
+
+			wp_nonce_field( 'delete_entry', 'entry_nonce' );
+
+			echo '<input type="hidden" name="entry_id" value="'.$this->id.'">';
+
+			echo '<input type="hidden" name="post_type" value="form">';
+			echo '<input type="hidden" name="page" value="form_entries">';
+
+			if( isset( $_GET['parent'] ) )
+				echo '<input type="hidden" name="parent" value="'.$_GET['parent'].'">';
+
+			if( isset( $_GET['entry_page'] ) )
+				echo '<input type="hidden" name="entry_page" value="'.$_GET['entry_page'].'">';		
+
+
+			echo '<button class="button danger">'.__( 'Delete entry', 'chefforms' ).'</button>';
+
+		echo '</form>';
 	}
 
 

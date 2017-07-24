@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Chef Forms\n"
-"POT-Creation-Date: 2016-11-15 12:54+0100\n"
-"PO-Revision-Date: 2016-11-15 13:54+0100\n"
+"POT-Creation-Date: 2017-07-24 14:47+0200\n"
+"PO-Revision-Date: 2017-07-24 14:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: Classes/Admin/EventListeners.php:75 Classes/Front/EventListeners.php:50
+#: Classes/Admin/EventListeners.php:75 Classes/Front/EventListeners.php:56
 msgid "Entries"
 msgstr "Inzendingen"
 
@@ -29,7 +29,7 @@ msgid "Form Entries"
 msgstr "Formulier inzendingen"
 
 #: Classes/Admin/EventListeners.php:86
-#: Classes/Admin/Form/Builder/Toolbar.php:32 Classes/Admin/Form/Manager.php:99
+#: Classes/Admin/Form/Builder/Toolbar.php:33 Classes/Admin/Form/Manager.php:99
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -53,55 +53,59 @@ msgstr "Mandrill gebruiker"
 msgid "Mandrill Password"
 msgstr "Mandrill wachtwoord"
 
-#: Classes/Admin/Form/Builder/Builder.php:105
+#: Classes/Admin/Form/Builder/Builder.php:111
 msgid "No fields created yet."
 msgstr "Nog geen velden aangemaakt."
 
-#: Classes/Admin/Form/Builder/Toolbar.php:22 Classes/Admin/Form/Manager.php:79
+#: Classes/Admin/Form/Builder/Toolbar.php:23 Classes/Admin/Form/Manager.php:79
 msgid "Form builder"
 msgstr "Formulier bouwer"
 
-#: Classes/Admin/Form/Builder/Toolbar.php:27 Classes/Admin/Form/Manager.php:89
+#: Classes/Admin/Form/Builder/Toolbar.php:28 Classes/Admin/Form/Manager.php:89
 msgid "Notifications"
 msgstr "Notificaties"
 
-#: Classes/Admin/Form/Builder/Toolbar.php:44
+#: Classes/Admin/Form/Builder/Toolbar.php:45
 msgid "Update"
 msgstr "Bewerken"
 
-#: Classes/Admin/Form/Builder/Toolbar.php:110
+#: Classes/Admin/Form/Builder/Toolbar.php:116
 msgid "Add notification"
 msgstr "Nieuwe notificatie"
 
-#: Classes/Admin/Form/Builder/Toolbar.php:126
-msgid "Main Settings"
-msgstr "Hoofdinstellingen"
-
-#: Classes/Admin/Form/Builder/Toolbar.php:185
+#: Classes/Admin/Form/Builder/Toolbar.php:186
 msgid "Default fields"
 msgstr "Standaard velden"
 
-#: Classes/Admin/Form/Builder/Toolbar.php:190
+#: Classes/Admin/Form/Builder/Toolbar.php:191
 msgid "Advanced fields"
 msgstr "Geavanceerde velden"
 
-#: Classes/Admin/Form/Builder/Toolbar.php:195
+#: Classes/Admin/Form/Builder/Toolbar.php:196
 msgid "Design elements"
 msgstr "Design elementen"
+
+#: Classes/Admin/Form/Entries/Entry.php:162
+msgid "Delete entry"
+msgstr "Verwijder inzending"
+
+#: Classes/Admin/Form/Entries/EventListeners.php:39
+msgid "Entry deleted"
+msgstr "Inzending verwijderd"
 
 #: Classes/Admin/Form/Entries/Manager.php:128
 msgid "No entries yet"
 msgstr "Nog geen inzendingen"
 
-#: Classes/Admin/Form/Entries/Manager.php:155
+#: Classes/Admin/Form/Entries/Manager.php:159
 msgid "Entries from form"
 msgstr "Inzendingen van formulier"
 
-#: Classes/Admin/Form/Entries/Manager.php:166
+#: Classes/Admin/Form/Entries/Manager.php:170
 msgid "Filter"
 msgstr "Filteren"
 
-#: Classes/Admin/Form/Entries/Manager.php:313
+#: Classes/Admin/Form/Entries/Manager.php:334
 msgid "All forms"
 msgstr "Alle formulieren"
 
@@ -118,55 +122,76 @@ msgstr "Onderwerp"
 msgid "Notification"
 msgstr "Notificatie"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:169
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:33
+msgid "Main Settings"
+msgstr "Hoofdinstellingen"
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:40
+msgid "Confirmation"
+msgstr "Bevestiging"
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:57
 msgid "Button text"
 msgstr "Knoptekst"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:171
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:59
 msgid "Send"
 msgstr "Verzenden"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:178
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:66
 msgid "No labels"
 msgstr "Geen labels"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:179
-msgid "Labels above"
-msgstr "Labels boven"
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:67
+msgid "Labels on top"
+msgstr "Labels bovenaan"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:180
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:68
 msgid "Labels left"
 msgstr "Labels links"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:188
-msgid "Confirmation-message"
-msgstr "Bevestigingsbericht"
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:76
+msgid "Maximal amount of entries"
+msgstr "Miximaal aantal inzendingen"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:190
-msgid "Your message has been successfully sent. We will contact you very soon!"
-msgstr ""
-"Jouw bericht is succesvol verzonden. We zullen zo snel mogelijk contact met "
-"je opnemen"
-
-#: Classes/Admin/Form/Settings/01-Manager.php:196
-msgid "Max number of submissions"
-msgstr "Maximaal aantal inzendingen"
-
-#: Classes/Admin/Form/Settings/01-Manager.php:204
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:81
 msgid "Valid from"
 msgstr "Geldig van"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:212
-msgid "Valid to"
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:86
+msgid "Valid through"
 msgstr "Geldig tot"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:220
-msgid "Leave confirmation message on the page after form submission"
-msgstr "Laat het bevestigingsbericht langer dan 30 seconden in beeld staa."
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:91
+msgid "Never use ajax for this form"
+msgstr "Nooit ajax gebruiken voor dit formulier"
 
-#: Classes/Admin/Form/Settings/01-Manager.php:228
-msgid "Never use ajax for submitting this form"
-msgstr "Nooit ajax gebruiken om dit formulier te posten"
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:114
+msgid "Confirmation message"
+msgstr "Bevestigingsbericht"
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:116
+msgid ""
+"Thank you very much for your message. We'll contact you as soon as possible."
+msgstr ""
+"Hartelijk bedankt voor uw bericht. We nemen zo spoedig mogelijk contact met "
+"u op."
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:122
+msgid "Don't automatically remove the confirmation message"
+msgstr "Verwijder het bevestigingsbericht niet automatisch"
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:130
+msgid "Redirect after sending a form"
+msgstr "Redirect na het versturen van dit formulier"
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:137
+msgid "Redirect to"
+msgstr "Redirect naar"
+
+#: Classes/Admin/Form/Settings/BaseSettingsPanelListener.php:160
+msgid "Don't redirect to a page"
+msgstr "Pagina niet redirecten"
 
 #: Classes/Fields/01-FieldFactory.php:291
 msgid "Tekst"
@@ -232,68 +257,67 @@ msgstr "Break"
 msgid "Adres"
 msgstr "Adres"
 
-#: Classes/Fields/02-DefaultField.php:292
-#: Classes/Fields/03-ChoiceField.php:133 Classes/Fields/BreakField.php:86
-#: Classes/Fields/HtmlField.php:100
+#: Classes/Fields/02-DefaultField.php:314 Classes/Fields/03-ChoiceField.php:133
+#: Classes/Fields/BreakField.php:86 Classes/Fields/HtmlField.php:100
 msgid "Default Options"
 msgstr "Standaard opties"
 
-#: Classes/Fields/02-DefaultField.php:392
+#: Classes/Fields/02-DefaultField.php:414
 msgid "Delete field"
 msgstr "Veld verwijderen"
 
-#: Classes/Fields/02-DefaultField.php:397
+#: Classes/Fields/02-DefaultField.php:419
 msgid "Edit"
 msgstr "Bewerken"
 
-#: Classes/Fields/02-DefaultField.php:423
+#: Classes/Fields/02-DefaultField.php:445
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: Classes/Fields/02-DefaultField.php:428
+#: Classes/Fields/02-DefaultField.php:450
 msgid "Save field"
 msgstr "Veld opslaan"
 
-#: Classes/Fields/02-DefaultField.php:471 Classes/Fields/AddressField.php:306
+#: Classes/Fields/02-DefaultField.php:493 Classes/Fields/AddressField.php:325
 msgid "Default value"
 msgstr "Standaard waarde"
 
-#: Classes/Fields/02-DefaultField.php:480
+#: Classes/Fields/02-DefaultField.php:502
 msgid "Required"
 msgstr "Verplicht"
 
-#: Classes/Fields/02-DefaultField.php:615
+#: Classes/Fields/02-DefaultField.php:640
 msgid "Some text"
 msgstr "Wat tekst"
 
-#: Classes/Fields/02-DefaultField.php:628
+#: Classes/Fields/02-DefaultField.php:653
 msgid "Basic options"
 msgstr "Basis opties"
 
 #: Classes/Fields/AddressField.php:90 Classes/Fields/AddressField.php:93
-#: Classes/Fields/AddressField.php:249 Classes/Fields/AddressField.php:402
+#: Classes/Fields/AddressField.php:268 Classes/Fields/AddressField.php:421
 msgid "Address"
 msgstr "Adres"
 
 #: Classes/Fields/AddressField.php:100 Classes/Fields/AddressField.php:103
-#: Classes/Fields/AddressField.php:251
+#: Classes/Fields/AddressField.php:270
 msgid "Zipcode"
 msgstr "Postcode"
 
 #: Classes/Fields/AddressField.php:111 Classes/Fields/AddressField.php:114
-#: Classes/Fields/AddressField.php:253
+#: Classes/Fields/AddressField.php:272
 msgid "City"
 msgstr "Stad"
 
-#: Classes/Fields/AddressField.php:314
+#: Classes/Fields/AddressField.php:333
 msgid "Country dropdown"
 msgstr "Landen dropdown"
 
-#: Classes/Fields/AddressField.php:323
+#: Classes/Fields/AddressField.php:342
 msgid "Required?"
 msgstr "Verplicht?"
 
-#: Classes/Fields/AddressField.php:380
+#: Classes/Fields/AddressField.php:399
 #: Classes/Hooks/Cuisine/MapperField.php:154
 msgid "No field"
 msgstr "Geen veld"
@@ -302,7 +326,7 @@ msgstr "Geen veld"
 msgid "True or false?"
 msgstr "Waar / niet waar?"
 
-#: Classes/Fields/CheckboxesField.php:82
+#: Classes/Fields/CheckboxesField.php:74
 msgid "Please select some"
 msgstr "Selecteer enkele"
 
@@ -314,7 +338,7 @@ msgstr "Selecteen een datum"
 msgid "E-mail"
 msgstr "E-mail"
 
-#: Classes/Fields/FileField.php:121
+#: Classes/Fields/FileField.php:119
 msgid "Upload"
 msgstr "Upload"
 
@@ -402,36 +426,36 @@ msgstr "Ongeldige postcode"
 msgid "This is not a valid domain"
 msgstr "Dit is geen geldig domein"
 
-#: Classes/Front/EventListeners.php:38
+#: Classes/Front/EventListeners.php:43
 msgid "Forms"
 msgstr "Formulieren"
 
-#: Classes/Front/EventListeners.php:39 Classes/Front/EventListeners.php:138
-#: Classes/Hooks/ChefSections/Column.php:95
+#: Classes/Front/EventListeners.php:44 Classes/Front/EventListeners.php:144
+#: Classes/Hooks/ChefSections/Column.php:96
 msgid "Form"
 msgstr "Formulier"
 
-#: Classes/Front/EventListeners.php:51
+#: Classes/Front/EventListeners.php:57
 msgid "Entry"
 msgstr "Inschrijving"
 
-#: Classes/Front/Form/Entry.php:242
+#: Classes/Front/Form/Entry.php:246
 msgid "Upload failed, please try again later"
 msgstr "Uploaden mislukt, probeer het later nog eens"
 
-#: Classes/Front/Form/Entry.php:254
+#: Classes/Front/Form/Entry.php:258
 msgid "The upload-folder couldn't be created..."
 msgstr "De upload-map kan niet aangemaakt worden"
 
-#: Classes/Front/Form/Form.php:473
+#: Classes/Front/Form/Form.php:494
 msgid "No valid nonce."
 msgstr "Geen geldige nonce"
 
-#: Classes/Front/Form/Form.php:481
+#: Classes/Front/Form/Form.php:502
 msgid "You seem to be spamming"
 msgstr "Het lijkt er op dat je aan het spammen bent"
 
-#: Classes/Hooks/ChefSections/Column.php:84
+#: Classes/Hooks/ChefSections/Column.php:85
 msgid "Title Label"
 msgstr "Titel Label"
 
@@ -470,3 +494,27 @@ msgstr "Waardes verschillen van label"
 #: Classes/Hooks/Cuisine/MultiField.php:164
 msgid "Waardes verschillen niet van label"
 msgstr "Waardes verschillen niet van label"
+
+#~ msgid "Labels above"
+#~ msgstr "Labels boven"
+
+#~ msgid "Confirmation-message"
+#~ msgstr "Bevestigingsbericht"
+
+#~ msgid ""
+#~ "Your message has been successfully sent. We will contact you very soon!"
+#~ msgstr ""
+#~ "Jouw bericht is succesvol verzonden. We zullen zo snel mogelijk contact "
+#~ "met je opnemen"
+
+#~ msgid "Max number of submissions"
+#~ msgstr "Maximaal aantal inzendingen"
+
+#~ msgid "Valid to"
+#~ msgstr "Geldig tot"
+
+#~ msgid "Leave confirmation message on the page after form submission"
+#~ msgstr "Laat het bevestigingsbericht langer dan 30 seconden in beeld staa."
+
+#~ msgid "Never use ajax for submitting this form"
+#~ msgstr "Nooit ajax gebruiken om dit formulier te posten"
