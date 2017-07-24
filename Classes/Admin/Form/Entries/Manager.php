@@ -226,6 +226,19 @@ class Manager{
 
 
 	/**
+	 * Set the entries per page
+	 * 
+	 * @param Int $num
+	 *
+	 * @return void
+	 */
+	public function setEntriesPerPage( $num )
+	{
+		$this->entriesPerPage = $num;
+	}
+
+
+	/**
 	 * Get the entries
 	 * 
 	 * @return array
