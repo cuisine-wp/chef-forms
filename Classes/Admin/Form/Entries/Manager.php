@@ -150,6 +150,8 @@ class Manager{
 
 		echo '<form class="entry-filter" action="'.esc_url( $url ).'" method="get">';
 
+			do_action( 'chef_forms_before_entry_toolbar_controls', $this->entries, $this->postId );
+
 			Field::select(
 				'parent',
 				__( 'Entries from form', 'chefforms' ),
@@ -164,6 +166,8 @@ class Manager{
 			echo '<input type="hidden" name="page" value="form-entries"/>';
 
 			echo '<button>'.__( 'Filter', 'chefforms' ).'</button>';
+
+			do_action( 'chef_forms_after_entry_toolbar_controls', $this->entries, $this->postId );
 
 		echo '</form>';
 
