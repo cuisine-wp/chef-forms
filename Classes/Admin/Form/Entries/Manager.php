@@ -148,28 +148,32 @@ class Manager{
 		$parent = ( isset( $_GET['parent'] ) ? $_GET['parent'] : 'all' );
 		$url = admin_url( 'edit.php' );
 
-		echo '<form class="entry-filter" action="'.esc_url( $url ).'" method="get">';
+		echo '<div class="entry-filter">';
 
 			do_action( 'chef_forms_before_entry_toolbar_controls', $this->entries, $this->postId );
 
-			Field::select(
-				'parent',
-				__( 'Entries from form', 'chefforms' ),
-				$forms,
-				array(
-					'defaultValue' => $parent
-				)
+			echo '<form action="'.esc_url( $url ).'" method="get">';
 
-			)->render();
+				Field::select(
+					'parent',
+					__( 'Entries from form', 'chefforms' ),
+					$forms,
+					array(
+						'defaultValue' => $parent
+					)
 
-			echo '<input type="hidden" name="post_type" value="form"/>';
-			echo '<input type="hidden" name="page" value="form-entries"/>';
+				)->render();
 
-			echo '<button>'.__( 'Filter', 'chefforms' ).'</button>';
+				echo '<input type="hidden" name="post_type" value="form"/>';
+				echo '<input type="hidden" name="page" value="form-entries"/>';
+
+				echo '<button>'.__( 'Filter', 'chefforms' ).'</button>';
+	
+			echo '</form>';
 
 			do_action( 'chef_forms_after_entry_toolbar_controls', $this->entries, $this->postId );
 
-		echo '</form>';
+		echo '</div>';
 
 	}
 
