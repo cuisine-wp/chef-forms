@@ -88,6 +88,7 @@
 					'equalLowerZero'	=> __( 'Mast be zero or lower', 'chefforms' ),
 					'higherZero'		=> __( 'Must be higer then zero', 'chefforms' ),
 					'lowerZero'			=> __( 'Must be lower then zero', 'chefforms' ),
+					'notchecked'		=> __( 'This should be checked', 'chefforms' ),
 					'address'	=> __( 'Don\'t forget your house number', 'chefforms' ),
 					'zipcode'	=> __( 'Invalid zipcode', 'chefforms' ),
 					'slug'		=> __( 'This is not a valid domain', 'chefforms' )

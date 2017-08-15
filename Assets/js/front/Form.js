@@ -568,8 +568,11 @@ define([
 				obj.addClass('validated-false');
 
 				var valError = ValidationErrors[ type ];
-				obj.after( '<span class="validation-error">'+ valError +'</span>' );
-
+				if( type == 'notchecked' ){
+					obj.parent().append( '<span class="validation-error">'+ valError +'</span>' );
+				}else{
+					obj.after( '<span class="validation-error">'+ valError +'</span>' );
+				}
 			}
 
 			return validated;

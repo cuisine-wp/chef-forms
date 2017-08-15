@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Chef Forms\n"
-"POT-Creation-Date: 2017-07-24 14:47+0200\n"
-"PO-Revision-Date: 2017-07-24 14:51+0200\n"
+"POT-Creation-Date: 2017-08-15 15:18+0200\n"
+"PO-Revision-Date: 2017-08-15 15:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -415,14 +415,18 @@ msgid "Must be lower then zero"
 msgstr "Dit moet lager dan nul zijn"
 
 #: Classes/Front/Assets.php:91
+msgid "This should be checked"
+msgstr "Dit veld moet geselecteerd zijn"
+
+#: Classes/Front/Assets.php:92
 msgid "Don't forget your house number"
 msgstr "Vergeet je huisnummer niet"
 
-#: Classes/Front/Assets.php:92
+#: Classes/Front/Assets.php:93
 msgid "Invalid zipcode"
 msgstr "Ongeldige postcode"
 
-#: Classes/Front/Assets.php:93
+#: Classes/Front/Assets.php:94
 msgid "This is not a valid domain"
 msgstr "Dit is geen geldig domein"
 
