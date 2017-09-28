@@ -142,6 +142,8 @@ class Manager{
 				)
 		);
 
+		$subFields = apply_filters( 'chef_forms_notification_sub_fields', $subFields );
+
 		$field = Field::repeater(
 			'notifications',
 			'',
