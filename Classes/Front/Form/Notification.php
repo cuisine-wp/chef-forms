@@ -202,7 +202,7 @@ class Notification {
 
 		ob_start();
 
-			$params = array( 'msg' => $msg );
+			$params = apply_filters( 'chef_forms_notification_params', array( 'msg' => $msg ) );
 			Template::find( $notificationTemplate, $default )->display( $params );
 
 		$this->message = ob_get_clean();
