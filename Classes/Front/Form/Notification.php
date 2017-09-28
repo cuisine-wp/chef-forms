@@ -198,11 +198,12 @@ class Notification {
 		$msg = Tag::notification( $msg, $this->fields, $this->entry );
 
 		$default = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
+		$notificationTemplate = apply_filters( 'chef_forms_notification_template', 'email/layout', $this );
 
 		ob_start();
 
 			$params = array( 'msg' => $msg );
-			Template::find( 'email/layout', $default )->display( $params );
+			Template::find( $notificationTemplate, $default )->display( $params );
 
 		$this->message = ob_get_clean();
 
