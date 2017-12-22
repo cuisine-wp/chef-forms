@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Field;
 use Cuisine\Utilities\Session;
@@ -87,20 +87,20 @@ class AddressField extends DefaultField{
 
             Field::text(
                 $this->id.'_street',
-                __('Address','chefforms'),
+                __('Address','CuisineForms'),
                 array(
                     'label'         => false,
-                    'placeholder'   => __('Address','chefforms'),
+                    'placeholder'   => __('Address','CuisineForms'),
                     'validation'    => $sVal
                 )
             ),
 
             Field::text(
                 $this->id.'_zip',
-                __('Zipcode','chefforms'),
+                __('Zipcode','CuisineForms'),
                 array(
                     'label'         => false,
-                    'placeholder'   => __('Zipcode','chefforms'),
+                    'placeholder'   => __('Zipcode','CuisineForms'),
                     'validation'    => $zVal,
                     'class'         => array( 'zip' )
                 )
@@ -108,10 +108,10 @@ class AddressField extends DefaultField{
 
             Field::text(
                 $this->id.'_city',
-                __('City','chefforms'),
+                __('City','CuisineForms'),
                 array(
                     'label' => false,
-                    'placeholder' => __('City','chefforms'),
+                    'placeholder' => __('City','CuisineForms'),
                     'class' => array( 'city' ),
                     'validation' => $cVal
                 )
@@ -265,11 +265,11 @@ class AddressField extends DefaultField{
         $html .= '<label class="preview-label">'.esc_html( $this->getLabel() ).'</label>';
         $html .= '<div class="preview-input-wrapper">';
 
-            $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'chefforms' ).'">';
+            $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'CuisineForms' ).'">';
 
-            $html .= '<input type="text" class="preview-input preview-zip" disabled placeholder="'.__( 'Zipcode', 'chefforms' ).'">';
+            $html .= '<input type="text" class="preview-input preview-zip" disabled placeholder="'.__( 'Zipcode', 'CuisineForms' ).'">';
 
-            $html .= '<input type="text" class="preview-input preview-city" disabled placeholder="'.__( 'City', 'chefforms' ).'">';
+            $html .= '<input type="text" class="preview-input preview-city" disabled placeholder="'.__( 'City', 'CuisineForms' ).'">';
 
         $html .= '</div>';
 
@@ -322,7 +322,7 @@ class AddressField extends DefaultField{
 
              Field::text(
                 $prefix.'[defaultValue]',
-                __('Default value','chefforms'),
+                __('Default value','CuisineForms'),
                 array(
                     'defaultValue'  => $this->getProperty( 'defaultValue' )
                 )
@@ -330,7 +330,7 @@ class AddressField extends DefaultField{
 
             Field::select(
                 $prefix.'[countrySelect]',
-                __( 'Country dropdown', 'chefforms' ),
+                __( 'Country dropdown', 'CuisineForms' ),
                 $countryOptions,
                 array(
                     'defaultValue' => $this->getProperty( 'countrySelect' )
@@ -339,7 +339,7 @@ class AddressField extends DefaultField{
 
             Field::checkbox(
                 $prefix.'[required]',
-                __('Required?','chefforms'),
+                __('Required?','CuisineForms'),
                 array(
                     'defaultValue'  => $this->getProperty( 'required' )
                 )
@@ -396,7 +396,7 @@ class AddressField extends DefaultField{
 
         $_id = ( isset( $_GET['post'] ) ? $_GET['post'] : Session::postId() );
 
-        $_dropdowns = array( 'none' => __('No field','chefforms') );
+        $_dropdowns = array( 'none' => __('No field','CuisineForms') );
         $fields = get_post_meta( $_id, 'fields', true );
 
         foreach( $fields as $fid => $field ){
@@ -418,7 +418,7 @@ class AddressField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Address', 'chefforms' );
+        return __( 'Address', 'CuisineForms' );
 
     }
 

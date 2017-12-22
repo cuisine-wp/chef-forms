@@ -1,10 +1,10 @@
 <?php
 
-	namespace ChefForms\Fields\Tabs;
+	namespace CuisineForms\Fields\Tabs;
 
 	use Cuisine\Wrappers\Field;
-	use ChefForms\Wrappers\StaticInstance;
-	use ChefForms\Wrappers\TabBuilder as Tab;
+	use CuisineForms\Wrappers\StaticInstance;
+	use CuisineForms\Wrappers\TabBuilder as Tab;
 
 	class AdvancedSettingsTab extends StaticInstance{
 
@@ -32,7 +32,7 @@
 
 				Tab::make( 
 
-					__( 'Advanced options', 'chefforms' ),
+					__( 'Advanced options', 'CuisineForms' ),
 					'advanced',
 					array(
 						'position' 	=> 1,
@@ -53,20 +53,20 @@
 			
 			$validate = array(
 
-				'required' 		=> __( 'Filled in', 'chefforms' ),
-				'email'			=> __( 'Valid email', 'chefforms' ),
-				'address'		=> __( 'Valid address', 'chefforms' ),
-				'zipcode'		=> __( 'Valid zipcode', 'chefforms' ),
-				'number'		=> __( 'Valid number', 'chefforms' ),
-				'not-negative'	=> __( 'Higher than zero', 'chefforms' ),
-				'not-positive'	=> __( 'Lower than zero', 'chefforms' )
+				'required' 		=> __( 'Filled in', 'CuisineForms' ),
+				'email'			=> __( 'Valid email', 'CuisineForms' ),
+				'address'		=> __( 'Valid address', 'CuisineForms' ),
+				'zipcode'		=> __( 'Valid zipcode', 'CuisineForms' ),
+				'number'		=> __( 'Valid number', 'CuisineForms' ),
+				'not-negative'	=> __( 'Higher than zero', 'CuisineForms' ),
+				'not-positive'	=> __( 'Lower than zero', 'CuisineForms' )
 			);
 
 			$fields = array(
 
 				Field::select(
 					'validation',
-					__( 'Validate as', 'chefforms' ),
+					__( 'Validate as', 'CuisineForms' ),
 					$validate,
 					array(
 						'class' => array( 'validate-selector' ),
@@ -76,19 +76,16 @@
 
 				Field::text( 
 					'classes',
-					__( 'CSS Classes', 'chefforms' ),
+					__( 'CSS Classes', 'CuisineForms' ),
 					array( 
-						'placeholder'  => __( 'Seperate with commas\'s', 'chefforms' )
+						'placeholder'  => __( 'Seperate with commas\'s', 'CuisineForms' )
 					)
 				)
 
 			);
 
-			$fields = apply_filters( 'chef_forms_advanced_field_settings', $fields, $this );
+			$fields = apply_filters( 'cuisine_forms_advanced_field_settings', $fields, $this );
 
 			return $fields;
 		}
-
 	}
-
-	\ChefForms\Fields\Tabs\AdvancedSettingsTab::getInstance();

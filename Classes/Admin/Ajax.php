@@ -1,10 +1,10 @@
 <?php
 
-	namespace ChefForms\Admin;
+	namespace CuisineForms\Admin;
 
 	use \stdClass;
-	use \ChefForms\Wrappers\AjaxInstance;
-	use \ChefForms\Wrappers\FormBuilderManager;
+	use \CuisineForms\Wrappers\AjaxInstance;
+	use \CuisineForms\Wrappers\FormBuilderManager;
 
 	class Ajax extends AjaxInstance{
 
@@ -49,9 +49,4 @@
 			});
 
 		}
-
 	}
-
-
-	if( is_admin() )
-		\ChefForms\Admin\Ajax::getInstance();

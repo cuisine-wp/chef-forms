@@ -1,11 +1,11 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Field;
 use Cuisine\Utilities\Sort;
-use ChefForms\Front\Form\Tag;
+use CuisineForms\Front\Form\Tag;
 
-class ChoiceField extends DefaultField{
+abstract class ChoiceField extends DefaultField{
 
 
     /*=============================================================*/
@@ -43,7 +43,7 @@ class ChoiceField extends DefaultField{
 
     	$this->getDefaultValue();
 
-        $this->properties['defaultValue'] = apply_filters( 'chef_forms_field_default_value', $this->properties['defaultValue'], $this );
+        $this->properties['defaultValue'] = apply_filters( 'cuisine_forms_field_default_value', $this->properties['defaultValue'], $this );
 
         if( isset( $this->properties['defaultValue'] ) && !is_array( $this->properties['defaultValue'] ) )
             $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
@@ -114,7 +114,7 @@ class ChoiceField extends DefaultField{
 
 	            echo '</div>';
 
-	            do_action( 'chef_forms_field_tab_content', $this );
+	            do_action( 'cuisine_forms_field_tab_content', $this );
 
 	        echo '</div>';
 	        $this->bottomControls();
@@ -130,7 +130,7 @@ class ChoiceField extends DefaultField{
 	 */
 	public function buildDefaultSettingsTab(){
 
-	    echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
+	    echo '<h2>'.__( 'Default Options', 'CuisineForms' ).'</h2>';
 
 
 	    $fields = $this->getFields();

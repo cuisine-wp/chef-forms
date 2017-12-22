@@ -1,14 +1,14 @@
 <?php
 
-	namespace ChefForms\Front\Form;
+	namespace CuisineForms\Front\Form;
 
-	use ChefForms\Wrappers\Field;
+	use CuisineForms\Wrappers\Field;
 	use Cuisine\Utilities\Sort;
 	use Cuisine\Utilities\Url;
 	use Cuisine\Utilities\Session;
 	use Cuisine\Wrappers\Template;
-	use ChefForms\Wrappers\Notification as FormNotification;
-	use ChefForms\Wrappers\Entry as FormEntry;
+	use CuisineForms\Wrappers\Notification as FormNotification;
+	use CuisineForms\Wrappers\Entry as FormEntry;
 
 	class Form {
 
@@ -116,7 +116,7 @@
 		private function init(){
 
 			//allow plugins to change the ID of this form on-the-fly
-			do_action( 'chef_forms_init_form', $this );
+			do_action( 'cuisine_forms_init_form', $this );
 
 
 			$this->setSettings();
@@ -124,7 +124,7 @@
 			$this->setValidity();
 			$this->setFields();
 
-			do_action( 'chef_forms_after_init', $this );
+			do_action( 'cuisine_forms_after_init', $this );
 
 		}
 
@@ -141,7 +141,7 @@
 		 *
 		 * @param  int $id form id
 		 * @param  bool $render
-		 * @return \ChefForms\Front\Form
+		 * @return \CuisineForms\Front\Form
 		 */
 		public function make( $id = null, $render = true ){
 
@@ -172,14 +172,14 @@
 				//show messages, if needed:
 				$this->showMessages();
 
-				do_action( 'chef_forms_before_form', $this );
+				do_action( 'cuisine_forms_before_form', $this );
 
 				//render the form-tag, with all attributes
 				$this->renderFormTag();
 
 				$this->renderNonce();
 
-					do_action( 'chef_forms_before_fields', $this );
+					do_action( 'cuisine_forms_before_fields', $this );
 
 					//anchor for message showing:
 					echo '<span class="form-anchor" id="f'.esc_attr( $this->id ).'"></span>';
@@ -198,7 +198,7 @@
 									$field->properties['ignoreRow'] == false )
 							){
 
-								$class = apply_filters( 'chef_forms_row_class', 'field-row', $field );
+								$class = apply_filters( 'cuisine_forms_row_class', 'field-row', $field );
 								echo '<div class="'.$class.'">';
 							
 							}
@@ -226,9 +226,9 @@
 
 					echo '</div>';
 
-					do_action( 'chef_forms_after_fields', $this );
+					do_action( 'cuisine_forms_after_fields', $this );
 
-					if( apply_filters( 'chef_forms_show_footer', true, $this ) ){
+					if( apply_filters( 'cuisine_forms_show_footer', true, $this ) ){
 
 						echo '<div class="form-footer">';
 
@@ -249,7 +249,7 @@
 				//close the form-tag
 				echo '</form>';
 
-				do_action( 'chef_forms_after_form', $this );
+				do_action( 'cuisine_forms_after_form', $this );
 
 			}else{
 
@@ -307,7 +307,7 @@
 			//message stickyness
 			if(
 				$this->getSetting( 'maintain_msg' ) === 'true' ||
-				apply_filters('chef_forms_maintain_msg', false, $this )
+				apply_filters('cuisine_forms_maintain_msg', false, $this )
 			){
 				echo ' data-maintain-msg="true"';
 			}
@@ -315,7 +315,7 @@
 			//no ajax
 			if(
 				$this->getSetting( 'no_ajax' ) === 'true' ||
-				apply_filters( 'chef_forms_no_ajax', false, $this )
+				apply_filters( 'cuisine_forms_no_ajax', false, $this )
 			){
 				echo ' data-no-ajax="true"';
 
@@ -356,7 +356,7 @@
 		 */
 		public function display(){
 
-			if( apply_filters( 'chef_forms_display_form', true, $this ) )
+			if( apply_filters( 'cuisine_forms_display_form', true, $this ) )
 				echo $this->html;
 
 		}
@@ -366,7 +366,7 @@
 		 * Return the form object
 		 *
 		 *
-		 * @return \ChefForms\Front\Form
+		 * @return \CuisineForms\Front\Form
 		 */
 		public function get( $name ){
 
@@ -434,7 +434,7 @@
 		/**
 		 * Retrieves this form from an existing session.
 		 *
-		 * @return ChefForms\Front\Form
+		 * @return CuisineForms\Front\Form
 		 */
 		public function retrieve(){
 
@@ -479,7 +479,7 @@
 		 * Save an entry to this form
 		 *
 		 * @param   Int $id ( the id for this form )
-		 * @return  \ChefForms\Front\Form
+		 * @return  \CuisineForms\Front\Form
 		 */
 		public function save( $id ){
 
@@ -491,7 +491,7 @@
 
 				$this->message = array(
 						'error'		=> 	true,
-						'message'	=> 	__( 'No valid nonce.', 'chefforms' )
+						'message'	=> 	__( 'No valid nonce.', 'CuisineForms' )
 				);
 			}
 
@@ -499,7 +499,7 @@
 			if( !AntiSpam::isClean() ){
 				$this->message = array(
 						'error'		=> true,
-						'message'	=> __( 'You seem to be spamming', 'chefforms' )
+						'message'	=> __( 'You seem to be spamming', 'CuisineForms' )
 				);
 			}
 
@@ -644,7 +644,7 @@
 				'form-'.$this->getSetting( 'slug' )
 			);
 
-			$classes = apply_filters( 'chef_forms_classes', $classes, $this );
+			$classes = apply_filters( 'cuisine_forms_classes', $classes, $this );
 
 			return implode( ' ', $classes );
 		}
@@ -769,20 +769,20 @@
 
 			//allow filters on all all hard refresh variables:
 			$this->submitMethod = apply_filters(
-				'chef_forms_submit_method',
+				'cuisine_forms_submit_method',
 				$this->submitMethod,
 				$this
 			);
 
 			$this->enctype = apply_filters(
-				'chef_forms_enctype',
+				'cuisine_forms_enctype',
 				$this->enctype,
 				$this
 			);
 
 			$this->returnLink = get_permalink( Session::rootPostId() ).'#f'.$this->id;
 			$this->returnLink = apply_filters(
-				'chef_forms_return_link',
+				'cuisine_forms_return_link',
 				$this->returnLink,
 				$this
 			);
@@ -883,7 +883,7 @@
 				}
 			}
 
-			$array = apply_filters( 'chef_forms_fields', $array, $this );
+			$array = apply_filters( 'cuisine_forms_fields', $array, $this );
 			$this->fields = $array;
 		}
 
@@ -913,7 +913,7 @@
 			}
 
 			//allow other plugins to filter this stuff:
-			$notifications = apply_filters( 'chef_forms_notifications', $notifications, $this );
+			$notifications = apply_filters( 'cuisine_forms_notifications', $notifications, $this );
 			return $notifications;
 		}
 

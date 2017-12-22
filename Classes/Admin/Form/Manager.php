@@ -1,12 +1,12 @@
 <?php
-namespace ChefForms\Admin\Form;
+namespace CuisineForms\Admin\Form;
 
 use Cuisine\Utilities\Session;
 use Cuisine\Wrappers\Field;
-use ChefForms\Wrappers\FormBuilderManager;
-use ChefForms\Wrappers\NotificationManager;
-use ChefForms\Wrappers\SettingsManager;
-use ChefForms\Wrappers\Toolbar;
+use CuisineForms\Wrappers\FormBuilderManager;
+use CuisineForms\Wrappers\NotificationManager;
+use CuisineForms\Wrappers\SettingsManager;
+use CuisineForms\Wrappers\Toolbar;
 
 
 class Manager{
@@ -76,7 +76,7 @@ class Manager{
 			echo '<div class="'.esc_attr( $class ).'" id="field-container">';
 
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
-				echo __( 'Form builder', 'chefforms' ).'</h2>';
+				echo __( 'Form builder', 'CuisineForms' ).'</h2>';
 
 				FormBuilderManager::build();
 				
@@ -86,7 +86,7 @@ class Manager{
 			echo '<div class="notifications-container form-view" id="notifications-container">';
 				
 				echo '<h2><span class="dashicons dashicons-megaphone"></span>';
-				echo __( 'Notifications', 'chefforms' ).'</h2>';
+				echo __( 'Notifications', 'CuisineForms' ).'</h2>';
 				
 				NotificationManager::build();
 			
@@ -96,7 +96,7 @@ class Manager{
 			echo '<div class="settings-container form-view" id="settings-container">';
 			
 				echo '<h2><span class="dashicons dashicons-admin-generic"></span>';
-				echo __( 'Settings', 'chefforms' ).'</h2>';
+				echo __( 'Settings', 'CuisineForms' ).'</h2>';
 			
 				SettingsManager::build();
 			

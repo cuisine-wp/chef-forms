@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Wrappers;
+namespace CuisineForms\Wrappers;
 
 class FormManager extends Wrapper {
 

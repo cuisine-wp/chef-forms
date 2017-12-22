@@ -1,21 +1,19 @@
 <?php
 /**
- * Plugin Name: Chef Forms
- * Plugin URI: http://chefduweb.nl/plugins/chef-forms
+ * Plugin Name: Cuisine Forms
+ * Plugin URI: https://get-cuisine.cooking/forms
  * Description: Create easy-to-use forms in seconds
- * Version: 2.2.0
+ * Version: 3.0.0
  * Author: Luc Princen
- * Author URI: http://www.chefduweb.nl/
+ * Author URI: https://get-cuisine.cooking/
  * License: GPLv2
- * Bitbucket Plugin URI: https://bitbucket.org/chefduweb/chef-forms
- * Bitbucket Branch:     master
  *
- * Text Domain: chefforms
+ * Text Domain: cuisineforms
  * Domain Path: /Languages/
  *
- * @package ChefForms
+ * @package CuisineForms
  * @category Core
- * @author Chef du Web
+ * @author Cuisine
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -25,23 +23,16 @@ defined('DS') ? DS : define('DS', DIRECTORY_SEPARATOR);
 /**
  * Main class that bootstraps the framework.
  */
-if (!class_exists('ChefForms')) {
+if (!class_exists('CuisineForms')) {
 
-    class ChefForms {
+    class CuisineForms {
 
         /**
-         * ChefForms bootstrap instance.
+         * CuisineForms bootstrap instance.
          *
-         * @var \ChefForms
+         * @var \CuisineForms
          */
         private static $instance = null;
-
-        /**
-         * ChefForms version.
-         *
-         * @var float
-         */
-        const VERSION = '2.2.0';
 
 
         /**
@@ -71,43 +62,18 @@ if (!class_exists('ChefForms')) {
 
             //load text-domain:
             $path = dirname( plugin_basename( __FILE__ ) ).'/Languages/';
-            load_plugin_textdomain( 'chefforms', false, $path );
+            load_plugin_textdomain( 'cuisineforms', false, $path );
 
-            //auto-loads all .php files in these directories.
-            $includes = array(
-                'Classes/Wrappers',
-                'Classes/Hooks/Cuisine',
+            //require the autoloader:
+            require( __DIR__ . DS . 'autoloader.php');
 
-                'Classes/Fields',
-                'Classes/Fields/Tabs',
+            //initiate the autoloader:
+            ( new \CuisineForms\Autoloader() )->register()->load();
 
-                'Classes/Front',
-                'Classes/Front/Form',
+            //new-up a deprecated class, to catch old filters & hooks:
+            new \CuisineForms\Deprecated();
 
-                'Classes/Admin/Form/Builder',
-                'Classes/Admin/Form/Entries',
-                'Classes/Admin/Form/Notifications',
-                'Classes/Admin/Form/Settings',
-                'Classes/Admin/Form',
-                'Classes/Admin'
-            );
-
-            $includes = apply_filters( 'chef_forms_autoload_dirs', $includes );
-
-
-            foreach( $includes as $inc ){
-
-                $root = static::getPluginPath();
-                $files = glob( $root.$inc.'/*.php' );
-
-                foreach ( $files as $file ){
-
-                    require_once( $file );
-
-                }
-            }
-
-            do_action( 'chef_forms_loaded' );
+            do_action( 'cuisine_forms_loaded' );
 
         }
 
@@ -122,7 +88,7 @@ if (!class_exists('ChefForms')) {
         /**
          * Init the forms classes
          *
-         * @return \ChefForms
+         * @return \CuisineForms
          */
         public static function getInstance(){
 
@@ -193,6 +159,6 @@ if (!class_exists('ChefForms')) {
  */
 add_action('cuisine_loaded', function(){
 
-	ChefForms::getInstance();
+	CuisineForms::getInstance();
 
 }, 0, 400 );

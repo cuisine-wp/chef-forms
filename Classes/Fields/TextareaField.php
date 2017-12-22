@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 class TextareaField extends DefaultField{
 

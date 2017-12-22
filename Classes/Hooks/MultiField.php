@@ -1,7 +1,7 @@
 <?php
 
 	//again, change this namespace:
-	namespace ChefForms\Hooks;
+	namespace CuisineForms\Hooks;
 	
 	use Cuisine\Fields\ChoiceField;
 	
@@ -107,19 +107,19 @@
 				//add row
 				$html .= '<span class="add-row">';
 					$html .= '<span class="dashicons dashicons-plus"></span>';
-					$html .= '<span class="tooltip">'.__('Nieuwe rij', 'chefforms' ).'</span>';
+					$html .= '<span class="tooltip">'.__('Nieuwe rij', 'CuisineForms' ).'</span>';
 				$html .= '</span>';
 
 				//remove row
 				$html .= '<span class="remove-row">';
 					$html .= '<span class="dashicons dashicons-minus"></span>';
-					$html .= '<span class="tooltip">'.__( 'Rij weghalen', 'chefforms' ).'</span>';
+					$html .= '<span class="tooltip">'.__( 'Rij weghalen', 'CuisineForms' ).'</span>';
 				$html .= '</span>';
 
 				//displace row
 				$html .= '<span class="drag-row">';
 					$html .= '<span class="dashicons dashicons-sort"></span>';
-					$html .= '<span class="tooltip">'.__( 'Sorteren', 'chefforms' ).'</span>';
+					$html .= '<span class="tooltip">'.__( 'Sorteren', 'CuisineForms' ).'</span>';
 				$html .= '</span>';
 
 
@@ -157,11 +157,11 @@
 		 */
 		private function topControls(){
 
-			$btnText = __( 'Waardes verschillen van label', 'chefforms' );
+			$btnText = __( 'Waardes verschillen van label', 'CuisineForms' );
 			$class = 'toggle-keys';
 
 			if( $this->hasDifferentKeys() ){
-				$btnText = __( 'Waardes verschillen niet van label', 'chefforms' );
+				$btnText = __( 'Waardes verschillen niet van label', 'CuisineForms' );
 				$class .= ' showKeys';
 			}
 

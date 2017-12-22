@@ -1,12 +1,12 @@
 <?php
 
-	namespace ChefForms\Admin\Form\Settings;
+	namespace CuisineForms\Admin\Form\Settings;
 
 	use Cuisine\Utilities\Session;
 	use Cuisine\Utilities\Sort;
 	use Cuisine\Wrappers\Field;
-	use ChefForms\Wrappers\StaticInstance;
-	use ChefForms\Wrappers\SettingsPanel;
+	use CuisineForms\Wrappers\StaticInstance;
+	use CuisineForms\Wrappers\SettingsPanel;
 
 	class BaseSettingsPanelListener extends StaticInstance{
 
@@ -30,14 +30,14 @@
 			$options = [ 'icon' => 'dashicons dashicons-admin-generic', 'classes' => ['active'] ];
 			SettingsPanel::make(
 				'settings',
-				__( 'Main Settings', 'chefforms' ),
+				__( 'Main Settings', 'CuisineForms' ),
 				$options
 			)->set( $this->mainSettingFields() );
 
 			$options = [ 'icon' => 'dashicons dashicons-yes' ];
 			SettingsPanel::make(
 				'confirmation',
-				__( 'Confirmation', 'chefforms' ),
+				__( 'Confirmation', 'CuisineForms' ),
 				$options
 			)->set( $this->confirmationSettingsFields() );
 
@@ -54,18 +54,18 @@
 			$fields = [
 				Field::text( 
 					'btn-text',
-					__( 'Button text', 'chefforms' ),
+					__( 'Button text', 'CuisineForms' ),
 					array(
-						'defaultValue'	=> __( 'Send', 'chefforms' )
+						'defaultValue'	=> __( 'Send', 'CuisineForms' )
 					)
 				),
 				Field::select( 
 					'labels',
 					'Labels',
 					array(
-						false 	=> __( 'No labels', 'chefforms' ),
-						'top'	=> __( 'Labels on top', 'chefforms' ),
-						'left'	=> __( 'Labels left', 'chefforms' )
+						false 	=> __( 'No labels', 'CuisineForms' ),
+						'top'	=> __( 'Labels on top', 'CuisineForms' ),
+						'left'	=> __( 'Labels left', 'CuisineForms' )
 					),
 					array(
 						'defaultValue'	=> 'top'
@@ -73,29 +73,29 @@
 				),
 				Field::text(
 					'max_entries',
-					__( 'Maximal amount of entries', 'chefforms' )
+					__( 'Maximal amount of entries', 'CuisineForms' )
 				),
 
 				Field::date(
 					'entry_start',
-					__( 'Valid from', 'chefforms' )
+					__( 'Valid from', 'CuisineForms' )
 				),
 
 				Field::date(
 					'entry_end',
-					__( 'Valid through', 'chefforms' )
+					__( 'Valid through', 'CuisineForms' )
 				),
 
 				Field::checkbox(
 					'no_ajax',
-					__( 'Never use ajax for this form', 'chefforms' ),
+					__( 'Never use ajax for this form', 'CuisineForms' ),
 					array(
 						'defaultValue' => 'false'
 					)
 				)
 			];
 
-			$fields = apply_filters( 'chef_forms_main_settings_fields', $fields );
+			$fields = apply_filters( 'cuisine_forms_main_settings_fields', $fields );
 			return $fields;
 		}
 
@@ -111,15 +111,15 @@
 			$fields = [
 				Field::editor(
 					'confirm',
-					__( 'Confirmation message', 'chefforms' ),
+					__( 'Confirmation message', 'CuisineForms' ),
 					array(
-						'defaultValue' => __( 'Thank you very much for your message. We\'ll contact you as soon as possible.', 'chefforms' )
+						'defaultValue' => __( 'Thank you very much for your message. We\'ll contact you as soon as possible.', 'CuisineForms' )
 					)
 				),
 
 				Field::checkbox(
 					'maintain_msg',
-					__( 'Don\'t automatically remove the confirmation message', 'chefforms' ),
+					__( 'Don\'t automatically remove the confirmation message', 'CuisineForms' ),
 					array(
 						'defaultValue' => 'false'
 					)
@@ -127,14 +127,14 @@
 
 				Field::checkbox(
 					'redirect',
-					__( 'Redirect after sending a form', 'chefforms' ),
+					__( 'Redirect after sending a form', 'CuisineForms' ),
 					array(
 						'defaultValue' => 'false'
 					)
 				),
 				Field::select(
 					'redirect_to',
-					__( 'Redirect to', 'chefforms' ),
+					__( 'Redirect to', 'CuisineForms' ),
 					$this->getPages(),
 					array(
 						'defaultValue' => 'none'
@@ -143,7 +143,7 @@
 			];
 
 
-			$fields = apply_filters( 'chef_forms_confirmation_settings_fields', $fields );
+			$fields = apply_filters( 'cuisine_forms_confirmation_settings_fields', $fields );
 			return $fields;	
 		}
 
@@ -157,13 +157,8 @@
 		{
 			$pages = get_pages();
 			$pages = array_combine( Sort::pluck( $pages, 'ID' ), Sort::pluck( $pages, 'post_title' ) );
-			$pages = [ 'none' => __( 'Don\'t redirect to a page', 'chefforms') ] + $pages;
+			$pages = [ 'none' => __( 'Don\'t redirect to a page', 'CuisineForms') ] + $pages;
 			return $pages;
 		}
 
 	}
-
-	if( is_admin() )
-		\ChefForms\Admin\Form\Settings\BaseSettingsPanelListener::getInstance();
-
-

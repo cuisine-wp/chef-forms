@@ -1,9 +1,9 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Script;
 use Cuisine\Wrappers\Field;
-use ChefForms\Front\Tag;
+use CuisineForms\Front\Tag;
 
 class DateField extends DefaultField{
 
@@ -48,7 +48,7 @@ class DateField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Please pick a date', 'chefforms' );
+        return __( 'Please pick a date', 'CuisineForms' );
 
     }
 }

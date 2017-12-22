@@ -1,11 +1,11 @@
 <?php
 
-	namespace ChefForms\Front;
+	namespace CuisineForms\Front;
 
 	use Cuisine\Utilities\Url;
 	use Cuisine\Wrappers\PostType;
-	use ChefForms\Wrappers\StaticInstance;
-	use ChefForms\Wrappers\Form;
+	use CuisineForms\Wrappers\StaticInstance;
+	use CuisineForms\Wrappers\Form;
 
 	class EventListeners extends StaticInstance{
 
@@ -32,7 +32,7 @@
 			//creating post types:
 			add_action( 'init', function(){
 
-				$formOptions = apply_filters( 'chef_forms_form_post_type_options', array( 
+				$formOptions = apply_filters( 'cuisine_forms_form_post_type_options', array( 
 					'supports' => array( 'title' ),
 					'menu_icon' => 'dashicons-editor-quote'
 				));
@@ -40,21 +40,21 @@
 				PostType::make( 
 					
 					'form', 
-					__( 'Forms', 'chefforms' ),
-					__( 'Form', 'chefforms' )
+					__( 'Forms', 'CuisineForms' ),
+					__( 'Form', 'CuisineForms' )
 
 				)->set( $formOptions );
 
 
-				$entryOptions = apply_filters( 'chef_forms_entry_post_type_options', array( 
+				$entryOptions = apply_filters( 'cuisine_forms_entry_post_type_options', array( 
 					'public' => false 
 				));
 				
 				PostType::make( 
 					
 					'form-entry', 
-					__( 'Entries', 'chefforms' ),
-					__( 'Entry', 'chefforms' )
+					__( 'Entries', 'CuisineForms' ),
+					__( 'Entry', 'CuisineForms' )
 
 				)->set( $entryOptions );	
 
@@ -136,13 +136,13 @@
 		private function hooks(){
 
 			//custom column:
-			add_filter( 'chef_sections_column_types', function( $types ){
+			add_filter( 'cuisine_sections_column_types', function( $types ){
 
-				$base = Url::path( 'plugin', 'chef-forms', true );
+				$base = Url::path( 'plugin', 'cuisine-forms', true );
 
 				$types['form'] = array(
-							'name'		=> __( 'Form', 'chefforms' ),
-							'class'		=> 'ChefForms\Hooks\Column',
+							'name'		=> __( 'Form', 'CuisineForms' ),
+							'class'		=> 'CuisineForms\Hooks\Column',
 							'template'	=> $base.'Templates/Column.php'
 				);
 
@@ -157,12 +157,12 @@
 
 				$types['multifield'] = array(
 							'name'		=> 'MultiField',
-							'class'		=> 'ChefForms\Hooks\MultiField'
+							'class'		=> 'CuisineForms\Hooks\MultiField'
 				);
 
 				$types['mapper'] = array(
 							'name'		=> 'MapperField',
-							'class'		=> 'ChefForms\Hooks\MapperField'
+							'class'		=> 'CuisineForms\Hooks\MapperField'
 				);
 
 				return $types;
@@ -171,15 +171,13 @@
 
 
 			//load column
-			add_action( 'chef_sections_loaded', function(){
+			//add_action( 'cuisine_sections_loaded', function(){
 
-				$base = Url::path( 'plugin', 'chef-forms/Classes/Hooks/ChefSections', true );
-				include( $base.'Column.php' );
+			//	$path = Url::path( 'plugin', 'cuisine-forms/Classes/Hooks/ChefSections/Column.php' );
+			//	include( $path );
 
-			});
+			//});
 
 		}
 
 	}
-
-	\ChefForms\Front\EventListeners::getInstance();

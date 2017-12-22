@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 class EmailField extends DefaultField{
 
@@ -22,7 +22,7 @@ class EmailField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'E-mail', 'chefforms' );
+        return __( 'E-mail', 'CuisineForms' );
 
     }
 }

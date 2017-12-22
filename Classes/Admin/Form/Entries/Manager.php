@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Admin\Form\Entries;
+namespace CuisineForms\Admin\Form\Entries;
 
 use Cuisine\Utilities\Session;
 use Cuisine\Utilities\Sort;
@@ -98,11 +98,11 @@ class Manager{
 	public function build(){
 
 		//show the entries list:
-		do_action( 'chef_forms_before_entry_list', $this->entries, $this->postId  );
+		do_action( 'cuisine_forms_before_entry_list', $this->entries, $this->postId  );
 
 		echo '<div class="wrap">';
 
-			echo '<h2>'.__( 'Form Entries', 'chefforms' ).'</h2>';
+			echo '<h2>'.__( 'Form Entries', 'CuisineForms' ).'</h2>';
 
 			echo '<div class="entries-wrap">';
 
@@ -125,7 +125,7 @@ class Manager{
 	
 				}else{
 	
-					echo  '<p>'.__( 'No entries yet', 'chefforms' ).'</p>';
+					echo  '<p>'.__( 'No entries yet', 'CuisineForms' ).'</p>';
 				}
 
 
@@ -134,7 +134,7 @@ class Manager{
 		echo '</div>';
 
 
-		do_action( 'chef_forms_after_entry_list', $this->entries, $this->postId  );
+		do_action( 'cuisine_forms_after_entry_list', $this->entries, $this->postId  );
 	}
 
 	/**
@@ -150,13 +150,13 @@ class Manager{
 
 		echo '<div class="entry-filter">';
 
-			do_action( 'chef_forms_before_entry_toolbar_controls', $this->entries, $this->postId );
+			do_action( 'cuisine_forms_before_entry_toolbar_controls', $this->entries, $this->postId );
 
 			echo '<form action="'.esc_url( $url ).'" method="get">';
 
 				Field::select(
 					'parent',
-					__( 'Entries from form', 'chefforms' ),
+					__( 'Entries from form', 'CuisineForms' ),
 					$forms,
 					array(
 						'defaultValue' => $parent
@@ -167,11 +167,11 @@ class Manager{
 				echo '<input type="hidden" name="post_type" value="form"/>';
 				echo '<input type="hidden" name="page" value="form-entries"/>';
 
-				echo '<button>'.__( 'Filter', 'chefforms' ).'</button>';
+				echo '<button>'.__( 'Filter', 'CuisineForms' ).'</button>';
 	
 			echo '</form>';
 
-			do_action( 'chef_forms_after_entry_toolbar_controls', $this->entries, $this->postId );
+			do_action( 'cuisine_forms_after_entry_toolbar_controls', $this->entries, $this->postId );
 
 		echo '</div>';
 
@@ -256,7 +256,7 @@ class Manager{
 		if( isset( $_GET['parent'] ) )
 			$args['post_parent'] = $_GET['parent'];
 
-		$args = apply_filters( 'chef_forms_entries_query', $args );
+		$args = apply_filters( 'cuisine_forms_entries_query', $args );
 
 		$entryPosts = new WP_Query( $args );
 		
@@ -331,7 +331,7 @@ class Manager{
 		);
 
 		$forms = array_replace( 
-			array( 'all' => __( 'All forms', 'chefforms' ) ),
+			array( 'all' => __( 'All forms', 'CuisineForms' ) ),
 			$forms
 		);
 

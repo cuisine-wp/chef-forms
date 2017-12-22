@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Script;
 use Cuisine\Wrappers\Field;

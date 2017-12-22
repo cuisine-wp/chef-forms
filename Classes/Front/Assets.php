@@ -1,6 +1,6 @@
 <?php
 
-	namespace ChefForms\Front;
+	namespace CuisineForms\Front;
 
 	use Cuisine\Utilities\Url;
 	use Cuisine\Wrappers\Script;
@@ -10,9 +10,9 @@
 	class Assets{
 
 		/**
-		 * \ChefForms\Front\Assets instance
+		 * \CuisineForms\Front\Assets instance
 		 *
-		 * @var \ChefForms\Front\Assets
+		 * @var \CuisineForms\Front\Assets
 		 */
 		private static $instance = null;
 
@@ -29,7 +29,7 @@
 		/**
 		 * Init the Assets Class
 		 *
-		 * @return \ChefForms\Front\Assets
+		 * @return \CuisineForms\Front\Assets
 		 */
 		public static function getInstance(){
 
@@ -81,21 +81,21 @@
 
 				//set validation errors:
 				$vars = array(
-					'required' 	=> __( 'This field is required', 'chefforms' ),
-					'email'		=> __( 'Invalid e-mailaddress', 'chefforms' ),
-					'number'	=> __( 'Invalid number', 'chefforms' ),
-					'equalHigherZero'	=> __( 'Must be zero or higher', 'chefforms' ),
-					'equalLowerZero'	=> __( 'Mast be zero or lower', 'chefforms' ),
-					'higherZero'		=> __( 'Must be higer then zero', 'chefforms' ),
-					'lowerZero'			=> __( 'Must be lower then zero', 'chefforms' ),
-					'notchecked'		=> __( 'This should be checked', 'chefforms' ),
-					'address'	=> __( 'Don\'t forget your house number', 'chefforms' ),
-					'zipcode'	=> __( 'Invalid zipcode', 'chefforms' ),
-					'slug'		=> __( 'This is not a valid domain', 'chefforms' )
+					'required' 	=> __( 'This field is required', 'CuisineForms' ),
+					'email'		=> __( 'Invalid e-mailaddress', 'CuisineForms' ),
+					'number'	=> __( 'Invalid number', 'CuisineForms' ),
+					'equalHigherZero'	=> __( 'Must be zero or higher', 'CuisineForms' ),
+					'equalLowerZero'	=> __( 'Mast be zero or lower', 'CuisineForms' ),
+					'higherZero'		=> __( 'Must be higer then zero', 'CuisineForms' ),
+					'lowerZero'			=> __( 'Must be lower then zero', 'CuisineForms' ),
+					'notchecked'		=> __( 'This should be checked', 'CuisineForms' ),
+					'address'	=> __( 'Don\'t forget your house number', 'CuisineForms' ),
+					'zipcode'	=> __( 'Invalid zipcode', 'CuisineForms' ),
+					'slug'		=> __( 'This is not a valid domain', 'CuisineForms' )
 				);
 
 
-				$vars = apply_filters( 'chef_forms_validation_errors', $vars );
+				$vars = apply_filters( 'cuisine_forms_validation_errors', $vars );
 	
 				Script::variable( 'ValidationErrors', $vars );
 
@@ -103,5 +103,3 @@
 		}
 
 	}
-
-	\ChefForms\Front\Assets::getInstance();

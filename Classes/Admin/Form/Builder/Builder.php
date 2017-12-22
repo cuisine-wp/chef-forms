@@ -1,9 +1,9 @@
 <?php
 
-namespace ChefForms\Admin\Form\Builder;
+namespace CuisineForms\Admin\Form\Builder;
 
 use Cuisine\Utilities\Sort;
-use ChefForms\Wrappers\Field;
+use CuisineForms\Wrappers\Field;
 use Cuisine\Wrappers\Field as BF;
 
 class Builder{
@@ -108,7 +108,7 @@ class Builder{
 		}else{
 
 			echo '<div class="section-wrapper msg">';
-				echo '<p>'.__('No fields created yet.', 'chefforms').'</p>';
+				echo '<p>'.__('No fields created yet.', 'CuisineForms').'</p>';
 			echo '</div>';
 		
 		}
@@ -262,7 +262,7 @@ class Builder{
 				'required'		=> false
 		);
 
-		$args = apply_filters( 'chef_forms_default_field_args', $args );
+		$args = apply_filters( 'cuisine_forms_default_field_args', $args );
 
 		return $args;
 	}

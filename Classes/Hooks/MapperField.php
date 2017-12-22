@@ -1,7 +1,7 @@
 <?php
 
 	//again, change this namespace:
-	namespace ChefForms\Hooks;
+	namespace CuisineForms\Hooks;
 	
 	use Cuisine\Fields\DefaultField;
 	use Cuisine\Fields\SelectField;
@@ -103,10 +103,10 @@
 		public function buildOperator(){
 
 			$choices = array(
-					'='		=> 		__( 'equals', 'chefforms' ),
-					'!='	=>		__( 'not equals', 'chefforms' ),
-					'>='	=>		__( 'is higher then', 'chefforms' ),
-					'<='	=>		__( 'is smaller then', 'chefforms' )	
+					'='		=> 		__( 'equals', 'CuisineForms' ),
+					'!='	=>		__( 'not equals', 'CuisineForms' ),
+					'>='	=>		__( 'is higher then', 'CuisineForms' ),
+					'<='	=>		__( 'is smaller then', 'CuisineForms' )	
 			);
 
 			
@@ -151,7 +151,7 @@
 					Sort::pluck( $fields, 'label' )
 				);
 	
-				$choices = array_replace( array( 'none' => __('No field','chefforms') ), $choices );
+				$choices = array_replace( array( 'none' => __('No field','CuisineForms') ), $choices );
 	
 				$types = $this->getIncluded();
 	

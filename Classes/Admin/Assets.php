@@ -1,9 +1,9 @@
 <?php
 
-	namespace ChefForms\Admin;
+	namespace CuisineForms\Admin;
 
 	use Cuisine\Utilities\Url;
-	use \ChefForms\Wrappers\StaticInstance;
+	use \CuisineForms\Wrappers\StaticInstance;
 
 	class Assets extends StaticInstance{
 
@@ -27,7 +27,7 @@
 
 			add_action( 'admin_menu', function(){
 
-				$url = Url::plugin( 'chef-forms', true ).'Assets';
+				$url = Url::plugin( 'cuisine-forms/Assets' );
 				
 				wp_enqueue_script( 
 					'multifield', 
@@ -60,7 +60,4 @@
 			});
 
 		}
-
 	}
-
-	\ChefForms\Admin\Assets::getInstance();

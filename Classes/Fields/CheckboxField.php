@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 class CheckboxField extends DefaultField{
 
@@ -51,7 +51,7 @@ class CheckboxField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'True or false?', 'chefforms' );
+        return __( 'True or false?', 'CuisineForms' );
 
     }
 

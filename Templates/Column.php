@@ -1,6 +1,6 @@
 <?php 
 
-	use ChefForms\Wrappers\Form;
+	use CuisineForms\Wrappers\Form;
 
 
 	echo '<div class="column form-column">';

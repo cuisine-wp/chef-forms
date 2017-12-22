@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Field;
 
@@ -97,7 +97,7 @@ class HtmlField extends DefaultField{
      */
     public function buildDefaultSettingsTab(){
 
-        echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
+        echo '<h2>'.__( 'Default Options', 'CuisineForms' ).'</h2>';
 
         $fields = $this->getFields();
     

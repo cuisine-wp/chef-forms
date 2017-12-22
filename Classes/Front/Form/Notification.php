@@ -1,10 +1,10 @@
 <?php
 
-namespace ChefForms\Front\Form;
+namespace CuisineForms\Front\Form;
 
 use Cuisine\Utilities\Url;
 use Cuisine\Wrappers\Template;
-use ChefForms\Front\Form\Tag;
+use CuisineForms\Front\Form\Tag;
 
 
 class Notification {
@@ -108,8 +108,8 @@ class Notification {
 
 		$adminMail = get_bloginfo( 'admin_email' );
 		$siteName = get_bloginfo( 'blogname' );
-		$this->fromEmail = get_option( 'chef_forms_from_email', $adminMail );
-		$this->fromName = get_option( 'chef_forms_from_name', $siteName );
+		$this->fromEmail = get_option( 'cuisine_forms_from_email', $adminMail );
+		$this->fromName = get_option( 'cuisine_forms_from_name', $siteName );
 
 	}
 
@@ -121,7 +121,7 @@ class Notification {
 	/**
 	 * Create notification
 	 *
-	 * @return ChefForms\Front\Notification
+	 * @return CuisineForms\Front\Notification
 	 */
 	public function make( $notify, $fields ){
 
@@ -198,11 +198,11 @@ class Notification {
 		$msg = Tag::notification( $msg, $this->fields, $this->entry );
 
 		$default = Url::path( 'chef-forms', 'chef-forms/Templates/Email/' ).'Html.php';
-		$notificationTemplate = apply_filters( 'chef_forms_notification_template', 'email/layout', $this );
+		$notificationTemplate = apply_filters( 'cuisine_forms_notification_template', 'email/layout', $this );
 
 		ob_start();
 
-			$params = apply_filters( 'chef_forms_notification_params', array( 'msg' => $msg ), $this );
+			$params = apply_filters( 'cuisine_forms_notification_params', array( 'msg' => $msg ), $this );
 			Template::find( $notificationTemplate, $default )->display( $params );
 
 		$this->message = ob_get_clean();

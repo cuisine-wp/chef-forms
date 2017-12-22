@@ -1,12 +1,12 @@
 <?php
 
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Field;
 use Cuisine\Utilities\Sort;
-use ChefForms\Front\Form\Tag;
+use CuisineForms\Front\Form\Tag;
 
-class DefaultField{
+abstract class DefaultField{
 
     /**
      * Id of this field
@@ -166,7 +166,7 @@ class DefaultField{
      */
     public function sanitizeProperties(){
 
-        $this->properties['defaultValue'] = apply_filters( 'chef_forms_field_default_value', $this->properties['defaultValue'], $this );
+        $this->properties['defaultValue'] = apply_filters( 'cuisine_forms_field_default_value', $this->properties['defaultValue'], $this );
 
         if( isset( $this->properties['defaultValue'] ) )
             $this->properties['defaultValue'] = Tag::field( $this->properties['defaultValue'] );
@@ -184,7 +184,7 @@ class DefaultField{
         if( isset( $this->properties['required'] ) && $this->properties['required'] !== 'true' )
             $this->properties['required'] = false;
 
-        $this->properties = apply_filters( 'chef_forms_field_properties', $this->properties, $this );
+        $this->properties = apply_filters( 'cuisine_forms_field_properties', $this->properties, $this );
 
     }
 
@@ -295,7 +295,7 @@ class DefaultField{
 
                 echo '</div>';
 
-                do_action( 'chef_forms_field_tab_content', $this );
+                do_action( 'cuisine_forms_field_tab_content', $this );
 
             echo '</div>';
             $this->bottomControls();
@@ -311,7 +311,7 @@ class DefaultField{
      */
     public function buildDefaultSettingsTab(){
 
-        echo '<h2>'.__( 'Default Options', 'chefforms' ).'</h2>';
+        echo '<h2>'.__( 'Default Options', 'CuisineForms' ).'</h2>';
 
         $fields = $this->getFields();
 
@@ -411,12 +411,12 @@ class DefaultField{
             if( $this->deletable ){
                 $html .= '<span class="delete-field">';
                     $html .= '<i class="dashicons dashicons-trash"></i>';
-                    $html .= __( 'Delete field', 'chefforms' );
+                    $html .= __( 'Delete field', 'CuisineForms' );
                 $html .= '</span>';
             }
 
             $html .= '<span class="open-lightbox button button-primary">';
-                $html .= __( 'Edit', 'chefforms' );
+                $html .= __( 'Edit', 'CuisineForms' );
             $html .= '</span>';
 
         $html .= '</div>';
@@ -442,12 +442,12 @@ class DefaultField{
             if( $this->deletable ){
                 echo '<p class="delete-field">';
                     echo '<span class="dashicons dashicons-trash"></span>';
-                    echo __( 'Delete', 'chefforms' ).'</p>';
+                    echo __( 'Delete', 'CuisineForms' ).'</p>';
                 echo '</p>';
             }
 
             echo '<span class="save-field button">';
-                _e( 'Save field', 'chefforms' );
+                _e( 'Save field', 'CuisineForms' );
             echo '</span>';
         echo '</div>';
     }
@@ -490,7 +490,7 @@ class DefaultField{
 
              Field::text(
                 $prefix.'[defaultValue]',
-                __( 'Default value', 'chefforms' ),
+                __( 'Default value', 'CuisineForms' ),
                 array(
                     'defaultValue'  => $this->getProperty( 'defaultValue' )
                 )
@@ -499,7 +499,7 @@ class DefaultField{
 
             Field::checkbox(
                 $prefix.'[required]',
-                __( 'Required', 'chefforms' ),
+                __( 'Required', 'CuisineForms' ),
                 array(
                     'class'         => array( 'update', 'update-label', 'req-field' ),
                     'defaultValue'  => $this->getProperty( 'required' )
@@ -637,7 +637,7 @@ class DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Some text', 'chefforms' );
+        return __( 'Some text', 'CuisineForms' );
 
     }
 
@@ -650,13 +650,13 @@ class DefaultField{
 
         $default = array(
             'basics' => array(
-                'label'     => __( 'Basic options', 'chefforms' ),
+                'label'     => __( 'Basic options', 'CuisineForms' ),
                 'icon'      => 'dashicons-admin-generic',
                 'position'  => -1
             )
         );
 
-        $tabs = apply_filters( 'chef_forms_field_tabs', $default );
+        $tabs = apply_filters( 'cuisine_forms_field_tabs', $default );
 
         $tabs = Sort::byField( $tabs, 'position', 'ASC' );
 

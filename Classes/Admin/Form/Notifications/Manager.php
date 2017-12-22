@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Admin\Form\Notifications;
+namespace CuisineForms\Admin\Form\Notifications;
 
 use Cuisine\Wrappers\Field;
 
@@ -115,9 +115,9 @@ class Manager{
 
 				Field::text(
 					'to',
-					__( 'E-mail to', 'chefforms' ),
+					__( 'E-mail to', 'CuisineForms' ),
 					array(
-						'placeholder' 	=> __( 'E-mail to', 'chefforms' ),
+						'placeholder' 	=> __( 'E-mail to', 'CuisineForms' ),
 						'label'			=> true,
 						'defaultValue'	=> '{{ admin_email }}'
 					)
@@ -125,7 +125,7 @@ class Manager{
 
 				Field::text(
 					'title',
-					__( 'Subject', 'chefforms' ),
+					__( 'Subject', 'CuisineForms' ),
 					array(
 						'placeholder' 	=> 'Title',
 						'label'			=> true
@@ -142,7 +142,7 @@ class Manager{
 				)
 		);
 
-		$subFields = apply_filters( 'chef_forms_notification_sub_fields', $subFields );
+		$subFields = apply_filters( 'cuisine_forms_notification_sub_fields', $subFields );
 
 		$field = Field::repeater(
 			'notifications',
@@ -162,7 +162,7 @@ class Manager{
 	private function getNotifications(){
 
 		return array('notifications' => array(
-						'title'				=> __( 'Notification', 'chefforms' ),
+						'title'				=> __( 'Notification', 'CuisineForms' ),
 						'content_{uniq}'	=> '{{ alle_velden }}'
 		));
 

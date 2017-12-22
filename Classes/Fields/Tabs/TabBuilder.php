@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Fields\Tabs;
+namespace CuisineForms\Fields\Tabs;
 
 use Cuisine\Utilities\Session;
 use Cuisine\Wrappers\Field;
@@ -40,7 +40,7 @@ class TabBuilder{
 
 	function __construct(){
 
-		add_filter( 'chef_forms_field_tabs', array( &$this, 'button' ) );
+		add_filter( 'cuisine_forms_field_tabs', array( &$this, 'button' ) );
 
 	}
 
@@ -50,7 +50,7 @@ class TabBuilder{
 	 * Make a field tab
 	 * 
 	 * @param  int $post_id
-	 * @return ChefForms\Fields\Tabs\TabBuilder
+	 * @return CuisineForms\Fields\Tabs\TabBuilder
 	 */
 	public function make( $title, $name, $options = array() ){
 		
@@ -74,7 +74,7 @@ class TabBuilder{
 
 		$this->fields = $fields;
 		add_action( 
-			'chef_forms_field_tab_content', 
+			'cuisine_forms_field_tab_content', 
 			array( &$this, 'build' ),
 			10, 1
 		);

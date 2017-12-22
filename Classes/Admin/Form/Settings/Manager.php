@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Admin\Form\Settings;
+namespace CuisineForms\Admin\Form\Settings;
 
 use Cuisine\Wrappers\Field;
 use Cuisine\Utilities\Session;
@@ -66,7 +66,7 @@ class Manager{
 
 		echo '<div class="settings-panel-wrapper">';
 
-			do_action( 'chef_forms_render_settings_panels', $this );
+			do_action( 'cuisine_forms_render_settings_panels', $this );
 
 		echo '</div>';
 	}
@@ -81,7 +81,7 @@ class Manager{
 	{
 		ob_start();
 		echo '<ul id="nav-bar-settings" class="main-form-nav settings-nav">';
-			do_action( 'chef_forms_form_settings_nav', $this );
+			do_action( 'cuisine_forms_form_settings_nav', $this );
 		echo '</ul>';
 		return ob_get_clean();
 	}
@@ -93,7 +93,7 @@ class Manager{
 	 */
 	public function save( $post_id )
 	{
-		do_action( 'chef_forms_form_settings_save', $post_id, $this );	
+		do_action( 'cuisine_forms_form_settings_save', $post_id, $this );	
 	}
 
 

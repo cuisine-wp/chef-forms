@@ -1,6 +1,6 @@
 <?php
 
-namespace ChefForms\Admin\Form\Settings;
+namespace CuisineForms\Admin\Form\Settings;
 
 use Cuisine\Utilities\Session;
 use Cuisine\Wrappers\Field;
@@ -66,7 +66,7 @@ class Panel{
 	 * Make a form panel
 	 * 
 	 * @param  int $post_id
-	 * @return ChefForms\Builders\SettingsPanel
+	 * @return CuisineForms\Builders\SettingsPanel
 	 */
 	public function make( $name, $title, $options = array() ){
 		
@@ -94,9 +94,9 @@ class Panel{
 
 		$this->fields = $fields;
 
-		add_action( 'chef_forms_render_settings_panels', array( &$this, 'build' ) );
-		add_action( 'chef_forms_form_settings_nav', array( &$this, 'navigation' ) );
-		add_action( 'chef_forms_form_settings_save', array( &$this, 'save' ) );
+		add_action( 'cuisine_forms_render_settings_panels', array( &$this, 'build' ) );
+		add_action( 'cuisine_forms_form_settings_nav', array( &$this, 'navigation' ) );
+		add_action( 'cuisine_forms_form_settings_save', array( &$this, 'save' ) );
 
 	}
 

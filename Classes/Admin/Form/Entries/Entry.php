@@ -1,8 +1,8 @@
 <?php
 
-namespace ChefForms\Admin\Form\Entries;
+namespace CuisineForms\Admin\Form\Entries;
 
-use ChefForms\Wrappers\Form;
+use CuisineForms\Wrappers\Form;
 use Cuisine\Utilities\Date;
 
 
@@ -19,7 +19,7 @@ class Entry{
 	/**
 	 * This entries parent form
 	 *
-	 * @var ChefForms\Wrappers\Form
+	 * @var CuisineForms\Wrappers\Form
 	 */
 	var $form;
 
@@ -55,7 +55,7 @@ class Entry{
 	 * Returns this entry, scaffolded
 	 *
 	 * @param $args Array
-	 * @return ChefForms\Admin\Form\Entries\Entry
+	 * @return CuisineForms\Admin\Form\Entries\Entry
 	 */
 	public function make( $args ){
 
@@ -81,7 +81,7 @@ class Entry{
 			echo '<div class="entry-preview">';
 
 				//status:
-				do_action( 'chef_forms_status_indicator', $this, $this->form->id );
+				do_action( 'cuisine_forms_status_indicator', $this, $this->form->id );
 
 				//date:
 				echo '<div class="entry-date">';
@@ -97,7 +97,7 @@ class Entry{
 
 
 			do_action(
-				'chef_forms_before_entry_fields',
+				'cuisine_forms_before_entry_fields',
 				$this,
 				$this->form->id
 			);
@@ -105,7 +105,7 @@ class Entry{
 			echo '<div class="entry-fields">';
 
 				$fields = apply_filters(
-					'chef_forms_entry_fields',
+					'cuisine_forms_entry_fields',
 					$this->form->fields
 				);
 
@@ -124,7 +124,7 @@ class Entry{
 			echo '</div>';
 
 			do_action(
-				'chef_forms_after_entry_fields',
+				'cuisine_forms_after_entry_fields',
 				$this,
 				$this->form->id
 			);
@@ -159,7 +159,7 @@ class Entry{
 				echo '<input type="hidden" name="entry_page" value="'.$_GET['entry_page'].'">';		
 
 
-			echo '<button class="button danger">'.__( 'Delete entry', 'chefforms' ).'</button>';
+			echo '<button class="button danger">'.__( 'Delete entry', 'CuisineForms' ).'</button>';
 
 		echo '</form>';
 	}

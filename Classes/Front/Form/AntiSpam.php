@@ -1,6 +1,6 @@
 <?php
     
-	namespace ChefForms\Front\Form;
+	namespace CuisineForms\Front\Form;
 
 
 	class AntiSpam{

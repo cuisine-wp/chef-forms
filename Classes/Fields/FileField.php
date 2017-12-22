@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 class FileField extends DefaultField{
 
@@ -116,7 +116,7 @@ class FileField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Upload', 'chefforms' );
+        return __( 'Upload', 'CuisineForms' );
 
     }
 

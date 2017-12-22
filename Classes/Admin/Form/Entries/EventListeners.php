@@ -1,8 +1,8 @@
 <?php
 
-	namespace ChefForms\Admin\Form\Entries;
+	namespace CuisineForms\Admin\Form\Entries;
 
-	use ChefForms\Wrappers\StaticInstance;
+	use CuisineForms\Wrappers\StaticInstance;
 
 	class EventListeners extends StaticInstance{
 
@@ -36,7 +36,7 @@
 						'post_type' => 'form', 
 						'page' => 'form-entries',
 						'entry_page' => ( isset( $_POST['entry_page'] ) ? $_POST['entry_page'] : 1 ),
-						'message' => urlencode( __( 'Entry deleted', 'chefforms' ) )
+						'message' => urlencode( __( 'Entry deleted', 'CuisineForms' ) )
 					], $url );
 
 
@@ -69,6 +69,3 @@
 
 		}
 	}
-
-	if( is_admin() )
-		\ChefForms\Admin\Form\Entries\EventListeners::getInstance();

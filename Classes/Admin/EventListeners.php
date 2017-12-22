@@ -1,9 +1,9 @@
 <?php
 
-	namespace ChefForms\Admin;
+	namespace CuisineForms\Admin;
 
-	use \ChefForms\Wrappers\FormManager;
-	use \ChefForms\Wrappers\StaticInstance;
+	use \CuisineForms\Wrappers\FormManager;
+	use \CuisineForms\Wrappers\StaticInstance;
 	use \Cuisine\Utilities\Url;
 	use \Cuisine\Wrappers\Field;
 	use \Cuisine\Wrappers\Metabox;
@@ -72,21 +72,21 @@
 
 			$options = array(
 				'parent'		=> 'form',
-				'menu_title'	=> __( 'Entries', 'chefforms' )
+				'menu_title'	=> __( 'Entries', 'CuisineForms' )
 			);
 
 			SettingsPage::make(
 
-				__( 'Form Entries', 'chefforms' ),
+				__( 'Form Entries', 'CuisineForms' ),
 				'form-entries',
 				$options
 				
-			)->set( 'ChefForms\\Wrappers\\EntriesManager::build' );
+			)->set( 'CuisineForms\\Wrappers\\EntriesManager::build' );
 
-			$options['menu_title'] = __( 'Settings', 'chefforms' );
+			$options['menu_title'] = __( 'Settings', 'CuisineForms' );
 			SettingsPage::make(
 
-				__( 'Form Settings', 'chefforms' ), 
+				__( 'Form Settings', 'CuisineForms' ), 
 				'form-settings', 
 				$options
 
@@ -105,7 +105,7 @@
 
 				Field::checkbox( 
 					'use_mandrill', 
-					__( 'Use Mandrill', 'chefforms' ),
+					__( 'Use Mandrill', 'CuisineForms' ),
 					array(
 						'defaultValue' => 'true'
 					)
@@ -113,7 +113,7 @@
 
 				Field::text(
 					'host',
-					__( 'Mandrill Host', 'chefforms' ),
+					__( 'Mandrill Host', 'CuisineForms' ),
 					array(
 						'defaultValue'	=> 'smtp.mandrillapp.com'
 					)
@@ -121,7 +121,7 @@
 
 				Field::text(
 					'user',
-					__( 'Mandrill User', 'chefforms' ),
+					__( 'Mandrill User', 'CuisineForms' ),
 					array(
 						'defaultValue'	=> ''
 					)
@@ -129,21 +129,15 @@
 
 				Field::text(
 					'password',
-					__( 'Mandrill Password', 'chefforms' ),
+					__( 'Mandrill Password', 'CuisineForms' ),
 					array(
 						'defaultValue'	=> ''
 					)
 				)
 			);
 
-			$fields = apply_filters( 'chef_forms_setting_fields', $fields );
+			$fields = apply_filters( 'cuisine_forms_setting_fields', $fields );
 			return $fields;
 		}
 
 	}
-
-
-	if( is_admin() )
-		\ChefForms\Admin\EventListeners::getInstance();
-
-

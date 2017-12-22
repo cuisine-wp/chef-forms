@@ -1,10 +1,10 @@
 <?php
 
-	namespace ChefForms\Front;
+	namespace CuisineForms\Front;
 
 	use \stdClass;
-	use \ChefForms\Wrappers\AjaxInstance;
-	use \ChefForms\Wrappers\Form;
+	use \CuisineForms\Wrappers\AjaxInstance;
+	use \CuisineForms\Wrappers\Form;
 
 	class Ajax extends AjaxInstance{
 
@@ -50,4 +50,4 @@
 	}
 
 
-	\ChefForms\Front\Ajax::getInstance();
+	\CuisineForms\Front\Ajax::getInstance();

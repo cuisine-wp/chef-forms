@@ -1,6 +1,6 @@
 <?php
 	
-	namespace ChefForms\Contracts;
+	namespace CuisineForms\Contracts;
 
 
 	interface SettingsPanel{

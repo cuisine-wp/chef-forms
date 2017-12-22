@@ -1,10 +1,10 @@
 <?php
 
-namespace ChefForms\Admin\Form\Builder;
+namespace CuisineForms\Admin\Form\Builder;
 
 use Cuisine\Utilities\Sort;
-use ChefForms\Fields\FieldFactory;
-use ChefForms\Wrappers\SettingsManager;
+use CuisineForms\Fields\FieldFactory;
+use CuisineForms\Wrappers\SettingsManager;
 
 class Toolbar{
 
@@ -20,17 +20,17 @@ class Toolbar{
 		echo '<nav class="form-nav">';
 			echo '<span class="nav-btn active" data-type="field">';
 				echo '<span class="dashicons dashicons-hammer"></span>';
-				echo '<b>'.__( 'Form builder', 'chefforms' ).'</b>';
+				echo '<b>'.__( 'Form builder', 'CuisineForms' ).'</b>';
 			echo '</span>';
 
 			echo '<span class="nav-btn" data-type="notifications">';
 				echo '<span class="dashicons dashicons-megaphone"></span>';
-				echo '<b>'.__( 'Notifications', 'chefforms' ).'</b>';
+				echo '<b>'.__( 'Notifications', 'CuisineForms' ).'</b>';
 			echo '</span>';
 
 			echo '<span class="nav-btn" data-type="settings">';
 				echo '<span class="dashicons dashicons-admin-generic"></span>';
-				echo '<b>'.__( 'Settings', 'chefforms' ).'</b>';
+				echo '<b>'.__( 'Settings', 'CuisineForms' ).'</b>';
 			echo '</span>';
 		echo '</nav>';
 		echo '<div class="toolbar">';
@@ -113,7 +113,7 @@ class Toolbar{
 		$html = '<ul id="nav-bar-notifications" class="main-form-nav">';
 			$html .= '<li class="form-nav-item add-notification">';
 				$html .= '<i class="dashicons dashicons-plus"></i>';
-				$html .= __( 'Add notification', 'chefforms' );
+				$html .= __( 'Add notification', 'CuisineForms' );
 			$html .= '</li>';
 		$html .= '</ul>';
 		echo $html;
@@ -149,9 +149,9 @@ class Toolbar{
 
 		$in_des = array( 'html', 'break' );
 
-		$in_standard = apply_filters( 'chef_forms_standard_fields', $in_standard );
-		$in_adv = apply_filters( 'chef_forms_advanced_fields', $in_adv );
-		$in_des = apply_filters( 'chef_forms_design_fields', $in_des );
+		$in_standard = apply_filters( 'cuisine_forms_standard_fields', $in_standard );
+		$in_adv = apply_filters( 'cuisine_forms_advanced_fields', $in_adv );
+		$in_des = apply_filters( 'cuisine_forms_design_fields', $in_des );
 
 		$return = array( 'standard' => array(), 'advanced' => array(), 'design' => array() );
 
@@ -183,17 +183,17 @@ class Toolbar{
 		$labels = array(
 
 			'standard' => array(
-				'label' => __( 'Default fields', 'chefforms' ),
+				'label' => __( 'Default fields', 'CuisineForms' ),
 				'icon' 	=> 'dashicons-editor-ul'
 			),
 
 			'advanced' => array(
-				'label'	=> __( 'Advanced fields', 'chefforms' ),
+				'label'	=> __( 'Advanced fields', 'CuisineForms' ),
 				'icon'	=> 'dashicons-forms'
 			),
 
 			'design' => array(
-				'label' => __( 'Design elements', 'chefforms' ),
+				'label' => __( 'Design elements', 'CuisineForms' ),
 				'icon' 	=> 'dashicons-admin-appearance'
 			)
 		);

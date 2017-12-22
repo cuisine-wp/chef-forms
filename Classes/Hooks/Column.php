@@ -1,8 +1,8 @@
 <?php
 
-	namespace ChefForms\Hooks;
+	namespace CuisineForms\Hooks;
 	
-	use ChefSections\Columns\DefaultColumn;
+	use CuisineSections\Columns\DefaultColumn;
 	use Cuisine\Wrappers\Field;
 	use Cuisine\Utilities\Url;
 	
@@ -82,7 +82,7 @@
 
 				Field::title( 
 					'title', 				//id
-					__('Title Label','chefforms'),			//label
+					__('Title Label','CuisineForms'),			//label
 					
 					array(
 						'label' 		=> false,	// Show Label false - top - left
@@ -93,7 +93,7 @@
 
 				Field::select(
 					'form',
-					__( 'Form', 'chefforms' ),
+					__( 'Form', 'CuisineForms' ),
 					$this->getForms(),
 					array(
 						'defaultValue' => $this->getField( 'form' )

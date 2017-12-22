@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Wrappers;
+namespace CuisineForms\Wrappers;
 
 abstract class StaticInstance {
 
@@ -7,7 +7,7 @@ abstract class StaticInstance {
     /**
      * Static bootstrapped instance.
      *
-     * @var \ChefForms\Wrappers\StaticInstance
+     * @var \CuisineForms\Wrappers\StaticInstance
      */
     public static $instance = null;
 
@@ -16,7 +16,7 @@ abstract class StaticInstance {
     /**
      * Init the Assets Class
      *
-     * @return \ChefForms\Admin\Assets
+     * @return \CuisineForms\Admin\Assets
      */
     public static function getInstance(){
 

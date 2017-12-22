@@ -1,6 +1,6 @@
 <?php
     
-namespace ChefForms\Front\Form;
+namespace CuisineForms\Front\Form;
 
 
 	class Entry{
@@ -8,7 +8,7 @@ namespace ChefForms\Front\Form;
 		/**
 		 * Form object for this entry
 		 * 
-		 * @var ChefForms\Front\Form;
+		 * @var CuisineForms\Front\Form;
 		 */
 		public $form;
 
@@ -65,7 +65,7 @@ namespace ChefForms\Front\Form;
 				'post_date_gmt'	=>	date( 'Y-m-d H:i:s' )
 			);
 
-			$args = apply_filters( 'chef-forms-entry-postdata', $args, $this->form );
+			$args = apply_filters( 'cuisine_forms_entry_postdata', $args, $this->form );
 			$entryId = wp_insert_post( $args );
 
 			//set entry id in the post global, for easy acces:
@@ -98,7 +98,7 @@ namespace ChefForms\Front\Form;
 				$entry = array_merge( $entry, $this->files );
 			
 
-			$entry = apply_filters( 'chef_forms_entry_values', $entry );
+			$entry = apply_filters( 'cuisine_forms_entry_values', $entry );
 
 			return $entry;
 		}
@@ -200,7 +200,7 @@ namespace ChefForms\Front\Form;
 						foreach( $_FILES as $key => $file ){
 							
 							if( $file['size'] > 0 ){
-								do_action( 'chef_forms_before_file_upload', $file, $this->form );
+								do_action( 'cuisine_forms_before_file_upload', $file, $this->form );
 		
 								//upload the bunch:
 								$tempFile = $file['tmp_name'];
@@ -243,11 +243,11 @@ namespace ChefForms\Front\Form;
 		
 					    		}else{
 									//add an error:
-									$this->message = array( 'error' => true, 'message' => __( 'Upload failed, please try again later', 'chefforms' ) );
+									$this->message = array( 'error' => true, 'message' => __( 'Upload failed, please try again later', 'CuisineForms' ) );
 		
 					    		}
 	
-					    		do_action( 'chef_forms_after_file_upload', $file, $this->form );
+					    		do_action( 'cuisine_forms_after_file_upload', $file, $this->form );
 					  		}
 					    }
 	
@@ -255,7 +255,7 @@ namespace ChefForms\Front\Form;
 					   	//add an error; no upload folder.
 						$this->form->message = array( 
 							'error' => true, 
-							'message' => __( 'The upload-folder couldn\'t be created...', 'chefforms' )
+							'message' => __( 'The upload-folder couldn\'t be created...', 'CuisineForms' )
 						);
 					}
 				}
@@ -277,7 +277,7 @@ namespace ChefForms\Front\Form;
 
 			$uploadDir = wp_upload_dir();
 			$uploadFolder = apply_filters( 
-				'chef_forms_upload_dir',
+				'cuisine_forms_upload_dir',
 				'chef-forms'
 			);
 			
@@ -288,7 +288,7 @@ namespace ChefForms\Front\Form;
 				content_url( 'uploads/'.$uploadFolder )
 			);
 			
-			do_action( 'chef_forms_before_uploads', $this->form );
+			do_action( 'cuisine_forms_before_uploads', $this->form );
 			
 			//create a base directory, if necissary:
 			if( !is_dir( $base ) ){

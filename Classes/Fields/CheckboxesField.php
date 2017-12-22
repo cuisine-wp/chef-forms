@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Fields;
+namespace CuisineForms\Fields;
 
 use Cuisine\Wrappers\Field;
 
@@ -71,7 +71,7 @@ class CheckboxesField extends ChoiceField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Please select some', 'chefforms' );
+        return __( 'Please select some', 'CuisineForms' );
 
     }
 

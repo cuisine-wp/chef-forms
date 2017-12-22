@@ -1,8 +1,8 @@
 <?php
 
-	namespace ChefForms\Front;
+	namespace CuisineForms\Front;
 
-	use ChefForms\Wrappers\StaticInstance;
+	use CuisineForms\Wrappers\StaticInstance;
 	use Cuisine\Utilities\Url;
 
 
@@ -22,7 +22,7 @@
 
 			$this->setSettings();
 
-			if( apply_filters( 'chef_forms_use_mandrill', $this->settings['use_mandrill'] ) == 'true' )
+			if( apply_filters( 'cuisine_forms_use_mandrill', $this->settings['use_mandrill'] ) == 'true' )
 				$this->listen();
 
 		}
@@ -49,7 +49,7 @@
 				);
 
 
-				$settings = apply_filters( 'chef_forms_smtp_settings', $settings );
+				$settings = apply_filters( 'cuisine_forms_smtp_settings', $settings );
 
 				$phpmailer->IsSMTP();
 
@@ -73,7 +73,7 @@
 				// You can add your own options here, 
 				// see the phpmailer documentation for more info:
 				// http://phpmailer.sourceforge.net/docs/
-				$phpmailer = apply_filters('chef_forms_smtp_custom_options', $phpmailer);
+				$phpmailer = apply_filters('cuisine_forms_smtp_custom_options', $phpmailer);
 				
 			});
 
@@ -98,17 +98,12 @@
 
 			return array(
 						
-				'use_mandrill'	=> 'true',
-				'host'		=> 'smtp.mandrillapp.com',
-				'user'		=> 'luc.princen@gmail.com',
-				'password'	=> '_gEwO60stNDpGZFyrYaadQ'
+				'use_mandrill'	=> 'false',
+				'host'		=> '',
+				'user'		=> '',
+				'password'	=> ''
 			
 			);
 
 		}
-
-
-
 	}
-
-	\ChefForms\Front\SMTP::getInstance();

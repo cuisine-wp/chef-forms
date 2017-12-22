@@ -1,5 +1,5 @@
 <?php
-namespace ChefForms\Admin;
+namespace CuisineForms\Admin;
 
 use Cuisine\Utilities\Sort;
 
@@ -42,7 +42,7 @@ class FormBuilder {
 	 *
 	 * @param  string $title
 	 * @param  array  $options
-	 * @return \ChefForms\Admin\FormBuilder
+	 * @return \CuisineForms\Admin\FormBuilder
 	 */
 	public function make( $title, $options = array() ){
 

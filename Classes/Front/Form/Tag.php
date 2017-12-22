@@ -1,6 +1,6 @@
 <?php
 
-	namespace ChefForms\Front\Form;
+	namespace CuisineForms\Front\Form;
 
 
 	use Cuisine\Utilities\Session;
