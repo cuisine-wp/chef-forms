@@ -183,17 +183,17 @@ class Toolbar{
 		$labels = array(
 
 			'standard' => array(
-				'label' => __( 'Default fields', 'CuisineForms' ),
+				'label' => __( 'Default fields', 'cuisineforms' ),
 				'icon' 	=> 'dashicons-editor-ul'
 			),
 
 			'advanced' => array(
-				'label'	=> __( 'Advanced fields', 'CuisineForms' ),
+				'label'	=> __( 'Advanced fields', 'cuisineforms' ),
 				'icon'	=> 'dashicons-forms'
 			),
 
 			'design' => array(
-				'label' => __( 'Design elements', 'CuisineForms' ),
+				'label' => __( 'Design elements', 'cuisineforms' ),
 				'icon' 	=> 'dashicons-admin-appearance'
 			)
 		);

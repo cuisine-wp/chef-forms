@@ -30,14 +30,14 @@
 			$options = [ 'icon' => 'dashicons dashicons-admin-generic', 'classes' => ['active'] ];
 			SettingsPanel::make(
 				'settings',
-				__( 'Main Settings', 'CuisineForms' ),
+				__( 'Main Settings', 'cuisineforms' ),
 				$options
 			)->set( $this->mainSettingFields() );
 
 			$options = [ 'icon' => 'dashicons dashicons-yes' ];
 			SettingsPanel::make(
 				'confirmation',
-				__( 'Confirmation', 'CuisineForms' ),
+				__( 'Confirmation', 'cuisineforms' ),
 				$options
 			)->set( $this->confirmationSettingsFields() );
 
@@ -54,18 +54,18 @@
 			$fields = [
 				Field::text( 
 					'btn-text',
-					__( 'Button text', 'CuisineForms' ),
+					__( 'Button text', 'cuisineforms' ),
 					array(
-						'defaultValue'	=> __( 'Send', 'CuisineForms' )
+						'defaultValue'	=> __( 'Send', 'cuisineforms' )
 					)
 				),
 				Field::select( 
 					'labels',
 					'Labels',
 					array(
-						false 	=> __( 'No labels', 'CuisineForms' ),
-						'top'	=> __( 'Labels on top', 'CuisineForms' ),
-						'left'	=> __( 'Labels left', 'CuisineForms' )
+						false 	=> __( 'No labels', 'cuisineforms' ),
+						'top'	=> __( 'Labels on top', 'cuisineforms' ),
+						'left'	=> __( 'Labels left', 'cuisineforms' )
 					),
 					array(
 						'defaultValue'	=> 'top'
@@ -73,22 +73,22 @@
 				),
 				Field::text(
 					'max_entries',
-					__( 'Maximal amount of entries', 'CuisineForms' )
+					__( 'Maximal amount of entries', 'cuisineforms' )
 				),
 
 				Field::date(
 					'entry_start',
-					__( 'Valid from', 'CuisineForms' )
+					__( 'Valid from', 'cuisineforms' )
 				),
 
 				Field::date(
 					'entry_end',
-					__( 'Valid through', 'CuisineForms' )
+					__( 'Valid through', 'cuisineforms' )
 				),
 
 				Field::checkbox(
 					'no_ajax',
-					__( 'Never use ajax for this form', 'CuisineForms' ),
+					__( 'Never use ajax for this form', 'cuisineforms' ),
 					array(
 						'defaultValue' => 'false'
 					)
@@ -111,7 +111,7 @@
 			$fields = [
 				Field::editor(
 					'confirm',
-					__( 'Confirmation message', 'CuisineForms' ),
+					__( 'Confirmation message', 'cuisineforms' ),
 					array(
 						'defaultValue' => __( 'Thank you very much for your message. We\'ll contact you as soon as possible.', 'CuisineForms' )
 					)
@@ -119,7 +119,7 @@
 
 				Field::checkbox(
 					'maintain_msg',
-					__( 'Don\'t automatically remove the confirmation message', 'CuisineForms' ),
+					__( 'Don\'t automatically remove the confirmation message', 'cuisineforms' ),
 					array(
 						'defaultValue' => 'false'
 					)
@@ -127,14 +127,14 @@
 
 				Field::checkbox(
 					'redirect',
-					__( 'Redirect after sending a form', 'CuisineForms' ),
+					__( 'Redirect after sending a form', 'cuisineforms' ),
 					array(
 						'defaultValue' => 'false'
 					)
 				),
 				Field::select(
 					'redirect_to',
-					__( 'Redirect to', 'CuisineForms' ),
+					__( 'Redirect to', 'cuisineforms' ),
 					$this->getPages(),
 					array(
 						'defaultValue' => 'none'
@@ -157,7 +157,7 @@
 		{
 			$pages = get_pages();
 			$pages = array_combine( Sort::pluck( $pages, 'ID' ), Sort::pluck( $pages, 'post_title' ) );
-			$pages = [ 'none' => __( 'Don\'t redirect to a page', 'CuisineForms') ] + $pages;
+			$pages = [ 'none' => __( 'Don\'t redirect to a page', 'cuisineforms') ] + $pages;
 			return $pages;
 		}
 

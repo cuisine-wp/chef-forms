@@ -81,17 +81,17 @@
 
 				//set validation errors:
 				$vars = array(
-					'required' 	=> __( 'This field is required', 'CuisineForms' ),
-					'email'		=> __( 'Invalid e-mailaddress', 'CuisineForms' ),
-					'number'	=> __( 'Invalid number', 'CuisineForms' ),
-					'equalHigherZero'	=> __( 'Must be zero or higher', 'CuisineForms' ),
-					'equalLowerZero'	=> __( 'Mast be zero or lower', 'CuisineForms' ),
-					'higherZero'		=> __( 'Must be higer then zero', 'CuisineForms' ),
-					'lowerZero'			=> __( 'Must be lower then zero', 'CuisineForms' ),
-					'notchecked'		=> __( 'This should be checked', 'CuisineForms' ),
-					'address'	=> __( 'Don\'t forget your house number', 'CuisineForms' ),
-					'zipcode'	=> __( 'Invalid zipcode', 'CuisineForms' ),
-					'slug'		=> __( 'This is not a valid domain', 'CuisineForms' )
+					'required' 	=> __( 'This field is required', 'cuisineforms' ),
+					'email'		=> __( 'Invalid e-mailaddress', 'cuisineforms' ),
+					'number'	=> __( 'Invalid number', 'cuisineforms' ),
+					'equalHigherZero'	=> __( 'Must be zero or higher', 'cuisineforms' ),
+					'equalLowerZero'	=> __( 'Mast be zero or lower', 'cuisineforms' ),
+					'higherZero'		=> __( 'Must be higer then zero', 'cuisineforms' ),
+					'lowerZero'			=> __( 'Must be lower then zero', 'cuisineforms' ),
+					'notchecked'		=> __( 'This should be checked', 'cuisineforms' ),
+					'address'	=> __( 'Don\'t forget your house number', 'cuisineforms' ),
+					'zipcode'	=> __( 'Invalid zipcode', 'cuisineforms' ),
+					'slug'		=> __( 'This is not a valid domain', 'cuisineforms' )
 				);
 
 

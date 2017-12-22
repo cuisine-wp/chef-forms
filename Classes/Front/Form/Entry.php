@@ -243,7 +243,7 @@ namespace CuisineForms\Front\Form;
 		
 					    		}else{
 									//add an error:
-									$this->message = array( 'error' => true, 'message' => __( 'Upload failed, please try again later', 'CuisineForms' ) );
+									$this->message = array( 'error' => true, 'message' => __( 'Upload failed, please try again later', 'cuisineforms' ) );
 		
 					    		}
 	
@@ -255,7 +255,7 @@ namespace CuisineForms\Front\Form;
 					   	//add an error; no upload folder.
 						$this->form->message = array( 
 							'error' => true, 
-							'message' => __( 'The upload-folder couldn\'t be created...', 'CuisineForms' )
+							'message' => __( 'The upload-folder couldn\'t be created...', 'cuisineforms' )
 						);
 					}
 				}

@@ -81,7 +81,9 @@ class FileField extends DefaultField{
                     $url = $entry['value']['url'];
                     $value = '<span style="text-align:center;width:100%;display:block;">';
                     $value .= '<img src="'.esc_url( $url ).'" style="width:auto;height:150px;"><br/>';
-                    $value .= '<small><a href="'.esc_url( $url ).'" target="_blank">Download</a></small></span>';
+                    $value .= '<small><a href="'.esc_url( $url ).'" target="_blank">';
+                    $value .= __( 'Download', 'cuisineforms' );
+                    $value .= '</a></small></span>';
 
                 }else{
                     $value = $entry['value']['url'];
@@ -116,7 +118,7 @@ class FileField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Upload', 'CuisineForms' );
+        return __( 'Upload', 'cuisineforms' );
 
     }
 

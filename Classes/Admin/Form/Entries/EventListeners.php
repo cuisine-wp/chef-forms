@@ -36,7 +36,7 @@
 						'post_type' => 'form', 
 						'page' => 'form-entries',
 						'entry_page' => ( isset( $_POST['entry_page'] ) ? $_POST['entry_page'] : 1 ),
-						'message' => urlencode( __( 'Entry deleted', 'CuisineForms' ) )
+						'message' => urlencode( __( 'Entry deleted', 'cuisineforms' ) )
 					], $url );
 
 

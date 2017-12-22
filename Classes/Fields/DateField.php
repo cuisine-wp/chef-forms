@@ -48,7 +48,7 @@ class DateField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Please pick a date', 'CuisineForms' );
+        return __( 'Please pick a date', 'cuisineforms' );
 
     }
 }

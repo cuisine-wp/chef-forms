@@ -22,7 +22,7 @@ class EmailField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'E-mail', 'CuisineForms' );
+        return __( 'E-mail', 'cuisineforms' );
 
     }
 }

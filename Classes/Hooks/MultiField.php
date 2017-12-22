@@ -107,19 +107,19 @@
 				//add row
 				$html .= '<span class="add-row">';
 					$html .= '<span class="dashicons dashicons-plus"></span>';
-					$html .= '<span class="tooltip">'.__('Nieuwe rij', 'CuisineForms' ).'</span>';
+					$html .= '<span class="tooltip">'.__('Nieuwe rij', 'cuisineforms' ).'</span>';
 				$html .= '</span>';
 
 				//remove row
 				$html .= '<span class="remove-row">';
 					$html .= '<span class="dashicons dashicons-minus"></span>';
-					$html .= '<span class="tooltip">'.__( 'Rij weghalen', 'CuisineForms' ).'</span>';
+					$html .= '<span class="tooltip">'.__( 'Rij weghalen', 'cuisineforms' ).'</span>';
 				$html .= '</span>';
 
 				//displace row
 				$html .= '<span class="drag-row">';
 					$html .= '<span class="dashicons dashicons-sort"></span>';
-					$html .= '<span class="tooltip">'.__( 'Sorteren', 'CuisineForms' ).'</span>';
+					$html .= '<span class="tooltip">'.__( 'Sorteren', 'cuisineforms' ).'</span>';
 				$html .= '</span>';
 
 
@@ -157,11 +157,11 @@
 		 */
 		private function topControls(){
 
-			$btnText = __( 'Waardes verschillen van label', 'CuisineForms' );
+			$btnText = __( 'Waardes verschillen van label', 'cuisineforms' );
 			$class = 'toggle-keys';
 
 			if( $this->hasDifferentKeys() ){
-				$btnText = __( 'Waardes verschillen niet van label', 'CuisineForms' );
+				$btnText = __( 'Waardes verschillen niet van label', 'cuisineforms' );
 				$class .= ' showKeys';
 			}
 

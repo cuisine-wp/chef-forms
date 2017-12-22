@@ -311,7 +311,7 @@ abstract class DefaultField{
      */
     public function buildDefaultSettingsTab(){
 
-        echo '<h2>'.__( 'Default Options', 'CuisineForms' ).'</h2>';
+        echo '<h2>'.__( 'Default Options', 'cuisineforms' ).'</h2>';
 
         $fields = $this->getFields();
 
@@ -411,12 +411,12 @@ abstract class DefaultField{
             if( $this->deletable ){
                 $html .= '<span class="delete-field">';
                     $html .= '<i class="dashicons dashicons-trash"></i>';
-                    $html .= __( 'Delete field', 'CuisineForms' );
+                    $html .= __( 'Delete field', 'cuisineforms' );
                 $html .= '</span>';
             }
 
             $html .= '<span class="open-lightbox button button-primary">';
-                $html .= __( 'Edit', 'CuisineForms' );
+                $html .= __( 'Edit', 'cuisineforms' );
             $html .= '</span>';
 
         $html .= '</div>';
@@ -442,12 +442,12 @@ abstract class DefaultField{
             if( $this->deletable ){
                 echo '<p class="delete-field">';
                     echo '<span class="dashicons dashicons-trash"></span>';
-                    echo __( 'Delete', 'CuisineForms' ).'</p>';
+                    echo __( 'Delete', 'cuisineforms' ).'</p>';
                 echo '</p>';
             }
 
             echo '<span class="save-field button">';
-                _e( 'Save field', 'CuisineForms' );
+                _e( 'Save field', 'cuisineforms' );
             echo '</span>';
         echo '</div>';
     }
@@ -490,7 +490,7 @@ abstract class DefaultField{
 
              Field::text(
                 $prefix.'[defaultValue]',
-                __( 'Default value', 'CuisineForms' ),
+                __( 'Default value', 'cuisineforms' ),
                 array(
                     'defaultValue'  => $this->getProperty( 'defaultValue' )
                 )
@@ -499,7 +499,7 @@ abstract class DefaultField{
 
             Field::checkbox(
                 $prefix.'[required]',
-                __( 'Required', 'CuisineForms' ),
+                __( 'Required', 'cuisineforms' ),
                 array(
                     'class'         => array( 'update', 'update-label', 'req-field' ),
                     'defaultValue'  => $this->getProperty( 'required' )
@@ -637,7 +637,7 @@ abstract class DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Some text', 'CuisineForms' );
+        return __( 'Some text', 'cuisineforms' );
 
     }
 
@@ -650,7 +650,7 @@ abstract class DefaultField{
 
         $default = array(
             'basics' => array(
-                'label'     => __( 'Basic options', 'CuisineForms' ),
+                'label'     => __( 'Basic options', 'cuisineforms' ),
                 'icon'      => 'dashicons-admin-generic',
                 'position'  => -1
             )

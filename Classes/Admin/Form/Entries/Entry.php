@@ -159,7 +159,7 @@ class Entry{
 				echo '<input type="hidden" name="entry_page" value="'.$_GET['entry_page'].'">';		
 
 
-			echo '<button class="button danger">'.__( 'Delete entry', 'CuisineForms' ).'</button>';
+			echo '<button class="button danger">'.__( 'Delete entry', 'cuisineforms' ).'</button>';
 
 		echo '</form>';
 	}

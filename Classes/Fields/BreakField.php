@@ -83,7 +83,7 @@ class BreakField extends DefaultField{
      */
     public function buildDefaultSettingsTab(){
 
-        echo '<h2>'.__( 'Default Options', 'CuisineForms' ).'</h2>';
+        echo '<h2>'.__( 'Default Options', 'cuisineforms' ).'</h2>';
 
         $fields = $this->getFields();
 

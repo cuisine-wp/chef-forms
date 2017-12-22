@@ -102,7 +102,7 @@ class Manager{
 
 		echo '<div class="wrap">';
 
-			echo '<h2>'.__( 'Form Entries', 'CuisineForms' ).'</h2>';
+			echo '<h2>'.__( 'Form Entries', 'cuisineforms' ).'</h2>';
 
 			echo '<div class="entries-wrap">';
 
@@ -125,7 +125,7 @@ class Manager{
 	
 				}else{
 	
-					echo  '<p>'.__( 'No entries yet', 'CuisineForms' ).'</p>';
+					echo  '<p>'.__( 'No entries yet', 'cuisineforms' ).'</p>';
 				}
 
 
@@ -156,7 +156,7 @@ class Manager{
 
 				Field::select(
 					'parent',
-					__( 'Entries from form', 'CuisineForms' ),
+					__( 'Entries from form', 'cuisineforms' ),
 					$forms,
 					array(
 						'defaultValue' => $parent
@@ -167,7 +167,7 @@ class Manager{
 				echo '<input type="hidden" name="post_type" value="form"/>';
 				echo '<input type="hidden" name="page" value="form-entries"/>';
 
-				echo '<button>'.__( 'Filter', 'CuisineForms' ).'</button>';
+				echo '<button>'.__( 'Filter', 'cuisineforms' ).'</button>';
 	
 			echo '</form>';
 
@@ -331,7 +331,7 @@ class Manager{
 		);
 
 		$forms = array_replace( 
-			array( 'all' => __( 'All forms', 'CuisineForms' ) ),
+			array( 'all' => __( 'All forms', 'cuisineforms' ) ),
 			$forms
 		);
 

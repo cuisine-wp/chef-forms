@@ -76,7 +76,7 @@ class Manager{
 			echo '<div class="'.esc_attr( $class ).'" id="field-container">';
 
 				echo '<h2><span class="dashicons dashicons-hammer"></span>';
-				echo __( 'Form builder', 'CuisineForms' ).'</h2>';
+				echo __( 'Form builder', 'cuisineforms' ).'</h2>';
 
 				FormBuilderManager::build();
 				
@@ -86,7 +86,7 @@ class Manager{
 			echo '<div class="notifications-container form-view" id="notifications-container">';
 				
 				echo '<h2><span class="dashicons dashicons-megaphone"></span>';
-				echo __( 'Notifications', 'CuisineForms' ).'</h2>';
+				echo __( 'Notifications', 'cuisineforms' ).'</h2>';
 				
 				NotificationManager::build();
 			
@@ -96,7 +96,7 @@ class Manager{
 			echo '<div class="settings-container form-view" id="settings-container">';
 			
 				echo '<h2><span class="dashicons dashicons-admin-generic"></span>';
-				echo __( 'Settings', 'CuisineForms' ).'</h2>';
+				echo __( 'Settings', 'cuisineforms' ).'</h2>';
 			
 				SettingsManager::build();
 			

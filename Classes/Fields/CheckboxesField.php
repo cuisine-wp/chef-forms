@@ -71,7 +71,7 @@ class CheckboxesField extends ChoiceField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Please select some', 'CuisineForms' );
+        return __( 'Please select some', 'cuisineforms' );
 
     }
 

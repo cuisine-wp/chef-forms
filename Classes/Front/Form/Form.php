@@ -491,7 +491,7 @@
 
 				$this->message = array(
 						'error'		=> 	true,
-						'message'	=> 	__( 'No valid nonce.', 'CuisineForms' )
+						'message'	=> 	__( 'No valid nonce.', 'cuisineforms' )
 				);
 			}
 
@@ -499,7 +499,7 @@
 			if( !AntiSpam::isClean() ){
 				$this->message = array(
 						'error'		=> true,
-						'message'	=> __( 'You seem to be spamming', 'CuisineForms' )
+						'message'	=> __( 'You seem to be spamming', 'cuisineforms' )
 				);
 			}
 

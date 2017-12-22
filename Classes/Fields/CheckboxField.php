@@ -51,7 +51,7 @@ class CheckboxField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'True or false?', 'CuisineForms' );
+        return __( 'True or false?', 'cuisineforms' );
 
     }
 

@@ -40,8 +40,8 @@
 				PostType::make( 
 					
 					'form', 
-					__( 'Forms', 'CuisineForms' ),
-					__( 'Form', 'CuisineForms' )
+					__( 'Forms', 'cuisineforms' ),
+					__( 'Form', 'cuisineforms' )
 
 				)->set( $formOptions );
 
@@ -53,8 +53,8 @@
 				PostType::make( 
 					
 					'form-entry', 
-					__( 'Entries', 'CuisineForms' ),
-					__( 'Entry', 'CuisineForms' )
+					__( 'Entries', 'cuisineforms' ),
+					__( 'Entry', 'cuisineforms' )
 
 				)->set( $entryOptions );	
 
@@ -141,7 +141,7 @@
 				$base = Url::path( 'plugin', 'cuisine-forms', true );
 
 				$types['form'] = array(
-							'name'		=> __( 'Form', 'CuisineForms' ),
+							'name'		=> __( 'Form', 'cuisineforms' ),
 							'class'		=> 'CuisineForms\Hooks\Column',
 							'template'	=> $base.'Templates/Column.php'
 				);

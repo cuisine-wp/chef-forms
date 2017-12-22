@@ -32,7 +32,7 @@
 
 				Tab::make( 
 
-					__( 'Advanced options', 'CuisineForms' ),
+					__( 'Advanced options', 'cuisineforms' ),
 					'advanced',
 					array(
 						'position' 	=> 1,
@@ -53,20 +53,20 @@
 			
 			$validate = array(
 
-				'required' 		=> __( 'Filled in', 'CuisineForms' ),
-				'email'			=> __( 'Valid email', 'CuisineForms' ),
-				'address'		=> __( 'Valid address', 'CuisineForms' ),
-				'zipcode'		=> __( 'Valid zipcode', 'CuisineForms' ),
-				'number'		=> __( 'Valid number', 'CuisineForms' ),
-				'not-negative'	=> __( 'Higher than zero', 'CuisineForms' ),
-				'not-positive'	=> __( 'Lower than zero', 'CuisineForms' )
+				'required' 		=> __( 'Filled in', 'cuisineforms' ),
+				'email'			=> __( 'Valid email', 'cuisineforms' ),
+				'address'		=> __( 'Valid address', 'cuisineforms' ),
+				'zipcode'		=> __( 'Valid zipcode', 'cuisineforms' ),
+				'number'		=> __( 'Valid number', 'cuisineforms' ),
+				'not-negative'	=> __( 'Higher than zero', 'cuisineforms' ),
+				'not-positive'	=> __( 'Lower than zero', 'cuisineforms' )
 			);
 
 			$fields = array(
 
 				Field::select(
 					'validation',
-					__( 'Validate as', 'CuisineForms' ),
+					__( 'Validate as', 'cuisineforms' ),
 					$validate,
 					array(
 						'class' => array( 'validate-selector' ),
@@ -76,9 +76,9 @@
 
 				Field::text( 
 					'classes',
-					__( 'CSS Classes', 'CuisineForms' ),
+					__( 'CSS Classes', 'cuisineforms' ),
 					array( 
-						'placeholder'  => __( 'Seperate with commas\'s', 'CuisineForms' )
+						'placeholder'  => __( 'Seperate with commas\'s', 'cuisineforms' )
 					)
 				)
 

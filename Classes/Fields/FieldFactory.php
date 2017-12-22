@@ -306,7 +306,7 @@ class FieldFactory{
             ),
 
             'wysiwyg'      => array(
-                'name'      => __( 'Editor', 'CuisineForms' ),
+                'name'      => __( 'Editor', 'cuisineforms' ),
                 'class'     => 'CuisineForms\\Fields\\WysiwygField',
                 'icon'      => 'dashicons-editor-kitchensink'
             ),
@@ -374,14 +374,14 @@ class FieldFactory{
 
             'html'          => array(
 
-                'name'      => __( 'HTML Block', 'CuisineForms' ),
+                'name'      => __( 'HTML Block', 'cuisineforms' ),
                 'class'     => 'CuisineForms\\Fields\\HtmlField',
                 'icon'      => 'dashicons-editor-code'
             ),
 
             'break'         => array(
 
-                'name'      => __( 'Break', 'CuisineForms' ),
+                'name'      => __( 'Break', 'cuisineforms' ),
                 'class'     => 'CuisineForms\\Fields\\BreakField',
                 'icon'      => 'dashicons-editor-unlink'
 
@@ -389,7 +389,7 @@ class FieldFactory{
 
             'address'     => array(
 
-                'name'      => __( 'Adres', 'CuisineForms' ),
+                'name'      => __( 'Adres', 'cuisineforms' ),
                 'class'     => 'CuisineForms\\Fields\\AddressField',
                 'icon'      => 'dashicons-admin-multisite'
             )

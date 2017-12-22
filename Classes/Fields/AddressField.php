@@ -87,20 +87,20 @@ class AddressField extends DefaultField{
 
             Field::text(
                 $this->id.'_street',
-                __('Address','CuisineForms'),
+                __('Address','cuisineforms'),
                 array(
                     'label'         => false,
-                    'placeholder'   => __('Address','CuisineForms'),
+                    'placeholder'   => __('Address','cuisineforms'),
                     'validation'    => $sVal
                 )
             ),
 
             Field::text(
                 $this->id.'_zip',
-                __('Zipcode','CuisineForms'),
+                __('Zipcode','cuisineforms'),
                 array(
                     'label'         => false,
-                    'placeholder'   => __('Zipcode','CuisineForms'),
+                    'placeholder'   => __('Zipcode','cuisineforms'),
                     'validation'    => $zVal,
                     'class'         => array( 'zip' )
                 )
@@ -108,10 +108,10 @@ class AddressField extends DefaultField{
 
             Field::text(
                 $this->id.'_city',
-                __('City','CuisineForms'),
+                __('City','cuisineforms'),
                 array(
                     'label' => false,
-                    'placeholder' => __('City','CuisineForms'),
+                    'placeholder' => __('City','cuisineforms'),
                     'class' => array( 'city' ),
                     'validation' => $cVal
                 )
@@ -265,11 +265,11 @@ class AddressField extends DefaultField{
         $html .= '<label class="preview-label">'.esc_html( $this->getLabel() ).'</label>';
         $html .= '<div class="preview-input-wrapper">';
 
-            $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'CuisineForms' ).'">';
+            $html .= '<input type="text" class="preview-input preview-street" disabled  placeholder="'.__( 'Address', 'cuisineforms' ).'">';
 
-            $html .= '<input type="text" class="preview-input preview-zip" disabled placeholder="'.__( 'Zipcode', 'CuisineForms' ).'">';
+            $html .= '<input type="text" class="preview-input preview-zip" disabled placeholder="'.__( 'Zipcode', 'cuisineforms' ).'">';
 
-            $html .= '<input type="text" class="preview-input preview-city" disabled placeholder="'.__( 'City', 'CuisineForms' ).'">';
+            $html .= '<input type="text" class="preview-input preview-city" disabled placeholder="'.__( 'City', 'cuisineforms' ).'">';
 
         $html .= '</div>';
 
@@ -322,7 +322,7 @@ class AddressField extends DefaultField{
 
              Field::text(
                 $prefix.'[defaultValue]',
-                __('Default value','CuisineForms'),
+                __('Default value','cuisineforms'),
                 array(
                     'defaultValue'  => $this->getProperty( 'defaultValue' )
                 )
@@ -330,7 +330,7 @@ class AddressField extends DefaultField{
 
             Field::select(
                 $prefix.'[countrySelect]',
-                __( 'Country dropdown', 'CuisineForms' ),
+                __( 'Country dropdown', 'cuisineforms' ),
                 $countryOptions,
                 array(
                     'defaultValue' => $this->getProperty( 'countrySelect' )
@@ -339,7 +339,7 @@ class AddressField extends DefaultField{
 
             Field::checkbox(
                 $prefix.'[required]',
-                __('Required?','CuisineForms'),
+                __('Required?','cuisineforms'),
                 array(
                     'defaultValue'  => $this->getProperty( 'required' )
                 )
@@ -396,7 +396,7 @@ class AddressField extends DefaultField{
 
         $_id = ( isset( $_GET['post'] ) ? $_GET['post'] : Session::postId() );
 
-        $_dropdowns = array( 'none' => __('No field','CuisineForms') );
+        $_dropdowns = array( 'none' => __('No field','cuisineforms') );
         $fields = get_post_meta( $_id, 'fields', true );
 
         foreach( $fields as $fid => $field ){
@@ -418,7 +418,7 @@ class AddressField extends DefaultField{
      */
     public function getDefaultLabel(){
 
-        return __( 'Address', 'CuisineForms' );
+        return __( 'Address', 'cuisineforms' );
 
     }
 

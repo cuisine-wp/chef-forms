@@ -72,21 +72,21 @@
 
 			$options = array(
 				'parent'		=> 'form',
-				'menu_title'	=> __( 'Entries', 'CuisineForms' )
+				'menu_title'	=> __( 'Entries', 'cuisineforms' )
 			);
 
 			SettingsPage::make(
 
-				__( 'Form Entries', 'CuisineForms' ),
+				__( 'Form Entries', 'cuisineforms' ),
 				'form-entries',
 				$options
 				
 			)->set( 'CuisineForms\\Wrappers\\EntriesManager::build' );
 
-			$options['menu_title'] = __( 'Settings', 'CuisineForms' );
+			$options['menu_title'] = __( 'Settings', 'cuisineforms' );
 			SettingsPage::make(
 
-				__( 'Form Settings', 'CuisineForms' ), 
+				__( 'Form Settings', 'cuisineforms' ), 
 				'form-settings', 
 				$options
 
@@ -105,7 +105,7 @@
 
 				Field::checkbox( 
 					'use_mandrill', 
-					__( 'Use Mandrill', 'CuisineForms' ),
+					__( 'Use Mandrill', 'cuisineforms' ),
 					array(
 						'defaultValue' => 'true'
 					)
@@ -113,7 +113,7 @@
 
 				Field::text(
 					'host',
-					__( 'Mandrill Host', 'CuisineForms' ),
+					__( 'Mandrill Host', 'cuisineforms' ),
 					array(
 						'defaultValue'	=> 'smtp.mandrillapp.com'
 					)
@@ -121,7 +121,7 @@
 
 				Field::text(
 					'user',
-					__( 'Mandrill User', 'CuisineForms' ),
+					__( 'Mandrill User', 'cuisineforms' ),
 					array(
 						'defaultValue'	=> ''
 					)
@@ -129,7 +129,7 @@
 
 				Field::text(
 					'password',
-					__( 'Mandrill Password', 'CuisineForms' ),
+					__( 'Mandrill Password', 'cuisineforms' ),
 					array(
 						'defaultValue'	=> ''
 					)

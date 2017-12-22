@@ -103,10 +103,10 @@
 		public function buildOperator(){
 
 			$choices = array(
-					'='		=> 		__( 'equals', 'CuisineForms' ),
-					'!='	=>		__( 'not equals', 'CuisineForms' ),
-					'>='	=>		__( 'is higher then', 'CuisineForms' ),
-					'<='	=>		__( 'is smaller then', 'CuisineForms' )	
+					'='		=> 		__( 'equals', 'cuisineforms' ),
+					'!='	=>		__( 'not equals', 'cuisineforms' ),
+					'>='	=>		__( 'is higher then', 'cuisineforms' ),
+					'<='	=>		__( 'is smaller then', 'cuisineforms' )	
 			);
 
 			
@@ -151,7 +151,7 @@
 					Sort::pluck( $fields, 'label' )
 				);
 	
-				$choices = array_replace( array( 'none' => __('No field','CuisineForms') ), $choices );
+				$choices = array_replace( array( 'none' => __('No field','cuisineforms') ), $choices );
 	
 				$types = $this->getIncluded();
 	

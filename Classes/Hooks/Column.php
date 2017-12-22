@@ -82,7 +82,7 @@
 
 				Field::title( 
 					'title', 				//id
-					__('Title Label','CuisineForms'),			//label
+					__('Title Label','cuisineforms'),			//label
 					
 					array(
 						'label' 		=> false,	// Show Label false - top - left
@@ -93,7 +93,7 @@
 
 				Field::select(
 					'form',
-					__( 'Form', 'CuisineForms' ),
+					__( 'Form', 'cuisineforms' ),
 					$this->getForms(),
 					array(
 						'defaultValue' => $this->getField( 'form' )
