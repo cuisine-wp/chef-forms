@@ -291,7 +291,7 @@ class Manager{
 				$args = array(
 					'entry_id' 	=> get_The_ID(),
 					'form_id'	=> $post->post_parent,
-					'date'		=> strtotime( get_the_date() )
+					'date'		=> get_the_date( 'U' )
 				);
 
 				$entry = new Entry();

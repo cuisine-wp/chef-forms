@@ -16,7 +16,10 @@
 		 */
 		function __construct(){
 
-			$this->listen();
+            $this->listen();
+            
+            $this->keyboardActions();
+
 			//$this->setMetabox();
 			$this->setSettingsPage();
 
@@ -52,15 +55,20 @@
 
 		}
 
-		/**
-		 * All metaboxes used by this plugin
-		 * 
-		 * @return void
-		 */
-		private function setMetabox(){
+        /**
+         * Set keyboard actions
+         *
+         * @return void
+         */
+        protected function keyboardActions()
+        {
+            add_filter( 'keyboard-action/actions', function( $actions ){
 
+                $actions[] = new KeyboardAction\FlushForms();
+                return $actions;
+            });
+        }
 
-		}
 
 
 		/**
@@ -68,7 +76,7 @@
 		 * 
 		 * @return void
 		 */
-		private function setSettingsPage(){
+		protected function setSettingsPage(){
 
 			$options = array(
 				'parent'		=> 'form',
@@ -99,7 +107,7 @@
 		 * 
 		 * @return array
 		 */
-		private function getSettingFields(){
+		protected function getSettingFields(){
 
 			$fields = array(
 

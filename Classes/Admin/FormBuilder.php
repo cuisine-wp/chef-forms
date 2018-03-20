@@ -142,25 +142,33 @@ class FormBuilder {
 
 		foreach( $this->fields as $field ){
 
-			$row = $i + 1;
-			$position = $i + 1;
-			$classes = $this->getClasses( $field );
-			$validation = $this->getValidation( $field );
+            if( method_exists( $field, 'getProperty' ) ){
+                    
+                $row = $i + 1;
+                $position = $i + 1;
+                $classes = $this->getClasses( $field );
+                $validation = $this->getValidation( $field );
 
-			$fields[ $i ] = array(
-				'label'			=> ( $field->label != '' ? $field->label : $field->name ),
-				'placeholder'	=> $field->getProperty( 'placeholder' ),
-				'deletable'		=> $field->getProperty( 'deletable' ),
-				'defaultValue'	=> $field->getDefault(),
-				'required'		=> ( $field->getProperty( 'required' ) ? 'true' : 'false' ),
-				'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $row ),
-				'type'			=> ( $field->getProperty( 'field_type' ) ? $field->getProperty( 'field_type' ) : $field->type ),
-				'position'		=> ( ( $field->getProperty( 'position', 0 ) > 0 ) ? $field->getProperty( 'position' ) : $position ),
-				'classes'		=> $classes,
-				'validation'	=> $validation
-			);
+                $fields[ $i ] = array(
+                    'label'			=> ( $field->label != '' ? $field->label : $field->name ),
+                    'placeholder'	=> $field->getProperty( 'placeholder' ),
+                    'deletable'		=> $field->getProperty( 'deletable' ),
+                    'defaultValue'	=> $field->getDefault(),
+                    'required'		=> ( $field->getProperty( 'required' ) ? 'true' : 'false' ),
+                    'row'			=> ( $field->getProperty( 'row' ) ? $field->getProperty( 'row' ) : $row ),
+                    'type'			=> ( $field->getProperty( 'field_type' ) ? $field->getProperty( 'field_type' ) : $field->type ),
+                    'position'		=> ( ( $field->getProperty( 'position', 0 ) > 0 ) ? $field->getProperty( 'position' ) : $position ),
+                    'classes'		=> $classes,
+                    'validation'	=> $validation
+                );
+  
+                if( $field->getProperty('options') ){
+                    $fields[$i]['options'] = $field->getProperty('options');
+                    $fields[$i]['choices'] = $field->getProperty('options');
+                }
 
-			$i++;
+                $i++;
+            }
 		}
 
 		//save it:
