@@ -153,6 +153,7 @@ abstract class ChoiceField extends DefaultField{
 	}
 
 
+	
 	/**
 	 * Generate the preview for this field:
 	 *
@@ -175,13 +176,13 @@ abstract class ChoiceField extends DefaultField{
 
 		$amountChoices = 0;
 
-		foreach( $choices as $choice ){
+		foreach( $choices as $key => $choice ){
 			if( $amountChoices <= 2 ){
 
 				$type = $this->type;
 				if( $this->type == 'checkboxes' )
-					$type = 'checkbox';
-
+                    $type = 'checkbox';
+                    
 				$html .= '<span class="choice-wrapper">';
 					$html .= '<input class="preview-input preview-'.esc_attr( $type ).'" disabled type="'.esc_attr( $type ).'" ';
 
@@ -190,7 +191,9 @@ abstract class ChoiceField extends DefaultField{
 
 					$html .= '>';
 
-					$html .= '<span class="choice-label">'.esc_html( $choice['label'] ).'</span>';
+                    $label = ( is_array( $choice ) ? $choice['label'] : $choice );
+
+					$html .= '<span class="choice-label">'.esc_html( $label ).'</span>';
 				$html .= '</span>';
 			}
 
@@ -208,6 +211,7 @@ abstract class ChoiceField extends DefaultField{
 		echo $html;
 
 	}
+
 
 
 	/**
@@ -314,7 +318,7 @@ abstract class ChoiceField extends DefaultField{
 	 */
 	public function isDefaultSelected( $choice ){
 
-		if( isset( $choice['isDefault'] ) ){
+		if( is_array( $choice ) && isset( $choice['isDefault'] ) ){
 
 			if( $choice['isDefault'] == 'on' || $choice['isDefault'] == true )
 				return true;
@@ -354,11 +358,18 @@ abstract class ChoiceField extends DefaultField{
 
 	    if( $this->properties['choices'] ){
 
-	    	$_choices = $this->properties['choices'];
-	    	$choices = array_combine(
-	    					Sort::pluck( $_choices, 'key' ),
-	    					Sort::pluck( $_choices, 'label' )
-	    	);
+            $_choices = array_values( $this->properties['choices'] );
+            
+            if( isset( $_choices[0]['label'] ) ){
+                $choices = array_combine(
+                    Sort::pluck( $_choices, 'key' ),
+                    Sort::pluck( $_choices, 'label' )
+	    	    );
+            }else{
+                $choices = $this->properties['choices'];
+            }
+            
+	    	
 
 	    	return $choices;
 	    }

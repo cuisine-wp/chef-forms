@@ -38,7 +38,11 @@ class SelectField extends ChoiceField{
 
     	$html .= '<select class="preview-select preview-input" disabled">';
     	foreach( $choices as $choice ){
-    		$html .= '<option>'.esc_html( $choice['label'] ).'</option>';
+            $label = $choice;
+            if( isset( $choice['label'] ) ){
+                $label = $choice['label'];
+            }
+    		$html .= '<option>'.esc_html( $label ).'</option>';
     	}
     	$html .= '</select>';
            
