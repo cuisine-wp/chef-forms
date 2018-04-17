@@ -468,7 +468,7 @@ abstract class DefaultField{
 
         $prefix = 'fields['.$this->id.']';
 
-        return array(
+        $fields = array(
 
             Field::text(
                 $prefix.'[label]',
@@ -542,10 +542,10 @@ abstract class DefaultField{
                     'defaultValue' => $this->row
                 )
             )
-
-
-
         );
+
+        $fields = apply_filters( 'cuisine_forms_default_field_fields', $fields, $prefix, $this );
+        return $fields;
     }
 
 

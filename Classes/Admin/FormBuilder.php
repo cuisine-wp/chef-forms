@@ -233,13 +233,19 @@ class FormBuilder {
 	 *
 	 * @return void
 	 */
-	private function saveSettings(){
+	protected function saveSettings(){
 
 		$settings = $this->options;
-		unset( $settings['force-overwrite'] );
+        unset( $settings['force-overwrite'] );
+        
+        if( isset( $settings['notifications'] ) )
+            unset( $settings['notifications'] );
 
 		update_post_meta( $this->id, 'settings', $settings );
 
+        if( isset( $this->options['notifications'] ) ){
+            update_post_meta( $this->id, 'notifications', $this->options['notifications'] );
+        }
 	}
 
 
