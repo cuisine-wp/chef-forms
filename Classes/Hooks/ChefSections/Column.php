@@ -51,12 +51,14 @@
 			
 				foreach( $fields as $field ){
 				
-					$field->render();
-	
-					//if a field has a JS-template, we need to render it:
-					if( method_exists( $field, 'renderTemplate' ) ){
-						echo $field->renderTemplate();
-					}
+					if( !is_null( $field ) && $field !== false ){
+                        $field->render();
+        
+                        //if a field has a JS-template, we need to render it:
+                        if( method_exists( $field, 'renderTemplate' ) ){
+                            echo $field->renderTemplate();
+                        }
+                    }
 	
 				}
 	
